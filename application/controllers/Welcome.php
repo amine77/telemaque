@@ -8,8 +8,6 @@ class Welcome extends CI_Controller {
         $this->load->view('front/welcome_message');
     }
 
-    public function login() {
-        $this->load->view('front/login');
-    }
+    
 
 }
