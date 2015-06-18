@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 18 Juin 2015 à 11:47
+-- Généré le :  Jeu 18 Juin 2015 à 12:10
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -23,16 +23,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `adress`
+-- Structure de la table `address`
 --
 
-CREATE TABLE IF NOT EXISTS `adress` (
-  `adress_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `address` (
+  `address_id` int(11) NOT NULL AUTO_INCREMENT,
   `zip_code` varchar(10) NOT NULL,
-  `adress` varchar(45) NOT NULL,
+  `address` varchar(45) NOT NULL,
   `city` varchar(45) NOT NULL,
   `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`adress_id`),
+  PRIMARY KEY (`address_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -91,10 +91,10 @@ CREATE TABLE IF NOT EXISTS `categories` (
 CREATE TABLE IF NOT EXISTS `command` (
   `command_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `adress_id` int(11) NOT NULL,
+  `address_id` int(11) NOT NULL,
   PRIMARY KEY (`command_id`),
   KEY `user_id` (`user_id`),
-  KEY `adress_id` (`adress_id`)
+  KEY `adress_id` (`address_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -228,9 +228,9 @@ CREATE TABLE IF NOT EXISTS `users_articles` (
 --
 
 --
--- Contraintes pour la table `adress`
+-- Contraintes pour la table `address`
 --
-ALTER TABLE `adress`
+ALTER TABLE `address`
   ADD CONSTRAINT `fk_adress_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
@@ -251,7 +251,7 @@ ALTER TABLE `articles_specifications`
 -- Contraintes pour la table `command`
 --
 ALTER TABLE `command`
-  ADD CONSTRAINT `fk_command_adress_id` FOREIGN KEY (`adress_id`) REFERENCES `adress` (`adress_id`),
+  ADD CONSTRAINT `fk_command_adress_id` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`),
   ADD CONSTRAINT `fk_command_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
