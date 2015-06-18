@@ -11,7 +11,20 @@
     
 
     <title><?= $title ?></title>
-
+    
+    <?php  
+    if(isset($additional_css) && !empty($additional_css) && is_array($additional_css)){
+        foreach ($additional_css as $value) {
+        echo'<link href="'. base_url().'assets/css/'.$value.'.css" rel="stylesheet">';
+        }
+    }
+    if(isset($additional_js) && !empty($additional_js) && is_array($additional_js)){
+        foreach ($additional_js as $value) {
+           echo'<script src="'.base_url().'assets/js/'.$value.'.js"></script>'; 
+        }
+        
+    }
+    ?>
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url();?>assets/lib/twitter/css/bootstrap.min.css" rel="stylesheet">
 
