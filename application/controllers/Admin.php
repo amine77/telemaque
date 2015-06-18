@@ -13,11 +13,15 @@ class Admin extends CI_Controller {
             //on renvoie vers la home_page de l'admin sinon on renvoie le formulaire
             $data['additional_css'] = array('css1','css2','css3');         
             $data['additional_js'] = array('js1', 'js2','js3');
-            $data['content'] ='admin/welcome' ;
             $data['title'] = 'page de login';
             $data['show_header'] = FALSE;
-            $this->load->view('template/layout', $data);  
+            //$data['content'] ='back/home' ;
+            //$this->load->view('back/template/layout', $data); 
+//            $data['view'] ='../front/login' ;
+//            $this->load->view('front/template/layout');
             //echo '<h1>bienvenue sur l\'espace d\'administration</h1>';
+            echo $_SERVER['REQUEST_URI'];
+            return redirect('Welcome/login');
         }
 
         public function accueil($nom ='', $prenom  ='')
@@ -25,7 +29,7 @@ class Admin extends CI_Controller {
             $data['title'] = 'un titre';
             $data['nom'] = $nom;
             $data['prenom'] = $prenom;
-            $data['content'] = 'accueil_view';
+            $data['view'] = 'accueil_view';
             $this->load->view('template/template', $data);
             //$this->load->view('welcome_message');
 	}
@@ -33,7 +37,7 @@ class Admin extends CI_Controller {
         public function lister_personnes(){
             $data['title'] = 'un titre';
             $data['personnes'] = $this->personnes_model->get_personnes();
-            $data['content'] = 'personnes_view';
+            $data['view'] = 'personnes_view';
             $this->load->view('template/template', $data);
         }
 }

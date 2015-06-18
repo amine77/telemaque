@@ -1,5 +1,4 @@
-
-<div class="container">
+ <div class="container">
 
       <form class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
@@ -16,4 +15,4 @@
       </form>
 
     </div> <!-- /container -->
-    <script src="<?php echo base_url();?>assets/js/ie10-viewport-bug-workaround.js"></script>
+
