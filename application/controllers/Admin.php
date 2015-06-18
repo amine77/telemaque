@@ -9,10 +9,12 @@ class Admin extends CI_Controller {
                 $this->load->model('personnes_model');
         }
         public function index(){
-            //on vérifie la session uilisateur s'il eest connecté
+            //on vérifie la session uilisateur s'il est connecté
             //on renvoie vers la home_page de l'admin sinon on renvoie le formulaire
             $data['content'] = 'admin/welcome';
-            $this->load->view('template/template', $data);  
+            $data['title'] = 'page de login';
+            $data['show_header'] = FALSE;
+            $this->load->view('template/layout', $data);  
             //echo '<h1>bienvenue sur l\'espace d\'administration</h1>';
         }
 
