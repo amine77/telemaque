@@ -5,6 +5,6 @@
 
     <div id="bloc_session">
         Bonjour John !<br>
-        <a href="#">Déconnexion</a>
+        <a href="<?php echo site_url('admin/logout');?>">Déconnexion</a>
     </div>
 </header>
