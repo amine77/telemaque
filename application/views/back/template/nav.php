@@ -1,7 +1,13 @@
 <nav>
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-            <li class="first"><a href="#">Tableau de bord</a></li>
+            <li class="first">
+                <?php
+                    echo '<a href="' . base_url() . 'admin/home">';
+                ?>
+                    Tableau de bord
+                </a>
+            </li>
             <li>
                 <a href="#" data-toggle="dropdown">
                     Catalogue

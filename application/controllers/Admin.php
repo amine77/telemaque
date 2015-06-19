@@ -29,9 +29,10 @@ class Admin extends CI_Controller {
             //validation fails
             $data['title'] = 'un titre';
             $data['view'] = 'back/login_view';
-            $data['show_header'] = FALSE;
+            $data['show_header'] = TRUE;
             $this->load->view('back/template/layout', $data);
         } else {
+           
             //validation succeeds
             if ($this->input->post('btn_login') == "Login") {
                 //check if username and password is correct
@@ -71,10 +72,20 @@ class Admin extends CI_Controller {
         }
         $data['title'] = 'un titre';
         $data['view'] = 'back/home';
-        $data['show_header'] = FALSE;
+        $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
 
+     public function liste_articles() {
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $data['title'] = 'un titre';
+        $data['view'] = 'back/liste_article';
+        $data['show_header'] = TRUE;
+        $this->load->view('back/template/layout', $data);
+    }
+    
     public function lister_personnes() {
         $data['title'] = 'un titre';
         $data['personnes'] = $this->personnes_model->get_personnes();
