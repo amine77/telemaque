@@ -81,7 +81,7 @@ class Admin extends CI_Controller {
             redirect('admin');
         }
         $data['title'] = 'un titre';
-        $data['view'] = 'back/liste_article';
+        $data['view'] = 'back/liste_articles';
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
