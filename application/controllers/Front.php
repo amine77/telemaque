@@ -7,6 +7,8 @@ class Front extends CI_Controller {
     public function index() {
 
         $this->load->view('front/home');
+       // $this->db->query("SELECT");
+      
     }
 
     
