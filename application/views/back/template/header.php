@@ -1,6 +1,10 @@
+<header>
+    <div id="bloc_logo">
+        NomDeBoutique
+    </div>
 
-
-    
-  <h>titre du site </h>
-
-   
+    <div id="bloc_session">
+        Bonjour John !<br>
+        <a href="#">Déconnexion</a>
+    </div>
+</header>
