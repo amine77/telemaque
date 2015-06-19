@@ -12,10 +12,10 @@ class Admin extends CI_Controller {
     public function index() {
         //on vérifie la session uilisateur s'il est connecté
         //on renvoie vers la home_page de l'admin sinon on renvoie le formulaire
-        $data['additional_css'] = array('css1', 'css2', 'css3');
-        $data['additional_js'] = array('js1', 'js2', 'js3');
+        /*$data['additional_css'] = array('css1', 'css2', 'css3');
+        $data['additional_js'] = array('js1', 'js2', 'js3');*/
         $data['title'] = 'page de login';
-        $data['show_header'] = FALSE;
+        $data['show_header'] = TRUE;
         //$data['content'] ='back/home' ;
         //$this->load->view('back/template/layout', $data); 
 //            $data['view'] ='../front/login' ;
