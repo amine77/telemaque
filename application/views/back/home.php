@@ -3,7 +3,7 @@
 
 
 
-<h1>Bienvenue <?=$_SESSION['login'] ?> , vous êtes sur l'espace Administration</h1>
+<h1>Espace Administration</h1>
 
 
     <div id="bloc_recap_visiteurs">
