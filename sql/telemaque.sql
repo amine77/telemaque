@@ -1,26 +1,18 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Ven 19 Juin 2015 à 08:49
--- Version du serveur: 5.6.12-log
--- Version de PHP: 5.4.12
+-- Client :  localhost:3306
+-- Généré le :  Mar 23 Juin 2015 à 09:56
+-- Version du serveur :  5.5.34
+-- Version de PHP :  5.5.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
--- Base de données: `telemaque`
+-- Base de données :  `telemaque`
 --
-CREATE DATABASE IF NOT EXISTS `telemaque` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `telemaque`;
 
 -- --------------------------------------------------------
 
@@ -28,7 +20,7 @@ USE `telemaque`;
 -- Structure de la table `address`
 --
 
-CREATE TABLE IF NOT EXISTS `address` (
+CREATE TABLE `address` (
   `address_id` int(11) NOT NULL AUTO_INCREMENT,
   `zip_code` varchar(10) NOT NULL,
   `address` varchar(45) NOT NULL,
@@ -44,10 +36,10 @@ CREATE TABLE IF NOT EXISTS `address` (
 -- Structure de la table `articles`
 --
 
-CREATE TABLE IF NOT EXISTS `articles` (
+CREATE TABLE `articles` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_label` varchar(250) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `category_id` int(11) NOT NULL,
   `image_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`article_id`),
@@ -60,12 +52,12 @@ CREATE TABLE IF NOT EXISTS `articles` (
 --
 
 INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `category_id`, `image_id`) VALUES
-(1, 'Renault twingo', '2015-06-19 10:39:18', 1, NULL),
-(2, 'Audi TT', '2015-06-19 10:39:18', 1, NULL),
-(3, 'Imprimante Photo Epson', '2015-06-19 10:40:55', 9, NULL),
-(4, 'MacBook Air 13 pouces core i5', '2015-06-19 10:40:55', 9, NULL),
-(5, 'Iphone 6', '2015-06-19 10:44:14', 10, NULL),
-(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 10:44:14', 10, NULL);
+(1, 'Renault twingo', '2015-06-19 08:39:18', 1, NULL),
+(2, 'Audi TT', '2015-06-19 08:39:18', 1, NULL),
+(3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', 9, NULL),
+(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', 9, NULL),
+(5, 'Iphone 6', '2015-06-19 08:44:14', 10, NULL),
+(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', 10, NULL);
 
 -- --------------------------------------------------------
 
@@ -73,7 +65,7 @@ INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `category_i
 -- Structure de la table `articles_specifications`
 --
 
-CREATE TABLE IF NOT EXISTS `articles_specifications` (
+CREATE TABLE `articles_specifications` (
   `article_specification_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_id` int(11) NOT NULL,
   `specification_id` int(11) NOT NULL,
@@ -88,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `articles_specifications` (
 -- Structure de la table `categories`
 --
 
-CREATE TABLE IF NOT EXISTS `categories` (
+CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_category` int(11) NOT NULL,
   `category_label` varchar(45) NOT NULL,
@@ -118,7 +110,7 @@ INSERT INTO `categories` (`category_id`, `parent_category`, `category_label`) VA
 -- Structure de la table `command`
 --
 
-CREATE TABLE IF NOT EXISTS `command` (
+CREATE TABLE `command` (
   `command_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `address_id` int(11) NOT NULL,
@@ -133,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `command` (
 -- Structure de la table `command_lines`
 --
 
-CREATE TABLE IF NOT EXISTS `command_lines` (
+CREATE TABLE `command_lines` (
   `command_lines_id` int(11) NOT NULL AUTO_INCREMENT,
   `quantity` int(11) NOT NULL,
   `price` double NOT NULL,
@@ -148,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `command_lines` (
 -- Structure de la table `images`
 --
 
-CREATE TABLE IF NOT EXISTS `images` (
+CREATE TABLE `images` (
   `image_id` int(11) NOT NULL AUTO_INCREMENT,
   `image_label` varchar(45) NOT NULL,
   `image_path` varchar(250) NOT NULL,
@@ -165,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `images` (
 -- Structure de la table `role`
 --
 
-CREATE TABLE IF NOT EXISTS `role` (
+CREATE TABLE `role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_label` varchar(45) NOT NULL,
   PRIMARY KEY (`role_id`)
@@ -186,7 +178,7 @@ INSERT INTO `role` (`role_id`, `role_label`) VALUES
 -- Structure de la table `specifications`
 --
 
-CREATE TABLE IF NOT EXISTS `specifications` (
+CREATE TABLE `specifications` (
   `specification_id` int(11) NOT NULL AUTO_INCREMENT,
   `specification_label` varchar(45) NOT NULL,
   `specification_value` varchar(250) NOT NULL,
@@ -201,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `specifications` (
 -- Structure de la table `tags`
 --
 
-CREATE TABLE IF NOT EXISTS `tags` (
+CREATE TABLE `tags` (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT,
   `tag_label` varchar(45) NOT NULL,
   PRIMARY KEY (`tag_id`)
@@ -213,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
 -- Structure de la table `tags_articles`
 --
 
-CREATE TABLE IF NOT EXISTS `tags_articles` (
+CREATE TABLE `tags_articles` (
   `tag_article_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL,
@@ -230,13 +222,13 @@ CREATE TABLE IF NOT EXISTS `tags_articles` (
 -- Structure de la table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `born_at` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL,
   `phone` varchar(15) NOT NULL,
   `mobile` varchar(15) NOT NULL,
   `mail` varchar(40) NOT NULL,
@@ -260,14 +252,14 @@ INSERT INTO `users` (`user_id`, `login`, `password`, `born_at`, `created_at`, `u
 -- Structure de la table `users_articles`
 --
 
-CREATE TABLE IF NOT EXISTS `users_articles` (
+CREATE TABLE `users_articles` (
   `user_article_id` int(11) NOT NULL AUTO_INCREMENT,
   `quantity` int(11) NOT NULL,
   `description` text NOT NULL,
   `status` varchar(45) NOT NULL,
   `price` double NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
   `article_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `image_id` int(11) DEFAULT NULL,
@@ -298,8 +290,8 @@ ALTER TABLE `articles`
 -- Contraintes pour la table `articles_specifications`
 --
 ALTER TABLE `articles_specifications`
-  ADD CONSTRAINT `fk_articles_specifications_specification_id` FOREIGN KEY (`specification_id`) REFERENCES `specifications` (`specification_id`),
-  ADD CONSTRAINT `fk_articles_specifications_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`);
+  ADD CONSTRAINT `fk_articles_specifications_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`),
+  ADD CONSTRAINT `fk_articles_specifications_specification_id` FOREIGN KEY (`specification_id`) REFERENCES `specifications` (`specification_id`);
 
 --
 -- Contraintes pour la table `command`
@@ -324,8 +316,8 @@ ALTER TABLE `specifications`
 -- Contraintes pour la table `tags_articles`
 --
 ALTER TABLE `tags_articles`
-  ADD CONSTRAINT `fk_tags_articles_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`tag_id`),
-  ADD CONSTRAINT `fk_tags_articles_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`);
+  ADD CONSTRAINT `fk_tags_articles_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`),
+  ADD CONSTRAINT `fk_tags_articles_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`tag_id`);
 
 --
 -- Contraintes pour la table `users`
@@ -340,7 +332,3 @@ ALTER TABLE `users_articles`
   ADD CONSTRAINT `fk_users_articles_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`),
   ADD CONSTRAINT `fk_users_articles_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `fk_user_articles_image_id` FOREIGN KEY (`image_id`) REFERENCES `images` (`image_id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
