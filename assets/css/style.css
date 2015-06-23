@@ -11,6 +11,9 @@ body{
 }
 
 header{
+    position: fixed;
+    top: 0px;
+    width: 100%;
     height: 50px;
     background-color: #003250;
 }
@@ -43,7 +46,8 @@ header #bloc_session a:hover{
 
 nav{
     position: fixed;
-    left:0px;
+    top: 50px;
+    left: 0px;
     height: 100%;
     font-family: Calibri;
     text-transform: uppercase;
@@ -111,7 +115,7 @@ nav .nav li .dropdown-menu .first{
 
 #bloc_contenu{
     font-size: 12px;
-    padding: 15px 15px 15px 190px;
+    padding: 65px 15px 15px 190px;
 }
 
 #bloc_contenu h1{
@@ -157,8 +161,48 @@ footer ul li a{
 footer ul li a:hover{
     color: #FFFFFF;
 }
+
+.clear{
+    clear: both;
+}
 /*******************************************
 *******************************************/
+
+
+
+
+/***************************************
+Style commun aux tableaus principaux
+***************************************/
+.tableau_liste{
+    border-bottom: 3px solid #001e3c;
+    border-right: 1px solid #001e3c;
+    border-left: 1px solid #001e3c;
+    font-size: 11px;
+}
+
+.tableau_liste td{
+    padding: 0 5px;
+}
+
+.tableau_liste .impair{
+    background-color: #e2edff;
+}
+
+.tableau_liste thead td{
+    height: 30px;
+    background-color: #001e3c;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tableau_liste tbody td{
+    font-size: 11px;
+}
+/***************************************
+***************************************/
+
 
 
 /*

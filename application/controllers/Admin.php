@@ -71,6 +71,7 @@ class Admin extends CI_Controller {
             redirect('admin');
         }
         $data['title'] = 'un titre';
+        $data['additional_css'] = array('tableau_de_bord');
         $data['view'] = 'back/home';
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
@@ -81,6 +82,7 @@ class Admin extends CI_Controller {
             redirect('admin');
         }
         $data['title'] = 'un titre';
+        $data['additional_css'] = array('articles');
         $data['view'] = 'back/liste_articles';
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);

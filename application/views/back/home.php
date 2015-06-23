@@ -1,22 +1,49 @@
 <div id="bloc_contenu">
     <h1>Tableau de bord</h1>
 
-
-
-<h1>Espace Administration</h1>
-
-
-    <div id="bloc_recap_visiteurs">
-        Visiteurs inscrits : 	XXXXXX
-        <br>
-        Visiteurs en ligne : 	XXXX
-    </div>
+    <table id="bloc_recap_visiteurs">
+        <tr>
+            <td>
+                Visiteurs inscrits : 	XXXXXX
+                <br>
+                Visiteurs en ligne : 	XXXX
+            </td>
+        </tr>
+    </table>
 
     <table id="bloc_recap_chiffres">
         <tr>
             <td>
+                Ventes
+                <br>
+                <span class="chiffres">XXX XXX</span>
+            </td>
+            <td>
+                Visites
+                <br>
+                <span class="chiffres">XXX XXX</span>
+            </td>
+            <td>
+                Paniers
+                <br>
+                <span class="chiffres">XXX XXX</span>
+            </td>
+            <td>
+                Panier moyen
+                <br>
+                <span class="chiffres">XXX XXX</span>
+            </td>
+            <td>
+                Bénéfice net
+                <br>
+                <span class="chiffres">XXX XXX</span>
             </td>
         </tr>
     </table>
+    
+    <div class="clear">
+    </div>
+    
+    
 </div>
 

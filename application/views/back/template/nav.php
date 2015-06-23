@@ -2,9 +2,7 @@
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
             <li class="first">
-                <?php
-                    echo '<a href="' . base_url() . 'admin/home">';
-                ?>
+                <?php echo '<a href="' . base_url() . 'admin/home">'; ?>
                     Tableau de bord
                 </a>
             </li>
@@ -13,7 +11,11 @@
                     Catalogue
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li class="first"><a href="#">Articles</a></li>
+                    <li class="first">
+                        <?php echo '<a href="' . base_url() . 'admin/liste_articles">'; ?>
+                            Articles
+                        </a>
+                    </li>
                     <li><a href="#">Exemplaires</a></li>
                     <li><a href="#">Catégories</a></li>
                     <li><a href="#">Mots-clés</a></li>

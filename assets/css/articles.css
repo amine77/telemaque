@@ -1,0 +1,77 @@
+#tableau_articles{
+    width: 100%;
+}
+
+#tableau_articles .col_checkbox{
+    width: 3%;
+}
+
+#tableau_articles .col_libelle{
+    width: 40%;
+}
+
+#tableau_articles .col_reference{
+    width: 18%;
+}
+
+#tableau_articles .col_categorie{
+    width: 20%;
+}
+
+#tableau_articles .col_nombre{
+    width: 5%;
+    text-align: center;
+}
+
+#tableau_articles .col_liens_details{
+    width: 14%;
+}
+
+#tableau_articles tbody .col_liens_details{
+    text-align: right;
+}
+
+
+/*
+#bloc_detail_article #background{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 20, 45, 0.8);
+}
+
+#bloc_detail_article #encadre_details{
+    width: 500px;
+    height: 100px;
+    background-color: #FFFFFF;
+}
+*/
+
+
+/* scroll fixes */
+.modal-open .modal {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  overflow-y: scroll;
+}
+
+/* centering styles for jsbin */
+/*
+html,
+body {
+  width:100%;
+  height:100%;
+}
+html {
+  display:table;
+}
+body {
+  display:table-cell;
+  vertical-align:middle;
+}*/
+body > .btn {
+  display: block;
+  margin: 0 auto;
+}

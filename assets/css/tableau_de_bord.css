@@ -1,0 +1,34 @@
+#bloc_contenu #bloc_recap_visiteurs{
+    float: left;
+    width: 30%;
+    min-height: 100px;
+    border: 1px solid #003250;
+    color: #003250;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+#bloc_contenu #bloc_recap_visiteurs td{
+    padding-left: 10px;
+}
+
+#bloc_contenu #bloc_recap_chiffres{
+    float: left;
+    width: 68%;
+    border-right: 1px solid #003250;
+    margin-left: 2%;
+}
+
+#bloc_contenu #bloc_recap_chiffres td{
+    width: 20%;
+    height: 100px;
+    border-top: 1px solid #003250;
+    border-left: 1px solid #003250;
+    border-bottom: 1px solid #003250;
+    text-align: center;
+}
+
+#bloc_contenu #bloc_recap_chiffres td .chiffres{
+    font-size: 16px;
+    color: #008080;
+}

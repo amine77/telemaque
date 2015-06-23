@@ -22,7 +22,8 @@
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <!--<script src="<?php echo base_url();?>assets/js/ie-emulation-modes-warning.js"></script>-->
 
-    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     
     <?php  
     if(isset($additional_css) && !empty($additional_css) && is_array($additional_css)){
@@ -32,7 +33,7 @@
     }
     if(isset($additional_js) && !empty($additional_js) && is_array($additional_js)){
         foreach ($additional_js as $value) {
-           echo'<script src="'.base_url().'assets/js/'.$value.'.js"></script>'; 
+           echo'<script src="'.base_url().'assets/js/'.$value.'.js"></script>';
         }
     }
     ?>
