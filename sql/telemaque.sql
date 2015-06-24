@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:3306
--- Généré le :  Mer 24 Juin 2015 à 15:18
+-- Généré le :  Mer 24 Juin 2015 à 17:33
 -- Version du serveur :  5.5.34
 -- Version de PHP :  5.5.10
 
@@ -87,7 +87,7 @@ CREATE TABLE `categories` (
   `parent_category` int(11) NOT NULL,
   `category_label` varchar(45) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Contenu de la table `categories`
@@ -104,7 +104,9 @@ INSERT INTO `categories` (`category_id`, `parent_category`, `category_label`) VA
 (8, 2, 'Bureaux & Commerces'),
 (9, 3, 'Informatique'),
 (10, 3, 'Téléphonie'),
-(11, 3, 'Image & Son');
+(11, 3, 'Image & Son'),
+(12, 3, 'Jeux'),
+(13, 3, 'DVD et Blu-ray');
 
 -- --------------------------------------------------------
 
@@ -280,7 +282,7 @@ CREATE TABLE `users_articles` (
 --
 
 INSERT INTO `users_articles` (`user_article_id`, `quantity`, `description`, `status`, `price`, `created_at`, `updated_at`, `article_id`, `user_id`, `image_id`) VALUES
-(3, 1, 'Vends ma Audi TT S-tronic (automatique palette volant) 2L tfsi noir très entretenue \n17 900 euros (négociable raisonnablement )\n\n- 50 000km\n-cuir alcantara beige claire\n-boite séquentiel volant S tronic\n-volant meplat audit sport\n-clin multi zone \n-vitre électrique\n-rétro électrique rétractable\n-jante rs6 19pouce\n-autoradio DVD GPS 7 pouce tactile bluetooth kit main libre "android 4.4.2" blutooth, wifi ,mp3 ,8 go, slot micro sd \n-son concert Audi 12 enceintes (10 enceintes +caisson +centrale) \n-CT Ok vierge!\n-Révision Audi Ok ( facture) plaquettes neuves !', '', 17900, '2015-06-23 14:54:29', NULL, 2, 4, NULL),
+(3, 1, 'Vends ma Audi TT S-tronic (automatique palette volant) 2L tfsi noir très entretenue \n17 900 euros (négociable raisonnablement )\n\n- 50 000km\n-cuir alcantara beige claire\n-boite séquentiel volant S tronic\n-volant meplat audit sport\n-clin multi zone \n-vitre électrique\n-rétro électrique rétractable\n-jante rs6 19pouce\n-autoradio DVD GPS 7 pouce tactile bluetooth kit main libre "android 4.4.2" blutooth, wifi ,mp3 ,8 go, slot micro sd \n-son concert Audi 12 enceintes (10 enceintes +caisson +centrale) \n-CT Ok vierge!\n-Révision Audi Ok ( facture) plaquettes neuves !', '', 17900, '2015-06-23 14:54:29', NULL, 3, 4, NULL),
 (4, 4, '\r\nJe mets en vente mon iPhone 6 noir\r\n\r\n16 g\r\n\r\nDesimlocke.\r\n\r\nIl est en excellent état.\r\n\r\nJe fournis boîte et facture.\r\n\r\n550 si vente aujourd''hui !!\r\n\r\n\r\nCause de la vente : je veux acheter le Samsung s6 edge\r\n', '', 550, '2015-06-23 14:54:29', NULL, 5, 5, NULL);
 
 --

@@ -68,7 +68,7 @@ abstract class Front_Controller extends CI_Controller {
             $_SESSION['panier'] = array();
     }
 
-    private function set_view_name() {
+    protected function set_view_name() {
         $this->data['view'] = "front/".$this->router->fetch_class();
     }
 
