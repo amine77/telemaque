@@ -53,4 +53,7 @@ $route['default_controller'] = 'front';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 //$route['^(panier)(/:any)?$'] = "front/$0";
-
+/*
+$route['(:any)'] = "front/$1";
+$route['(:any)/(:any)'] = "front/$1/$1";
+$route['(:any)/(:any)/(:any)'] = "front/$1/$1/$1";*/

@@ -6,17 +6,12 @@ class Front extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('articles_model');
-        $this->load->helper('cookie');
-        $cookie = array(
-            'name' => 'panier',
-            'value' => 0,
-            'expire' => time() + 86500,
-            
-        );
-        set_cookie($cookie);
-       
-       
+        $this->load->library('session');
+        if ($this->router->fetch_class() == "front")
+            $this->load->model(array('articles_model', 'panier_model'));
+
+        if (!isset($_SESSION['panier']))
+            $_SESSION['panier'] = array();
     }
 
     public function index() {
@@ -24,9 +19,16 @@ class Front extends CI_Controller {
         $data['additional_js'] = array('functions');
         $data['title'] = 'Home';
         $data['articles'] = $this->articles_model->get_articles(6);
+        $data['nb_article'] = $this->panier_model->get_nb_articles();
         $data['view'] = 'front/home';
         $data['show_header'] = true;
+        
         $this->load->view('front/template/layout', $data);
+    }
+
+    public function test() {
+
+        echo "erzerezr";
     }
 
 }

@@ -11,24 +11,33 @@
  *
  * @author LinkFox
  */
-class Panier_model {
+class Panier_model extends CI_Model {
 
     public function __construct() {
         $this->load->database();
     }
-    
-    public function add_article(){
-        
-        
-    }
-    
-    public function delete_article(){
+
+    public function add_article() {
         
     }
-    
-    public function delete_articles(){
+
+    public function delete_article() {
         
     }
-    
+
+    public function get_nb_articles() {
+
+        $nb_article = 0; // car dans le tableau on compte aussi nb_article
+        foreach ($_SESSION['panier'] as $key => $value) {
+            if ($key!='nb_article') {
+
+                $nb_article+=$value;
+              
+            }
+        }
+        $_SESSION['panier']['nb_article'] = $nb_article;
+        
+        return $nb_article;
+    }
 
 }

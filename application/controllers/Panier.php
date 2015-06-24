@@ -6,10 +6,9 @@ class Panier extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('articles_model');
-
-
-        $this->load->helper('cookie');
+        $this->load->model(array('articles_model','panier_model'));
+      
+        $this->load->library('session');
     }
 
     public function index() {
@@ -17,32 +16,23 @@ class Panier extends CI_Controller {
 
         $data['title'] = 'Panier';
         $data['articles'] = $this->articles_model->get_articles(6);
+        $data['nb_article'] = $this->panier_model->get_nb_articles();
         $data['view'] = 'front/panier';
         $data['show_header'] = true;
 
 
-
-        echo '<pre>';
-        var_dump($_COOKIE);
-        echo '</pre>';
         $this->load->view('front/template/layout', $data);
     }
-
+   
     public function add_article() {
-        //header('Content-Type: application/json');
-        $article = json_decode($this->input->post('article'));
-        //$id_article = $article['id_article'];
-        /*$panier = get_cookie('panier');
-        $panier[$article['id_article']];
-        $panier[$id_article]++;
-        //setCookie('panier['.$id_article.']',$panier[$id_article]);*/
+        $this->output->set_content_type('application/json');
 
-        echo '<pre>';
-        var_dump( $article);
-        echo '</pre>';
+        $id_article = json_decode($this->input->post('id_article'));
 
-        // echo get_cookie('panier');
-        echo "5";
+        $nb_article = $_SESSION['panier'][$id_article] ++;
+        echo  json_encode($this->panier_model->get_nb_articles());
+
+
         return;
     }
 

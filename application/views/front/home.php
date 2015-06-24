@@ -16,8 +16,11 @@
              <h3>" . $row->article_label . "</h3>
              <a href='#' data-role='".$row->article_id."'>Voir les details</a><br/>   
              ";
-        echo "<button data-role='".$row->article_id."'>Ajouter au panier </button>";
+        echo "<a href='".  base_url()."vendeurs/$row->article_id' >Voir les vendeurs </a>";
+       // echo "<button data-role='".$row->article_id."'>Ajouter au panier </button>";
         echo '</div>';
     }
     ?>
+
+
 </div>
