@@ -71,7 +71,33 @@ body {
   display:table-cell;
   vertical-align:middle;
 }*/
-body > .btn {
-  display: block;
-  margin: 0 auto;
+
+#bloc_contenu .fade{
+    background-color: rgba(0, 15, 30, 0.8);
+}
+
+#bloc_contenu .fade .modal-dialog{
+    width: 80%;
+}
+
+#bloc_contenu .fade .modal-dialog .modal-header{
+    text-align: center;
+    font-weight: bold;
+}
+
+#bloc_contenu .fade .modal-dialog .modal-body #bloc_image{
+    width: 30%;
+    height: 200px;
+    background-color: #EEEEEE;
+    float: left;
+}
+
+#bloc_contenu .fade .modal-dialog .modal-body #bloc_descriptif{
+    width: 68%;
+    margin-left: 2%;
+    float: left;
+}
+
+#bloc_contenu .fade .modal-dialog .modal-body #bloc_details{
+    margin-top: 20px;
 }
