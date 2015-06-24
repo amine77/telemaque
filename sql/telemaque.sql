@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:3306
--- Généré le :  Mar 23 Juin 2015 à 09:56
+-- Généré le :  Mer 24 Juin 2015 à 15:18
 -- Version du serveur :  5.5.34
 -- Version de PHP :  5.5.10
 
@@ -13,6 +13,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `telemaque`
 --
+CREATE DATABASE IF NOT EXISTS `telemaque` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `telemaque`;
 
 -- --------------------------------------------------------
 
@@ -130,8 +132,10 @@ CREATE TABLE `command_lines` (
   `quantity` int(11) NOT NULL,
   `price` double NOT NULL,
   `command_id` int(11) NOT NULL,
+  `user_article_id` int(11) NOT NULL,
   PRIMARY KEY (`command_lines_id`),
-  KEY `command_id` (`command_id`)
+  KEY `command_id` (`command_id`),
+  KEY `user_article_id` (`user_article_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -224,6 +228,8 @@ CREATE TABLE `tags_articles` (
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(45) NOT NULL,
+  `user_surname` varchar(45) NOT NULL,
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `born_at` date NOT NULL,
@@ -241,10 +247,10 @@ CREATE TABLE `users` (
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`user_id`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `role_id`) VALUES
-(3, 'superadmin', 'superadmin', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', 1),
-(4, 'admin', 'admin', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', 2),
-(5, 'user', 'user', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', 3);
+INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `role_id`) VALUES
+(3, 'Ip', 'Ajy', 'superadmin', 'superadmin', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', 1),
+(4, 'matux', 'loco', 'admin', 'admin', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', 2),
+(5, 'claude', 'parrot', 'user', 'user', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', 3);
 
 -- --------------------------------------------------------
 
@@ -267,7 +273,15 @@ CREATE TABLE `users_articles` (
   KEY `article_id` (`article_id`),
   KEY `user_id` (`user_id`),
   KEY `image_id` (`image_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `users_articles`
+--
+
+INSERT INTO `users_articles` (`user_article_id`, `quantity`, `description`, `status`, `price`, `created_at`, `updated_at`, `article_id`, `user_id`, `image_id`) VALUES
+(3, 1, 'Vends ma Audi TT S-tronic (automatique palette volant) 2L tfsi noir très entretenue \n17 900 euros (négociable raisonnablement )\n\n- 50 000km\n-cuir alcantara beige claire\n-boite séquentiel volant S tronic\n-volant meplat audit sport\n-clin multi zone \n-vitre électrique\n-rétro électrique rétractable\n-jante rs6 19pouce\n-autoradio DVD GPS 7 pouce tactile bluetooth kit main libre "android 4.4.2" blutooth, wifi ,mp3 ,8 go, slot micro sd \n-son concert Audi 12 enceintes (10 enceintes +caisson +centrale) \n-CT Ok vierge!\n-Révision Audi Ok ( facture) plaquettes neuves !', '', 17900, '2015-06-23 14:54:29', NULL, 2, 4, NULL),
+(4, 4, '\r\nJe mets en vente mon iPhone 6 noir\r\n\r\n16 g\r\n\r\nDesimlocke.\r\n\r\nIl est en excellent état.\r\n\r\nJe fournis boîte et facture.\r\n\r\n550 si vente aujourd''hui !!\r\n\r\n\r\nCause de la vente : je veux acheter le Samsung s6 edge\r\n', '', 550, '2015-06-23 14:54:29', NULL, 5, 5, NULL);
 
 --
 -- Contraintes pour les tables exportées
@@ -304,6 +318,7 @@ ALTER TABLE `command`
 -- Contraintes pour la table `command_lines`
 --
 ALTER TABLE `command_lines`
+  ADD CONSTRAINT `fk_comande_lines_user_article_id` FOREIGN KEY (`user_article_id`) REFERENCES `users_articles` (`user_article_id`),
   ADD CONSTRAINT `fk_command_lines_command_id` FOREIGN KEY (`command_id`) REFERENCES `command` (`command_id`);
 
 --
