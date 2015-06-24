@@ -41,7 +41,7 @@
                 <td class="col_reference">XXXXXXXXXXXXX</td>
                 <td class="col_categorie">Bande dessinée</td>
                 <td class="col_nombre">4</td>
-                <td class="col_liens_details">Voir les détails</td>
+                <td class="col_liens_details"><a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Voir les détails</a></td>
             </tr>
             <tr class="pair">
                 <td class="col_checkbox"><input type="checkbox"></td>
@@ -49,7 +49,7 @@
                 <td class="col_reference">XXXXXXXXXXXXX</td>
                 <td class="col_categorie">Livres Roman</td>
                 <td class="col_nombre">52</td>
-                <td  class="col_liens_details">Voir les détails</td>
+                <td class="col_liens_details"><a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Voir les détails</a></td>
             </tr>
             <tr class="impair">
                 <td class="col_checkbox"><input type="checkbox"></td>
@@ -57,7 +57,7 @@
                 <td class="col_reference">XXXXXXXXXXXXX</td>
                 <td class="col_categorie">Matériel informatique</td>
                 <td class="col_nombre">9</td>
-                <td class="col_liens_details">Voir les détails</td>
+                <td class="col_liens_details"><a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Voir les détails</a></td>
             </tr>
         </tbody>
     </table>
