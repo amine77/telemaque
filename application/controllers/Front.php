@@ -26,9 +26,5 @@ class Front extends CI_Controller {
         $this->load->view('front/template/layout', $data);
     }
 
-    public function test() {
-
-        echo "erzerezr";
-    }
 
 }

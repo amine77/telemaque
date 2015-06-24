@@ -12,7 +12,7 @@ class Vendeurs extends Front_Controller {
     public function index() {
 
 
-        $this->data['title'] = 'Liste des articles';
+        $this->data['title'] = 'Liste des vendeurs';
 
         $this->data['nb_article'] = $this->panier_model->get_nb_articles();
        
@@ -25,5 +25,10 @@ class Vendeurs extends Front_Controller {
     public function details() {
         
     }
-
+    public function liste_vendeurs_article() {
+       $oData =  $this->vendeurs_model->liste_vendeurs(1);
+       echo '<pre>';
+       var_dump($oData);
+       echo '</pre>';
+    }
 }

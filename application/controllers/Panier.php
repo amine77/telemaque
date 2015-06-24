@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Panier extends CI_Controller {
+class Panier extends Front_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -14,14 +14,13 @@ class Panier extends CI_Controller {
     public function index() {
 
 
-        $data['title'] = 'Panier';
-        $data['articles'] = $this->articles_model->get_articles(6);
-        $data['nb_article'] = $this->panier_model->get_nb_articles();
-        $data['view'] = 'front/panier';
-        $data['show_header'] = true;
+        $this->data['title'] = 'Panier';
+        $this->data['articles'] = $this->articles_model->get_articles(6);
+        $this->data['nb_article'] = $this->panier_model->get_nb_articles();
+        $this->data['show_header'] = true;
 
 
-        $this->load->view('front/template/layout', $data);
+        $this->load->view('front/template/layout', $this->data);
     }
    
     public function add_article() {
