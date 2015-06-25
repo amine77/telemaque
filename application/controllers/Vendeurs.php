@@ -13,9 +13,8 @@ class Vendeurs extends Front_Controller {
 
 
         $this->data['title'] = 'Liste des vendeurs';
-        $this->data['vendeurs'] = array();
         $this->data['nb_article'] = $this->panier_model->get_nb_articles();
-        $this->data['show_header'] = true;
+        $this->data['vendeurs'] = $this->vendeurs_model->liste_vendeurs();
 
         $this->load->view('front/template/layout', $this->data);
     }
@@ -27,9 +26,10 @@ class Vendeurs extends Front_Controller {
     public function liste_vendeurs_article() {
 
 
-
-
-        $this->data['vendeurs'] = $this->vendeurs_model->liste_vendeurs(3);
+        
+        $id_article = $this->uri->segment(2);
+        $this->data['vendeurs'] = $this->vendeurs_model->liste_vendeurs($id_article);
+        $this->data['view_type'] = "vendeurs_article";
         $this->load->view('front/template/layout', $this->data);
     }
 

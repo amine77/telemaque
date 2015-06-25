@@ -18,7 +18,7 @@ class Home extends Front_Controller {
 
         $this->data['additional_js'] = array('functions');
         $this->data['articles'] = $this->articles_model->get_articles(6);
-        $this->data['nb_article'] = $this->panier_model->get_nb_articles();
+        
 
         $this->data['show_header'] = true;
      
