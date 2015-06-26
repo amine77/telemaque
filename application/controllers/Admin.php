@@ -30,7 +30,8 @@ class Admin extends CI_Controller {
             $data['title'] = 'un titre';
             $data['view'] = 'back/login_view';
             $data['show_header'] = TRUE;
-            $this->load->view('back/template/layout', $data);
+            $this->load->view('back/login_view', $data);
+//            $this->load->view('back/template/layout', $data);
         } else {
            
             //validation succeeds
