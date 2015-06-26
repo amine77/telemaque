@@ -228,7 +228,7 @@ CREATE TABLE `tags_articles` (
 -- Structure de la table `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(45) NOT NULL,
   `user_surname` varchar(45) NOT NULL,
@@ -242,8 +242,10 @@ CREATE TABLE `users` (
   `mail` varchar(40) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
+  UNIQUE KEY `mail` (`mail`),
+  UNIQUE KEY `login` (`login`),
   KEY `role_id` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `users`
@@ -251,8 +253,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `role_id`) VALUES
 (3, 'Ip', 'Ajy', 'superadmin', 'superadmin', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', 1),
-(4, 'matux', 'loco', 'admin', 'admin', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', 2),
-(5, 'claude', 'parrot', 'user', 'user', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', 3);
+(4, 'matux', 'loco', 'admin', 'admin', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'admin@yahoo.fr', 2),
+(5, 'claude', 'parrot', 'user', 'user', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', 3),
+(6, 'nom1', 'prénom1', 'username1', 'pass', '1983-07-13', '2015-06-25 15:09:56', '0000-00-00 00:00:00', '0102030405', '0605040302', 'test@email.com', 3),
+(9, 'nom1', 'prénom1', 'username5', 'pass', '1983-07-13', '2015-06-26 11:44:06', '0000-00-00 00:00:00', '0102030405', '0605040302', 'test5@email.com', 3);
 
 -- --------------------------------------------------------
 
