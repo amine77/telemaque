@@ -41,7 +41,7 @@ class Inscription extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
 
-            $this->load->view('front/signup_view', $data);
+            $this->load->view('front/signup_view');
         } else {
 
             //validation succeeds
@@ -50,7 +50,7 @@ class Inscription extends CI_Controller
                 if( $this->login_model->signup_user($user_name, $user_surname, $login, $password, $born_at, $phone, $mobile, $mail)){
                     
                     $this->session->set_flashdata('msg','<div class="alert alert-success text-center">Félicitations ! '
-                            . 'Votre inscription a été créee avec succès. Attendez qu\'elle soit validée par un administrateur, avant de pouvoir vendre ou acheter.'
+                            . 'Votre inscription a été créée avec succès. Attendez qu\'elle soit validée par un administrateur, avant de pouvoir vendre ou acheter.'
                             . '<p>Vous serez dirigé à l\'accueil d\'ici quelques instants.</p></div>'
                             . '<script>setTimeout(function(){ document.location.href="'. base_url("/").' ";}, 10000) </script>');
                     redirect('inscription/index');
