@@ -1,0 +1,53 @@
+/****************************************************************************
+TABLEAU DE LA LISTE D'EXEMPLAIRES
+****************************************************************************/
+#tableau_exemplaires{
+    width: 100%;
+}
+
+#tableau_exemplaires .col_checkbox{
+    width: 3%;
+}
+
+#tableau_exemplaires .col_libelle{
+    width: 35%;
+}
+
+#tableau_exemplaires .col_vendeur{
+    width: 15%;
+}
+
+#tableau_exemplaires .col_etat{
+    width: 10%;
+}
+
+#tableau_exemplaires .col_prix{
+    width: 5%;
+    text-align: center;
+}
+
+#tableau_exemplaires .col_statut{
+    width: 8%;
+    text-align: center;
+}
+
+#tableau_exemplaires .col_liens{
+    width: 24%;
+}
+
+#tableau_exemplaires tbody .col_liens{
+    text-align: right;
+}
+
+#tableau_exemplaires tbody .col_liens a{
+    color: #005587;
+    text-decoration: none;
+}
+
+#tableau_exemplaires tbody .col_liens a:hover{
+    color: #005587;
+    text-decoration: underline;
+}
+/****************************************************************************
+TABLEAU DE LA LISTE D'EXEMPLAIRES
+****************************************************************************/

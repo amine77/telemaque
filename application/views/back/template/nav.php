@@ -16,8 +16,16 @@
                             Articles
                         </a>
                     </li>
-                    <li><a href="#">Exemplaires</a></li>
-                    <li><a href="#">Catégories</a></li>
+                    <li>
+                        <?php echo '<a href="' . base_url() . 'admin/liste_exemplaires">'; ?>
+                            Exemplaires
+                        </a>
+                    </li>
+                    <li>
+                        <?php echo '<a href="' . base_url() . 'admin/liste_categories">'; ?>
+                            Catégories
+                        </a>
+                    </li>
                     <li><a href="#">Mots-clés</a></li>
                 </ul>
             </li>
@@ -36,7 +44,11 @@
                     Administration
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li class="first"><a href="#">Administrateurs</a></li>
+                    <li class="first">
+                        <?php echo '<a href="' . base_url() . 'admin/liste_administrateurs">'; ?>
+                            Administrateurs
+                        </a>
+                    </li>
                     <li><a href="#">Rôles</a></li>
                     <li><a href="#">Contacts</a></li>
                 </ul>
