@@ -44,3 +44,30 @@ TABLEAU DE LA LISTE DES ADMINISTRATEURS
 }
 /****************************************************************************
 ****************************************************************************/
+
+
+
+
+
+/****************************************************************************
+FORMULAIRE POUR LES ADMINISTRATEURS
+****************************************************************************/
+#tableau_form_administrateurs .col_input input[type='text']{
+    width: 100%;
+    margin: 5px 0;
+}
+
+#tableau_form_administrateurs input[type='submit']{
+    margin-top: 10px;
+    padding: 5px 20px;
+    border: 1px solid #005587;
+    background-color: #003250;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+#tableau_form_administrateurs input[type='submit']:hover{
+    background-color: #004270;
+}
+/****************************************************************************
+****************************************************************************/
