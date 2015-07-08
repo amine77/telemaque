@@ -10,6 +10,18 @@ body{
     font-family: Verdana;
 }
 
+button{
+    padding: 5px 20px;
+    border: 1px solid #005587;
+    background-color: #003250;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+input[type='text']{
+    padding: 3px;
+}
+
 header{
     position: fixed;
     top: 0px;
@@ -171,9 +183,10 @@ footer ul li a:hover{
 
 
 
-/***************************************
+
+/*******************************************
 Style commun aux tableaus principaux
-***************************************/
+*******************************************/
 .tableau_liste{
     border-bottom: 3px solid #001e3c;
     border-right: 1px solid #001e3c;
@@ -200,8 +213,37 @@ Style commun aux tableaus principaux
 .tableau_liste tbody td{
     font-size: 11px;
 }
-/***************************************
-***************************************/
+/*******************************************
+*******************************************/
+
+
+
+
+
+/*******************************************
+Style commun aux formulaires
+*******************************************/
+.tableau_formulaire{
+    width: 100%;
+}
+
+.tableau_formulaire td{
+    padding: 3px 0;
+}
+
+.tableau_formulaire .col_label{
+    width: 20%;
+    text-align: right;
+}
+
+.tableau_formulaire .col_input{
+    width: 80%;
+    padding: 0 0 0 20px;
+}
+/*******************************************
+*******************************************/
+
+
 
 
 

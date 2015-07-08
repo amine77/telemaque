@@ -1,6 +1,10 @@
 /****************************************************************************
-TABLEAU DE LA LISTE DES ADMINISTRATEURS
+TABLEAU DE LA LISTE DES ROLES DES ADMINISTRATEURS
 ****************************************************************************/
+#btn_ajouter_role{
+    margin-bottom: 15px;
+}
+
 #tableau_roles{
     width: 100%;
 }
@@ -29,6 +33,44 @@ TABLEAU DE LA LISTE DES ADMINISTRATEURS
 #tableau_roles tbody .col_liens a:hover{
     color: #005587;
     text-decoration: underline;
+}
+/****************************************************************************
+****************************************************************************/
+
+
+
+
+
+/****************************************************************************
+TABLEAU DU FORMULAIRE DES ROLES DES ADMINISTRATEURS
+****************************************************************************/
+#tableau_form_roles .col_input input[type='text']{
+    width: 70%;
+}
+
+#tableau_form_roles #listes_acces td{
+    padding: 0 30px 0 0;
+}
+
+#tableau_form_roles #listes_acces td ul li{
+    list-style-type: none;
+}
+
+#tableau_form_roles #listes_acces td ul li input[type='checkbox']{
+    margin-right: 5px;
+}
+
+#tableau_form_roles input[type='submit']{
+    margin-top: 10px;
+    padding: 5px 20px;
+    border: 1px solid #005587;
+    background-color: #003250;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+#tableau_form_roles input[type='submit']:hover{
+    background-color: #004270;
 }
 /****************************************************************************
 ****************************************************************************/
