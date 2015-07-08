@@ -1,44 +1,32 @@
 /****************************************************************************
 TABLEAU DE LA LISTE DES ADMINISTRATEURS
 ****************************************************************************/
-#tableau_administrateurs{
+#tableau_roles{
     width: 100%;
 }
 
-#tableau_administrateurs .col_checkbox{
+#tableau_roles .col_checkbox{
     width: 3%;
 }
 
-#tableau_administrateurs .col_login{
-    width: 22%;
+#tableau_roles .col_nom_role{
+    width: 20%;
 }
 
-#tableau_administrateurs .col_prenom{
-    width: 17%;
+#tableau_roles .col_liens{
+    width: 77%;
 }
 
-#tableau_administrateurs .col_nom{
-    width: 17%;
-}
-
-#tableau_administrateurs .col_role{
-    width: 16%;
-}
-
-#tableau_administrateurs .col_liens{
-    width: 25%;
-}
-
-#tableau_administrateurs tbody .col_liens{
+#tableau_roles tbody .col_liens{
     text-align: right;
 }
 
-#tableau_administrateurs tbody .col_liens a{
+#tableau_roles tbody .col_liens a{
     color: #005587;
     text-decoration: none;
 }
 
-#tableau_administrateurs tbody .col_liens a:hover{
+#tableau_roles tbody .col_liens a:hover{
     color: #005587;
     text-decoration: underline;
 }

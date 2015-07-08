@@ -14,25 +14,19 @@
 </script>
 
 <div id="bloc_contenu">
-    <h1>Liste des administrateurs</h1>
-    <table class="tableau_liste" id="tableau_administrateurs">
+    <h1>Liste des rôles paramétrés</h1>
+    <table class="tableau_liste" id="tableau_roles">
         <thead>
             <tr>
                 <td class="col_checkbox"></td>
-                <td class="col_login">Login</td>
-                <td class="col_prenom">Prénom</td>
-                <td class="col_nom">Nom</td>
-                <td class="col_role">Role</td>
+                <td class="col_nom_role">Rôle</td>
                 <td class="col_liens"></td>
             </tr>
         </thead>
         <tbody>
             <tr class="pair">
                 <td class="col_checkbox"><input type="checkbox"></td>
-                <td class="col_login">Login</td>
-                <td class="col_prenom">Prénom</td>
-                <td class="col_nom">Nom</td>
-                <td class="col_role">Role</td>
+                <td class="col_nom_role">Nom du rôle</td>
                 <td class="col_liens">
                     <a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Fiche</a>
                     - <a href="#">Modifier</a>
@@ -41,10 +35,7 @@
             </tr>
             <tr class="impair">
                 <td class="col_checkbox"><input type="checkbox"></td>
-                <td class="col_login">Login</td>
-                <td class="col_prenom">Prénom</td>
-                <td class="col_nom">Nom</td>
-                <td class="col_role">Role</td>
+                <td class="col_nom_role">Nom du rôle</td>
                 <td class="col_liens">
                     <a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Fiche</a>
                     - <a href="#">Modifier</a>
@@ -53,10 +44,7 @@
             </tr>
             <tr class="pair">
                 <td class="col_checkbox"><input type="checkbox"></td>
-                <td class="col_login">Login</td>
-                <td class="col_prenom">Prénom</td>
-                <td class="col_nom">Nom</td>
-                <td class="col_role">Role</td>
+                <td class="col_nom_role">Nom du rôle</td>
                 <td class="col_liens">
                     <a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Fiche</a>
                     - <a href="#">Modifier</a>
@@ -65,10 +53,7 @@
             </tr>
             <tr class="impair">
                 <td class="col_checkbox"><input type="checkbox"></td>
-                <td class="col_login">Login</td>
-                <td class="col_prenom">Prénom</td>
-                <td class="col_nom">Nom</td>
-                <td class="col_role">Role</td>
+                <td class="col_nom_role">Nom du rôle</td>
                 <td class="col_liens">
                     <a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Fiche</a>
                     - <a href="#">Modifier</a>

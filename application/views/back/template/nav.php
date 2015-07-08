@@ -49,7 +49,11 @@
                             Administrateurs
                         </a>
                     </li>
-                    <li><a href="#">Rôles</a></li>
+                    <li>
+                        <?php echo '<a href="' . base_url() . 'admin/liste_roles">'; ?>
+                            Roles
+                        </a>
+                    </li>
                     <li><a href="#">Contacts</a></li>
                 </ul>
             </li>
