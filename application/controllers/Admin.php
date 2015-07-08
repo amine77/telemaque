@@ -134,6 +134,17 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
     
+    public function form_administrateurs() {
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $data['title'] = 'un titre';
+        $data['additional_css'] = array('administrateurs');
+        $data['view'] = 'back/form_administrateurs';
+        $data['show_header'] = TRUE;
+        $this->load->view('back/template/layout', $data);
+    }
+    
     public function liste_roles() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
