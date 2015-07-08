@@ -1,3 +1,4 @@
+<div class="center">
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -17,3 +18,4 @@ if (!empty($vendeurs->result())) {
 }
 ?>
 
+</div>

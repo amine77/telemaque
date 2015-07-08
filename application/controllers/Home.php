@@ -10,8 +10,6 @@ class Home extends Front_Controller {
         if ($this->router->fetch_class() == "home")
             $this->load->model(array('articles_model', 'panier_model'));
 
-        if (!isset($_SESSION['panier']))
-            $_SESSION['panier'] = array();
     }
 
     public function index() {

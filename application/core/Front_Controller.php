@@ -61,12 +61,14 @@ abstract class Front_Controller extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library('session');
-        $this->load->model(array('articles_model', 'panier_model'));
+        if (!isset($_SESSION['panier']))
+         $_SESSION['panier'] = array();
+        $this->load->model(array('articles_model', 'panier_model','utils_model'));
         $this->data['nb_article'] = $this->panier_model->get_nb_articles();     
         $this->set_view_name();
+   
 
-        if (!isset($_SESSION['panier']))
-            $_SESSION['panier'] = array();
+     
     }
 
     protected function set_view_name() {
