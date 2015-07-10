@@ -2,29 +2,47 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Articles extends CI_Controller {
+class Articles extends Front_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('articles_model','panier_model','user_article_model'));
-      
-        $this->load->library('session');
+        $this->load->model(array('articles_model', 'users_articles_model'));
     }
 
     public function index() {
 
 
-        $data['title'] = 'Liste des articles';
-       
-        $data['nb_article'] = $this->panier_model->get_nb_articles();
-        $data['view'] = 'front/articles';
-        $data['show_header'] = true;
+        $this->data['title'] = 'Liste des articles';
+
+        $this->data['additional_js'] = array('functions');
+        $this->data['articles'] = $this->articles_model->get_articles(6);
+        $this->data['view'] = 'front/articles';
+        
 
 
-        $this->load->view('front/template/layout', $data);
+        $this->load->view('front/template/layout', $this->data);
     }
-   
-   public function details(){
-       
-   }
+
+    public function details($article_id='') {
+        if(empty($article_id))
+         redirect('/articles'); 
+        
+
+        $this->data['article'] = $this->db->get_where('articles', array('article_id' =>$article_id));
+        $this->data['vendeurs_articles'] = $this->users_articles_model->list_ua($article_id);
+        $this->data['view'] = "front/details_article";
+        $this->load->view('front/template/layout', $this->data);
+    }
+
+    public function liste_vendeurs_article() {
+
+
+
+        $id_article = $this->uri->segment(2);
+        $this->data['vendeurs_articles'] = $this->users_articles_model->list_ua($id_article);
+
+        $this->data['view_type'] = "vendeurs_article";
+        $this->load->view('front/template/layout', $this->data);
+    }
+
 }

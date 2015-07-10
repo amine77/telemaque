@@ -55,6 +55,8 @@ $route['translate_uri_dashes'] = FALSE;
 //$route['^(panier)(/:any)?$'] = "front/$0";
 
 $route['^(vendeurs)/(:any)'] = "vendeurs/liste_vendeurs_article/$0";
+$route['^(usr)/(:any)'] = "usr";
+
 /*
 $route['(:any)'] = "front/$1";
 $route['(:any)/(:any)'] = "front/$1/$1";

@@ -3,6 +3,9 @@
     margin:0;
 }
 li{list-style-type: none;}
+#menu{
+    float:left;
+}
 #menu li{
     display:inline-block;
     padding:0.2em 0.7em;
@@ -12,5 +15,12 @@ li{list-style-type: none;}
     margin:0 auto;
 }
 #panier{
-    text-align: right;
+    float:right;
+}
+
+.vendeurs{
+    border:1px solid grey;
+}
+.clear{
+    clear:both;
 }

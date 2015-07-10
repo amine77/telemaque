@@ -6,7 +6,7 @@ class Home extends Front_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('session');
+      
         if ($this->router->fetch_class() == "home")
             $this->load->model(array('articles_model', 'panier_model'));
 
