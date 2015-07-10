@@ -9,29 +9,38 @@ class Articles extends Front_Controller {
         $this->load->model(array('articles_model', 'users_articles_model'));
     }
 
-    public function index() {
-
-
-        $this->data['title'] = 'Liste des articles';
-
-        $this->data['additional_js'] = array('functions');
-        $this->data['articles'] = $this->articles_model->get_articles(6);
-        $this->data['view'] = 'front/articles';
+    public function index($page='',$article_id = '', $user_id = '') {
         
+        if (empty($article_id)) {
 
+            $this->data['title'] = 'Liste des articles';
 
-        $this->load->view('front/template/layout', $this->data);
+            $this->data['additional_js'] = array('functions');
+            $this->data['articles'] = $this->articles_model->get_articles(6);
+            $this->data['view'] = 'front/articles';
+
+            $this->load->view('front/template/layout', $this->data);
+        } else {
+            $this->details($article_id, $user_id);
+        }
     }
 
-    public function details($article_id='') {
-        if(empty($article_id))
-         redirect('/articles'); 
-        
+    public function details($article_id = '', $user_id = '') {
 
-        $this->data['article'] = $this->db->get_where('articles', array('article_id' =>$article_id));
-        $this->data['vendeurs_articles'] = $this->users_articles_model->list_ua($article_id);
-        $this->data['view'] = "front/details_article";
-        $this->load->view('front/template/layout', $this->data);
+
+        if (empty($user_id)) {
+
+            $this->data['article'] = $this->db->get_where('articles', array('article_id' => $article_id));
+            $this->data['vendeurs_articles'] = $this->users_articles_model->list_ua($article_id);
+            $this->data['view'] = "front/details_article";
+            $this->load->view('front/template/layout', $this->data);
+        } else {
+
+            $this->data['article'] = $this->db->get_where('articles', array('article_id' => $article_id));
+            $this->data['vendeurs_articles'] = $this->users_articles_model->list_ua($article_id);
+            $this->data['view'] = "front/details_user_article";
+            $this->load->view('front/template/layout', $this->data);
+        }
     }
 
     public function liste_vendeurs_article() {

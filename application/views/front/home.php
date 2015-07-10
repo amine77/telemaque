@@ -11,7 +11,7 @@
     foreach ($articles->result() as $row) {
         echo "<div style='width:32%;height:150px;background-color:yellow;display:inline-block;margin:0 0.5%'>
              <h3>" . $row->article_label . "</h3>
-             <a href='".  base_url()."articles/details/$row->article_id' data-role='".$row->article_id."'>Voir les details</a><br/>   
+             <a href='".  base_url()."articles/$row->article_id' data-role='".$row->article_id."'>Voir les details</a><br/>   
              ";
       
        // echo "<button data-role='".$row->article_id."'>Ajouter au panier </button>";

@@ -1,6 +1,6 @@
 <div class="center">
     <?php
-    defined('BASEPATH') OR exit('No direct script access allowed');
+    /*defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Affiche les articles
 
@@ -26,7 +26,7 @@
                         <strong><?=$row->user_name. ' ' .$row->user_surname;?>
                         </strong>
                     </a>
-                    <a class="btn btn-primary" href="<?= base_url() . 'articles/' . $row->article_id .'/'. $row->user_id ?>">Voir le produit</a>
+                    <a class="btn btn-primary" href="<?= base_url() . 'articles/details/' . $row->article_id .'/'. $row->user_id ?>">Voir le produit</a>
                     <div class="quantity">
                                 
                                 <?php echo '<span style="font-size:15px;">'.$row->quantity.'</span> exemplaire';echo (intval($row->quantity)>1) ? 's' : ''?></div>
@@ -38,8 +38,8 @@
         endforeach;
     } else {
         echo 'Pas de vendeur pour cette article';
-    }
+    }*/
     ?>
-
+        
 
 </div>
