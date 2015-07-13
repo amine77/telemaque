@@ -2,18 +2,26 @@
     padding:0;
     margin:0;
 }
-li{list-style-type: none;}
+li{
+    list-style-type: none;
+}
 #menu{
     float:left;
-}
-#menu li{
-    display:inline-block;
-    padding:0.2em 0.7em;
 }
 .center{
     width:62em;
     margin:0 auto;
 }
+.clear{
+    clear:both;
+}
+
+
+#menu li{
+    display:inline-block;
+    padding:0.2em 0.7em;
+}
+
 #panier{
     float:right;
 }
@@ -21,6 +29,13 @@ li{list-style-type: none;}
 .vendeurs{
     border:1px solid grey;
 }
-.clear{
-    clear:both;
+
+.list-article{
+    width: 31%;
+    height: 150px;
+    background-color: yellow;
+    float: left;
+    margin: 0 2% 1.5% 0;
+    
 }
+

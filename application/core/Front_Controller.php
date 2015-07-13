@@ -80,4 +80,9 @@ abstract class Front_Controller extends CI_Controller {
     }
 
     abstract protected function index();
+    
+    
+    public function debug($data){
+        $this->utils_model->debug($data);
+    }
 }

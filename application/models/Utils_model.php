@@ -22,9 +22,11 @@ class Utils_model extends CI_Model {
         return $oData;
     }
 
-    public function im_insert($image_a_stocker, $delta_rep = '') {
-        $dirim = '../images/im/';
-        $is = @filesize($image_a_stocker);
+   public function im_insert($image_a_stocker, $delta_rep = '') {
+        $dirim = '../assets/img/insert/';
+      
+        $is = filesize($image_a_stocker);
+         var_dump($is);
         if ($is > 0) {
             list($iw, $ih, $it) = @getimagesize($image_a_stocker);
             switch ($it) {
@@ -63,6 +65,7 @@ class Utils_model extends CI_Model {
                 default: $ext = substr($image_a_stocker, -3, 3);
                     break;
             }
+            
             if (($it != 1) && ($it != 2) && ($it != 3)) {
                 //pas un format convenable alors on change
                 $convert2jpeg = true;
@@ -80,6 +83,7 @@ class Utils_model extends CI_Model {
                 'height' => $ih,
                 'image_path' => $delta_rep . $im_fichier
             ));
+            
             $im_id = $this->db->insert_id();
             $newfile = $dirim . md5($im_id . $is) . '_' . $is . '.' . $ext;
             if ($convert2jpeg) {
@@ -94,7 +98,35 @@ class Utils_model extends CI_Model {
             return $im_id;
         }
     }
+
     
+     public function insert_img($data){
+         $url= $this->do_upload();
+         $title = $_POST['title'];
+         $this->main_m->save($title,$url);
+      
+         
+     }
+    public function do_upload(){
+         $type = explode('.', $_FILES['pic']['name']);
+         $type = $type[count($type)-1];
+         $url = base_url()."assets/img/insert".uniquid(rand()).'.'.$type;
+         if(in_array($type,array("jpg","jpeg","gif","png")))
+                 if(is_uploaded_file($_FILES['pic']['tmp_name']))
+                     if(move_uploaded_file($_FILES['pic']['tmp_name'], $url))
+                             return array( 'format' => $type,
+                                           'image_label' => $url,
+                                           'size' => $is,
+                                           'width' => $iw,
+                                           'height' => $ih,
+                                           'image_path' => $url
+                             );
+        return "";             
+    }
+    public function save(){
+        $this->db->set('');
+        
+    }
     public function debug($data){
         echo '<pre>';
         var_dump($data);

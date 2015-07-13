@@ -9,8 +9,8 @@ class Articles extends Front_Controller {
         $this->load->model(array('articles_model', 'users_articles_model'));
     }
 
-    public function index($page='',$article_id = '', $user_id = '') {
-        
+    public function index($page = '', $article_id = '', $user_id = '') {
+
         if (empty($article_id)) {
 
             $this->data['title'] = 'Liste des articles';
@@ -33,8 +33,25 @@ class Articles extends Front_Controller {
             $this->data['article'] = $this->db->get_where('articles', array('article_id' => $article_id));
             $this->data['vendeurs_articles'] = $this->users_articles_model->list_ua($article_id);
             $this->data['view'] = "front/details_article";
+
+       
+          /*  if ($_FILES['pic']['name']){
+                     $this->debug($_FILES['pic']);
+            $this->utils_model->im_insert($_FILES['pic']);
+            
+            }*/
+           
+
+
+
             $this->load->view('front/template/layout', $this->data);
         } else {
+            $userActicle = $this->users_articles_model->user_with_article($article_id, $user_id);
+
+            if (empty($userActicle->result()))
+                redirect(base_url() . 'articles/' . $article_id, 'location');
+
+
 
             $this->data['article'] = $this->db->get_where('articles', array('article_id' => $article_id));
             $this->data['vendeurs_articles'] = $this->users_articles_model->list_ua($article_id);

@@ -7,7 +7,7 @@
     $oData = $article->result()[0];
 
 
-    echo "<div style='height:150px;border:1px solid grey;margin:0 0.5% 15px 0.5%'>
+    echo "<div style='height:150px;border:1px solid grey;margin-bottom:15px'>
              <h3>" . $oData->article_label . "</h3>";
 
 
@@ -16,23 +16,45 @@
 
     if (!empty($vendeurs_articles->result())) {
         foreach ($vendeurs_articles->result() as $row) :
-            $this->utils_model->debug($row);
             ?>
             <div class="vendeurs">
-               
+
                 <div>
 
                     <a href="<?= base_url() . 'usr/' . $row->user_id ?>">
-                        <strong><?=$row->user_name. ' ' .$row->user_surname;?>
+                        <strong><?= $row->user_name . ' ' . $row->user_surname; ?>
                         </strong>
                     </a>
-                    <a class="btn btn-primary" href="<?= base_url() . 'articles/' . $row->article_id .'/'. $row->user_id ?>">Voir le produit</a>
+                    <a class="btn btn-primary" href="<?= base_url() . 'articles/' . $row->article_id . '/' . $row->user_id ?>">Voir le produit</a>
                     <div class="quantity">
-                                
-                                <?php echo '<span style="font-size:15px;">'.$row->quantity.'</span> exemplaire';echo (intval($row->quantity)>1) ? 's' : ''?></div>
+
+                        <?php echo '<span style="font-size:15px;">' . $row->quantity . '</span> exemplaire';
+                        echo (intval($row->quantity) > 1) ? 's' : '' ?>
+                    </div>
+                    <div id="prix">
+                        <h3><?= $row->price ?>€</h3>
+                    </div>
                 </div>
 
             </div>
+    
+             <?= form_open_multipart();?>   
+            <table class="table">
+                <tr>
+                    <td>Title</td>
+                    <td><?= form_input('title') ?></td>    
+                </tr>
+                <tr>
+                    <td>Image</td>
+                    <td><?= form_upload('pic') ?></td>    
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><?= form_submit('submit', 'Save', 'class="btn btn-primary"') ?></td>    
+                </tr>
+            </table>
+
+
 
             <?php
         endforeach;
