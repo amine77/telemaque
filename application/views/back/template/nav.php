@@ -34,7 +34,12 @@
                     Usagers
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li class="first"><a href="#">Clients</a></li>
+                    <li class="first">
+                        <?php echo '<a href="' . base_url() . 'admin/liste_vendeurs">'; ?>
+                            Vendeurs
+                        </a>
+                    </li>
+                    <li><a href="#">Clients</a></li>
                     <li><a href="#">Adresses</a></li>
                     <li><a href="#">Paniers</a></li>
                 </ul>

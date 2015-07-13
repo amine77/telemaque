@@ -3,6 +3,7 @@ TABLEAU DE LA LISTE D'ARTICLES
 ****************************************************************************/
 #tableau_articles{
     width: 100%;
+    margin-top: 10px;
 }
 
 #tableau_articles .col_checkbox{
@@ -97,6 +98,76 @@ POP IN D'ARTICLES
 /****************************************************************************
 FORMULAIRE POUR LES ARTICLES
 ****************************************************************************/
+#tableau_form_articles .col_input input[type='text']{
+    width: 100%;
+    margin: 5px 0;
+}
 
+#tableau_form_articles .col_input select{
+    width: 100%;
+    height: 40px;
+    margin: 5px 0;
+}
+
+#tableau_form_articles .col_label#label_descriptif{
+    vertical-align: top;
+    padding: 5px 0;
+}
+
+#tableau_form_articles .col_input textarea{
+    width: 100%;
+    height: 120px;
+    resize: none;
+    margin: 5px 0;
+}
+
+#tableau_form_articles input[type='submit']{
+    margin-top: 10px;
+    padding: 5px 20px;
+    border: 1px solid #005587;
+    background-color: #003250;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+#tableau_form_articles .separation{
+    height: 20px;
+}
+
+#tableau_form_articles #label_caracteristiques{
+    vertical-align: top;
+    padding: 5px 0;
+}
+
+#tableau_form_articles #caracteristiques table{
+    width: 100%;
+}
+
+#tableau_form_articles #caracteristiques .carac_label{
+    width: 30%;
+    padding: 0 5px 0 0;
+}
+
+#tableau_form_articles #caracteristiques .carac_input button{
+    padding: 5px 10px;
+    border: 1px solid #005587;
+    background-color: #003250;
+    border-radius: 5px;
+    font-size: 10px;
+    color: #FFFFFF;
+}
+
+#tableau_form_articles #caracteristiques .carac_input button:hover{
+    background-color: #004270;
+}
+
+#tableau_form_articles #caracteristiques .carac_input{
+    width: 70%;
+    padding: 0 0 0 5px;
+}
+
+#tableau_form_articles input[type='submit']:hover{
+    background-color: #004270;
+}
 /****************************************************************************
 ****************************************************************************/
