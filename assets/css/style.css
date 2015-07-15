@@ -18,6 +18,10 @@ button{
     color: #FFFFFF;
 }
 
+button:hover{
+    background-color: #004270;
+}
+
 input[type='text']{
     padding: 3px;
 }

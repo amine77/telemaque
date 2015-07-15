@@ -16,9 +16,10 @@
 <div id="bloc_contenu">
     <h1>Liste des rôles paramétrés</h1>
     
-    <button id="btn_ajouter_role">
-        Ajouter
-    </button>
+    <button>Ajouter</button>
+    <button>Supprimer</button>
+    
+    <div class="clear"></div>
     
     <table class="tableau_liste" id="tableau_roles">
         <thead>

@@ -3,6 +3,7 @@ TABLEAU DE LA LISTE D'EXEMPLAIRES
 ****************************************************************************/
 #tableau_exemplaires{
     width: 100%;
+    margin-top: 10px;
 }
 
 #tableau_exemplaires .col_checkbox{
