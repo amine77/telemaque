@@ -10,6 +10,7 @@ class Admin extends CI_Controller {
 
         $this->load->model('login_model');
         $this->load->model('category_model');
+        $this->load->model('tag_model');
     }
 
     public function index() {
@@ -122,6 +123,17 @@ class Admin extends CI_Controller {
 //        $data['show_header'] = TRUE;
 //        $this->load->view('back/template/layout', $data);
 //    }
+    public function liste_tags(){
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $data['title'] = 'tous les mots clés';
+        $data['view'] = 'back/liste_tags';
+        $data['show_header'] = TRUE;
+        
+        $data['tags'] = $this->tag_model->get_all();
+        $this->load->view('back/template/layout', $data);
+    }
     public function liste_categories() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');

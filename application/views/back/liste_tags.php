@@ -21,23 +21,25 @@ $(function() {
 
 <div id="bloc_contenu">
     
-    <h4><a href="<?= base_url('admin/ajouter_category')?>">Nouvelle catégorie</a></h4><br>
-    <h1>Liste des categories</h1>
+    <h4><a href="<?= base_url('admin/ajouter_tag')?>">Ajouter un mot clé</a></h4><br>
+    <h1>Liste des mots clés</h1>
 
-    <?php if (is_array($categories)) { ?>
+    <?php if (is_array($tags)) { ?>
         <table class="table table-hover">
             <tr>
-                <th>Parent category</th>
-                <th>Category </th>
+                <th>ID</th>
+                <th>Nom </th>
+                <th>Articles </th>
                 <th>Actions</th>
             </tr>
-            <?php foreach ($categories as $categorie) { ?>
+            <?php foreach ($tags as $tag) { ?>
                 <tr>
-                    <td><?= ($categorie['parent_category']== '0')? '-': $categorie['parent_category']?></td>
-                    <td><?= $categorie['category'] ?></td>
-                    <td><a  title="supprimer" href="<?= base_url('admin/delete_category/' . $categorie['category_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer cette catégorie?">
+                    <td><?= $tag['tag_id']?></td>
+                    <td><?= $tag['tag_label'] ?></td>
+                    <td><?= $tag['nb_articles'] ?></td>
+                    <td><a  title="supprimer" href="<?= base_url('admin/delete_tag/' . $tag['tag_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer cette catégorie?">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </a> / <a title="modifier" href="<?= base_url('admin/update_category/' . $categorie['category_id']) ?>">
+                            </a> / <a title="modifier" href="<?= base_url('admin/update_tag/' . $tag['tag_id']) ?>">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a>
                     </td>

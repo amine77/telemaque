@@ -26,7 +26,7 @@
                             Catégories
                         </a>
                     </li>
-                    <li><a href="#">Mots-clés</a></li>
+                    <li><a href="<?php echo base_url('/admin/liste_tags')  ?>">Mots-clés</a></li>
                 </ul>
             </li>
             <li>
