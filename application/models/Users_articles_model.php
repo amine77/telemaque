@@ -17,12 +17,12 @@ class Users_articles_model extends CI_Model {
         parent::__construct();
     }
     
-    public function list_ua($article_id = "All") {
+    public function list_user_article($article_id = "All") {
         $with_article = "";
         if ($article_id != "All")
             $with_article = " WHERE a.article_id = '$article_id'  ";
 
-        $sql = "SELECT u.user_id ,u.user_name ,u.user_surname,ua.quantity,a.article_id,ua.price
+        $sql = "SELECT u.user_id ,u.user_name ,u.user_surname,ua.quantity,ua.image_id,a.image_id,a.article_id,ua.price
                FROM users u
                JOIN users_articles ua ON u.user_id = ua.user_id
                JOIN articles a ON ua.article_id = a.article_id
@@ -37,7 +37,7 @@ class Users_articles_model extends CI_Model {
     public function user_with_article($article_id,$user_id) {
  
 
-        $sql = "SELECT u.user_id
+        $sql = "SELECT u.user_id ,u.user_name ,u.user_surname,ua.image_id,ua.quantity,a.article_id,ua.price,ua.description
                FROM users u
                JOIN users_articles ua ON u.user_id = ua.user_id
                JOIN articles a ON ua.article_id = a.article_id
