@@ -1,17 +1,23 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
--- Client :  localhost:3306
--- Généré le :  Jeu 09 Juillet 2015 à 17:07
--- Version du serveur :  5.5.34
--- Version de PHP :  5.5.10
+-- Client: localhost
+-- Généré le: Jeu 16 Juillet 2015 à 11:52
+-- Version du serveur: 5.6.12-log
+-- Version de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
 --
--- Base de données :  `telemaque`
+-- Base de données: `telemaque`
 --
 CREATE DATABASE IF NOT EXISTS `telemaque` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `telemaque`;
@@ -22,7 +28,7 @@ USE `telemaque`;
 -- Structure de la table `address`
 --
 
-CREATE TABLE `address` (
+CREATE TABLE IF NOT EXISTS `address` (
   `address_id` int(11) NOT NULL AUTO_INCREMENT,
   `zip_code` varchar(10) NOT NULL,
   `address` varchar(45) NOT NULL,
@@ -39,28 +45,30 @@ CREATE TABLE `address` (
 -- Structure de la table `articles`
 --
 
-CREATE TABLE `articles` (
+CREATE TABLE IF NOT EXISTS `articles` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_label` varchar(250) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `category_id` int(11) NOT NULL,
   `image_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`article_id`),
   KEY `category_id` (`category_id`),
-  KEY `image_id` (`image_id`)
+  KEY `image_id` (`image_id`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `articles`
 --
 
-INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `category_id`, `image_id`) VALUES
-(1, 'Renault twingo', '2015-06-19 08:39:18', 1, NULL),
-(2, 'Audi TT', '2015-06-19 08:39:18', 1, NULL),
-(3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', 9, NULL),
-(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', 9, NULL),
-(5, 'Iphone 6', '2015-06-19 08:44:14', 10, NULL),
-(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', 10, NULL);
+INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `category_id`, `image_id`, `user_id`) VALUES
+(1, 'Renault twingo', '2015-06-19 08:39:18', 1, NULL, 3),
+(2, 'Audi TT', '2015-06-19 08:39:18', 1, NULL, 3),
+(3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', 9, NULL, 3),
+(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', 9, NULL, 3),
+(5, 'Iphone 6', '2015-06-19 08:44:14', 10, NULL, 3),
+(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', 10, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -68,7 +76,7 @@ INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `category_i
 -- Structure de la table `articles_specifications`
 --
 
-CREATE TABLE `articles_specifications` (
+CREATE TABLE IF NOT EXISTS `articles_specifications` (
   `article_specification_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_id` int(11) NOT NULL,
   `specification_id` int(11) NOT NULL,
@@ -83,12 +91,12 @@ CREATE TABLE `articles_specifications` (
 -- Structure de la table `categories`
 --
 
-CREATE TABLE `categories` (
+CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_category` int(11) NOT NULL,
   `category_label` varchar(45) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Contenu de la table `categories`
@@ -107,7 +115,9 @@ INSERT INTO `categories` (`category_id`, `parent_category`, `category_label`) VA
 (10, 3, 'Téléphonie'),
 (11, 3, 'Image & Son'),
 (12, 3, 'Jeux'),
-(13, 3, 'DVD et Blu-ray');
+(13, 3, 'DVD et Blu-ray'),
+(16, 0, 'VACANCES'),
+(17, 4, 'Diesel');
 
 -- --------------------------------------------------------
 
@@ -115,7 +125,7 @@ INSERT INTO `categories` (`category_id`, `parent_category`, `category_label`) VA
 -- Structure de la table `command`
 --
 
-CREATE TABLE `command` (
+CREATE TABLE IF NOT EXISTS `command` (
   `command_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `address_id` int(11) NOT NULL,
@@ -130,7 +140,7 @@ CREATE TABLE `command` (
 -- Structure de la table `command_lines`
 --
 
-CREATE TABLE `command_lines` (
+CREATE TABLE IF NOT EXISTS `command_lines` (
   `command_lines_id` int(11) NOT NULL AUTO_INCREMENT,
   `quantity` int(11) NOT NULL,
   `price` double NOT NULL,
@@ -147,7 +157,7 @@ CREATE TABLE `command_lines` (
 -- Structure de la table `images`
 --
 
-CREATE TABLE `images` (
+CREATE TABLE IF NOT EXISTS `images` (
   `image_id` int(11) NOT NULL AUTO_INCREMENT,
   `image_label` varchar(45) NOT NULL,
   `image_path` varchar(250) NOT NULL,
@@ -164,7 +174,7 @@ CREATE TABLE `images` (
 -- Structure de la table `role`
 --
 
-CREATE TABLE `role` (
+CREATE TABLE IF NOT EXISTS `role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_label` varchar(45) NOT NULL,
   PRIMARY KEY (`role_id`)
@@ -185,7 +195,7 @@ INSERT INTO `role` (`role_id`, `role_label`) VALUES
 -- Structure de la table `specifications`
 --
 
-CREATE TABLE `specifications` (
+CREATE TABLE IF NOT EXISTS `specifications` (
   `specification_id` int(11) NOT NULL AUTO_INCREMENT,
   `specification_label` varchar(45) NOT NULL,
   `specification_value` varchar(250) NOT NULL,
@@ -200,11 +210,19 @@ CREATE TABLE `specifications` (
 -- Structure de la table `tags`
 --
 
-CREATE TABLE `tags` (
+CREATE TABLE IF NOT EXISTS `tags` (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT,
   `tag_label` varchar(45) NOT NULL,
   PRIMARY KEY (`tag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `tags`
+--
+
+INSERT INTO `tags` (`tag_id`, `tag_label`) VALUES
+(1, 'tag1'),
+(2, 'tag2');
 
 -- --------------------------------------------------------
 
@@ -212,7 +230,7 @@ CREATE TABLE `tags` (
 -- Structure de la table `tags_articles`
 --
 
-CREATE TABLE `tags_articles` (
+CREATE TABLE IF NOT EXISTS `tags_articles` (
   `tag_article_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL,
@@ -221,7 +239,17 @@ CREATE TABLE `tags_articles` (
   KEY `tag_id` (`tag_id`),
   KEY `tag_id_2` (`tag_id`),
   KEY `article_id_2` (`article_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `tags_articles`
+--
+
+INSERT INTO `tags_articles` (`tag_article_id`, `article_id`, `tag_id`) VALUES
+(1, 2, 1),
+(2, 3, 2),
+(3, 1, 1),
+(4, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -229,7 +257,7 @@ CREATE TABLE `tags_articles` (
 -- Structure de la table `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(45) NOT NULL,
   `user_surname` varchar(45) NOT NULL,
@@ -261,9 +289,10 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`
 -- Structure de la table `users_articles`
 --
 
-CREATE TABLE `users_articles` (
+CREATE TABLE IF NOT EXISTS `users_articles` (
   `user_article_id` int(11) NOT NULL AUTO_INCREMENT,
   `quantity` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
   `description` text NOT NULL,
   `status` varchar(45) NOT NULL,
   `price` double NOT NULL,
@@ -282,9 +311,9 @@ CREATE TABLE `users_articles` (
 -- Contenu de la table `users_articles`
 --
 
-INSERT INTO `users_articles` (`user_article_id`, `quantity`, `description`, `status`, `price`, `created_at`, `updated_at`, `article_id`, `user_id`, `image_id`) VALUES
-(3, 1, 'Vends ma Audi TT S-tronic (automatique palette volant) 2L tfsi noir très entretenue \n17 900 euros (négociable raisonnablement )\n\n- 50 000km\n-cuir alcantara beige claire\n-boite séquentiel volant S tronic\n-volant meplat audit sport\n-clin multi zone \n-vitre électrique\n-rétro électrique rétractable\n-jante rs6 19pouce\n-autoradio DVD GPS 7 pouce tactile bluetooth kit main libre "android 4.4.2" blutooth, wifi ,mp3 ,8 go, slot micro sd \n-son concert Audi 12 enceintes (10 enceintes +caisson +centrale) \n-CT Ok vierge!\n-Révision Audi Ok ( facture) plaquettes neuves !', '', 17900, '2015-06-23 14:54:29', NULL, 3, 4, NULL),
-(4, 4, '\r\nJe mets en vente mon iPhone 6 noir\r\n\r\n16 g\r\n\r\nDesimlocke.\r\n\r\nIl est en excellent état.\r\n\r\nJe fournis boîte et facture.\r\n\r\n550 si vente aujourd''hui !!\r\n\r\n\r\nCause de la vente : je veux acheter le Samsung s6 edge\r\n', '', 550, '2015-06-23 14:54:29', NULL, 5, 5, NULL);
+INSERT INTO `users_articles` (`user_article_id`, `quantity`, `title`, `description`, `status`, `price`, `created_at`, `updated_at`, `article_id`, `user_id`, `image_id`) VALUES
+(3, 1, NULL, 'Vends ma Audi TT S-tronic (automatique palette volant) 2L tfsi noir très entretenue \n17 900 euros (négociable raisonnablement )\n\n- 50 000km\n-cuir alcantara beige claire\n-boite séquentiel volant S tronic\n-volant meplat audit sport\n-clin multi zone \n-vitre électrique\n-rétro électrique rétractable\n-jante rs6 19pouce\n-autoradio DVD GPS 7 pouce tactile bluetooth kit main libre "android 4.4.2" blutooth, wifi ,mp3 ,8 go, slot micro sd \n-son concert Audi 12 enceintes (10 enceintes +caisson +centrale) \n-CT Ok vierge!\n-Révision Audi Ok ( facture) plaquettes neuves !', '', 17900, '2015-06-23 14:54:29', NULL, 3, 4, NULL),
+(4, 4, NULL, '\r\nJe mets en vente mon iPhone 6 noir\r\n\r\n16 g\r\n\r\nDesimlocke.\r\n\r\nIl est en excellent état.\r\n\r\nJe fournis boîte et facture.\r\n\r\n550 si vente aujourd''hui !!\r\n\r\n\r\nCause de la vente : je veux acheter le Samsung s6 edge\r\n', '', 550, '2015-06-23 14:54:29', NULL, 5, 5, NULL);
 
 --
 -- Contraintes pour les tables exportées
@@ -300,6 +329,7 @@ ALTER TABLE `address`
 -- Contraintes pour la table `articles`
 --
 ALTER TABLE `articles`
+  ADD CONSTRAINT `fk_articles_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `fk_articles_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`),
   ADD CONSTRAINT `fk_articles_image_id` FOREIGN KEY (`image_id`) REFERENCES `images` (`image_id`);
 
@@ -350,3 +380,7 @@ ALTER TABLE `users_articles`
   ADD CONSTRAINT `fk_users_articles_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`),
   ADD CONSTRAINT `fk_users_articles_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `fk_user_articles_image_id` FOREIGN KEY (`image_id`) REFERENCES `images` (`image_id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
