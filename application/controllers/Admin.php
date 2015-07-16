@@ -9,6 +9,7 @@ class Admin extends CI_Controller {
         parent::__construct();
 
         $this->load->model('login_model');
+        $this->load->model('category_model');
     }
 
     public function index() {
@@ -33,7 +34,7 @@ class Admin extends CI_Controller {
             $this->load->view('back/login_view', $data);
 //            $this->load->view('back/template/layout', $data);
         } else {
-           
+
             //validation succeeds
             if ($this->input->post('btn_login') == "Login") {
                 //check if username and password is correct
@@ -59,7 +60,6 @@ class Admin extends CI_Controller {
     public function logout() {
         session_destroy();
         redirect(base_url('/'), 'refresh');
-
     }
 
     public function login() {
@@ -79,7 +79,7 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-     public function liste_articles() {
+    public function liste_articles() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -89,7 +89,7 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
-    
+
     public function form_articles() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -100,7 +100,7 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
-    
+
     public function liste_exemplaires() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -111,18 +111,120 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
-    
+
+//    public function liste_categories() {
+//        if (!$this->session->has_userdata('login')) {
+//            redirect('admin');
+//        }
+//        $data['title'] = 'un titre';
+//        $data['additional_css'] = array('categories');
+//        $data['view'] = 'back/liste_categories';
+//        $data['show_header'] = TRUE;
+//        $this->load->view('back/template/layout', $data);
+//    }
     public function liste_categories() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
         $data['title'] = 'un titre';
-        $data['additional_css'] = array('categories');
         $data['view'] = 'back/liste_categories';
         $data['show_header'] = TRUE;
+        $data['categories'] = $this->category_model->get_all();
         $this->load->view('back/template/layout', $data);
     }
-    
+    public function delete_category($id){
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $this->category_model->delete_category($id);
+        redirect('admin/liste_categories');
+    }
+    public function update_category($category_id=null) {
+        //$this->output->enable_profiler(TRUE);
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        
+        $parent = $this->input->post("txt_parent");
+        $category =   $this->input->post("txt_category");
+        if($parent=='0'){
+            $category = strtoupper($category);
+        }else{
+            $category = ucfirst($category);
+        }
+
+        $this->form_validation->set_rules("txt_category", "Category", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'un titre';
+            $data['cat'] = $this->category_model->get_category($category_id);
+            $data['categories'] = $this->category_model->get_all();
+            $data['view'] = 'back/update_category';
+            $data['show_header'] = TRUE;
+            $data['id'] = $category_id;
+            
+
+            $this->load->view('back/template/layout', $data);
+            //$this->load->view('back/update_category', $data);
+        } else {
+
+
+            if ($this->input->post('btn_update') == "Update") {
+
+                $this->category_model->update_category($parent, $category_id, $category);
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
+                            . 'La nouvelle catégorie a été mis à jour avec succès !</div>');
+                    redirect("admin/update_category/".$category_id);
+                
+            } else {
+                redirect('admin/update_category/'.$category_id);
+            }
+        }
+    }
+
+    public function ajouter_category() {
+        if (!$this->session->has_userdata('login')) {
+//            redirect('admin/home');
+            echo 'admin/home';
+        }
+
+        $parent = $this->input->post("txt_parent");
+        $category =   $this->input->post("txt_category");
+        if($parent=='0'){
+            $category = strtoupper($category);
+        }else{
+            $category = ucfirst($category);
+        }
+
+        $this->form_validation->set_rules("txt_category", "Category", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'un titre';
+            $data['categories'] = $this->category_model->get_all();
+            $data['view'] = 'back/ajouter_category';
+            $data['show_header'] = TRUE;
+
+            $this->load->view('back/template/layout', $data);
+        } else {
+
+
+            if ($this->input->post('btn_ajouter') == "Ajouter") {
+
+                if ($this->category_model->add_category($parent, $category)) {
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouvelle catégorie a été ajoutée avec succès !</div>');
+                    redirect("admin/ajouter_category");
+                } else {
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
+                    redirect('admin/ajouter_category');
+                }
+            } else {
+                redirect('admin/ajouter_category');
+            }
+        }
+    }
+
     public function liste_administrateurs() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -133,7 +235,7 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
-    
+
     public function liste_vendeurs() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -144,7 +246,7 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
-    
+
     public function form_administrateurs() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -155,7 +257,7 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
-    
+
     public function liste_roles() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -166,7 +268,7 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
-    
+
     public function form_roles() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -177,7 +279,7 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
-    
+
     public function lister_personnes() {
         $data['title'] = 'un titre';
         $data['personnes'] = $this->personnes_model->get_personnes();
