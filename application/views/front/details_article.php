@@ -14,7 +14,7 @@
     // echo "<button data-role='".$row->article_id."'>Ajouter au panier </button>";
     echo '</div>';
 
-    if (!empty($vendeurs_articles->result())) {
+    if (count($vendeurs_articles->result())>0) {
         foreach ($vendeurs_articles->result() as $row) :
             ?>
             <div class="vendeurs">
@@ -38,21 +38,7 @@
 
             </div>
     
-             <?= form_open_multipart();?>   
-            <table class="table">
-                <tr>
-                    <td>Title</td>
-                    <td><?= form_input('title') ?></td>    
-                </tr>
-                <tr>
-                    <td>Image</td>
-                    <td><?= form_upload('pic') ?></td>    
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><?= form_submit('submit', 'Save', 'class="btn btn-primary"') ?></td>    
-                </tr>
-            </table>
+         
 
 
 

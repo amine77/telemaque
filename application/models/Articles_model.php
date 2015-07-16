@@ -13,6 +13,9 @@ class Articles_model extends CI_Model {
         return $query;
     }
     
+     public function search($key) {
+         
+     }
     
 
 }
