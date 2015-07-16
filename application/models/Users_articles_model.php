@@ -37,7 +37,7 @@ class Users_articles_model extends CI_Model {
     public function user_with_article($article_id,$user_id) {
  
 
-        $sql = "SELECT u.user_id ,u.user_name ,u.user_surname,ua.image_id,ua.quantity,a.article_id,ua.price,ua.description
+        $sql = "SELECT u.user_id ,u.user_name ,u.user_surname,ua.image_id,ua.quantity,a.article_id,ua.price,ua.title,ua.description,a.article_label
                FROM users u
                JOIN users_articles ua ON u.user_id = ua.user_id
                JOIN articles a ON ua.article_id = a.article_id

@@ -46,10 +46,10 @@ class Articles extends Front_Controller {
             }*/
             
         } else {
-            $userActicle = $this->users_articles_model->user_with_article($article_id, $user_id);
+            $userActicle = $this->users_articles_model->user_with_article($article_id, $user_id)->result();
             //$this->output->enable_profiler(TRUE);
 
-            if (count($userActicle->result()) == 0) {
+            if (count($userActicle) == 0) {
                 redirect(base_url() . 'articles/' . $article_id, 'location');
             }
 
@@ -57,7 +57,14 @@ class Articles extends Front_Controller {
             $this->data['article'] = $this->db->get_where('articles', array('article_id' => $article_id));
             $this->data['vendeurs_articles'] = $userActicle;
             
-            
+            if(!is_null($userActicle[0]->image_id)){
+                 $this->data['img'] = $this->utils_models->get_im($userActicle['image_id'],300);
+                 $this->debug($this->data['img']);
+                 $this->data['img'] = $this->data['img']['im_src']; 
+            }
+            else{
+                $this->data['img'] = "<img src='".base_url()."assets/img/produit.jpg' width='300px' alt='image produit'/>";
+            }
             $this->data['view'] = "front/details_user_article";
         }
         $this->load->view('front/template/layout', $this->data);
