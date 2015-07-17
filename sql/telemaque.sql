@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 16 Juillet 2015 à 11:52
+-- Généré le: Ven 17 Juillet 2015 à 12:18
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
 --
 
 INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `category_id`, `image_id`, `user_id`) VALUES
-(1, 'Renault twingo', '2015-06-19 08:39:18', 1, NULL, 3),
+(1, 'Renault twingo', '2015-06-19 08:39:18', 1, 1, 3),
 (2, 'Audi TT', '2015-06-19 08:39:18', 1, NULL, 3),
 (3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', 9, NULL, 3),
 (4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', 9, NULL, 3),
@@ -166,7 +166,14 @@ CREATE TABLE IF NOT EXISTS `images` (
   `height` int(11) NOT NULL,
   `width` int(11) NOT NULL,
   PRIMARY KEY (`image_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `images`
+--
+
+INSERT INTO `images` (`image_id`, `image_label`, `image_path`, `size`, `format`, `height`, `width`) VALUES
+(1, 'Tulips.jpg', './assets/img/upload/871055a8b3f9dcd0a.jpg', 620888, 'jpg', 768, 1024);
 
 -- --------------------------------------------------------
 
@@ -329,9 +336,9 @@ ALTER TABLE `address`
 -- Contraintes pour la table `articles`
 --
 ALTER TABLE `articles`
-  ADD CONSTRAINT `fk_articles_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `fk_articles_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`),
-  ADD CONSTRAINT `fk_articles_image_id` FOREIGN KEY (`image_id`) REFERENCES `images` (`image_id`);
+  ADD CONSTRAINT `fk_articles_image_id` FOREIGN KEY (`image_id`) REFERENCES `images` (`image_id`),
+  ADD CONSTRAINT `fk_articles_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `articles_specifications`
