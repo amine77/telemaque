@@ -6,9 +6,11 @@ class Articles_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_articles($nb) {
-
-        $query = $this->db->query("SELECT * FROM articles LIMIT $nb");
+    public function get_articles($nb='') {
+        $limit="";
+        if($nb!='')
+            $limit =  "LIMIT $nb";
+        $query = $this->db->query("SELECT * FROM articles $limit");
 
         return $query;
     }
