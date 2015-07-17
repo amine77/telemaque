@@ -1,9 +1,8 @@
-<div class="center">
+<div id="bloc_contenu">
     <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
     ?>
 
-    <h1>Bienvenue sur la page d'accueil!</h1>
     <h2>Liste des Articles</h2>
     <div>
         <?php
@@ -12,11 +11,17 @@
         foreach ($articles->result() as $row) {
             echo "<div class='list-article' id='article_" . $row->article_id . "'>
              <h3>" . $row->article_label . "</h3>
-             <a href='" . base_url() . "articles/$row->article_id' data-role='" . $row->article_id . "' class='btn btn-primary' >Voir les details</a><br/>   
-             ";
+             <img src='" . base_url() . "assets/img/img_none.jpg' width='100' height='100'>";
 
             // echo "<button data-role='".$row->article_id."'>Ajouter au panier </button>";
-            echo '</div>';
+            echo '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mattis, velit vel scelerisque efficitur
+            lectus neque facilisis tellus, id scelerisque turpis erat sit amet nunc. Vivamus fringilla posuere.</p><br>';
+            
+            echo '<div class="clear"></div>';
+            
+            echo "<a href='" . base_url() . "articles/$row->article_id' data-role='" . $row->article_id . "' class='btn_details_articles' >Voir les details</a><br>";
+            
+            echo '<div class="clear"></div></div>';
         }
         ?>
   

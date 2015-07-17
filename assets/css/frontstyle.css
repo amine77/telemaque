@@ -41,22 +41,6 @@ a:hover{
 
 
 
-
-
-.vendeurs{
-    border:1px solid grey;
-}
-
-.list-article{
-    width: 31%;
-    height: 150px;
-    background-color: yellow;
-    float: left;
-    margin: 0 2% 1.5% 0;
-}
-
-
-
 /*********************************************************************************
 STYLE DU HEADER
 *********************************************************************************/
@@ -203,6 +187,77 @@ footer{
     background: -ms-linear-gradient(top,  #530214 12%,#320008 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #530214 12%,#320008 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#530214', endColorstr='#320008',GradientType=0 ); /* IE6-9 */
+}
+/*********************************************************************************
+*********************************************************************************/
+
+
+
+
+/*********************************************************************************
+STYLE DE L'INDEX
+*********************************************************************************/
+#bloc_contenu{
+    width: 1200px;
+    margin: 0 auto;
+    padding-left: 1.5%;
+    padding-top: 15px;
+}
+
+.vendeurs{
+    border:1px solid grey;
+}
+
+.list-article{
+    border: 2px solid #9f1232;
+    border-radius: 10px;
+    padding: 10px;
+    min-height: 220px;
+    width: 31.3%;
+    float: left;
+    margin: 0 2% 1.5% 0;
+}
+
+.list-article img{
+    float: left;
+    margin-right: 8px;
+}
+
+.list-article p{
+    font-size: 10px;
+}
+
+.list-article .btn_details_articles{
+    padding: 10px 15px;
+    border-radius: 5px;
+    background: #8f0222; /* Old browsers */
+    background: -moz-linear-gradient(top,  #8f0222 12%, #530214 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(12%,#8f0222), color-stop(100%,#530214)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #8f0222 12%,#530214 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #8f0222 12%,#530214 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #8f0222 12%,#530214 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #8f0222 12%,#530214 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8f0222', endColorstr='#530214',GradientType=0 ); /* IE6-9 */
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.list-article .btn_details_articles:hover{
+    background: #9f1232; /* Old browsers */
+    background: -moz-linear-gradient(top,  #9f1232 12%, #631224 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(12%,#9f1232), color-stop(100%,#631224)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #9f1232 12%,#631224 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #9f1232 12%,#631224 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #9f1232 12%,#631224 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #9f1232 12%,#631224 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9f1232', endColorstr='#631224',GradientType=0 ); /* IE6-9 */
+}
+
+
+@media screen and (max-width: 1200px) {
+    #bloc_contenu{
+        width: 100%;
+    }
 }
 /*********************************************************************************
 *********************************************************************************/
