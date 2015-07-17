@@ -15,6 +15,12 @@
 
 <div id="bloc_contenu">
     <h1>Liste des administrateurs</h1>
+    
+    <button>Ajouter</button>
+    <button>Supprimer</button>
+    
+    <div class="clear"></div>
+    
     <table class="tableau_liste" id="tableau_administrateurs">
         <thead>
             <tr>

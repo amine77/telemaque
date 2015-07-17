@@ -1,12 +1,9 @@
 /****************************************************************************
 TABLEAU DE LA LISTE DES ROLES DES ADMINISTRATEURS
 ****************************************************************************/
-#btn_ajouter_role{
-    margin-bottom: 15px;
-}
-
 #tableau_roles{
     width: 100%;
+    margin-top: 10px;
 }
 
 #tableau_roles .col_checkbox{

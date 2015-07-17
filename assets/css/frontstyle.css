@@ -1,20 +1,42 @@
+/*********************************************************************************
+STYLE GENERAL
+*********************************************************************************/
 *{
     padding:0;
     margin:0;
 }
-li{
+
+body{
+    width: 100%;
+}
+
+ul li{
     list-style-type: none;
 }
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
 #menu{
     float:left;
 }
+
 .center{
     width:62em;
     margin:0 auto;
 }
+
 .clear{
     clear:both;
 }
+/*********************************************************************************
+*********************************************************************************/
+
 
 
 #menu li{
@@ -36,6 +58,71 @@ li{
     background-color: yellow;
     float: left;
     margin: 0 2% 1.5% 0;
-    
 }
 
+
+
+/*********************************************************************************
+STYLE DU HEADER
+*********************************************************************************/
+header{
+    width: 100%;
+}
+
+header #bloc_connexion{
+    width: 100%;
+    height: 40px;
+    padding: 10px 20px;
+    text-align: right;
+    background: #424242; /* Old browsers */
+    background: -moz-linear-gradient(top,  #424242 0%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#424242), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #424242 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #424242 0%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #424242 0%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #424242 0%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#424242', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+    color: #FFFFFF;
+}
+
+header #bloc_connexion a,
+header #bloc_connexion a:hover{
+    color: #FFFFFF;
+}
+
+header #bloc_head_centre{
+    width: 100%;
+    height: 120px;
+    background: #8f0222; /* Old browsers */
+    background: -moz-linear-gradient(top,  #8f0222 12%, #530214 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(12%,#8f0222), color-stop(100%,#530214)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #8f0222 12%,#530214 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #8f0222 12%,#530214 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #8f0222 12%,#530214 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #8f0222 12%,#530214 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8f0222', endColorstr='#530214',GradientType=0 ); /* IE6-9 */
+}
+
+/*********************************************************************************
+*********************************************************************************/
+
+
+
+/*********************************************************************************
+STYLE DU FOOTER
+*********************************************************************************/
+footer{
+    width: 100%;
+    height: 200px;
+    padding: 30px 0;
+    background: #530214; /* Old browsers */
+    background: -moz-linear-gradient(top,  #530214 12%, #320008 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(12%,#530214), color-stop(100%,#320008)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #530214 12%,#320008 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #530214 12%,#320008 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #530214 12%,#320008 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #530214 12%,#320008 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#530214', endColorstr='#320008',GradientType=0 ); /* IE6-9 */
+}
+/*********************************************************************************
+*********************************************************************************/
