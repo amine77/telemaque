@@ -10,10 +10,12 @@ class Search extends Front_Controller {
     }
 
     public function index() {
-    
-        $key = "a remplir";
-
-        $this->data['result'] = $this->articles_model->search($key);
+        $key = $this->uri->segment(2);
+        //echo 'Votre recherche concerne : '.$key;
+//        $key = "a remplir";
+//
+        $this->data['articles'] = $this->articles_model->search($key);
+        $this->data['recherche'] = $key;
         $this->data['view'] = 'front/search';
         $this->load->view('front/template/layout', $this->data);
     }

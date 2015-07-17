@@ -30,7 +30,7 @@
 
     </div>   
     <div style="float:right;margin-right:20px;">
-        <form method="GET" >
+        <form action="" method="GET" >
             <input type="search" name="search" id="search"/>
             <input type="submit" value="Valider">
         </form>

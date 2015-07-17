@@ -26,4 +26,5 @@ class Home extends Front_Controller {
     }
 
 
+
 }
