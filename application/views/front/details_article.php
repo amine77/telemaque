@@ -14,8 +14,8 @@
     // echo "<button data-role='".$row->article_id."'>Ajouter au panier </button>";
     echo '</div>';
 
-    if (count($vendeurs_articles->result())>0) {
-        foreach ($vendeurs_articles->result() as $row) :
+    if (count($vendeurs_articles)>0) {
+        foreach ($vendeurs_articles as $row) :
             ?>
             <div class="vendeurs">
 
@@ -39,7 +39,7 @@
             </div>
     
          
-
+                
 
 
             <?php
@@ -47,6 +47,8 @@
     } else {
         echo 'Pas de vendeur pour cette article';
     }
+    
+    
     ?>
 
 

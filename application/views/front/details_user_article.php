@@ -2,7 +2,7 @@
     <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
     $oData = $vendeurs_articles[0];
-    $this->utils_model->debug($oData);
+ // $this->utils_model->debug($oData);
     ?>
 
 
@@ -28,7 +28,8 @@
             <div id="prix">
                 <h3><?= $oData->price ?> €</h3>
             </div>
-            <button class='btn btn-default' data-role="<?= $oData->article_id ?>">Ajouter au panier </button>
+              
+            <button class='btn btn-default add_article' data-role="<?= $oData->user_article_id ?>">Ajouter au panier </button>
             <a class="btn btn-primary" href="<?= base_url() . 'articles/' . $oData->article_id ?>">Retour</a>
         </div>
 
