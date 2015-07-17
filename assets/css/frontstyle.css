@@ -39,14 +39,9 @@ a:hover{
 
 
 
-#menu li{
-    display:inline-block;
-    padding:0.2em 0.7em;
-}
 
-#panier{
-    float:right;
-}
+
+
 
 .vendeurs{
     border:1px solid grey;
@@ -92,7 +87,7 @@ header #bloc_connexion a:hover{
 
 header #bloc_head_centre{
     width: 100%;
-    height: 120px;
+    height: 130px;
     background: #8f0222; /* Old browsers */
     background: -moz-linear-gradient(top,  #8f0222 12%, #530214 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(12%,#8f0222), color-stop(100%,#530214)); /* Chrome,Safari4+ */
@@ -103,6 +98,91 @@ header #bloc_head_centre{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8f0222', endColorstr='#530214',GradientType=0 ); /* IE6-9 */
 }
 
+header #bloc_head_centre #bloc_logo{
+    width: 300px;
+    height: 120px;
+    padding: 20px;
+    margin: 0 0 0 10px;
+    background-image: url(../img/logo.png);
+    background-repeat: no-repeat;
+}
+
+nav{
+    padding: 10px 10px 5px 10px;
+    background: #424242; /* Old browsers */
+    background: -moz-linear-gradient(top,  #424242 0%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#424242), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #424242 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #424242 0%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #424242 0%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #424242 0%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#424242', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+    color: #FFFFFF;
+}
+
+nav a,
+nav a:hover{
+    color: #FFFFFF;
+}
+
+nav ul{
+    float: left;
+}
+
+nav li{
+    display:inline-block;
+    padding:0.2em 0.7em;
+}
+
+nav #autres{
+    float: right;
+}
+
+nav #autres #panier{
+    float: right;
+}
+
+nav #autres #form_search{
+    float: left;
+    margin-right: 20px;
+}
+
+nav #autres #form_search input[type="search"]{
+    background-color: #555555;
+    width: 250px;
+    background-image: url(../img/loupe.png);
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 4px;
+    color: #FFFFFF;
+    padding: 3px 3px 3px 30px;
+}
+
+nav #autres #form_search input[type="submit"]{
+    background: #8f0222; /* Old browsers */
+    background: -moz-linear-gradient(top,  #8f0222 12%, #530214 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(12%,#8f0222), color-stop(100%,#530214)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #8f0222 12%,#530214 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #8f0222 12%,#530214 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #8f0222 12%,#530214 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #8f0222 12%,#530214 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8f0222', endColorstr='#530214',GradientType=0 ); /* IE6-9 */
+    color: #FFFFFF;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    margin-left: 5px;
+}
+nav #autres #form_search input[type="submit"]:hover{
+    background: #9f1232; /* Old browsers */
+    background: -moz-linear-gradient(top,  #9f1232 12%, #631224 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(12%,#9f1232), color-stop(100%,#631224)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #9f1232 12%,#631224 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #9f1232 12%,#631224 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #9f1232 12%,#631224 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #9f1232 12%,#631224 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9f1232', endColorstr='#631224',GradientType=0 ); /* IE6-9 */
+}
 /*********************************************************************************
 *********************************************************************************/
 
