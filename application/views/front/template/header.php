@@ -28,10 +28,10 @@
         
         <div id="autres">
             <div id="form_search">
-                <form method="GET" >
-                    <input type="search" name="search" id="search"/>
-                    <input type="submit" value="Valider">
-                </form>
+                <?php echo form_open('search'); ?>
+            <input type="text" name="recherche" id="search"/>
+            <input type="submit" value="Valider">
+        <?php echo form_close(); ?>
             </div>
             <div id="panier">
                 <?php echo '<a href="' . base_url() . 'panier">Panier</a>(<span>' . $nb_article . '</span>)'; ?>
