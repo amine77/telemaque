@@ -41,10 +41,10 @@
 
     </div>   
     <div style="float:right;margin-right:20px;">
-        <form action="" method="GET" >
-            <input type="search" name="search" id="search"/>
+        <?php echo form_open('search'); ?>
+            <input type="text" name="recherche" id="search"/>
             <input type="submit" value="Valider">
-        </form>
+        <?php echo form_close(); ?>
 
     </div>
     <div class="clear"></div>

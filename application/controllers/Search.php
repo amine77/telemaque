@@ -10,7 +10,8 @@ class Search extends Front_Controller {
     }
 
     public function index() {
-        $key = $this->uri->segment(2);
+        //$key = $this->uri->segment(2);
+        $key = $this->input->post('recherche');
         //echo 'Votre recherche concerne : '.$key;
 //        $key = "a remplir";
 //
