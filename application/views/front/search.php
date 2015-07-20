@@ -15,7 +15,7 @@
              <h3>" . $article['article_label']. "</h3>
              <a href='" . base_url() . "articles/".$article['article_id']."' data-role='" . $article['article_id'] . "' class='btn btn-primary' >"
                     . $img."Voir les details</a><br/>";
-            echo '</div>';
+            echo '</div><div class="clear"></div>';
         }
         ?>
 
