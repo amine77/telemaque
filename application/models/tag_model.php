@@ -21,14 +21,28 @@ class tag_model extends CI_Model {
         return $query->result_array();
     }
 
-    function add_tag($tag_label, $articles) {
+    function add_tag($tag_label, $articles_id) {
         $data = array(
             'tag_label' => $tag_label
         );
 
         $this->db->insert('tags', $data);
         $insert_id = $this->db->insert_id();
-        return ($this->db->affected_rows() != 1) ? false : true; //pour vérifier si l'insertion s'est bien déroulée.
+        $insertion =  ($this->db->affected_rows() != 1) ? false : true; //pour vérifier si l'insertion s'est bien déroulée.
+        if($insertion){
+            $datas= array();
+            foreach ($articles_id as $article_id) {
+                
+            }
+            $datas[] = array(
+            'tag_id' => $insert_id,
+            'article_id' => $article_id
+        );
+
+        $this->db->insert_batch('tags_article', $datas);
+        }else{
+            return false;
+        }
     }
 
     function delete_tag($id) {
