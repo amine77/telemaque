@@ -30,11 +30,14 @@ class Articles extends Front_Controller {
 
         if (empty($user_id)) {
 
-            $this->data['article'] = $this->db->get_where('articles', array('article_id' => $article_id));
-            $this->data['vendeurs_articles'] = $this->users_articles_model->list_user_article($article_id);
+            $this->data['article'] = $this->articles_model->get_article($article_id);
 
+            $this->data['vendeurs_articles'] = $this->users_articles_model->list_user_article($article_id);
+           
+            
             $this->data['view'] = "front/details_article";
-            $this->debug($this->data['vendeurs_articles']);
+           $this->debug($this->data['vendeurs_articles']);
+            
             //Exemple upload photo 
            /* if(isset($_FILES['pic'])){
                 if (is_uploaded_file($_FILES['pic']['tmp_name'])) {
@@ -57,11 +60,12 @@ class Articles extends Front_Controller {
             $this->data['lib_css'] = array('jquery-ui.min');
             $this->data['article'] = $this->db->get_where('articles', array('article_id' => $article_id));
             $this->data['vendeurs_articles'] = $userActicle;
-           
+            
             if(!is_null($userActicle[0]->image_id)){
-                 $this->data['img'] = $this->utils_models->get_im($userActicle['image_id'],300);
+             
+                 $this->data['img'] = $this->utils_model->get_im($userActicle[0]->image_id,300);
                  $this->debug($this->data['img']);
-                 $this->data['img'] = $this->data['img']['im_src']; 
+                 $this->data['img'] = $this->data['img']['imsrc']; 
             }
             else{
                 $this->data['img'] = "<img src='".base_url()."assets/img/produit.jpg' width='250px' alt='image produit'/>";

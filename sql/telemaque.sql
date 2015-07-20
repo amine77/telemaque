@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 17 Juillet 2015 à 14:59
+-- Généré le: Lun 20 Juillet 2015 à 10:32
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_label` varchar(250) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `description` text NOT NULL,
   `category_id` int(11) NOT NULL,
   `image_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
@@ -62,13 +63,13 @@ CREATE TABLE IF NOT EXISTS `articles` (
 -- Contenu de la table `articles`
 --
 
-INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `category_id`, `image_id`, `user_id`) VALUES
-(1, 'Renault twingo', '2015-06-19 08:39:18', 1, 1, 3),
-(2, 'Audi TT', '2015-06-19 08:39:18', 1, NULL, 3),
-(3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', 9, NULL, 3),
-(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', 9, NULL, 3),
-(5, 'Iphone 6', '2015-06-19 08:44:14', 10, NULL, 3),
-(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', 10, NULL, 3);
+INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `description`, `category_id`, `image_id`, `user_id`) VALUES
+(1, 'Renault twingo', '2015-06-19 08:39:18', 'Sortie en 2002, la Renault Mégane II a été élue voiture de l''année 2003. Elle a été commercialisée d''abord en 3 et 5 portes, puis est arrivée en fin de cette même année, le coupé cabriolet pour remplacer la Renault Mégane I cabriolet, le break et la version tricorps. En 2004 est apparu la version sportive RS (pour Renault Sport) avec le « moteur F » de type F4RT. La Mégane II a été restylée en 2006, à ce moment, de nouveau moteurs sont apparus, notamment, en Diesel, ou le 1,9 dCi est passée de 120 à 130 ch et est apparu un 2,0 dCi d''une puissance de 150 ch. En 2007, est apparu une nouvelle version sportive, moins puissante que la RS, mais avec un aspect radicalement sportif : La Mégane GT. La Renault Mégane II a été remplacée en octobre 2008 par la Renault Mégane III.', 1, 1, 3),
+(2, 'Audi TT', '2015-06-19 08:39:18', '', 1, NULL, 3),
+(3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', '', 9, NULL, 3),
+(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', '', 9, NULL, 3),
+(5, 'Iphone 6', '2015-06-19 08:44:14', '', 10, NULL, 3),
+(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', '', 10, NULL, 3);
 
 -- --------------------------------------------------------
 

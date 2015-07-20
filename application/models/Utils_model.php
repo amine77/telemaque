@@ -6,7 +6,7 @@ class Utils_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_im($id, $width = 250, $height = 250, $alt = '') {
+    public function get_im($id, $width = 250, $height = '', $alt = '') {
         $wImg = '';
         $hImg = '';
         if ($width > 0)
@@ -18,7 +18,10 @@ class Utils_model extends CI_Model {
         $query = $query->result();
 
         if (count($query) != 1) {
-            return "Image non trouvée";
+            $oData = array(
+                'imsrc' => '<img src="' . base_url() .'assets/img/img_none.jpg"'  . $wImg  . $hImg . ' alt="image non trouvée"/>'
+            );
+            return $oData;
         }
 
         $oData = array(
