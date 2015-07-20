@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 17 Juillet 2015 à 12:18
+-- Généré le: Ven 17 Juillet 2015 à 14:59
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -83,7 +83,15 @@ CREATE TABLE IF NOT EXISTS `articles_specifications` (
   PRIMARY KEY (`article_specification_id`),
   KEY `article_id` (`article_id`),
   KEY `specification_id` (`specification_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `articles_specifications`
+--
+
+INSERT INTO `articles_specifications` (`article_specification_id`, `article_id`, `specification_id`) VALUES
+(1, 1, 1),
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -209,7 +217,15 @@ CREATE TABLE IF NOT EXISTS `specifications` (
   `user_article_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`specification_id`),
   KEY `user_article_id` (`user_article_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `specifications`
+--
+
+INSERT INTO `specifications` (`specification_id`, `specification_label`, `specification_value`, `user_article_id`) VALUES
+(1, 'couleur', 'rouge', NULL),
+(2, 'age', '2 ans', NULL);
 
 -- --------------------------------------------------------
 
@@ -312,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `users_articles` (
   KEY `article_id` (`article_id`),
   KEY `user_id` (`user_id`),
   KEY `image_id` (`image_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `users_articles`
@@ -320,7 +336,8 @@ CREATE TABLE IF NOT EXISTS `users_articles` (
 
 INSERT INTO `users_articles` (`user_article_id`, `quantity`, `title`, `description`, `status`, `price`, `created_at`, `updated_at`, `article_id`, `user_id`, `image_id`) VALUES
 (3, 1, NULL, 'Vends ma Audi TT S-tronic (automatique palette volant) 2L tfsi noir très entretenue \n17 900 euros (négociable raisonnablement )\n\n- 50 000km\n-cuir alcantara beige claire\n-boite séquentiel volant S tronic\n-volant meplat audit sport\n-clin multi zone \n-vitre électrique\n-rétro électrique rétractable\n-jante rs6 19pouce\n-autoradio DVD GPS 7 pouce tactile bluetooth kit main libre "android 4.4.2" blutooth, wifi ,mp3 ,8 go, slot micro sd \n-son concert Audi 12 enceintes (10 enceintes +caisson +centrale) \n-CT Ok vierge!\n-Révision Audi Ok ( facture) plaquettes neuves !', '', 17900, '2015-06-23 14:54:29', NULL, 3, 4, NULL),
-(4, 4, NULL, '\r\nJe mets en vente mon iPhone 6 noir\r\n\r\n16 g\r\n\r\nDesimlocke.\r\n\r\nIl est en excellent état.\r\n\r\nJe fournis boîte et facture.\r\n\r\n550 si vente aujourd''hui !!\r\n\r\n\r\nCause de la vente : je veux acheter le Samsung s6 edge\r\n', '', 550, '2015-06-23 14:54:29', NULL, 5, 5, NULL);
+(4, 4, NULL, '\r\nJe mets en vente mon iPhone 6 noir\r\n\r\n16 g\r\n\r\nDesimlocke.\r\n\r\nIl est en excellent état.\r\n\r\nJe fournis boîte et facture.\r\n\r\n550 si vente aujourd''hui !!\r\n\r\n\r\nCause de la vente : je veux acheter le Samsung s6 edge\r\n', '', 550, '2015-06-23 14:54:29', NULL, 5, 5, NULL),
+(5, 1, 'renault twingo 1.2L pack clim du 10/06/97CTok du 22/06/2015', ' \r\nles freins ARR + les roulements ont été changés au mois de mars  2015(facture de 255 euro)\r\nle kit distri + P A E + ventilation + résistance changée a  168000 kms le 04/06/2015(facture de 345 euro)\r\nle verni se décolle un peu sur le toit\r\naucune négociation le jour de la vente\r\nvoiture à prendre dans l''état après son passage au CT qui\r\n a été fait le 22/06/2015 avec  2 défauts sans contre visite\r\n1er défaut:un soufflet de crémaillère\r\n2 ème défaut:absence de plaque constructeur', '', 1000, '2015-07-17 14:17:38', NULL, 1, 3, 1);
 
 --
 -- Contraintes pour les tables exportées
