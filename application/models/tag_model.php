@@ -28,25 +28,32 @@ class tag_model extends CI_Model {
 
         $this->db->insert('tags', $data);
         $insert_id = $this->db->insert_id();
-        $insertion =  ($this->db->affected_rows() != 1) ? false : true; //pour vérifier si l'insertion s'est bien déroulée.
-        if($insertion){
-            $datas= array();
+        $insertion = ($this->db->affected_rows() != 1) ? false : true; //pour vérifier si l'insertion s'est bien déroulée.
+        if ($insertion) {
+            $datas = array();
             foreach ($articles_id as $article_id) {
                 
             }
             $datas[] = array(
-            'tag_id' => $insert_id,
-            'article_id' => $article_id
-        );
+                'tag_id' => $insert_id,
+                'article_id' => $article_id
+            );
 
-        $this->db->insert_batch('tags_article', $datas);
-        }else{
+            $this->db->insert_batch('tags_articles', $datas);
+            return true;
+        } else {
             return false;
         }
     }
 
     function delete_tag($id) {
-        $this->db->delete('tags', array('tags_id' => $id));
+        $this->db->delete('tags_articles', array('tag_id' => $id));
+        $this->db->delete('tags', array('tag_id' => $id));
+    }
+
+    function find_articles($tag_id) {
+        $query = $this->db->get_where('tags_articles', array('tag_id' => $id));
+        return $query->row_array();
     }
 
     function get_tag($id) {

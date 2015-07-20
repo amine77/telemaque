@@ -37,7 +37,7 @@ $(function() {
                     <td><?= $tag['tag_id']?></td>
                     <td><?= $tag['tag_label'] ?></td>
                     <td><?= $tag['nb_articles'] ?></td>
-                    <td><a  title="supprimer" href="<?= base_url('admin/delete_tag/' . $tag['tag_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer cette catégorie?">
+                    <td><a  title="supprimer" href="<?= base_url('admin/delete_tag/' . $tag['tag_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer ce mot clé?">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </a> / <a title="modifier" href="<?= base_url('admin/update_tag/' . $tag['tag_id']) ?>">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>

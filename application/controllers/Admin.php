@@ -135,6 +135,13 @@ class Admin extends CI_Controller {
         $data['tags'] = $this->tag_model->get_all();
         $this->load->view('back/template/layout', $data);
     }
+    public function delete_tag($id) {
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $this->tag_model->delete_tag($id);
+        redirect('admin/liste_tags');
+    }
 
     public function liste_categories() {
         if (!$this->session->has_userdata('login')) {
@@ -197,6 +204,42 @@ class Admin extends CI_Controller {
             }
         }
     }
+    public function update_tag($tag_id = null){
+         if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+
+        $tag_label = $this->input->post("txt_tag");
+        $articles = $this->input->post('articles');
+        $this->form_validation->set_rules("txt_tag", "Tag", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'un titre';
+            $data['cat'] = $this->tag_model->get_tag($tag_id);
+            $data['articles'] = $this->articles_model->get_articles();
+            $data['articles_associes_ids'] = $this->tag_model->find_articles($tag_id);
+            $data['view'] = 'back/update_tag';
+            $data['show_header'] = TRUE;
+            $data['id'] = $category_id;
+
+
+            $this->load->view('back/template/layout', $data);
+            //$this->load->view('back/update_category', $data);
+        } else {
+
+
+            if ($this->input->post('btn_update') == "Update") {
+
+                $this->category_model->update_category($parent, $category_id, $category);
+                $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
+                        . 'La nouvelle catégorie a été mis à jour avec succès !</div>');
+                redirect("admin/update_category/" . $category_id);
+            } else {
+                redirect('admin/update_category/' . $category_id);
+            }
+        }
+    }
 
     public function ajouter_tag() {
         if (!$this->session->has_userdata('login')) {
@@ -221,10 +264,10 @@ class Admin extends CI_Controller {
             if ($this->input->post('btn_ajouter') == "Ajouter") {
 
                 if ($this->tag_model->add_tag($tag_label, $articles)) {
-                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouvelle catégorie a été ajoutée avec succès !</div>');
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau mot clé a été ajouté avec succès !</div>');
                     redirect("admin/ajouter_tag");
                 } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Mot clé non ajouté !</div>');
                     redirect('admin/ajouter_tag');
                 }
             } else {
