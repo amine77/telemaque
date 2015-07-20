@@ -178,7 +178,7 @@ STYLE DU FOOTER
 footer{
     width: 100%;
     height: 200px;
-    padding: 30px 0;
+    padding: 30px 20px;
     background: #530214; /* Old browsers */
     background: -moz-linear-gradient(top,  #530214 12%, #320008 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(12%,#530214), color-stop(100%,#320008)); /* Chrome,Safari4+ */
@@ -187,6 +187,37 @@ footer{
     background: -ms-linear-gradient(top,  #530214 12%,#320008 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #530214 12%,#320008 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#530214', endColorstr='#320008',GradientType=0 ); /* IE6-9 */
+}
+
+footer h4{
+    color: #FFCCCC;
+}
+
+footer ul li{
+    font-size: 12px;
+}
+
+footer a{
+    color: #FFFFFF;
+}
+
+.liste_liens_footer.secondaire,
+.liste_liens_footer.principal,
+.liste_liens_footer.principal .liste_liens_principal{
+    float: left;
+    text-align: center;
+}
+
+.liste_liens_footer.principal{
+    width: 60%
+}
+
+.liste_liens_footer.principal .liste_liens_principal{
+    width: 50%
+}
+
+.liste_liens_footer.secondaire{
+    width: 20%;
 }
 /*********************************************************************************
 *********************************************************************************/
@@ -219,8 +250,10 @@ STYLE DE L'INDEX
 }
 
 .list-article img{
-    float: left;
+    /* float: left;*/
+    width: 100%;
     margin-right: 8px;
+    margin-bottom: 15px;
 }
 
 .list-article p{

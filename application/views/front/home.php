@@ -11,7 +11,7 @@
         foreach ($articles->result() as $row) {
             echo "<div class='list-article' id='article_" . $row->article_id . "'>
              <h3>" . $row->article_label . "</h3>
-             <img src='" . base_url() . "assets/img/img_none.jpg' width='100' height='100'>";
+             <img src='" . base_url() . "assets/img/img_none.jpg'>";
 
             // echo "<button data-role='".$row->article_id."'>Ajouter au panier </button>";
             echo '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mattis, velit vel scelerisque efficitur
@@ -21,7 +21,7 @@
             
             echo "<a href='" . base_url() . "articles/$row->article_id' data-role='" . $row->article_id . "' class='btn_details_articles' >Voir les details</a><br>";
             
-            echo '<div class="clear"></div></div>';
+            echo '<br></div>';
         }
         ?>
   
