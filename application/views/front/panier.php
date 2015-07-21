@@ -16,7 +16,7 @@ echo '</pre>'
         </thead>
         <tbody>
             <?php 
-                foreach
+             
             ?>
         </tbody>
     </table>
