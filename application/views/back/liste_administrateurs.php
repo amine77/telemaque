@@ -1,88 +1,63 @@
-<script type="text/javascript">
-    /* center modal */
-    function centerModals() {
-        $('.modal').each(function (i) {
-            var $clone = $(this).clone().css('display', 'block').appendTo('body');
-            var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
-            top = top > 0 ? top : 0;
-            $clone.remove();
-            $(this).find('.modal-content').css("margin-top", top);
-        });
-    }
-    $('.modal').on('show.bs.modal', centerModals);
-    $(window).on('resize', centerModals);
+
+
+<script>
+	
+$(function() {
+	$('a[data-confirm]').click(function(ev) {
+		var href = $(this).attr('href');
+		
+		if (!$('#dataConfirmModal').length) {
+			$('body').append('<div id="dataConfirmModal" class="modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel">Confirmation</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button><a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
+		}
+		$('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+		$('#dataConfirmOK').attr('href', href);
+		$('#dataConfirmModal').modal({show:true});
+		
+		return false;
+	});
+});
+
 </script>
 
 <div id="bloc_contenu">
+    
+    <h4><a href="<?= base_url('admin/ajouter_admin')?>">Ajouter un administrateur</a></h4><br>
     <h1>Liste des administrateurs</h1>
-    
-    <button>Ajouter</button>
-    <button>Supprimer</button>
-    
-    <div class="clear"></div>
-    
-    <table class="tableau_liste" id="tableau_administrateurs">
-        <thead>
+
+    <?php if (is_array($administrateurs) && count($administrateurs) > 0) { ?>
+        <table class="table table-hover">
             <tr>
-                <td class="col_checkbox"></td>
-                <td class="col_login">Login</td>
-                <td class="col_prenom">Prénom</td>
-                <td class="col_nom">Nom</td>
-                <td class="col_role">Role</td>
-                <td class="col_liens"></td>
+                <th>ID</th>
+                <th>Nom </th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Activé</th>
+                <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr class="pair">
-                <td class="col_checkbox"><input type="checkbox"></td>
-                <td class="col_login">Login</td>
-                <td class="col_prenom">Prénom</td>
-                <td class="col_nom">Nom</td>
-                <td class="col_role">Role</td>
-                <td class="col_liens">
-                    <a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Fiche</a>
-                    - <a href="#">Modifier</a>
-                    - <a href="#">Supprimer</a>
-                </td>
-            </tr>
-            <tr class="impair">
-                <td class="col_checkbox"><input type="checkbox"></td>
-                <td class="col_login">Login</td>
-                <td class="col_prenom">Prénom</td>
-                <td class="col_nom">Nom</td>
-                <td class="col_role">Role</td>
-                <td class="col_liens">
-                    <a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Fiche</a>
-                    - <a href="#">Modifier</a>
-                    - <a href="#">Supprimer</a>
-                </td>
-            </tr>
-            <tr class="pair">
-                <td class="col_checkbox"><input type="checkbox"></td>
-                <td class="col_login">Login</td>
-                <td class="col_prenom">Prénom</td>
-                <td class="col_nom">Nom</td>
-                <td class="col_role">Role</td>
-                <td class="col_liens">
-                    <a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Fiche</a>
-                    - <a href="#">Modifier</a>
-                    - <a href="#">Supprimer</a>
-                </td>
-            </tr>
-            <tr class="impair">
-                <td class="col_checkbox"><input type="checkbox"></td>
-                <td class="col_login">Login</td>
-                <td class="col_prenom">Prénom</td>
-                <td class="col_nom">Nom</td>
-                <td class="col_role">Role</td>
-                <td class="col_liens">
-                    <a href="#" title="Dismissible popover" data-toggle="modal" data-target="#myModal" data-content="Click anywhere in the document to close this popover">Fiche</a>
-                    - <a href="#">Modifier</a>
-                    - <a href="#">Supprimer</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            <?php foreach ($administrateurs as $admin) { ?>
+                <tr>
+                    <td><?= $admin['user_id'] ?></td>
+                    <td><?= $admin['user_name'] ?></td>
+                    <td><?= $admin['user_surname'] ?></td>
+                    <td><?= $admin['mail'] ?></td>
+                    <td><?= $admin['role_label'] ?></td>
+                    <td><?= ($admin['status']== '0')? 'Désactivé': 'Activé'?></td>
+                    <td><a  title="supprimer" href="<?= base_url('admin/delete_admin/' . $admin['user_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer cet administrateur ?">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a> / <a title="modifier" href="<?= base_url('admin/update_admin/' . $admin['user_id']) ?>">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </a>
+                    </td>
+                </tr>
+
+                <?php }
+            ?>
+        </table>      
+        <?php
+    }
+    ?>
 
 
 </div>
+<br><br>

@@ -329,10 +329,60 @@ class Admin extends CI_Controller {
             redirect('admin');
         }
         $data['title'] = 'un titre';
-        $data['additional_css'] = array('administrateurs');
         $data['view'] = 'back/liste_administrateurs';
+        $data['administrateurs'] = $this->login_model->get_all_administrators();
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
+        
+    }
+    public function delete_admin($id){
+      if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $this->login_model->delete_user($id);
+        redirect('admin/liste_administrateurs');  
+    }
+    public function update_admin($user_id=null){
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+
+        $nom = $this->input->post("txt_nom");
+        $prenom = $this->input->post("txt_prenom");
+        $mail = $this->input->post("txt_mail");
+        $role = $this->input->post("txt_role_id");
+        $status = $this->input->post("txt_status_id");
+        
+
+        $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
+        $this->form_validation->set_rules("txt_prenom", "Prénom", "trim|required");
+        $this->form_validation->set_rules("txt_mail", "Email", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'un titre';
+            $data['user'] = $this->login_model->get_user_by_id($user_id);
+            $data['roles'] = $this->login_model->get_all_roles();
+            $data['view'] = 'back/update_category';
+            $data['show_header'] = TRUE;
+            $data['id'] = $category_id;
+
+
+            $this->load->view('back/template/layout', $data);
+            //$this->load->view('back/update_category', $data);
+        } else {
+
+
+            if ($this->input->post('btn_update') == "Update") {
+
+                $this->category_model->update_category($parent, $category_id, $category);
+                $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
+                        . 'La nouvelle catégorie a été mis à jour avec succès !</div>');
+                redirect("admin/update_category/" . $category_id);
+            } else {
+                redirect('admin/update_category/' . $category_id);
+            }
+        }
     }
 
     public function liste_vendeurs() {

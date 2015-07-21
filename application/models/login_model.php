@@ -7,11 +7,20 @@ class login_model extends CI_Model
           // Call the Model constructor
           parent::__construct();
      }
-
+     function get_all_administrators(){
+         $sql = "SELECT * FROM users, role WHERE  role.role_id = users.role_id AND (users.role_id = 1 or users.role_id = 2 ) ";
+          $query = $this->db->query($sql);
+           return $query->result_array();
+     }
      //get the username & password from tbl_usrs
      function get_user($usr, $pwd)
      {
           $sql = "SELECT * FROM users, role WHERE role.role_id = users.role_id AND login = '" . $usr . "' AND password = '" . $pwd . "' ";
+          $query = $this->db->query($sql);
+           return $query->row_array();
+     }
+     function get_user_by_id($user_id){
+         $sql = "SELECT * FROM users WHERE user_id = '" . $user_id . "' ";
           $query = $this->db->query($sql);
            return $query->row_array();
      }
@@ -52,5 +61,8 @@ class login_model extends CI_Model
         } else {
             return false;
         }
+    }
+    function delete_user($id){
+         $this->db->delete('users', array('user_id' => $id));
     }
 }?>
