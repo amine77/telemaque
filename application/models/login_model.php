@@ -11,9 +11,18 @@ class login_model extends CI_Model
      //get the username & password from tbl_usrs
      function get_user($usr, $pwd)
      {
-          $sql = "select * from users where login = '" . $usr . "' and password = '" . $pwd . "' ";
+          $sql = "SELECT * FROM users, role WHERE role.role_id = users.role_id AND login = '" . $usr . "' AND password = '" . $pwd . "' ";
           $query = $this->db->query($sql);
-          return $query->num_rows();
+           return $query->row_array();
+     }
+     function update_connection_infos($user_id, $ip_address, $last_connection_date){
+         $data = array(
+            'last_connection_date' => $last_connection_date,
+            'ip_address' => $ip_address
+        );
+
+        $this->db->where('user_id', $user_id);
+        $this->db->update('users', $data);
      }
      function signup_user($user_name, $user_surname, $login, $password, $born_at, $phone, $mobile, $mail)
     {

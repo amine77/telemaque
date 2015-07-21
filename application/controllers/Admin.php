@@ -41,13 +41,19 @@ class Admin extends CI_Controller {
             if ($this->input->post('btn_login') == "Login") {
                 //check if username and password is correct
                 $usr_result = $this->login_model->get_user($username, $password);
-                if ($usr_result > 0) { //active user record is present
+                if (count($usr_result) > 0) { //active user record is present
                     //set the session variables
+                    $ip =$this->input->ip_address();
                     $sessiondata = array(
                         'login' => $username,
-                        'loginuser' => TRUE
+                        'loginuser' => TRUE,
+                        'ip'=>$ip,
+                        'role'=>$usr_result['role_label']
                     );
                     $this->session->set_userdata($sessiondata);
+                    $now = new DateTime();
+                    $toDay = $now->format('Y-m-d');
+                    $this->login_model->update_connection_infos($usr_result['user_id'], $ip , $toDay);
                     redirect("admin/home");
                 } else {
                     $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
