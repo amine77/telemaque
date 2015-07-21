@@ -19,7 +19,7 @@
             
             echo '<div class="clear"></div>';
             
-            echo "<a href='" . base_url() . "articles/$row->article_id' data-role='" . $row->article_id . "' class='btn_details_articles' >Voir les details</a><br>";
+            echo "<a href='" . base_url() . "articles/$row->article_id' data-role='" . $row->article_id . "' class='btn_base' >Voir les details</a><br>";
             
             echo '<br></div>';
         }

@@ -4,7 +4,7 @@
     <br><br>
     <div>
         <?php
-            echo '<table>';
+            echo '<table id="tableau_search">';
         
             foreach ($articles as $article) {
                 if(trim($article['image_path'])==''){
@@ -22,7 +22,7 @@
                                 <h3>' . $article['article_label'] . '</h3>
                             </td>
                             <td class="col_3">
-                                <a href="' . base_url() . 'articles/' . $article["article_id"] . '" data-role="' . $article["article_id"] . '" class="btn btn-primary" >' . 'Voir les details</a><br/>
+                                <a href="' . base_url() . 'articles/' . $article["article_id"] . '" data-role="' . $article["article_id"] . '" class="btn_base">' . 'Voir les details</a><br/>
                             </td>
                         </tr>
                     ';
