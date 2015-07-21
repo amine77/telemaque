@@ -41,7 +41,32 @@ class Users_articles_model extends Articles_model {
         return $oData;
     }
     
-    
+     public function exemplaire($user_article="") {
+        $with_article = "";
+        
+        if ($user_article != "" && is_array($user_article)){
+            $user_article = implode("," , $user_article);
+            $with_article = " WHERE ua.user_article_id IN ($user_article)";
+        }
+        $sql = "SELECT DISTINCT u.user_id ,u.user_name ,u.user_surname,ua.user_article_id,ua.quantity,ua.image_id,a.article_id,ua.price,ua.title
+                
+               FROM users u
+               JOIN users_articles ua ON u.user_id = ua.user_id
+               JOIN articles a ON ua.article_id = a.article_id
+               $with_article   
+               ";
+        
+        $query = $this->db->query($sql);
+
+        $oData = $query->result();
+
+        foreach ($oData as $key => $value) {
+       
+            $oData[$key]->img = $this->utils_model->get_im($value->image_id, 100)['imsrc'];
+        
+        }
+        return $oData;
+    }
     
 
     public function user_article_specification($user_article_id = '') {
