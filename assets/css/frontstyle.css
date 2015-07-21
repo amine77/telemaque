@@ -34,6 +34,20 @@ a:hover{
 .clear{
     clear:both;
 }
+
+#bloc_contenu{
+    width: 1200px;
+    margin: 0 auto;
+    padding-left: 1.5%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+@media screen and (max-width: 1200px) {
+    #bloc_contenu{
+        width: 100%;
+    }
+}
 /*********************************************************************************
 *********************************************************************************/
 
@@ -228,13 +242,6 @@ footer a{
 /*********************************************************************************
 STYLE DE L'INDEX
 *********************************************************************************/
-#bloc_contenu{
-    width: 1200px;
-    margin: 0 auto;
-    padding-left: 1.5%;
-    padding-top: 15px;
-}
-
 .vendeurs{
     border:1px solid grey;
 }
@@ -285,12 +292,42 @@ STYLE DE L'INDEX
     background: linear-gradient(to bottom,  #9f1232 12%,#631224 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9f1232', endColorstr='#631224',GradientType=0 ); /* IE6-9 */
 }
+/*********************************************************************************
+*********************************************************************************/
 
 
-@media screen and (max-width: 1200px) {
-    #bloc_contenu{
-        width: 100%;
-    }
+
+
+
+/*********************************************************************************
+STYLE DE LA PAGE DE RECHERCHE
+*********************************************************************************/
+#bloc_contenu .list_rech_article{
+    width: 100%;
+}
+
+table{
+    border-top: 1px solid #888888;
+}
+
+#bloc_contenu table .col_1,
+#bloc_contenu table .col_2,
+#bloc_contenu table .col_3{
+    border-bottom: 1px solid #888888;
+    padding: 5px 0;
+}
+
+#bloc_contenu table .col_1{
+    width: 200px;
+    text-align: center;
+}
+
+#bloc_contenu table .col_2{
+    width: 62%;
+}
+
+#bloc_contenu table .col_3{
+    width: 20%;
 }
 /*********************************************************************************
 *********************************************************************************/
