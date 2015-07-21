@@ -36,7 +36,7 @@ class Articles extends Front_Controller {
            
             
             $this->data['view'] = "front/details_article";
-           $this->debug($this->data['vendeurs_articles']);
+          // $this->debug($this->data['vendeurs_articles']);
             
             //Exemple upload photo 
            /* if(isset($_FILES['pic'])){

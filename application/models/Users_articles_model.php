@@ -40,6 +40,9 @@ class Users_articles_model extends Articles_model {
         }
         return $oData;
     }
+    
+    
+    
 
     public function user_article_specification($user_article_id = '') {
         $with_user_article = "";
