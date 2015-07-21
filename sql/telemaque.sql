@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 17 Juillet 2015 à 14:59
+-- Généré le: Mar 21 Juillet 2015 à 08:54
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_label` varchar(250) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `description` text NOT NULL,
   `category_id` int(11) NOT NULL,
   `image_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
@@ -62,13 +63,13 @@ CREATE TABLE IF NOT EXISTS `articles` (
 -- Contenu de la table `articles`
 --
 
-INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `category_id`, `image_id`, `user_id`) VALUES
-(1, 'Renault twingo', '2015-06-19 08:39:18', 1, 1, 3),
-(2, 'Audi TT', '2015-06-19 08:39:18', 1, NULL, 3),
-(3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', 9, NULL, 3),
-(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', 9, NULL, 3),
-(5, 'Iphone 6', '2015-06-19 08:44:14', 10, NULL, 3),
-(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', 10, NULL, 3);
+INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `description`, `category_id`, `image_id`, `user_id`) VALUES
+(1, 'Renault twingo', '2015-06-19 08:39:18', 'Sortie en 2002, la Renault Mégane II a été élue voiture de l''année 2003. Elle a été commercialisée d''abord en 3 et 5 portes, puis est arrivée en fin de cette même année, le coupé cabriolet pour remplacer la Renault Mégane I cabriolet, le break et la version tricorps. En 2004 est apparu la version sportive RS (pour Renault Sport) avec le « moteur F » de type F4RT. La Mégane II a été restylée en 2006, à ce moment, de nouveau moteurs sont apparus, notamment, en Diesel, ou le 1,9 dCi est passée de 120 à 130 ch et est apparu un 2,0 dCi d''une puissance de 150 ch. En 2007, est apparu une nouvelle version sportive, moins puissante que la RS, mais avec un aspect radicalement sportif : La Mégane GT. La Renault Mégane II a été remplacée en octobre 2008 par la Renault Mégane III.', 1, 1, 3),
+(2, 'Audi TT', '2015-06-19 08:39:18', '', 1, NULL, 3),
+(3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', '', 9, NULL, 3),
+(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', '', 9, NULL, 3),
+(5, 'Iphone 6', '2015-06-19 08:44:14', '', 10, NULL, 3),
+(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', '', 10, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -80,18 +81,20 @@ CREATE TABLE IF NOT EXISTS `articles_specifications` (
   `article_specification_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_id` int(11) NOT NULL,
   `specification_id` int(11) NOT NULL,
+  `visible` tinyint(4) NOT NULL,
   PRIMARY KEY (`article_specification_id`),
   KEY `article_id` (`article_id`),
   KEY `specification_id` (`specification_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `articles_specifications`
 --
 
-INSERT INTO `articles_specifications` (`article_specification_id`, `article_id`, `specification_id`) VALUES
-(1, 1, 1),
-(2, 1, 2);
+INSERT INTO `articles_specifications` (`article_specification_id`, `article_id`, `specification_id`, `visible`) VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 1),
+(3, 1, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -186,6 +189,24 @@ INSERT INTO `images` (`image_id`, `image_label`, `image_path`, `size`, `format`,
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `messages`
+--
+
+CREATE TABLE IF NOT EXISTS `messages` (
+  `message_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(250) NOT NULL,
+  `content` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `sender` int(11) NOT NULL,
+  `reveiver` int(11) NOT NULL,
+  PRIMARY KEY (`message_id`),
+  KEY `sender` (`sender`),
+  KEY `reveiver` (`reveiver`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `role`
 --
 
@@ -213,19 +234,21 @@ INSERT INTO `role` (`role_id`, `role_label`) VALUES
 CREATE TABLE IF NOT EXISTS `specifications` (
   `specification_id` int(11) NOT NULL AUTO_INCREMENT,
   `specification_label` varchar(45) NOT NULL,
-  `specification_value` varchar(250) NOT NULL,
+  `specification_value` varchar(250) DEFAULT NULL,
   `user_article_id` int(11) DEFAULT NULL,
+  `required` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`specification_id`),
   KEY `user_article_id` (`user_article_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `specifications`
 --
 
-INSERT INTO `specifications` (`specification_id`, `specification_label`, `specification_value`, `user_article_id`) VALUES
-(1, 'couleur', 'rouge', NULL),
-(2, 'age', '2 ans', NULL);
+INSERT INTO `specifications` (`specification_id`, `specification_label`, `specification_value`, `user_article_id`, `required`) VALUES
+(1, 'couleur', 'rouge', NULL, 0),
+(2, 'age', '2 ans', NULL, 0),
+(3, 'Etat', 'Neuf', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -292,6 +315,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `phone` varchar(15) NOT NULL,
   `mobile` varchar(15) NOT NULL,
   `mail` varchar(40) NOT NULL,
+  `ip_address` varchar(20) NOT NULL,
+  `last_connection_date` date NOT NULL,
+  `status` tinyint(4) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `role_id` (`role_id`)
@@ -301,10 +327,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `role_id`) VALUES
-(3, 'Ip', 'Ajy', 'superadmin', 'superadmin', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', 1),
-(4, 'matux', 'loco', 'admin', 'admin', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', 2),
-(5, 'claude', 'parrot', 'user', 'user', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', 3);
+INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `role_id`) VALUES
+(3, 'Ip', 'Ajy', 'superadmin', 'superadmin', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '0000-00-00', 0, 1),
+(4, 'matux', 'loco', 'admin', 'admin', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '', '0000-00-00', 0, 2),
+(5, 'claude', 'parrot', 'user', 'user', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '', '0000-00-00', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -337,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `users_articles` (
 INSERT INTO `users_articles` (`user_article_id`, `quantity`, `title`, `description`, `status`, `price`, `created_at`, `updated_at`, `article_id`, `user_id`, `image_id`) VALUES
 (3, 1, NULL, 'Vends ma Audi TT S-tronic (automatique palette volant) 2L tfsi noir très entretenue \n17 900 euros (négociable raisonnablement )\n\n- 50 000km\n-cuir alcantara beige claire\n-boite séquentiel volant S tronic\n-volant meplat audit sport\n-clin multi zone \n-vitre électrique\n-rétro électrique rétractable\n-jante rs6 19pouce\n-autoradio DVD GPS 7 pouce tactile bluetooth kit main libre "android 4.4.2" blutooth, wifi ,mp3 ,8 go, slot micro sd \n-son concert Audi 12 enceintes (10 enceintes +caisson +centrale) \n-CT Ok vierge!\n-Révision Audi Ok ( facture) plaquettes neuves !', '', 17900, '2015-06-23 14:54:29', NULL, 3, 4, NULL),
 (4, 4, NULL, '\r\nJe mets en vente mon iPhone 6 noir\r\n\r\n16 g\r\n\r\nDesimlocke.\r\n\r\nIl est en excellent état.\r\n\r\nJe fournis boîte et facture.\r\n\r\n550 si vente aujourd''hui !!\r\n\r\n\r\nCause de la vente : je veux acheter le Samsung s6 edge\r\n', '', 550, '2015-06-23 14:54:29', NULL, 5, 5, NULL),
-(5, 1, 'renault twingo 1.2L pack clim du 10/06/97CTok du 22/06/2015', ' \r\nles freins ARR + les roulements ont été changés au mois de mars  2015(facture de 255 euro)\r\nle kit distri + P A E + ventilation + résistance changée a  168000 kms le 04/06/2015(facture de 345 euro)\r\nle verni se décolle un peu sur le toit\r\naucune négociation le jour de la vente\r\nvoiture à prendre dans l''état après son passage au CT qui\r\n a été fait le 22/06/2015 avec  2 défauts sans contre visite\r\n1er défaut:un soufflet de crémaillère\r\n2 ème défaut:absence de plaque constructeur', '', 1000, '2015-07-17 14:17:38', NULL, 1, 3, 1);
+(5, 1, 'renault twingo 1.2L pack clim du 10/06/97CTok du 22/06/2015', ' \r\nles freins ARR + les roulements ont été changés au mois de mars  2015(facture de 255 euro)\r\nle kit distri + P A E + ventilation + résistance changée a  168000 kms le 04/06/2015(facture de 345 euro)\r\nle verni se décolle un peu sur le toit\r\naucune négociation le jour de la vente\r\nvoiture à prendre dans l''état après son passage au CT qui\r\n a été fait le 22/06/2015 avec  2 défauts sans contre visite\r\n1er défaut:un soufflet de crémaillère\r\n2 ème défaut:absence de plaque constructeur', '', 1000, '2015-07-17 14:17:38', NULL, 1, 3, NULL);
 
 --
 -- Contraintes pour les tables exportées
@@ -377,6 +403,13 @@ ALTER TABLE `command`
 ALTER TABLE `command_lines`
   ADD CONSTRAINT `fk_comande_lines_user_article_id` FOREIGN KEY (`user_article_id`) REFERENCES `users_articles` (`user_article_id`),
   ADD CONSTRAINT `fk_command_lines_command_id` FOREIGN KEY (`command_id`) REFERENCES `command` (`command_id`);
+
+--
+-- Contraintes pour la table `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `fk_message_receiver` FOREIGN KEY (`reveiver`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `fk_message_sender` FOREIGN KEY (`sender`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `specifications`

@@ -13,12 +13,10 @@ class Home extends Front_Controller {
     }
 
     public function index() {
-
+   
         $this->data['additional_js'] = array('functions');
         $this->data['articles'] = $this->articles_model->get_articles(6);
-        
 
-        $this->data['show_header'] = true;
      
         $this->load->view('front/template/layout', $this->data);
         
