@@ -45,6 +45,11 @@ class login_model extends CI_Model
           $query = $this->db->query($sql);
            return $query->row_array();
      }
+     function get_all_contacts(){
+         $sql = "SELECT * FROM users WHERE  (title IS NOT NULL OR description IS NOT NULL) ";
+          $query = $this->db->query($sql);
+           return $query->result_array();
+     }
      function get_user_by_id($user_id){
          $sql = "SELECT * FROM users WHERE user_id = '" . $user_id . "' ";
           $query = $this->db->query($sql);

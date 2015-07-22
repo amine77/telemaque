@@ -12,6 +12,7 @@ class Admin extends CI_Controller {
         $this->load->model('category_model');
         $this->load->model('tag_model');
         $this->load->model('articles_model');
+        $this->load->model('role_model');
     }
 
     public function index() {
@@ -439,8 +440,18 @@ class Admin extends CI_Controller {
             redirect('admin');
         }
         $data['title'] = 'un titre';
-        $data['additional_css'] = array('roles');
         $data['view'] = 'back/liste_roles';
+        $data['roles'] = $this->role_model->get_all();
+        $data['show_header'] = TRUE;
+        $this->load->view('back/template/layout', $data);
+    }
+    public function liste_contacts() {
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $data['title'] = 'un titre';
+        $data['view'] = 'back/liste_contacts';
+        $data['contacts'] = $this->login_model->get_all_contacts();
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }

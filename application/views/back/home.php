@@ -1,5 +1,5 @@
 <div id="bloc_contenu">
-    <?php echo '<pre>';print_r($_SESSION); echo '<pre>'; ?>
+    <?php //echo '<pre>';print_r($_SESSION); echo '<pre>'; ?>
     <h1>Tableau de bord</h1>
 
     <table id="bloc_recap_visiteurs">
