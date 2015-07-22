@@ -9,8 +9,8 @@ class login_model extends CI_Model
      }
      function add_admin($nom, $prenom, $email, $role, $active){
       $data = array(
-            'user_name' => $titre,
-            'user_surname' => $description,
+            'user_name' => $nom,
+            'user_surname' => $prenom,
             'mail' => $email,
             'role_id' => $role,
             'status'=> $active

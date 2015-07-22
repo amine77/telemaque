@@ -409,13 +409,13 @@ class Admin extends CI_Controller {
 
                 if ($this->login_model->add_admin($nom, $prenom, $email, $role, $active)) {
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau administrateur a été ajouté avec succès !</div>');
-                    redirect("admin/ajouter_contact");
+                    redirect("admin/ajouter_admin");
                 } else {
                     $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Administrateur non ajouté!</div>');
-                    redirect('admin/ajouter_contact');
+                    redirect('admin/ajouter_admin');
                 }
             } else {
-                redirect('admin/ajouter_contact');
+                redirect('admin/ajouter_admin');
             }
         }
     }
