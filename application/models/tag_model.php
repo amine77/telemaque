@@ -52,8 +52,9 @@ class tag_model extends CI_Model {
     }
 
     function find_articles($tag_id) {
-        $query = $this->db->get_where('tags_articles', array('tag_id' => $id));
-        return $query->row_array();
+        $sql = "SELECT  * FROM tags_articles WHERE tag_id= $tag_id";
+        $query = $this->db->query($sql);
+        return $query->result_array();
     }
 
     function get_tag($id) {
@@ -66,14 +67,25 @@ class tag_model extends CI_Model {
         }
     }
 
-    function update_tag($parent_category, $category_id, $category_label) {
+    function update_tag($tag_id, $tag_label, $articles_id) {
         $data = array(
-            'parent_category' => $parent_category,
-            'category_label' => $category_label
+            'tag_label' => $tag_label
         );
 
-        $this->db->where('category_id', $category_id);
-        $this->db->update('categories', $data);
+        $this->db->where('tag_id', $tag_id);
+        $this->db->update('tags', $data);
+        $this->db->delete('tags_articles', array('tag_id' => $tag_id));
+        $datas = array();
+        foreach ($articles_id as $article_id) {
+            $datas[] = array(
+            'tag_id' => $tag_id,
+            'article_id' => $article_id
+        );
+        }
+        
+
+        $this->db->insert_batch('tags_articles', $datas);
+        return true;
     }
 
 }

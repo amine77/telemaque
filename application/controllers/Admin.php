@@ -86,7 +86,34 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
-
+    public function view_user($user_id){
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $data['title'] = 'un titre';
+        $data['view'] = 'back/view_user';
+        $data['show_header'] = TRUE;
+        $data['user'] = $this->login_model->get_user_by_id($user_id);
+        $data['adresses'] = $this->login_model->get_adresses_by_user($user_id);
+        $data['messages']=  $this->login_model->get_messages_by_user($user_id);
+//        $data['ventes']=  $this->login_model->get_ventes_by_user($user_id);
+//        $data['commandes']=  $this->login_model->get_commandes_by_user($user_id);
+        $data['role']=  $this->login_model->get_roles_by_user($user_id);
+         $this->input->ip_address();
+        $this->load->view('back/template/layout', $data);
+        
+    }
+       public function liste_users() {
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $data['title'] = 'un titre';
+//        $data['additional_css'] = array('vendeurs');
+        $data['view'] = 'back/liste_users';
+        $data['users'] = $this->login_model->get_all();
+        $data['show_header'] = TRUE;
+        $this->load->view('back/template/layout', $data);
+    }
     public function liste_articles() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -210,8 +237,8 @@ class Admin extends CI_Controller {
             }
         }
     }
-    public function update_tag($tag_id = null){
-         if (!$this->session->has_userdata('login')) {
+    public function update_tag($tag_id = null) {
+        if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
 
@@ -222,12 +249,12 @@ class Admin extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
 
             $data['title'] = 'un titre';
-            $data['cat'] = $this->tag_model->get_tag($tag_id);
+            $data['tag'] = $this->tag_model->get_tag($tag_id);
             $data['articles'] = $this->articles_model->get_articles();
-            $data['articles_associes_ids'] = $this->tag_model->find_articles($tag_id);
+            $data['articles_by_tag'] = $this->tag_model->find_articles($tag_id);
             $data['view'] = 'back/update_tag';
             $data['show_header'] = TRUE;
-            $data['id'] = $category_id;
+            $data['id'] = $tag_id;
 
 
             $this->load->view('back/template/layout', $data);
@@ -237,12 +264,12 @@ class Admin extends CI_Controller {
 
             if ($this->input->post('btn_update') == "Update") {
 
-                $this->category_model->update_category($parent, $category_id, $category);
+                $this->tag_model->update_tag($tag_id, $tag_label, $articles);
                 $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
-                        . 'La nouvelle catégorie a été mis à jour avec succès !</div>');
-                redirect("admin/update_category/" . $category_id);
+                        . 'Le nouveau mot clé a été mis à jour avec succès !</div>');
+                redirect("admin/update_tag/" . $tag_id);
             } else {
-                redirect('admin/update_category/' . $category_id);
+                redirect('admin/update_tag/' . $tag_id);
             }
         }
     }

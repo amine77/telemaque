@@ -30,19 +30,10 @@
                 </ul>
             </li>
             <li>
-                <a href="#" data-toggle="dropdown">
-                    Usagers
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li class="first">
-                        <?php echo '<a href="' . base_url() . 'admin/liste_vendeurs">'; ?>
-                            Vendeurs
+                <?php echo '<a href="' . base_url() . 'admin/liste_users">'; ?>
+                            Usagers
                         </a>
-                    </li>
-                    <li><a href="#">Clients</a></li>
-                    <li><a href="#">Adresses</a></li>
-                    <li><a href="#">Paniers</a></li>
-                </ul>
+                
             </li>
             <li>
                 <a href="#" data-toggle="dropdown">

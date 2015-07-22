@@ -7,11 +7,37 @@ class login_model extends CI_Model
           // Call the Model constructor
           parent::__construct();
      }
+     function get_adresses_by_user($user_id) {
+        $sql = "SELECT * FROM address where user_id = '" . $user_id . "' ";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+     function get_messages_by_user($user_id) {
+        $sql = "SELECT * FROM messages where sender = '" . $user_id . "' ";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+    function get_ventes_by_user($user_id) {
+        
+    }
+    function get_commandes_by_user($user_id) {
+        
+    }
      function get_all_administrators(){
          $sql = "SELECT * FROM users, role WHERE  role.role_id = users.role_id AND (users.role_id = 1 or users.role_id = 2 ) ";
           $query = $this->db->query($sql);
            return $query->result_array();
      }
+     function get_all() {
+        $sql = "SELECT * FROM users";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+     function get_roles_by_user($user_id) {
+        $sql = "SELECT * FROM role, users where users.role_id = role.role_id and user_id = '" . $user_id . "' ";
+        $query = $this->db->query($sql)->row();
+        return $query;
+    }
      //get the username & password from tbl_usrs
      function get_user($usr, $pwd)
      {
