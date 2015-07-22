@@ -51,7 +51,7 @@
                         </a>
                     </li>
                     <li><?php echo '<a href="' . base_url() . 'admin/liste_contacts">'; ?>
-                            Contatcts
+                            Contacts
                         </a></li>
                 </ul>
             </li>
