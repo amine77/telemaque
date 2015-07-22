@@ -100,9 +100,9 @@ $(function() {
                                 </tr>
                                 <?php foreach ($messages as $message) { ?>
 
-                                    <tr><td><?= $message['date'] ?></td><td><?= $message['title'] ?></td><td><a  title="supprimer" href="<?= base_url('admin/delete_message/' . $message['message_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer ce message?">
+                                    <tr><td><?= $message['date'] ?></td><td><?= $message['title'] ?></td><td><a  title="supprimer" href="<?= base_url('admin/delete_message/'  .$user['user_id'].'/'. $message['message_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer ce message?">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </a> / <a title="voir" href="<?= base_url('admin/view_message/' . $message['message_id']) ?>">
+                            </a> / <a title="voir" href="<?= base_url('admin/view_message/'. $message['message_id']) ?>">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </a></td></tr>                                   
                                 <?php } ?>

@@ -7,6 +7,29 @@ class login_model extends CI_Model
           // Call the Model constructor
           parent::__construct();
      }
+     function add_admin($nom, $prenom, $email, $role, $active){
+      $data = array(
+            'user_name' => $titre,
+            'user_surname' => $description,
+            'mail' => $email,
+            'role_id' => $role,
+            'status'=> $active
+        );
+
+        $this->db->insert('users', $data);
+        return ($this->db->affected_rows() != 1) ? false : true; //pour vérifier si l'insertion s'est bien déroulée.   
+     }
+     function add_user($titre, $email, $description){
+      $data = array(
+            'title' => $titre,
+            'description' => $description,
+            'mail' => $email,
+            'role_id' => 2 //par défaut un contact créé est un admin
+        );
+
+        $this->db->insert('users', $data);
+        return ($this->db->affected_rows() != 1) ? false : true; //pour vérifier si l'insertion s'est bien déroulée.   
+     }
      function get_adresses_by_user($user_id) {
         $sql = "SELECT * FROM address where user_id = '" . $user_id . "' ";
         $query = $this->db->query($sql);

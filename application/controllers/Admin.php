@@ -44,17 +44,17 @@ class Admin extends CI_Controller {
                 $usr_result = $this->login_model->get_user($username, $password);
                 if (count($usr_result) > 0) { //active user record is present
                     //set the session variables
-                    $ip =$this->input->ip_address();
+                    $ip = $this->input->ip_address();
                     $sessiondata = array(
                         'login' => $username,
                         'loginuser' => TRUE,
-                        'ip'=>$ip,
-                        'role'=>$usr_result['role_label']
+                        'ip' => $ip,
+                        'role' => $usr_result['role_label']
                     );
                     $this->session->set_userdata($sessiondata);
                     $now = new DateTime();
                     $toDay = $now->format('Y-m-d');
-                    $this->login_model->update_connection_infos($usr_result['user_id'], $ip , $toDay);
+                    $this->login_model->update_connection_infos($usr_result['user_id'], $ip, $toDay);
                     redirect("admin/home");
                 } else {
                     $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
@@ -87,7 +87,8 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
-    public function view_user($user_id){
+
+    public function view_user($user_id) {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -96,15 +97,15 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $data['user'] = $this->login_model->get_user_by_id($user_id);
         $data['adresses'] = $this->login_model->get_adresses_by_user($user_id);
-        $data['messages']=  $this->login_model->get_messages_by_user($user_id);
+        $data['messages'] = $this->login_model->get_messages_by_user($user_id);
 //        $data['ventes']=  $this->login_model->get_ventes_by_user($user_id);
 //        $data['commandes']=  $this->login_model->get_commandes_by_user($user_id);
-        $data['role']=  $this->login_model->get_roles_by_user($user_id);
-         $this->input->ip_address();
+        $data['role'] = $this->login_model->get_roles_by_user($user_id);
+        $this->input->ip_address();
         $this->load->view('back/template/layout', $data);
-        
     }
-       public function liste_users() {
+
+    public function liste_users() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -115,6 +116,7 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
+
     public function liste_articles() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -169,12 +171,37 @@ class Admin extends CI_Controller {
         $data['tags'] = $this->tag_model->get_all();
         $this->load->view('back/template/layout', $data);
     }
+
     public function delete_tag($id) {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
         $this->tag_model->delete_tag($id);
         redirect('admin/liste_tags');
+    }
+
+    public function delete_message($id_user, $id_message) {
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $this->message_model->delete_message($id_message);
+        redirect('admin/view_user/' . $id_user);
+    }
+
+    public function delete_role($id) {
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $this->role_model->delete_role($id);
+        redirect('admin/liste_roles');
+    }
+
+    public function delete_contact($id) {
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $this->login_model->delete_user($id);
+        redirect('admin/liste_contacts');
     }
 
     public function liste_categories() {
@@ -238,6 +265,7 @@ class Admin extends CI_Controller {
             }
         }
     }
+
     public function update_tag($tag_id = null) {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -310,6 +338,131 @@ class Admin extends CI_Controller {
         }
     }
 
+    public function ajouter_role() {
+        if (!$this->session->has_userdata('login')) {
+//            redirect('admin/home');
+            echo 'admin/home';
+        }
+
+        $role_label = $this->input->post("txt_role");
+
+        $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'un titre';
+            $data['categories'] = $this->role_model->get_all();
+            $data['view'] = 'back/ajouter_role';
+            $data['show_header'] = TRUE;
+
+            $this->load->view('back/template/layout', $data);
+        } else {
+
+
+            if ($this->input->post('btn_ajouter') == "Ajouter") {
+
+                if ($this->role_model->add_role($role_label)) {
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau rôle a été ajouté avec succès !</div>');
+                    redirect("admin/ajouter_role");
+                } else {
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Rôle non ajouté!</div>');
+                    redirect('admin/ajouter_role');
+                }
+            } else {
+                redirect('admin/ajouter_role');
+            }
+        }
+    }
+
+    public function ajouter_admin() {
+
+        if (!$this->session->has_userdata('login')) {
+//            redirect('admin/home');
+            echo 'admin/home';
+        }
+
+        $nom = $this->input->post("txt_nom");
+        $prenom = $this->input->post("txt_prenom");
+        $email = $this->input->post("txt_email");
+        $role = $this->input->post("txt_role");
+        $active = $this->input->post("txt_active");
+
+        $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
+        $this->form_validation->set_rules("txt_prenom", "Prénom", "trim|required");
+        $this->form_validation->set_rules("txt_email", "Email", "trim|required");
+        $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
+        $this->form_validation->set_rules("txt_active", "Activé?", "trim|required");
+
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'un titre';
+            $data['view'] = 'back/ajouter_admin';
+            $data['roles'] = $this->role_model->get_all();
+            $data['show_header'] = TRUE;
+
+            $this->load->view('back/template/layout', $data);
+        } else {
+
+
+            if ($this->input->post('btn_ajouter') == "Ajouter") {
+
+                if ($this->login_model->add_admin($nom, $prenom, $email, $role, $active)) {
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau administrateur a été ajouté avec succès !</div>');
+                    redirect("admin/ajouter_contact");
+                } else {
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Administrateur non ajouté!</div>');
+                    redirect('admin/ajouter_contact');
+                }
+            } else {
+                redirect('admin/ajouter_contact');
+            }
+        }
+    }
+
+    public function ajouter_contact() {
+        if (!$this->session->has_userdata('login')) {
+//            redirect('admin/home');
+            echo 'admin/home';
+        }
+
+        $titre = $this->input->post("txt_titre");
+        $email = $this->input->post("txt_email");
+        $description = $this->input->post("txt_description");
+
+        $this->form_validation->set_rules("txt_titre", "Titre", "trim|required");
+        $this->form_validation->set_rules("txt_email", "Email", "trim|required");
+        $this->form_validation->set_rules("txt_description", "Description", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'un titre';
+            $data['view'] = 'back/ajouter_contact';
+            $data['show_header'] = TRUE;
+
+            $this->load->view('back/template/layout', $data);
+        } else {
+
+
+            if ($this->input->post('btn_ajouter') == "Ajouter") {
+
+                if ($this->login_model->add_user($titre, $email, $description)) {
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau rôle a été ajouté avec succès !</div>');
+                    redirect("admin/ajouter_contact");
+                } else {
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Rôle non ajouté!</div>');
+                    redirect('admin/ajouter_contact');
+                }
+            } else {
+                redirect('admin/ajouter_contact');
+            }
+        }
+    }
+
+    public function ajouter_user() {
+        
+    }
+
     public function ajouter_category() {
         if (!$this->session->has_userdata('login')) {
 //            redirect('admin/home');
@@ -361,16 +514,17 @@ class Admin extends CI_Controller {
         $data['administrateurs'] = $this->login_model->get_all_administrators();
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
-        
     }
-    public function delete_admin($id){
-      if (!$this->session->has_userdata('login')) {
+
+    public function delete_admin($id) {
+        if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
         $this->login_model->delete_user($id);
-        redirect('admin/liste_administrateurs');  
+        redirect('admin/liste_administrateurs');
     }
-    public function update_admin($user_id=null){
+
+    public function update_admin($user_id = null) {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -380,7 +534,7 @@ class Admin extends CI_Controller {
         $mail = $this->input->post("txt_mail");
         $role = $this->input->post("txt_role_id");
         $status = $this->input->post("txt_status_id");
-        
+
 
         $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
         $this->form_validation->set_rules("txt_prenom", "Prénom", "trim|required");
@@ -445,6 +599,7 @@ class Admin extends CI_Controller {
         $data['show_header'] = TRUE;
         $this->load->view('back/template/layout', $data);
     }
+
     public function liste_contacts() {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
