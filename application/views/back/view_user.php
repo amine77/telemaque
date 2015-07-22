@@ -49,7 +49,7 @@ $(function() {
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Commandes&nbsp;&nbsp;&nbsp; <span class="badge">42</span></h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Commandes&nbsp;&nbsp;&nbsp; <span class="badge">42</span></h3>
                     </div>
                     <div class="panel-body">
                         <table class="table-bordered">
@@ -88,7 +88,7 @@ $(function() {
             <div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Messages &nbsp;&nbsp;&nbsp; <span class="badge"><?= count($messages) ?></span></h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;Messages &nbsp;&nbsp;&nbsp; <span class="badge"><?= count($messages) ?></span></h3>
                     </div>
                     <div class="panel-body">
                         <?php if (is_array($messages) && count($messages) > 0) { ?>
@@ -117,7 +117,7 @@ $(function() {
 
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Dernière Connection&nbsp;&nbsp;&nbsp;</h3>
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;Dernière Connection&nbsp;&nbsp;&nbsp;</h3>
                 </div>
                 <div class="panel-body">
                     <table>
