@@ -21,6 +21,7 @@
             <div class="quantity">
 
                 <?php
+                $qty_user = (isset($_SESSION['panier'][$oData->user_article_id])) ? $_SESSION['panier'][$oData->user_article_id] : 0 ;
                 echo '<span style="font-size:15px;">' . $oData->quantity . '</span> exemplaire';
                 echo (intval($oData->quantity) > 1) ? 's' : ''
                 ?>
@@ -29,7 +30,7 @@
                 <h3><?= $oData->price ?> €</h3>
             </div>
               
-            <button class='btn btn-default add_article' data-role="<?= $oData->user_article_id ?>">Ajouter au panier </button>
+            <button class='btn btn-default add_article' data-role="<?= $oData->user_article_id ?>" data-qty="<?=$qty_user?>" data-qty-max="<?= $oData->quantity ?>">Ajouter au panier </button>
             <a class="btn btn-primary" href="<?= base_url() . 'articles/' . $oData->article_id ?>">Retour</a>
         </div>
 

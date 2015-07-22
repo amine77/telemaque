@@ -37,7 +37,7 @@ class Panier extends Front_Controller {
 
     public function add_article($action = "") {
         // ajout un exemplaire d'un article 
-
+        
         $html = $this->action_cart(json_decode($this->input->post('user_article_id')), "add_article", $action);
         echo $html;
     }
@@ -59,7 +59,7 @@ class Panier extends Front_Controller {
 
     public function action_cart($ua_id="", $type = "", $action = "") {
         //methode commune
-        if($ua=="")
+        if($ua_id=="")
          $ua_id = json_decode($this->input->post('user_article_id'));
         $panier_exemplaire = $_SESSION['panier'];
         if (!isset($_SESSION['panier'][$ua_id]))

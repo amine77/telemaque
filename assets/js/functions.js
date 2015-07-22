@@ -4,7 +4,10 @@ $(function() {
     $(".add_article").click(function() {
         var data = {"user_article_id": $(this).data('role')};
         var action = "add_article/norm";
-        print_cart(action, data);
+        var qty = $(this).data('qty');
+        var qtymax = $(this).data('qty-max');
+        if (qty < qtymax)
+          print_cart(action, data ,$(this));
 
     });
 
@@ -41,22 +44,26 @@ $(function() {
 });
 
 
-function print_cart(action, data, panier) {
+function print_cart(action, data,entity) {
 
 
     var pathArray = window.location.pathname.split('/');
     
     $.post("/" + pathArray[1] + "/panier/" + action, data, function(result) {
-
+        
         result = $.parseJSON(result);
-        $("#panier span").html(result);
-        $("#panier span").animate({fontSize: "17px", color: "#AA0000"}, 500).animate({fontSize: "13px", color: "white"}, 300);
-        if (panier) {
-            entity.$('input').hide();
+        
+      
+      
+        if(action == "add_article/norm"){
+           $("#panier span").html(result);
+          entity.data('qty',parseInt(entity.data('qty')+1)); 
         }
-        console.log(result);
-        if(action != "add_article")
-           $('#bloc_contenu').html(result);
+        else{
+            
+            $('#bloc_contenu').html(result);
+        }
+          $("#panier span").animate({fontSize: "17px", color: "#AA0000"}, 500).animate({fontSize: "13px", color: "white"}, 300);
        
     });
 

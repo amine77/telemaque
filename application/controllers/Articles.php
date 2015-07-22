@@ -68,7 +68,7 @@ class Articles extends Front_Controller {
                  $this->data['img'] = $this->data['img']['imsrc']; 
             }
             else{
-                $this->data['img'] = "<img src='".base_url()."assets/img/img_none.jpg' width='250px' alt='image produit'/>";
+                $this->data['img'] = "<img src='".base_url()."assets/img/img_none.jpg' width='350px' alt='image produit'/>";
             }
             $this->data['view'] = "front/details_user_article";
         }
