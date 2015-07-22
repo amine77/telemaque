@@ -28,7 +28,7 @@ class Users_articles_model extends Articles_model {
                JOIN articles a ON ua.article_id = a.article_id
                $with_article   
                ";
-        
+
         $query = $this->db->query($sql);
 
         $oData = $query->result();
@@ -40,46 +40,46 @@ class Users_articles_model extends Articles_model {
         }
         return $oData;
     }
-    
-     public function exemplaire($user_article="") {
-        $with_article = "";
+
+    public function exemplaire($user_article = "") {
         
-        if ($user_article != "" && is_array($user_article)){
-            $user_article = implode("," , $user_article);
+        $with_article = "";
+        $oData="";
+        if ($user_article != "" && is_array($user_article)) {
+            $user_article = implode(",", $user_article);
             $with_article = " WHERE ua.user_article_id IN ($user_article)";
-        }
-        $sql = "SELECT DISTINCT u.user_id ,u.user_name ,u.user_surname,ua.user_article_id,ua.quantity,ua.image_id,a.article_id,ua.price,ua.title
+    
+            $sql = "SELECT DISTINCT u.user_id ,u.user_name ,u.user_surname,ua.user_article_id,ua.quantity,ua.image_id,a.article_id,ua.price,ua.title,a.article_label
                 
                FROM users u
                JOIN users_articles ua ON u.user_id = ua.user_id
                JOIN articles a ON ua.article_id = a.article_id
                $with_article   
                ";
-        
-        $query = $this->db->query($sql);
 
-        $oData = $query->result();
+            $query = $this->db->query($sql);
 
-        foreach ($oData as $key => $value) {
-       
-            $oData[$key]->img = $this->utils_model->get_im($value->image_id, 100)['imsrc'];
-        
+            $oData = $query->result();
+
+            foreach ($oData as $key => $value) {
+
+                $oData[$key]->img = $this->utils_model->get_im($value->image_id, 100)['imsrc'];
+            }
         }
         return $oData;
     }
-    
 
     public function user_article_specification($user_article_id = '') {
         $with_user_article = "";
         if ($user_article_id != "")
-             $with_user_article = " WHERE sp.user_article_id = '$user_article_id'  ";
+            $with_user_article = " WHERE sp.user_article_id = '$user_article_id'  ";
         $sql = "SELECT specification_label,specification_value
                FROM articles_specifications artsp 
                LEFT JOIN specifications sp ON artsp.specification_id = sp.specification_id 
                $with_user_article
               
                ";
-  
+
         $query = $this->db->query($sql);
 
         return $query->result();
