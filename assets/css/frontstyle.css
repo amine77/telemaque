@@ -279,9 +279,25 @@ STYLE DE L'INDEX
     border-radius: 10px;
     padding: 10px;
     min-height: 220px;
-    width: 31.3%;
+    width: 23%;
     float: left;
     margin: 0 2% 1.5% 0;
+}
+
+@media screen and (max-width: 980px) {
+    .list-article{
+        border: 2px solid #9f1232;
+        border-radius: 10px;
+        padding: 10px;
+        min-height: 220px;
+        width: 31.3%;
+        float: left;
+        margin: 0 2% 1.5% 0;
+    }
+}
+
+.list-article .bloc_titre{
+    height: 70px;
 }
 
 .list-article img{
