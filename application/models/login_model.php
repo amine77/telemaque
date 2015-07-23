@@ -96,6 +96,16 @@ class login_model extends CI_Model
           $query = $this->db->query($sql);
            return $query->row_array();
      }
+     function update_contact($user_id, $titre, $mail, $description){
+       $data = array(
+            'title' => $titre,
+            'mail' => $mail,
+            'description' => $description
+        );
+
+        $this->db->where('user_id', $user_id);
+        $this->db->update('users', $data);  
+     }
      function update_connection_infos($user_id, $ip_address, $last_connection_date){
          $data = array(
             'last_connection_date' => $last_connection_date,

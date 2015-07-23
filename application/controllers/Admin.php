@@ -50,7 +50,7 @@ class Admin extends CI_Controller {
                         'loginuser' => TRUE,
                         'ip' => $ip,
                         'role' => $usr_result['role_label'],
-                        'user_id'=>$usr_result['user_id']
+                        'user_id' => $usr_result['user_id']
                     );
                     $this->session->set_userdata($sessiondata);
                     $now = new DateTime();
@@ -374,9 +374,9 @@ class Admin extends CI_Controller {
             }
         }
     }
-    
-    public function update_role($role_id=null){
-     if (!$this->session->has_userdata('login')) {
+
+    public function update_role($role_id = null) {
+        if (!$this->session->has_userdata('login')) {
 //            redirect('admin/home');
             echo 'admin/home';
         }
@@ -401,15 +401,15 @@ class Admin extends CI_Controller {
 
                 if ($this->role_model->update_role($role_id, $role_label)) {
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">Ce rôle a été mise à jour avec succès !</div>');
-                    redirect('admin/update_role/'. $role_id);
+                    redirect('admin/update_role/' . $role_id);
                 } else {
                     $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Rôle non mise à jour!</div>');
-                    redirect('admin/update_role/'. $role_id);
+                    redirect('admin/update_role/' . $role_id);
                 }
             } else {
-                redirect('admin/update_role/'. $role_id);
+                redirect('admin/update_role/' . $role_id);
             }
-        }   
+        }
     }
 
     public function ajouter_admin() {
@@ -497,8 +497,6 @@ class Admin extends CI_Controller {
         }
     }
 
-
-
     public function ajouter_category() {
         if (!$this->session->has_userdata('login')) {
 //            redirect('admin/home');
@@ -559,15 +557,60 @@ class Admin extends CI_Controller {
         $this->login_model->delete_user($id);
         redirect('admin/liste_administrateurs');
     }
-    public function delete_user($user_id){
+
+    public function delete_user($user_id) {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
         $this->login_model->delete_user($user_id);
         redirect('admin/liste_users');
     }
-    public function update_user($user_id=null){
-         if (!$this->session->has_userdata('login')) {
+
+    public function update_contact($user_id = null) {
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+
+        $titre = $this->input->post("txt_nom");
+        $mail = $this->input->post("txt_mail");
+        $description = $this->input->post("txt_description");
+
+
+        $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
+        $this->form_validation->set_rules("txt_mail", "Email", "trim|required");
+        $this->form_validation->set_rules("txt_description", "Description", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'un titre';
+            $data['user'] = $this->login_model->get_user_by_id($user_id);
+            $data['view'] = 'back/update_contact';
+            $data['show_header'] = TRUE;
+            $data['id'] = $user_id;
+
+
+            $this->load->view('back/template/layout', $data);
+        } else {
+
+
+            if ($this->input->post('btn_update') == "Update") {
+
+                if ($this->login_model->update_contact($user_id, $titre, $mail, $description)) {
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
+                            . 'Cet contact a été mis à jour avec succès !</div>');
+                    redirect("admin/update_contact/" . $user_id);
+                } else {
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de la mise à jour du contact!</div>');
+                    redirect('admin/update_contact/' . $user_id);
+                }
+            } else {
+                redirect('admin/update_contact/' . $user_id);
+            }
+        }
+    }
+
+    public function update_user($user_id = null) {
+        if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
 
@@ -597,22 +640,21 @@ class Admin extends CI_Controller {
 
 
             if ($this->input->post('btn_update') == "Update") {
-                
-                 if ($this->login_model->update_user($user_id, $nom, $prenom, $mail, $role, $status)) {
+
+                if ($this->login_model->update_user($user_id, $nom, $prenom, $mail, $role, $status)) {
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
-                        . 'Cet utilisateur a été mis à jour avec succès !</div>');
-                    redirect("admin/update_user/". $user_id);
+                            . 'Cet utilisateur a été mis à jour avec succès !</div>');
+                    redirect("admin/update_user/" . $user_id);
                 } else {
                     $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de la mise à jour de l\'utilisateur!</div>');
-                    redirect('admin/update_user/'. $user_id);
+                    redirect('admin/update_user/' . $user_id);
                 }
-
             } else {
                 redirect('admin/update_user/' . $user_id);
             }
         }
     }
-    
+
     public function update_admin($user_id = null) {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
