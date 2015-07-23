@@ -436,6 +436,14 @@ STYLE DE LA PAGE DES DETAILS DES ARTICLES
     border: 1px solid #8f0222;
 }
 
-.vendeurs #tableau_liste_exemplaires{
+.vendeurs .encadre_vendeur{
+    margin-top: 10px;
+}
+
+.vendeurs .encadre_vendeur #tableau_liste_exemplaires{
     width: 100%;
+}
+
+.vendeurs .encadre_vendeur #tableau_liste_exemplaires td{
+    padding: 0 10px;
 }
