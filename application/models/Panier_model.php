@@ -41,10 +41,11 @@ class Panier_model extends CI_Model {
         return $nb_article;
     }
 
-    function get_cart($exemplaires=array()) {
+    function get_cart($exemplaires=array(),$order=false) {
+        $prixTotal = 0;
         $html = '
- 
-        <h3>Panier</h3>
+            
+        
         <div>
         <table class="table table-bordered">
             <thead>
@@ -66,41 +67,52 @@ class Panier_model extends CI_Model {
                     <td>' . $exemplaires[$i]->img . '</td>
                     <td>' . $title . '</td>
 
-                    <td>
-                        <span class="glyphicon glyphicon-minus-sign" aria-hidden="true" ></span>
-                        <input type="text" value="'.$_SESSION['panier'][$exemplaires[$i]->user_article_id]  .'/' .$exemplaires[$i]->quantity. '" data-qty="'.$_SESSION['panier'][$exemplaires[$i]->user_article_id].'" data-qty-max="'.$exemplaires[$i]->quantity.'" size="3" maxlength="20" disabled="disabled" style="display:inline;text-align:center;"/>
-
-                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true" ></span><br>
-                        <div class="glyphicon glyphicon-trash" aria-hidden="true" style="width:20px;margin:0 auto;"></div>
-                    </td>
-                    <td>
-                        ' . floatval($exemplaires[$i]->price) * $exemplaires[$i]->quantity . ' €
-                        <br>pu : ' . $exemplaires[$i]->price . '€
+                    <td>';
+                    if(!$order){
+                    $html.='<span class="glyphicon glyphicon-minus-sign" aria-hidden="true" onclick="delete_sample_article($(this));"></span>';
+                    }
+                    $html.='<input type="text" value="'.$_SESSION['panier'][$exemplaires[$i]->user_article_id]  .'/' .$exemplaires[$i]->quantity. '" data-qty="'.$_SESSION['panier'][$exemplaires[$i]->user_article_id].'" data-qty-max="'.$exemplaires[$i]->quantity.'" size="3" maxlength="20" disabled="disabled" style="display:inline;text-align:center;"/>';
+                    if(!$order){    
+                    $html.='<span class="glyphicon glyphicon-plus-sign" aria-hidden="true" onclick="add_article($(this));"></span><br>
+                            <div class="glyphicon glyphicon-trash" aria-hidden="true" style="width:20px;margin:0 auto;"></div>';
+                    }
+            $prix = floatval($_SESSION['panier'][$exemplaires[$i]->user_article_id]) * $exemplaires[$i]->price;        
+            $html.='</td>
+                    <td> ' .  $prix. ' €
+                    <br><span style="font-size:11px">prix unitaire : </span>' . $exemplaires[$i]->price . '€
                     </td>
                  </tr>';
-
+            $prixTotal+=$prix;
         endfor;
 
-        // Test si Panier vide
-        if (count($exemplaires) == 0):
-
-            $html.='
-            <tr>
-                <td colspan="4" align="center" style="padding: 10px">
-                    Panier vide
-                </td>
-            </tr>';
-        endif;
+       
         $html.='
                     </tbody>
+                    <tfoot>
+                        <tr>
+                          <td colspan="3"></td>  
+                          <td><h5>Total :'.$prixTotal.' €</h5> </td>  
+                        </tr>
+                    </tfoot>
                 </table>
-            </div>
-            <div>
-                <a href="' . base_url() . 'panier" data-role="1" class="btn_base">Valider la commande</a>
-                <a class="btn btn-default" id="empty-cart">Vider panier</a>
-            </div>
-        </div>';
+            </div>';
+    if(!$order){  
+    $html.='<div>
+                <a href="' . base_url() . 'panier/order" data-role="1" class="btn_base">Valider la commande</a>
+                <a class="btn btn-default" id="empty-cart" onclick="empty_cart();">Vider panier</a>
+            </div>';
+    }
 
+        
+         // Test si Panier vide
+        if (count($exemplaires) == 0):
+
+            $html='
+                <center><h3>  <span class="label label-info" onclick="empty_cart();">Votre panier est vide</span> </h3></center>
+           
+            ';
+        
+        endif;
             return $html;
     }
 
