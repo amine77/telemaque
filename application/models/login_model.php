@@ -70,7 +70,7 @@ class login_model extends CI_Model
            return $query->result_array();
      }
      function get_all() {
-        $sql = "SELECT * FROM users, role WHERE users.role_id = role.role_id AND role_label = 'ROLE_USER'";
+        $sql = "SELECT * FROM users WHERE role_id =3";
         $query = $this->db->query($sql);
         return $query->result_array();
     }

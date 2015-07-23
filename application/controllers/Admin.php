@@ -49,7 +49,8 @@ class Admin extends CI_Controller {
                         'login' => $username,
                         'loginuser' => TRUE,
                         'ip' => $ip,
-                        'role' => $usr_result['role_label']
+                        'role' => $usr_result['role_label'],
+                        'user_id'=>$usr_result['user_id']
                     );
                     $this->session->set_userdata($sessiondata);
                     $now = new DateTime();
@@ -373,6 +374,43 @@ class Admin extends CI_Controller {
             }
         }
     }
+    
+    public function update_role($role_id=null){
+     if (!$this->session->has_userdata('login')) {
+//            redirect('admin/home');
+            echo 'admin/home';
+        }
+
+        $role_label = $this->input->post("txt_role");
+
+        $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'un titre';
+            $data['view'] = 'back/update_role';
+            $data['show_header'] = TRUE;
+            $data['id'] = $role_id;
+            $data['role'] = $this->role_model->get_role_by_id($role_id);
+
+            $this->load->view('back/template/layout', $data);
+        } else {
+
+
+            if ($this->input->post('btn_update') == "Update") {
+
+                if ($this->role_model->update_role($role_id, $role_label)) {
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">Ce rôle a été mise à jour avec succès !</div>');
+                    redirect('admin/update_role/'. $role_id);
+                } else {
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Rôle non mise à jour!</div>');
+                    redirect('admin/update_role/'. $role_id);
+                }
+            } else {
+                redirect('admin/update_role/'. $role_id);
+            }
+        }   
+    }
 
     public function ajouter_admin() {
 
@@ -574,6 +612,7 @@ class Admin extends CI_Controller {
             }
         }
     }
+    
     public function update_admin($user_id = null) {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
