@@ -10,7 +10,10 @@
 
         foreach ($articles->result() as $row) {
             echo "<div class='list-article' id='article_" . $row->article_id . "'>
-             <h3>" . $row->article_label . "</h3>
+             <div class='bloc_titre'>
+                <h3>" . $row->article_label . "</h3>
+             </div>
+             
              <img src='" . base_url() . "assets/img/img_none.jpg'>";
 
             // echo "<button data-role='".$row->article_id."'>Ajouter au panier </button>";

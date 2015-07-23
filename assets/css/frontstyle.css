@@ -279,9 +279,25 @@ STYLE DE L'INDEX
     border-radius: 10px;
     padding: 10px;
     min-height: 220px;
-    width: 31.3%;
+    width: 23%;
     float: left;
     margin: 0 2% 1.5% 0;
+}
+
+@media screen and (max-width: 980px) {
+    .list-article{
+        border: 2px solid #9f1232;
+        border-radius: 10px;
+        padding: 10px;
+        min-height: 220px;
+        width: 31.3%;
+        float: left;
+        margin: 0 2% 1.5% 0;
+    }
+}
+
+.list-article .bloc_titre{
+    height: 70px;
 }
 
 .list-article img{
@@ -436,6 +452,14 @@ STYLE DE LA PAGE DES DETAILS DES ARTICLES
     border: 1px solid #8f0222;
 }
 
-.vendeurs #tableau_liste_exemplaires{
+.vendeurs .encadre_vendeur{
+    margin-top: 10px;
+}
+
+.vendeurs .encadre_vendeur #tableau_liste_exemplaires{
     width: 100%;
+}
+
+.vendeurs .encadre_vendeur #tableau_liste_exemplaires td{
+    padding: 0 10px;
 }
