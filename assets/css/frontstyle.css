@@ -463,3 +463,26 @@ STYLE DE LA PAGE DES DETAILS DES ARTICLES
 .vendeurs .encadre_vendeur #tableau_liste_exemplaires td{
     padding: 0 10px;
 }
+
+
+
+
+
+/*********************************************************************************
+STYLE DE LA PAGE DES DETAILS DES EXEMPLAIRES
+*********************************************************************************/
+#bloc_contenu #détails_exemplaire #image_exemplaire{
+    float: left;
+    width: 30%;
+}
+
+#bloc_contenu #détails_exemplaire #image_exemplaire img{
+    width: 100%;
+}
+
+#bloc_contenu #détails_exemplaire #description_exemplaire{
+    float: right;
+    width: 68%;
+}
+/*********************************************************************************
+*********************************************************************************/
