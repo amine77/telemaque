@@ -19,10 +19,10 @@
     <?php
             
             $parents =array();
-            var_dump($categories);
+            //var_dump($categories);
             foreach ($categories as $categorie) {
                 if($categorie['parent_category'] == '0'){
-                    $parents[]=$categorie['category'];
+                    $parents[$categorie['category']]='';
                 }else{
                     $parents[$categorie['parent_category']][]=$categorie['category'];
                 }
@@ -34,9 +34,9 @@
         <ul>
             <li> <?php echo '<a href="' . base_url() . '">Accueil</a>' ?></li>
             <?php
-//                        foreach ($parents as $parent => $enfant) {
-//                            echo '<li><a href="#">'.$parent .'</a></li>';
-//                        }
+                        foreach ($parents as $parent => $enfant) {
+                            echo '<li><a href="#">'.$parent .'</a></li>';
+                        }
             ?>
         </ul>
 
