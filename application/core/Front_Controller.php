@@ -66,8 +66,9 @@ abstract class Front_Controller extends CI_Controller {
         if (!isset($_SESSION['panier']))
          $_SESSION['panier'] = array();
 
-        $this->load->model(array('articles_model', 'panier_model','utils_model'));
-        $this->data['nb_article'] = $this->panier_model->get_nb_articles();     
+        $this->load->model(array('articles_model', 'panier_model','utils_model','category_model'));
+        $this->data['nb_article'] = $this->panier_model->get_nb_articles();  
+        $this->data['categories'] = $this->category_model->get_all();
         $this->set_view_name();
    
 

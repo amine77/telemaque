@@ -20,6 +20,27 @@
     <nav>
          <ul>
             <li> <?php echo '<a href="' . base_url() . '">Accueil</a>' ?></li>
+            <?php
+            var_dump($categories);
+            for($i=0;$i<count($categories);$i++){
+                $sousCat=false;
+                $count = 0;
+                if($categories[$i]['parent_category']==0){
+                    echo "<li>".$categories[$i]['category'];
+                }
+                else{
+                    $sousCat = true;
+                    if ($count==0)
+                        echo "<ul>";
+                     echo "<li>".$categories[$i]['category']."</li>";
+                  
+                }
+                if($sousCat){
+                    echo "</ul>";
+                }
+                echo "</li>";
+            }
+            ?>
             <li><a href="#">rub1</a></li>
             <li><a href="#">rub2</a></li>
             <li><a href="#">rub3</a></li>

@@ -23,6 +23,14 @@ class Home extends Front_Controller {
        
     }
 
+    public function connexion($action=""){
+        
+      
+      $this->data['articles'] = $this->articles_model->get_articles(6);
+   
+      $this->data['view'] = 'front/connexion';
+      $this->load->view('front/template/layout', $this->data);
+    }
 
 
 }
