@@ -21,7 +21,6 @@ $(function() {
 
 <div id="bloc_contenu">
     
-    <h4><a href="<?= base_url('admin/ajouter_user')?>">Nouveau utilisateur</a></h4><br>
     <h1>Liste des utilisateurs</h1>
 
     <?php if (is_array($users)) { ?>

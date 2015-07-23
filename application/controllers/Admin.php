@@ -446,7 +446,7 @@ class Admin extends CI_Controller {
 
             if ($this->input->post('btn_ajouter') == "Ajouter") {
 
-                if ($this->login_model->add_user($titre, $email, $description)) {
+                if ($this->login_model->add_contact($titre, $email, $description)) {
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau rôle a été ajouté avec succès !</div>');
                     redirect("admin/ajouter_contact");
                 } else {
@@ -459,9 +459,7 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function ajouter_user() {
-        
-    }
+
 
     public function ajouter_category() {
         if (!$this->session->has_userdata('login')) {
@@ -523,7 +521,59 @@ class Admin extends CI_Controller {
         $this->login_model->delete_user($id);
         redirect('admin/liste_administrateurs');
     }
+    public function delete_user($user_id){
+        if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
+        $this->login_model->delete_user($user_id);
+        redirect('admin/liste_users');
+    }
+    public function update_user($user_id=null){
+         if (!$this->session->has_userdata('login')) {
+            redirect('admin');
+        }
 
+        $nom = $this->input->post("txt_nom");
+        $prenom = $this->input->post("txt_prenom");
+        $mail = $this->input->post("txt_mail");
+        $role = $this->input->post("txt_role");
+        $status = $this->input->post("txt_status");
+
+
+        $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
+        $this->form_validation->set_rules("txt_prenom", "Prénom", "trim|required");
+        $this->form_validation->set_rules("txt_mail", "Email", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'un titre';
+            $data['user'] = $this->login_model->get_user_by_id($user_id);
+            $data['roles'] = $this->role_model->get_all();
+            $data['view'] = 'back/update_user';
+            $data['show_header'] = TRUE;
+            $data['id'] = $user_id;
+
+
+            $this->load->view('back/template/layout', $data);
+        } else {
+
+
+            if ($this->input->post('btn_update') == "Update") {
+                
+                 if ($this->login_model->update_user($user_id, $nom, $prenom, $mail, $role, $status)) {
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
+                        . 'Cet utilisateur a été mis à jour avec succès !</div>');
+                    redirect("admin/update_user/". $user_id);
+                } else {
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de la mise à jour de l\'utilisateur!</div>');
+                    redirect('admin/update_user/'. $user_id);
+                }
+
+            } else {
+                redirect('admin/update_user/' . $user_id);
+            }
+        }
+    }
     public function update_admin($user_id = null) {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');

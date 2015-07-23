@@ -7,6 +7,23 @@ class login_model extends CI_Model
           // Call the Model constructor
           parent::__construct();
      }
+     function update_user($user_id, $nom, $prenom, $mail, $role, $status){
+       $data = array(
+            'user_name' => $nom,
+            'user_surname' => $prenom,
+            'mail' => $mail,
+            'role_id' => $role,
+            'status'=> $status
+        );
+
+        $this->db->where('user_id', $user_id);
+        if($this->db->update('users', $data)){
+            
+            return TRUE;
+        }  else{
+            return FALSE;
+        }
+     }
      function add_admin($nom, $prenom, $email, $role, $active){
       $data = array(
             'user_name' => $nom,
@@ -19,7 +36,8 @@ class login_model extends CI_Model
         $this->db->insert('users', $data);
         return ($this->db->affected_rows() != 1) ? false : true; //pour vérifier si l'insertion s'est bien déroulée.   
      }
-     function add_user($titre, $email, $description){
+
+     function add_contact($titre, $email, $description){
       $data = array(
             'title' => $titre,
             'description' => $description,
@@ -52,7 +70,7 @@ class login_model extends CI_Model
            return $query->result_array();
      }
      function get_all() {
-        $sql = "SELECT * FROM users";
+        $sql = "SELECT * FROM users, role WHERE users.role_id = role.role_id AND role_label = 'ROLE_USER'";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
