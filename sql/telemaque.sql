@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 22 Juillet 2015 à 14:58
+-- Généré le: Jeu 23 Juillet 2015 à 15:00
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -35,17 +35,19 @@ CREATE TABLE IF NOT EXISTS `address` (
   `city` varchar(45) NOT NULL,
   `country` varchar(40) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `user_receiver_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`address_id`),
-  KEY `user_id` (`user_id`)
+  KEY `user_id` (`user_id`),
+  KEY `user_receiver_id` (`user_receiver_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `address`
 --
 
-INSERT INTO `address` (`address_id`, `zip_code`, `address`, `city`, `country`, `user_id`) VALUES
-(1, '75005', '15, rue des écoles', 'Paris', 'France', 5),
-(2, '94120', '22, rue Anatole France', 'Fonteny-sous-bois', 'France', 5);
+INSERT INTO `address` (`address_id`, `zip_code`, `address`, `city`, `country`, `user_id`, `user_receiver_id`) VALUES
+(1, '75005', '15, rue des écoles', 'Paris', 'France', 5, NULL),
+(2, '94120', '22, rue Anatole France', 'Fonteny-sous-bois', 'France', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -229,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_label` varchar(45) NOT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `role`
@@ -338,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `role_id` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `users`
@@ -346,8 +348,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`) VALUES
 (3, 'Ip', 'Ajy', 'superadmin', 'superadmin', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 0, NULL, NULL, 1),
-(4, 'matux', 'loco', 'admin', 'admin', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '127.0.0.1', '2015-07-22', 0, NULL, NULL, 2),
-(5, 'claude', 'parrot', 'user', 'user', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '127.0.0.1', '2015-07-21', 1, NULL, NULL, 3),
+(4, 'matux', 'loco', 'admin', 'admin', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '127.0.0.1', '2015-07-23', 0, NULL, NULL, 2),
+(5, 'claude', 'parrot', 'user', 'user', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '127.0.0.1', '2015-07-23', 1, NULL, NULL, 3),
 (6, 'messi', 'lionel', 'messi', 'messi', '2000-07-15', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'messi@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'If a technical problem occurs on this website', 2),
 (7, 'zidane', 'zinedine', 'zizou', 'zizou', '1970-07-14', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'zizou@yahoo.fr', '', '0000-00-00', 1, 'Service consommateur', 'For any question about a product, an order', 2);
 
@@ -383,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `users_articles` (
 INSERT INTO `users_articles` (`user_article_id`, `quantity`, `title`, `description`, `status`, `price`, `created_at`, `updated_at`, `state`, `article_id`, `user_id`, `image_id`) VALUES
 (3, 1, NULL, 'Vends ma Audi TT S-tronic (automatique palette volant) 2L tfsi noir très entretenue \n17 900 euros (négociable raisonnablement )\n\n- 50 000km\n-cuir alcantara beige claire\n-boite séquentiel volant S tronic\n-volant meplat audit sport\n-clin multi zone \n-vitre électrique\n-rétro électrique rétractable\n-jante rs6 19pouce\n-autoradio DVD GPS 7 pouce tactile bluetooth kit main libre "android 4.4.2" blutooth, wifi ,mp3 ,8 go, slot micro sd \n-son concert Audi 12 enceintes (10 enceintes +caisson +centrale) \n-CT Ok vierge!\n-Révision Audi Ok ( facture) plaquettes neuves !', '', 17900, '2015-06-23 14:54:29', NULL, NULL, 3, 4, NULL),
 (4, 4, NULL, '\r\nJe mets en vente mon iPhone 6 noir\r\n\r\n16 g\r\n\r\nDesimlocke.\r\n\r\nIl est en excellent état.\r\n\r\nJe fournis boîte et facture.\r\n\r\n550 si vente aujourd''hui !!\r\n\r\n\r\nCause de la vente : je veux acheter le Samsung s6 edge\r\n', '', 550, '2015-06-23 14:54:29', NULL, NULL, 5, 5, NULL),
-(5, 1, 'renault twingo 1.2L pack clim du 10/06/97CTok du 22/06/2015', ' \r\nles freins ARR + les roulements ont été changés au mois de mars  2015(facture de 255 euro)\r\nle kit distri + P A E + ventilation + résistance changée a  168000 kms le 04/06/2015(facture de 345 euro)\r\nle verni se décolle un peu sur le toit\r\naucune négociation le jour de la vente\r\nvoiture à prendre dans l''état après son passage au CT qui\r\n a été fait le 22/06/2015 avec  2 défauts sans contre visite\r\n1er défaut:un soufflet de crémaillère\r\n2 ème défaut:absence de plaque constructeur', '', 1000, '2015-07-17 14:17:38', NULL, NULL, 1, 3, NULL);
+(5, 1, 'renault twingo 1.2L pack clim du 10/06/97CTok du 22/06/2015', ' \r\nles freins ARR + les roulements ont été changés au mois de mars  2015(facture de 255 euro)\r\nle kit distri + P A E + ventilation + résistance changée a  168000 kms le 04/06/2015(facture de 345 euro)\r\nle verni se décolle un peu sur le toit\r\naucune négociation le jour de la vente\r\nvoiture à prendre dans l''état après son passage au CT qui\r\n a été fait le 22/06/2015 avec  2 défauts sans contre visite\r\n1er défaut:un soufflet de crémaillère\r\n2 ème défaut:absence de plaque constructeur', '', 1000, '2015-07-17 14:17:38', NULL, 1, 1, 3, NULL);
 
 --
 -- Contraintes pour les tables exportées
@@ -393,6 +395,7 @@ INSERT INTO `users_articles` (`user_article_id`, `quantity`, `title`, `descripti
 -- Contraintes pour la table `address`
 --
 ALTER TABLE `address`
+  ADD CONSTRAINT `fk_adress_user_receiver_id` FOREIGN KEY (`user_receiver_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `fk_adress_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
@@ -461,5 +464,3 @@ ALTER TABLE `users_articles`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-

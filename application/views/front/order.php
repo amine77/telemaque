@@ -1,5 +1,5 @@
 <div id="bloc_contenu">
-    <h2>Selectionner une adresse</h2>
+    <h2>Commande</h2>
     <div id="commande">
         <span class="btn btn-default">Récapitulatif de la commande</span>
         <a href="<?= base_url() ?>articles" class="btn btn-default" style="display:inline">Continuer mes achats</a>
@@ -10,16 +10,79 @@
     </div>
 
     <div id="adresse">
-        <div id="select-address">
-        <?php var_dump($adresses);?>
+        <div id="select-address" style="float:left;width:40%;margin-right:10%;">
+            <h4>Selectionner une adresse</h4>
+            <?php for ($i = 0; $i < count($adresses); $i++): ?>
+                <input type="radio" name="adresse" value="<?= $adresses[$i]['address_id'] ?>"/>
+                <?= $adresses[$i]['address'] . "<strong> " . $adresses[$i]['city'] ?></strong>
+                <br/>
+            <?php endfor; ?>
         </div>
-        <div id="add-address">
-        </div>    
+        <div id="add-address"  style="float:left;width:40%;">
+
+            <?php
+            $attributes = array("class" => "form-horizontal", "id" => "loginform", "name" => "loginform");
+            echo form_open("inscription/index", $attributes);
+            ?>
+            <fieldset>
+                <legend>Ajouter une nouvelle adresse</legend>
+                <div class="form-group">
+                    <div class="row colbox">
+
+                        <div class="col-lg-2 col-sm-2">
+                            <input class="form-control" id="num" name="txt_username" placeholder="N°" type="text"  />
+                            <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
+                        </div>
+
+                        <div class="col-lg-4 col-sm-4">
+                            <input class="form-control" id="num" name="voie" placeholder="(rue,bd,voie)" type="text"  />
+                            <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <input class="form-control" id="num" name="libellé" placeholder="libellé" type="text"  />
+                            <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row colbox">
+                        
+                        <div class="col-lg-3 col-sm-3">
+                            <input class="form-control" id="zip_cod" name="code_postal" placeholder="Code Postal" type="text"  />
+                            <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
+                        </div>
+                        <div class="col-lg-4 col-sm-4">
+                            <input class="form-control" id="num" name="ville" placeholder="Ville" type="text"  />
+                            <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
+                        </div>
+                        <div class="col-lg-5 col-sm-5">
+                            <input class="form-control" id="pays" name="pays" placeholder="Pays" type="text"  />
+                            <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-12 col-sm-12 text-center">
+                        <input id="btn_signup" name="btn_signup" type="submit" class="btn btn-default" value="Valider" />
+                        <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Cancel" />
+                    </div>
+                </div>
+            </fieldset>
+            <?php echo form_close(); ?>
+            <?php echo $this->session->flashdata('msg'); ?>
+
+        </div>  
+
+
+
+
+        <div class="clear"></div>
         <!--<div id="new-count">
-                    <?php
-                    $attributes = array("class" => "form-horizontal", "id" => "loginform", "name" => "loginform");
-                    echo form_open("inscription/index", $attributes);
-                    ?>
+        <?php
+        $attributes = array("class" => "form-horizontal", "id" => "loginform", "name" => "loginform");
+        echo form_open("inscription/index", $attributes);
+        ?>
                     <fieldset>
                         <legend>Ajout une nouvelle adresse</legend>
                         <div class="form-group">
@@ -125,13 +188,13 @@
                             </div>
                         </div>
                     </fieldset>
-                    <?php echo form_close(); ?>
-                    <?php echo $this->session->flashdata('msg'); ?>
+        <?php echo form_close(); ?>
+        <?php echo $this->session->flashdata('msg'); ?>
                 </div>-->
-        
-           
 
 
-        </div>
+
+
     </div>
+</div>
 
