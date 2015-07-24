@@ -1,3 +1,16 @@
+<div id="bloc_contenu">
+    <h1>Ajouter un tag</h1>
+    
+    
+</div>
+
+
+
+
+
+
+
+
 <div class="container">
     <div class="row">
 

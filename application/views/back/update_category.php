@@ -1,62 +1,61 @@
-<div class="container">
-    <div class="row">
+<div id="bloc_contenu">
+    <h1>Modifier une catégorie</h1>
 
-        <div class="col-lg-4 col-sm-4 well">
-            <?php echo $this->session->flashdata('success'); ?>
-            <?php
-            $attributes = array("class" => "form-horizontal", "id" => "categoryupdateform", "name" => "categoryupdateform");
-            echo form_open("admin/update_category/".$id, $attributes);
-            ?>
-            <fieldset>
-                <legend>Mise à jour </legend>
-                <div class="form-group">
-                    <div class="row colbox">
-                        <div class="col-lg-4 col-sm-4">
-                            <label for="txt_category" class="control-label">Category</label>
-                        </div>
-                        <div class="col-lg-8 col-sm-8">
-                            <input required="required" class="form-control" id="txt_password" name="txt_category" placeholder="Category" type="text" value="<?php echo($cat['category_label']) ?>" />
-                            <span class="text-danger"><?php echo form_error('txt_category'); ?></span>
-                        </div>
-                    </div>
-                </div>
+    <?php echo $this->session->flashdata('success'); ?>
+    <?php
+    $attributes = array("class" => "form-horizontal", "id" => "categoryupdateform", "name" => "categoryupdateform");
+    echo form_open("admin/update_category/" . $id, $attributes);
+    ?>
 
+    <table class="tableau_formulaire" id="tableau_form_categories">
+        <tr>
+            <td class="col_label">
+                <label for="txt_category">
+                    Catégorie :
+                </label>
+            </td>
+            <td class="col_input">
+                <input required="required" class="form-control" id="txt_password" name="txt_category" placeholder="Category" type="text" value="<?php echo($cat['category_label']) ?>" />
+                <span class="text-danger"><?php echo form_error('txt_category'); ?></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="col_label">
+                <label for="txt_parent">
+                    Parent :
+                </label>
+            </td>
+            <td class="col_input">
+                <select name="txt_parent" class="form-control">
+                    <option value="0">Aucune</option>
+                    <?php
+                    foreach ($categories as $categorie) {
 
-
-                <div class="form-group">
-                    <div class="row colbox">
-                        <div class="col-lg-4 col-sm-4">
-                            <label for="txt_parent" class="control-label">Parent</label>
-                        </div>
-                        <div class="col-lg-8 col-sm-8">
-                            <select name="txt_parent" class="form-control">
-                                <option value="0">Aucune</option>
-                                <?php
-                                foreach ($categories as $categorie) {
-
-                                    echo '<option value="' . $categorie['category_id'] . '">' . $categorie['category'] . '</option>';
-                                }
-                                ?>
-                            </select>
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="form-group">
-                    <div class="col-lg-12 col-sm-12 text-center">
-                        <input id="btn_update" name="btn_update" type="submit" class="btn btn-default" value="Update" />
-                        <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Annuler" />
-                    </div>
-                </div>
-            </fieldset>
-            <?php echo form_close(); ?>
-            <?php echo $this->session->flashdata('msg'); ?>
-        </div>
-
-    </div>
+                        echo '<option value="' . $categorie['category_id'] . '">' . $categorie['category'] . '</option>';
+                    }
+                    ?>
+                </select>
+            </td>
+        </tr>
+        <!-- ----------------- Separation ----------------- -->
+        <tr>
+            <td class="col_label separation">
+            </td>
+            <td class="col_input separation">
+            </td>
+        </tr>
+        <!-- ----------------- Separation ----------------- -->
+        <tr>
+            <td class="col_label">
+            </td>
+            <td class="col_input">
+                <input id="btn_update" name="btn_update" type="submit" class="btn btn-default" value="Modifier" />
+                <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Annuler" />
+            </td>
+        </tr>
+    </table>
+    
+    <?php echo form_close(); ?>
+    <?php echo $this->session->flashdata('msg'); ?>
+    
 </div>
-
-

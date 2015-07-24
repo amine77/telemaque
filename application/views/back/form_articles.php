@@ -1,6 +1,7 @@
 <div id="bloc_contenu">
     <h1>Formulaire d'articles</h1>
     
+    
     <form method="post" action="#">
         <table class="tableau_formulaire" id="tableau_form_articles">
             <tr>

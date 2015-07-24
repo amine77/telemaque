@@ -189,7 +189,7 @@ footer ul li a:hover{
 
 
 /*******************************************
-Style commun aux tableaus principaux
+Style commun aux tableaux principaux
 *******************************************/
 .tableau_liste{
     border-bottom: 3px solid #001e3c;
@@ -244,6 +244,45 @@ Style commun aux formulaires
     width: 80%;
     padding: 0 0 0 20px;
 }
+
+.tableau_formulaire .col_input input[type='text'],
+.tableau_formulaire .col_input input[type='password']{
+    width: 100%;
+    padding-left: 12px;
+    margin: 5px 0;
+}
+
+.tableau_formulaire .col_input select{
+    width: 100%;
+    height: 40px;
+    margin: 5px 0;
+}
+
+.tableau_formulaire .col_input textarea{
+    width: 100%;
+    height: 120px;
+    resize: none;
+    margin: 5px 0;
+}
+
+.tableau_formulaire .separation{
+    height: 20px;
+}
+
+.tableau_formulaire input[type='submit'],
+.tableau_formulaire input[type='reset']{
+    margin-top: 10px;
+    padding: 5px 20px;
+    border: 1px solid #005587;
+    background-color: #003250;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+.tableau_formulaire input[type='submit']:hover,
+.tableau_formulaire input[type='reset']:hover{
+    background-color: #004270;
+}
 /*******************************************
 *******************************************/
 
@@ -251,44 +290,50 @@ Style commun aux formulaires
 
 
 
-/*
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+
+#tableau_form_categories .col_input select{
+    width: 100%;
+    height: 40px;
+    margin: 5px 0;
 }
 
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+#tableau_form_categories .col_label#label_descriptif{
+    vertical-align: top;
+    padding: 5px 0;
 }
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
+#tableau_form_categories #label_caracteristiques{
+    vertical-align: top;
+    padding: 5px 0;
 }
-.form-signin .checkbox {
-  font-weight: normal;
+
+#tableau_form_categories #caracteristiques table{
+    width: 100%;
 }
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
+
+#tableau_form_categories #caracteristiques .carac_label{
+    width: 30%;
+    padding: 0 5px 0 0;
 }
-.form-signin .form-control:focus {
-  z-index: 2;
+/*
+#tableau_form_categories #caracteristiques .carac_input button{
+    padding: 5px 10px;
+    border: 1px solid #005587;
+    background-color: #003250;
+    border-radius: 5px;
+    font-size: 10px;
+    color: #FFFFFF;
+}*/
+
+#tableau_form_categories #caracteristiques .carac_input button:hover{
+    background-color: #004270;
 }
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+
+#tableau_form_categories #caracteristiques .carac_input{
+    width: 70%;
+    padding: 0 0 0 5px;
 }
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+
+/*
+#tableau_form_categories input[type='submit']:hover{
+    background-color: #004270;
 }*/
