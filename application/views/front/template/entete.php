@@ -16,8 +16,8 @@
 
         <!-- Custom styles for this template -->
         <link href="<?php echo base_url(); ?>assets/css/frontstyle.css" rel="stylesheet">
-        
-      
+
+
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -35,9 +35,14 @@
                 echo'<script src="' . base_url() . 'assets/js/' . $value . '.js"></script>';
             }
         }
-         if (isset($lib_css) && !empty($lib_css) && is_array($lib_css)) {
+        if (isset($lib_css) && !empty($lib_css) && is_array($lib_css)) {
             foreach ($lib_css as $value) {
-               echo'<link href="' . base_url() . 'assets/lib/' . $value . '.css" rel="stylesheet" type="text/css">';
+                echo'<link href="' . base_url() . 'assets/lib/' . $value . '.css" rel="stylesheet" type="text/css">';
+            }
+        }
+        if (isset($lib_js) && !empty($lib_js) && is_array($lib_js)) {
+            foreach ($lib_js as $value) {
+                echo'<script src="' . base_url() . 'assets/lib/' . $value . '.js"></script>';
             }
         }
         ?>
@@ -46,8 +51,8 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-            
-  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     </head>
 
     <body>

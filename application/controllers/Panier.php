@@ -6,7 +6,7 @@ class Panier extends Front_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('articles_model', 'users_articles_model','login_model'));
+        $this->load->model(array('articles_model', 'users_articles_model', 'login_model'));
 
         $this->load->library('session');
     }
@@ -83,33 +83,75 @@ class Panier extends Front_Controller {
         } else
             $html = json_encode($this->panier_model->get_nb_articles());
 
-
-
-
         return $html;
     }
 
     //Page commande 
-    public function order() {
+    public function order($etape = '') {
         if (!$this->session->has_userdata('login')) {
             redirect('connexion');
         }
-           $panier_exemplaire = $_SESSION['panier'];
+        $panier_exemplaire = $_SESSION['panier'];
+        if ($etape == 'etape-2') {
+         
+            $this->data['lib_css'] = array('datepicker/css/bootstrap-datepicker3');
+            $this->data['lib_js'] = array('datepicker/js/bootstrap-datepicker.min');
+               $this->data['additional_js'] = array('functions');
+            $this->data['view'] = 'front/order_etape_2';
+         
+        } else {
+            if ($this->input->post('add_adress') == "Valider") {
+                $this->form_validation->set_rules("num-voie", "N°", "trim|required");
+                $this->form_validation->set_rules("type-voie", "Rue,bd,voie", "trim|required");
+                $this->form_validation->set_rules("nom-voie", "Libellé", "trim|required");
+                $this->form_validation->set_rules("zip_code", "Code Postal", "trim|required");
+                $this->form_validation->set_rules("ville", "Ville", "trim|required");
+                $this->form_validation->set_rules("pays", "Pays", "trim|required");
 
-        $this->data['exemplaires'] = array();
-        //$this->panier_model->vider();
-        unset($panier_exemplaire['nb_article']);
-        $panier_exemplaire = array_keys($panier_exemplaire);
-        if (count($panier_exemplaire) > 0) {
+                if ($this->form_validation->run() == TRUE) {
 
-            $this->data['additional_js'] = array('functions');
-            $this->data['exemplaires'] = $this->users_articles_model->exemplaire($panier_exemplaire);
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouvelle adresse a été ajoutéé</div>');
 
-            $this->data['panier'] = $this->panier_model->get_cart($this->data['exemplaires'],true);
+                    $oAdresse = array(
+                        'adresse' => $this->input->post("num-voie") . " " . $this->input->post("type-voie") . " " . $this->input->post("nom-voie"),
+                        'zip_code' => $this->input->post("zip_code"),
+                        'city' => $this->input->post("ville"),
+                        'country' => $this->input->post("pays")
+                    );
+                    $this->login_model->add_adresse_by_user($_SESSION['user_id'], $oAdresse['adresse'], $oAdresse['zip_code'], $oAdresse['city'], $oAdresse['country']);
+
+                    redirect(base_url() . "panier/order");
+                }
+            }  if ($this->input->post('select_adress') == "Valider") {
+                
+                  $this->form_validation->set_rules("adresse", "N°", "trim|required");
+                   if ($this->form_validation->run() == TRUE) {
+                      
+                       redirect(base_url() . "panier/order/etape-2");
+                   }
+                   else{
+                        $this->session->set_flashdata('msg-select-adress', '<div class="alert alert-danger text-center">Aucune adresse n\'a été ajoutée </div>');
+                        redirect(base_url() . "panier/order");
+                   }
+               
+            }
+
+            $this->data['exemplaires'] = array();
+            //$this->panier_model->vider();
+            unset($panier_exemplaire['nb_article']);
+            $panier_exemplaire = array_keys($panier_exemplaire);
+            if (count($panier_exemplaire) > 0) {
+
+                $this->data['additional_js'] = array('functions');
+                $this->data['exemplaires'] = $this->users_articles_model->exemplaire($panier_exemplaire);
+
+                $this->data['panier'] = $this->panier_model->get_cart($this->data['exemplaires'], true);
+            }
+            $this->data['view'] = 'front/order';
+            $this->data['adresses'] = $this->login_model->get_adresses_by_user($_SESSION['user_id']);
+
+            
         }
-        $this->data['view'] = 'front/order';
-        $this->data['adresses'] = $this->login_model->get_adresses_by_user($_SESSION['user_id']);
-      
         $this->load->view('front/template/layout', $this->data);
     }
 

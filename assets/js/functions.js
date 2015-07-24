@@ -1,6 +1,14 @@
 
 $(function() {
+    //affiche formulaire de date
+  
 
+   $('.input-group.date').datepicker({
+    format: 'mm/dd/yyyy',
+    startDate: '-3d'
+});
+   
+   
     $(".add_article").click(function() {
         var data = {"user_article_id": $(this).data('role')};
         var action = "add_article/norm";
@@ -11,7 +19,7 @@ $(function() {
             print_cart(action, data, $(this));
 
     });
-    $("#commande span.btn").on('click',function(){
+    $("#commande span.btn").on('click', function() {
         $("#cart-order").slideToggle();
     });
     $(".glyphicon-trash").on('click', function() {
@@ -22,16 +30,16 @@ $(function() {
 
 });
 
-function delete_article(){
-     var data = $(this).parent().parent().data('role');
+function delete_article() {
+    var data = $(this).parent().parent().data('role');
 }
 
-function delete_sample_article(entity){
+function delete_sample_article(entity) {
     var ua_id = entity.parent().parent().data('role');
     var data = {"user_article_id": ua_id};
     var action = "delete_sample_article";
     var qty = entity.next('input').data('qty');
-    if(qty>=2)
+    if (qty >= 2)
         print_cart(action, data);
 }
 
@@ -69,8 +77,8 @@ function print_cart(action, data, entity) {
             entity.data('qty', parseInt(entity.data('qty') + 1));
         }
         else {
-            
-            $('#bloc_contenu').html(result);
+
+            $('#bloc_panier').html(result);
         }
         $("#panier span").animate({fontSize: "17px", color: "#AA0000"}, 500).animate({fontSize: "13px", color: "white"}, 300);
 
