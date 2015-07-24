@@ -35,7 +35,7 @@
             <li> <?php echo '<a href="' . base_url() . '">Accueil</a>' ?></li>
             <?php
                         foreach ($parents as $parent => $enfant) {
-                            echo '<li><a href="#">'.$parent .'</a></li>';
+                            echo '<li><a href="#">'.strtoupper($parent).'</a></li>';
                         }
             ?>
         </ul>
