@@ -17,38 +17,48 @@
         </div>
     </div>
     <?php
-            
-            $parents =array();
-            //var_dump($categories);
-            foreach ($categories as $categorie) {
-                if($categorie['parent_category'] == '0'){
-                    $parents[$categorie['category']]='';
-                }else{
-                    $parents[$categorie['parent_category']][]=$categorie['category'];
-                }
-                
-            }
-            var_dump($parents);
-            ?>
+    $parents = array();
+    //var_dump($categories);
+    foreach ($categories as $categorie) {
+        if ($categorie['parent_category'] == '0') {
+            $parents[$categorie['category']] = '';
+        } else {
+            $parents[$categorie['parent_category']][] = $categorie['category'];
+        }
+    }
+    //var_dump($parents);
+    ?>
     <nav>
         <ul>
             <li> <?php echo '<a href="' . base_url() . '">Accueil</a>' ?></li>
-            <?php
-                        foreach ($parents as $parent => $enfant) {
-                            echo '<li><a href="#">'.strtoupper($parent).'</a></li>';
-                        }
-            ?>
+<?php
+foreach ($parents as $parent => $enfants) {
+
+    if (is_array($enfants)) {
+        echo '<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . strtoupper($parent) . ' <span class="caret"></span></a>
+              <ul class="dropdown-menu">';
+        foreach ($enfants as $enfant) {
+            echo ' <li><a href="#">' . ucfirst(strtolower($enfant)) . '</a></li>';
+        }
+        echo '</ul>
+            </li>';
+    } else {
+        echo '<li><a href="#">' . strtoupper($parent) . '</a></li>';
+    }
+}
+?>
         </ul>
 
         <div id="autres">
             <div id="form_search">
-                <?php echo form_open('search'); ?>
+<?php echo form_open('search'); ?>
                 <input type="search" name="recherche" id="search"/>
                 <input type="submit" value="Valider">
-                <?php echo form_close(); ?>
+<?php echo form_close(); ?>
             </div>
             <div id="panier">
-                <?php echo '<a href="' . base_url() . 'panier">Panier</a>(<span>' . $nb_article . '</span>)'; ?>
+<?php echo '<a href="' . base_url() . 'panier">Panier</a>(<span>' . $nb_article . '</span>)'; ?>
             </div>
         </div>
         <div class="clear"></div>
