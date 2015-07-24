@@ -18,36 +18,50 @@
     </div>
     <?php
     $parents = array();
-    //var_dump($categories);
+
+    foreach ($categories as $categorie) {
+        
+    }
     foreach ($categories as $categorie) {
         if ($categorie['parent_category'] == '0') {
-            $parents[$categorie['category']] = '';
-        } else {
-            $parents[$categorie['parent_category']][] = $categorie['category'];
+            $parents[$categorie['category']]['slug'] = $categorie['slug'];
         }
     }
-    //var_dump($parents);
+    foreach ($categories as $categorie) {
+        if ($categorie['parent_category'] != '0') {
+            $enfant = array(
+                'slug' => $categorie['slug']
+            );
+            $parents[$categorie['parent_category']]['enfants'][$categorie['category']] = $enfant;
+        }
+    }
+
     ?>
     <nav>
         <ul>
             <li> <?php echo '<a href="' . base_url() . '">Accueil</a>' ?></li>
-<?php
-foreach ($parents as $parent => $enfants) {
+            <?php
 
-    if (is_array($enfants)) {
-        echo '<li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . strtoupper($parent) . ' <span class="caret"></span></a>
+            foreach ($parents as $key => $parent) {
+
+                if (array_key_exists('enfants', $parent) && is_array($parent['enfants'])) {
+                    echo '<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.$key.' <span class="caret"></span></a>
               <ul class="dropdown-menu">';
-        foreach ($enfants as $enfant) {
-            echo ' <li><a href="#">' . ucfirst(strtolower($enfant)) . '</a></li>';
-        }
-        echo '</ul>
-            </li>';
-    } else {
-        echo '<li><a href="#">' . strtoupper($parent) . '</a></li>';
-    }
-}
-?>
+                    $enfants = $parent['enfants'] ;
+                    foreach ($enfants as $index =>$enfant) { {
+                           echo '<li><a href="'.base_url('view/'.$enfant['slug']).'">' .$index. '</a></li>';
+                        }
+                    }
+                    echo '                
+                        </ul>
+                      </li>';
+                }else{
+                    echo '<li><a href="' . base_url('view/'.$parent['slug'] ). '">' . $key . '</a></li>';
+                    
+                }
+            }
+            ?>
         </ul>
 
         <div id="autres">

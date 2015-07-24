@@ -10,10 +10,22 @@ class category_model extends CI_Model {
         parent::__construct();
     }
 
+    function get_slug($slug) {
+        $query = $this->db->get_where('categories', array('slug' => $slug), 1);
+        return $query->result_array();
+    }
+
     function get_all() {
-        $sql = "select category_id, parent_category, category_label as category from categories where parent_category=0"
-                . " UNION "
-                . "select enfant.category_id, mere.category_label as categorie_parent, enfant.category_label as categorie from categories as mere, categories as enfant where mere.category_id = enfant.parent_category";
+//        $sql = "select category_id, parent_category, category_label as category from categories where parent_category=0"
+//                . " UNION "
+//                . "select enfant.category_id, mere.category_label as categorie_parent, enfant.category_label as categorie from categories as mere, categories as enfant where mere.category_id = enfant.parent_category";
+        $sql = "SELECT category_id, parent_category, category_label AS category, slug
+            FROM categories
+            WHERE parent_category =0
+            UNION
+            SELECT enfant.category_id, mere.category_label AS categorie_parent, enfant.category_label AS categorie, enfant.slug
+            FROM categories AS mere, categories AS enfant
+            WHERE mere.category_id = enfant.parent_category";
         $query = $this->db->query($sql);
         return $query->result_array();
     }

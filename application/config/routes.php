@@ -59,6 +59,7 @@ $route['^(articles)/(:any)'] = "articles/index/$0";
 $route['^(search)/(:any)'] = "search/index/$0";
 $route['^(articles)/(:any)/(:any)'] = "articles/index/$0/$1";
 $route['^(usr)/(:any)'] = "usr";
+$route['^(view)/(:any)'] = "home/view/$0";
 $route['^(connexion)'] = "home/connexion";
 
 /*

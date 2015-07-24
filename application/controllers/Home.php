@@ -22,6 +22,17 @@ class Home extends Front_Controller {
         
        
     }
+    public function view($slug) {
+        $this->data['additional_js'] = array('functions');
+        if($this->articles_model->get_slug($slug)){
+            $this->data['articles'] = $this->articles_model->get_articles_by_category($category['category_id']);
+        }
+        
+        $this->data['view'] = 'front/articles';
+
+     
+        $this->load->view('front/template/layout', $this->data);
+    }
 
     public function connexion($action=""){
         

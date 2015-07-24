@@ -14,6 +14,15 @@ class Articles_model extends CI_Model {
 
         return $query;
     }
+    
+    public function get_articles_by_category($category_id) {
+        $query = $this->db->get_where('categories', array('category_id' => $category_id));
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
 
     public function get_article($article_id = '') {
 
