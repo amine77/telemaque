@@ -1,10 +1,12 @@
 <div id="bloc_contenu">
     <?php
         defined('BASEPATH') OR exit('No direct script access allowed');
-
+        
+        
+        if(isset($articles) && is_object($articles)){
         // Affiche les articles
         echo '<table id="tableau_articles">';
-
+        
         foreach ($articles->result() as $row) {
 
             echo '
@@ -18,7 +20,7 @@
                         </td>
                         <td class="col_2">
 
-                            <a href="' . base_url() . 'articles/$row->article_id" data-role="' . $row->article_id . '" class="btn_base">Voir les details</a><br/>
+                            <a href="' . base_url() . 'articles/'.$row->article_id.'" data-role="' . $row->article_id . '" class="btn_base">Voir les details</a><br/>
 
                         </td>
                     </tr>
@@ -26,6 +28,9 @@
 
         }
         echo '</table>';
+        }  else {
+            echo'<br><center><h3><span class="label label-warning">Aucun article trouvé dans cette catégorie</span></h3></center>';
+}
     ?>
 
 </div>

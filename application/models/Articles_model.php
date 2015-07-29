@@ -1,12 +1,15 @@
 <?php
 
-class Articles_model extends CI_Model {
+class Articles_model extends CI_Model
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function get_articles($nb = '') {
+    public function get_articles($nb = '')
+    {
         $limit = "";
         if ($nb != '')
             $limit = "LIMIT $nb";
@@ -14,17 +17,19 @@ class Articles_model extends CI_Model {
 
         return $query;
     }
-    
-    public function get_articles_by_category($category_id) {
-        $query = $this->db->get_where('categories', array('category_id' => $category_id));
+
+    public function get_articles_by_category($category_id ='')
+    {
+        $query = $this->db->get_where('articles', array('category_id' => $category_id));
         if ($query->num_rows() > 0) {
-            return $query->result_array();
+            return $query;
         } else {
             return false;
         }
     }
 
-    public function get_article($article_id = '') {
+    public function get_article($article_id = '')
+    {
 
         if ($article_id == '')
             return;
@@ -40,7 +45,8 @@ class Articles_model extends CI_Model {
     }
 
     //cette fonction effectue une recherche sur les labels des articles ainsi que leurs mots clés associés
-    public function search($key) {
+    public function search($key)
+    {
         $sql = "SELECT  articles.article_id, article_label, image_path
             FROM images
            RIGHT JOIN articles ON articles.image_id = images.image_id
@@ -51,7 +57,8 @@ class Articles_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function specification($article_id = '') {
+    public function specification($article_id = '')
+    {
         $with_article = "";
         if ($article_id != "")
             $with_article = " WHERE a.article_id = '$article_id'  ";

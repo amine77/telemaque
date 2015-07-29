@@ -3,19 +3,28 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class category_model extends CI_Model {
+class category_model extends CI_Model
+{
 
-    function __construct() {
+    function __construct()
+    {
         // Call the Model constructor
         parent::__construct();
     }
 
-    function get_slug($slug) {
+    function get_category_by_slug($slug)
+    {
         $query = $this->db->get_where('categories', array('slug' => $slug), 1);
-        return $query->result_array();
+        
+         if ($query->num_rows() > 0) {
+            return $query->row_array();
+        } else {
+            return false;
+        }
     }
 
-    function get_all() {
+    function get_all()
+    {
 //        $sql = "select category_id, parent_category, category_label as category from categories where parent_category=0"
 //                . " UNION "
 //                . "select enfant.category_id, mere.category_label as categorie_parent, enfant.category_label as categorie from categories as mere, categories as enfant where mere.category_id = enfant.parent_category";
@@ -30,7 +39,8 @@ class category_model extends CI_Model {
         return $query->result_array();
     }
 
-    function add_category($parent_category, $category_label) {
+    function add_category($parent_category, $category_label)
+    {
         $data = array(
             'parent_category' => $parent_category,
             'category_label' => $category_label
@@ -40,11 +50,13 @@ class category_model extends CI_Model {
         return ($this->db->affected_rows() != 1) ? false : true; //pour vérifier si l'insertion s'est bien déroulée.
     }
 
-    function delete_category($id) {
+    function delete_category($id)
+    {
         $this->db->delete('categories', array('category_id' => $id));
     }
 
-    function get_category($id) {
+    function get_category($id)
+    {
         $query = $this->db->get_where('categories', array('category_id' => $id));
 
         if ($query->num_rows() > 0) {
@@ -54,7 +66,8 @@ class category_model extends CI_Model {
         }
     }
 
-    function update_category($parent_category, $category_id, $category_label) {
+    function update_category($parent_category, $category_id, $category_label)
+    {
         $data = array(
             'parent_category' => $parent_category,
             'category_label' => $category_label
