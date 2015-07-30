@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Ven 24 Juillet 2015 à 14:45
--- Version du serveur: 5.6.12-log
--- Version de PHP: 5.4.12
+-- Client :  127.0.0.1
+-- Généré le :  Jeu 30 Juillet 2015 à 15:48
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `telemaque`
+-- Base de données :  `telemaque`
 --
 CREATE DATABASE IF NOT EXISTS `telemaque` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `telemaque`;
@@ -345,11 +345,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`) VALUES
-(3, 'Ip', 'Ajy', 'superadmin', 'superadmin', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 0, NULL, NULL, 1),
-(4, 'matux', 'loco', 'admin', 'admin', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '127.0.0.1', '2015-07-24', 0, NULL, NULL, 2),
-(5, 'claude', 'parrot', 'user', 'user', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '127.0.0.1', '2015-07-21', 1, NULL, NULL, 3),
-(6, 'messi', 'lionel', 'messi', 'messi', '2000-07-15', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'messi@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'If a technical problem occurs on this website', 2),
-(7, 'zidane', 'zinedine', 'zizou', 'zizou', '1970-07-14', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'zizou@yahoo.fr', '', '0000-00-00', 1, 'Service consommateur', 'For any question about a product, an order', 2);
+(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 0, NULL, NULL, 1),
+(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-07-30', 0, NULL, NULL, 2),
+(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-07-30', 1, NULL, NULL, 3),
+(6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'messi@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'If a technical problem occurs on this website', 2),
+(7, 'zidane', 'zinedine', 'zizou', '326e9edaae7f6b75fe245ac2b8737395cfbe5713', '1970-07-14', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'zizou@yahoo.fr', '', '0000-00-00', 1, 'Service consommateur', 'For any question about a product, an order', 2);
 
 -- --------------------------------------------------------
 
