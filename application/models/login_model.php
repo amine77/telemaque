@@ -106,7 +106,7 @@ class login_model extends CI_Model {
 
     //get the username & password from tbl_usrs
     function get_user($usr, $pwd) {
-        $sql = "SELECT * FROM users, role WHERE role.role_id = users.role_id AND login = '" . $usr . "' AND password = '" . $pwd . "' ";
+        $sql = "SELECT * FROM users, role WHERE role.role_id = users.role_id AND login = '" . $usr . "' AND password = '" . sha1($pwd). "' ";
         $query = $this->db->query($sql);
         return $query->row_array();
     }
@@ -150,7 +150,7 @@ class login_model extends CI_Model {
             'user_name' => $user_name,
             'user_surname' => $user_surname,
             'login' => $login,
-            'password' => $password,
+            'password' => sha1($password),
             'born_at' => $born_at,
             'phone' => $phone,
             'mobile' => $mobile,

@@ -14,7 +14,7 @@ class Admin extends CI_Controller
             redirect(base_url());
             }
         }else{
-            redirect(base_url());
+            redirect(base_url('login'));
         } 
 
         $this->load->model('login_model');
@@ -28,55 +28,7 @@ class Admin extends CI_Controller
     {
 
         
-        //get the posted values
-        $username = $this->input->post("txt_username");
-        $password = $this->input->post("txt_password");
-
-
-        //set validations
-        $this->form_validation->set_rules("txt_username", "Username", "trim|required");
-        $this->form_validation->set_rules("txt_password", "Password", "trim|required");
-
-        if ($this->form_validation->run() == FALSE) {
-            //validation fails
-            $data['title'] = 'un titre';
-            $data['view'] = 'back/login_view';
-            $data['show_header'] = TRUE;
-            $this->load->view('back/login_view', $data);
-//            $this->load->view('back/template/layout', $data);
-        } else {
-
-            //validation succeeds
-            if ($this->input->post('btn_login') == "Login") {
-                //check if username and password is correct
-                $usr_result = $this->login_model->get_user($username, $password);
-                if (count($usr_result) > 0) { //active user record is present
-                    //set the session variables
-                    $ip = $this->input->ip_address();
-                    $sessiondata = array(
-                        'login' => $username,
-                        'loginuser' => TRUE,
-                        'ip' => $ip,
-                        'role' => $usr_result['role_label'],
-                        'user_id' => $usr_result['user_id']
-                    );
-                    $this->session->set_userdata($sessiondata);
-                    $now = new DateTime();
-                    $toDay = $now->format('Y-m-d');
-                    $this->login_model->update_connection_infos($usr_result['user_id'], $ip, $toDay);
-                    if ($usr_result['role_label'] == 'ROLE_SUPER_ADMIN' || $usr_result['role_label'] == 'ROLE_ADMIN') {
-                        redirect("admin/home");
-                    } else {
-                        redirect(base_url());
-                    }
-                } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
-                    redirect('admin/index');
-                }
-            } else {
-                redirect('admin/index');
-            }
-        }
+      redirect("admin/home");
     }
 
 //    public function logout()
@@ -85,12 +37,6 @@ class Admin extends CI_Controller
 //        redirect(base_url('/'), 'refresh');
 //    }
 
-    public function login()
-    {
-
-        $_SESSION['login'] = 'user@test.com';
-        echo 'Bonjour ici la page de login ' . $_SESSION['login'];
-    }
 
     public function home()
     {

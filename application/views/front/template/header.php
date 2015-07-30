@@ -5,7 +5,7 @@
             if ($this->session->userdata('login')) {
                 echo 'Bonjour <strong>' . $_SESSION['login'] . '</strong>&nbsp;&nbsp;&nbsp;<a href="' . site_url('logout') . '">Déconnexion</a>';
             } else {
-                echo ' <a href="' . site_url('admin') . '">Connexion</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="' . site_url('inscription') . '">Inscription</a>';
+                echo ' <a href="' . site_url('login') . '">Connexion</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="' . site_url('inscription') . '">Inscription</a>';
             }
             ?>
         </div>
