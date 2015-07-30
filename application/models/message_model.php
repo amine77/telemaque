@@ -15,6 +15,9 @@ class message_model extends CI_Model {
     function delete_message($id) {
         $this->db->delete('messages', array('message_id' => $id));
     }
+    function send_message($sender, $receiver, $content, $title) {
+        
+    }
 
    
 

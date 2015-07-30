@@ -37,7 +37,7 @@
         <h4>Contactez-nous</h4>
         <ul>
             <li><a href="#" title="Support">Support</a></li>
-            <li><a href="#" title="Contact">Contact</a></li>
+            <li><a href="<?=  base_url('contact')  ?>" title="Contact">Contact</a></li>
             <li><a href="#" title="FAQ">FAQ</a></li>
         </ul>
     </div>

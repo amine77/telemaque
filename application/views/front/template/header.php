@@ -39,7 +39,8 @@
     ?>
     <nav>
         <ul>
-            <li> <?php echo '<a href="' . base_url() . '">Accueil</a>' ?></li>
+            <li> <?php echo '<a href="' . base_url() . '">ACCUEIL</a>' ?></li>
+            <li> <?php echo '<a href="' . base_url('contact') . '">CONTACT</a>' ?></li>
             <?php
 
             foreach ($parents as $key => $parent) {

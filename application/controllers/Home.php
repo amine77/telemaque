@@ -10,7 +10,7 @@ class Home extends Front_Controller
         parent::__construct();
 
         if ($this->router->fetch_class() == "home")
-            $this->load->model(array('articles_model', 'panier_model'));
+            $this->load->model(array('articles_model', 'panier_model', 'login_model'));
     }
 
     public function index()
@@ -53,5 +53,47 @@ class Home extends Front_Controller
     {
         session_destroy();
         redirect(base_url('/'), 'refresh');
+    }
+    public function contact(){
+        $sender = $this->input->post("txt_sender");
+        $receiver = $this->input->post("txt_receiver");
+        $content = $this->input->post("txt_content");
+        $title = $this->input->post("txt_title");
+
+
+        
+        $this->form_validation->set_rules("txt_sender", "Vous", "trim|required");
+        $this->form_validation->set_rules("txt_receiver", "Destinataire", "trim|required");
+        $this->form_validation->set_rules("txt_content", "Contenu", "trim|required");
+        $this->form_validation->set_rules("txt_title", "Titre", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+            
+            $data['title'] = 'un titre';
+            $data['view'] = 'front/contact_view';
+            $data['categories'] = $this->category_model->get_all();
+            $data['nb_article'] = $this->panier_model->get_nb_articles(); 
+            $data['show_header'] = TRUE;
+            $data['contacts'] = $this->login_model->get_all_contacts();
+            $this->load->view('front/template/layout', $data);
+
+        } else {
+
+            
+            if ($this->input->post('btn_send') == "Envoyer") {
+                
+                if ($this->message_model->send_message($sender, $receiver, $content, $title)) { 
+                    $this->send_mail($sender, $receiver, $content, $title);
+                    $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">Votre mail a bien été envoyé.Nous vous remercions de l\'intérêt que vous portez'
+                            . ' à notre société et nous efforçons de vous répondre dans les meilleurs délais.</div>');
+                    redirect('admin/contact');
+                } else {
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">votre email n\'a pas été envoyé</div>');
+                    redirect('admin/contact');
+                }
+            } else {
+                redirect('admin/contact');
+            }
+        }
     }
 }
