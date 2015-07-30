@@ -2,11 +2,20 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Controller {
+class Admin extends CI_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
 
         parent::__construct();
+        if ($this->session->has_userdata('login')) {
+            if($this->session->userdata('role') =='ROLE_USER'){
+            redirect(base_url());
+            }
+        }else{
+            redirect(base_url());
+        } 
 
         $this->load->model('login_model');
         $this->load->model('category_model');
@@ -15,11 +24,10 @@ class Admin extends CI_Controller {
         $this->load->model('role_model');
     }
 
-    public function index() {
+    public function index()
+    {
 
-        if ($this->session->has_userdata('login')) {
-            redirect('admin/home');
-        }
+        
         //get the posted values
         $username = $this->input->post("txt_username");
         $password = $this->input->post("txt_password");
@@ -56,7 +64,11 @@ class Admin extends CI_Controller {
                     $now = new DateTime();
                     $toDay = $now->format('Y-m-d');
                     $this->login_model->update_connection_infos($usr_result['user_id'], $ip, $toDay);
-                    redirect("admin/home");
+                    if ($usr_result['role_label'] == 'ROLE_SUPER_ADMIN' || $usr_result['role_label'] == 'ROLE_ADMIN') {
+                        redirect("admin/home");
+                    } else {
+                        redirect(base_url());
+                    }
                 } else {
                     $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
                     redirect('admin/index');
@@ -67,21 +79,24 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function logout() {
-        session_destroy();
-        redirect(base_url('/'), 'refresh');
-    }
+//    public function logout()
+//    {
+//        session_destroy();
+//        redirect(base_url('/'), 'refresh');
+//    }
 
-    public function login() {
+    public function login()
+    {
 
         $_SESSION['login'] = 'user@test.com';
         echo 'Bonjour ici la page de login ' . $_SESSION['login'];
     }
 
-    public function home() {
-        if (!$this->session->has_userdata('login')) {
-            redirect('admin');
-        }
+    public function home()
+    {
+//        if (!$this->session->has_userdata('login')) {
+//            redirect('admin');
+//        }
         $data['title'] = 'un titre';
         $data['additional_css'] = array('tableau_de_bord');
         $data['view'] = 'back/home';
@@ -89,10 +104,11 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function view_user($user_id) {
-        if (!$this->session->has_userdata('login')) {
-            redirect('admin');
-        }
+    public function view_user($user_id)
+    {
+//        if (!$this->session->has_userdata('login')) {
+//            redirect('admin');
+//        }
         $data['title'] = 'un titre';
         $data['view'] = 'back/view_user';
         $data['show_header'] = TRUE;
@@ -106,7 +122,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function liste_users() {
+    public function liste_users()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -118,7 +135,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function liste_articles() {
+    public function liste_articles()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -129,7 +147,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function form_articles() {
+    public function form_articles()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -140,7 +159,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function liste_exemplaires() {
+    public function liste_exemplaires()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -161,7 +181,8 @@ class Admin extends CI_Controller {
 //        $data['show_header'] = TRUE;
 //        $this->load->view('back/template/layout', $data);
 //    }
-    public function liste_tags() {
+    public function liste_tags()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -173,7 +194,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function delete_tag($id) {
+    public function delete_tag($id)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -181,7 +203,8 @@ class Admin extends CI_Controller {
         redirect('admin/liste_tags');
     }
 
-    public function delete_message($id_user, $id_message) {
+    public function delete_message($id_user, $id_message)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -189,7 +212,8 @@ class Admin extends CI_Controller {
         redirect('admin/view_user/' . $id_user);
     }
 
-    public function delete_role($id) {
+    public function delete_role($id)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -197,7 +221,8 @@ class Admin extends CI_Controller {
         redirect('admin/liste_roles');
     }
 
-    public function delete_contact($id) {
+    public function delete_contact($id)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -205,7 +230,8 @@ class Admin extends CI_Controller {
         redirect('admin/liste_contacts');
     }
 
-    public function liste_categories() {
+    public function liste_categories()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -216,7 +242,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function delete_category($id) {
+    public function delete_category($id)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -224,7 +251,8 @@ class Admin extends CI_Controller {
         redirect('admin/liste_categories');
     }
 
-    public function update_category($category_id = null) {
+    public function update_category($category_id = null)
+    {
         //$this->output->enable_profiler(TRUE);
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
@@ -267,7 +295,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function update_tag($tag_id = null) {
+    public function update_tag($tag_id = null)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -304,7 +333,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function ajouter_tag() {
+    public function ajouter_tag()
+    {
         if (!$this->session->has_userdata('login')) {
 //            redirect('admin/home');
             echo 'admin/home';
@@ -339,7 +369,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function ajouter_role() {
+    public function ajouter_role()
+    {
         if (!$this->session->has_userdata('login')) {
 //            redirect('admin/home');
             echo 'admin/home';
@@ -375,7 +406,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function update_role($role_id = null) {
+    public function update_role($role_id = null)
+    {
         if (!$this->session->has_userdata('login')) {
 //            redirect('admin/home');
             echo 'admin/home';
@@ -412,7 +444,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function ajouter_admin() {
+    public function ajouter_admin()
+    {
 
         if (!$this->session->has_userdata('login')) {
 //            redirect('admin/home');
@@ -458,7 +491,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function ajouter_contact() {
+    public function ajouter_contact()
+    {
         if (!$this->session->has_userdata('login')) {
 //            redirect('admin/home');
             echo 'admin/home';
@@ -497,7 +531,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function ajouter_category() {
+    public function ajouter_category()
+    {
         if (!$this->session->has_userdata('login')) {
 //            redirect('admin/home');
             echo 'admin/home';
@@ -539,7 +574,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function liste_administrateurs() {
+    public function liste_administrateurs()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -550,7 +586,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function delete_admin($id) {
+    public function delete_admin($id)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -558,7 +595,8 @@ class Admin extends CI_Controller {
         redirect('admin/liste_administrateurs');
     }
 
-    public function delete_user($user_id) {
+    public function delete_user($user_id)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -566,7 +604,8 @@ class Admin extends CI_Controller {
         redirect('admin/liste_users');
     }
 
-    public function update_contact($user_id = null) {
+    public function update_contact($user_id = null)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -609,7 +648,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function update_user($user_id = null) {
+    public function update_user($user_id = null)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -655,7 +695,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function update_admin($user_id = null) {
+    public function update_admin($user_id = null)
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -698,7 +739,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function liste_vendeurs() {
+    public function liste_vendeurs()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -709,7 +751,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function form_administrateurs() {
+    public function form_administrateurs()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -720,7 +763,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function liste_roles() {
+    public function liste_roles()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -731,7 +775,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function liste_contacts() {
+    public function liste_contacts()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -742,7 +787,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function form_roles() {
+    public function form_roles()
+    {
         if (!$this->session->has_userdata('login')) {
             redirect('admin');
         }
@@ -753,7 +799,8 @@ class Admin extends CI_Controller {
         $this->load->view('back/template/layout', $data);
     }
 
-    public function lister_personnes() {
+    public function lister_personnes()
+    {
         $data['title'] = 'un titre';
         $data['personnes'] = $this->personnes_model->get_personnes();
         $data['view'] = 'personnes_view';

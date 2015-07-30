@@ -49,5 +49,9 @@ class Home extends Front_Controller
         $this->data['view'] = 'front/connexion';
         $this->load->view('front/template/layout', $this->data);
     }
-
+    public function logout()
+    {
+        session_destroy();
+        redirect(base_url('/'), 'refresh');
+    }
 }
