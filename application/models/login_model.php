@@ -122,6 +122,15 @@ class login_model extends CI_Model {
         $query = $this->db->query($sql);
         return $query->row_array();
     }
+    function get_user_by_mail($email){
+        $this->db->where('mail', $email);
+        $query = $this->db->get('users');
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        } else {
+            return false;
+        }
+    }
 
     function update_contact($user_id, $titre, $mail, $description) {
         $data = array(

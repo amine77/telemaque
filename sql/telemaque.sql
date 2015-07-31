@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 30 Juillet 2015 à 16:06
+-- Généré le :  Ven 31 Juillet 2015 à 17:47
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -205,19 +205,26 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `title` varchar(250) NOT NULL,
   `content` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `sender` int(11) NOT NULL,
-  `reveiver` int(11) NOT NULL,
+  `sender` int(11) DEFAULT NULL,
+  `receiver` int(11) NOT NULL,
   PRIMARY KEY (`message_id`),
   KEY `sender` (`sender`),
-  KEY `reveiver` (`reveiver`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  KEY `reveiver` (`receiver`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Contenu de la table `messages`
 --
 
-INSERT INTO `messages` (`message_id`, `title`, `content`, `date`, `sender`, `reveiver`) VALUES
-(1, 'Problème lors de la procédure d''achat', 'Bonjour,\r\n\r\nJ''ai eu un problème lors d''achat d''une blouse blanche dont le prix est 50 euros.\r\nEn effet, au moment de payement le prix affiché était de 70 euros', '2015-07-21 11:50:35', 5, 4);
+INSERT INTO `messages` (`message_id`, `title`, `content`, `date`, `sender`, `receiver`) VALUES
+(1, 'Problème lors de la procédure d''achat', 'Bonjour,\r\n\r\nJ''ai eu un problème lors d''achat d''une blouse blanche dont le prix est 50 euros.\r\nEn effet, au moment de payement le prix affiché était de 70 euros', '2015-07-21 11:50:35', 5, 4),
+(8, 'Un sujet quelconque', '<h2>Message écrit par <span style="color:red">user@yahoo.fr</span> :</h2>Voici un test en développement', '2015-07-31 14:50:18', 5, 6),
+(9, 'test de telemaque', 'Voici un message de test.\r\n\r\nvoici quelques caractères spéciaux : é ;  à ; $ ; ç', '2015-07-31 15:08:53', 5, 6),
+(10, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:13:37', NULL, 6),
+(11, 'test de telemaque', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:16:08', 5, 6),
+(12, 'test de telemaque', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:21:35', 5, 6),
+(13, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:23:24', 5, 6),
+(14, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:42:53', NULL, 6);
 
 -- --------------------------------------------------------
 
@@ -348,8 +355,8 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`
 (3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 0, NULL, NULL, 1),
 (4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-07-30', 0, NULL, NULL, 2),
 (5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-07-30', 1, NULL, NULL, 3),
-(6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'messi@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'If a technical problem occurs on this website', 2),
-(7, 'zidane', 'zinedine', 'zizou', '326e9edaae7f6b75fe245ac2b8737395cfbe5713', '1970-07-14', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'zizou@yahoo.fr', '', '0000-00-00', 1, 'Service consommateur', 'For any question about a product, an order', 2);
+(6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'charrad.amine@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'Pour tout problème technique qui se déroule sur ce site', 2),
+(7, 'zidane', 'zinedine', 'zizou', '326e9edaae7f6b75fe245ac2b8737395cfbe5713', '1970-07-14', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'yoniattlane555@gmail.com', '', '0000-00-00', 1, 'Service consommateur', 'pour toute question à propos d''un produit, d''une commande...', 2);
 
 -- --------------------------------------------------------
 
@@ -428,7 +435,7 @@ ALTER TABLE `command_lines`
 -- Contraintes pour la table `messages`
 --
 ALTER TABLE `messages`
-  ADD CONSTRAINT `fk_message_receiver` FOREIGN KEY (`reveiver`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `fk_message_receiver` FOREIGN KEY (`receiver`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `fk_message_sender` FOREIGN KEY (`sender`) REFERENCES `users` (`user_id`);
 
 --
