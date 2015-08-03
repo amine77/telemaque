@@ -20,46 +20,38 @@
     $parents = array();
 
     foreach ($categories as $categorie) {
-        
-    }
-    foreach ($categories as $categorie) {
         if ($categorie['parent_category'] == '0') {
             $parents[$categorie['category']]['slug'] = $categorie['slug'];
         }
-    }
-    foreach ($categories as $categorie) {
-        if ($categorie['parent_category'] != '0') {
+        elseif ($categorie['parent_category'] != '0') {
             $enfant = array(
                 'slug' => $categorie['slug']
             );
             $parents[$categorie['parent_category']]['enfants'][$categorie['category']] = $enfant;
         }
     }
-
     ?>
     <nav>
         <ul>
             <li> <?php echo '<a href="' . base_url() . '">ACCUEIL</a>' ?></li>
             <li> <?php echo '<a href="' . base_url('contact') . '">CONTACT</a>' ?></li>
             <?php
-
             foreach ($parents as $key => $parent) {
 
                 if (array_key_exists('enfants', $parent) && is_array($parent['enfants'])) {
                     echo '<li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.$key.' <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . $key . ' <span class="caret"></span></a>
               <ul class="dropdown-menu">';
-                    $enfants = $parent['enfants'] ;
-                    foreach ($enfants as $index =>$enfant) { {
-                           echo '<li><a href="'.base_url('view/'.$enfant['slug']).'">' .$index. '</a></li>';
+                    $enfants = $parent['enfants'];
+                    foreach ($enfants as $index => $enfant) { {
+                            echo '<li><a href="' . base_url('view/' . $enfant['slug']) . '">' . $index . '</a></li>';
                         }
                     }
                     echo '                
                         </ul>
                       </li>';
-                }else{
-                    echo '<li><a href="' . base_url('view/'.$parent['slug'] ). '">' . $key . '</a></li>';
-                    
+                } else {
+                    echo '<li><a href="' . base_url('view/' . $parent['slug']) . '">' . $key . '</a></li>';
                 }
             }
             ?>
@@ -70,10 +62,10 @@
 <?php echo form_open('search'); ?>
                 <input type="search" name="recherche" id="search"/>
                 <input type="submit" value="Valider">
-<?php echo form_close(); ?>
+                <?php echo form_close(); ?>
             </div>
             <div id="panier">
-<?php echo '<a href="' . base_url() . 'panier">Panier</a>(<span>' . $nb_article . '</span>)'; ?>
+                <?php echo '<a href="' . base_url() . 'panier">Panier</a>(<span>' . $nb_article . '</span>)'; ?>
             </div>
         </div>
         <div class="clear"></div>
