@@ -53,6 +53,9 @@
                     <li><?php echo '<a href="' . base_url() . 'admin/liste_contacts">'; ?>
                             Contacts
                         </a></li>
+                    <li><?php echo '<a href="' . base_url() . 'admin/cms">'; ?>
+                            CMS
+                        </a></li>
                 </ul>
             </li>
             <li><a href="#">Modules</a></li>
