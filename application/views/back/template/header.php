@@ -1,6 +1,6 @@
 <header>
     <div id="bloc_logo">
-        NomDeBoutique
+        <?= $site['site_name'] ?>
     </div>
 
     
