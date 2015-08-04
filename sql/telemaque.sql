@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 31 Juillet 2015 à 17:47
+-- Généré le :  Mar 04 Août 2015 à 17:59
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -250,6 +250,34 @@ INSERT INTO `role` (`role_id`, `role_label`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `site_identity`
+--
+
+CREATE TABLE IF NOT EXISTS `site_identity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `site_name` varchar(255) NOT NULL,
+  `slogan` varchar(255) NOT NULL,
+  `logo` int(11) NOT NULL,
+  `cgv` text NOT NULL,
+  `legal_notice` text NOT NULL,
+  `twitter` varchar(255) NOT NULL,
+  `facebook` varchar(255) NOT NULL,
+  `google_plus` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `logo` (`logo`),
+  KEY `logo_2` (`logo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `site_identity`
+--
+
+INSERT INTO `site_identity` (`id`, `site_name`, `slogan`, `logo`, `cgv`, `legal_notice`, `twitter`, `facebook`, `google_plus`) VALUES
+(1, 'MaBelleBoutique', 'Mon joli slogan', 1, 'zvazeze', 'zefzefze', 'https://twitter.com/jacques_chirac', 'https://fr-fr.facebook.com/jchirac', 'https://plus.google.com/102685841535368836727/post...');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `specifications`
 --
 
@@ -345,7 +373,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `role_id` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Contenu de la table `users`
@@ -353,10 +381,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`) VALUES
 (3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 0, NULL, NULL, 1),
-(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-07-30', 0, NULL, NULL, 2),
+(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-04', 0, NULL, NULL, 2),
 (5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-07-30', 1, NULL, NULL, 3),
 (6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'charrad.amine@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'Pour tout problème technique qui se déroule sur ce site', 2),
-(7, 'zidane', 'zinedine', 'zizou', '326e9edaae7f6b75fe245ac2b8737395cfbe5713', '1970-07-14', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'yoniattlane555@gmail.com', '', '0000-00-00', 1, 'Service consommateur', 'pour toute question à propos d''un produit, d''une commande...', 2);
+(7, 'zidane', 'zinedine', 'zizou', '326e9edaae7f6b75fe245ac2b8737395cfbe5713', '1970-07-14', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'yoniattlane555@gmail.com', '', '0000-00-00', 1, 'Service consommateur', 'pour toute question à propos d''un produit, d''une commande...', 2),
+(14, 'MonNom', 'MonPrénom', 'user2', '7384f8b17d67b6e8498b363d8df08a5dd021a2d3', '1990-02-11', '2015-08-03 09:31:33', '0000-00-00 00:00:00', '0102030405', '0605040302', 'user2@yahoo.fr', '', '0000-00-00', 0, NULL, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -437,6 +466,12 @@ ALTER TABLE `command_lines`
 ALTER TABLE `messages`
   ADD CONSTRAINT `fk_message_receiver` FOREIGN KEY (`receiver`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `fk_message_sender` FOREIGN KEY (`sender`) REFERENCES `users` (`user_id`);
+
+--
+-- Contraintes pour la table `site_identity`
+--
+ALTER TABLE `site_identity`
+  ADD CONSTRAINT `fk_site_configurations_image_id` FOREIGN KEY (`logo`) REFERENCES `images` (`image_id`);
 
 --
 -- Contraintes pour la table `specifications`
