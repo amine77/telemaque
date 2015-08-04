@@ -28,6 +28,16 @@ class Site_model extends CI_Model {
         $this->db->update('site_identity', $data);
         return true;
     }
+    function update_site_slogan($new_slogan)
+    {
+        $data = array(
+            'slogan' => $new_slogan
+        );
+
+        $this->db->where('id', 1);
+        $this->db->update('site_identity', $data);
+        return true;
+    }
 
 
 }

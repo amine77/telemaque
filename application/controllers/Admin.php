@@ -96,6 +96,17 @@ class Admin extends CI_Controller
         }
         echo json_encode($message);
     }
+    public function update_slogan()
+    {
+        $new_slogan = $this->input->post('new_slogan');
+        $message='';
+        if ($this->site_model->update_site_slogan($new_slogan)) {
+            $message=array('state'=>'OK');
+        }else{
+            $message=array('state'=>'FAILED');
+        }
+        echo json_encode($message);
+    }
 
     public function liste_articles()
     {

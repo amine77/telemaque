@@ -44,6 +44,54 @@
                         }
                     });
         });
+        $('#update_slogan').click(function (e) {
+            e.preventDefault();
+            var slogan = $('input[name="slogan"]');
+            slogan.attr('readonly', false);
+            slogan.focus();
+            $('#btn_update_slogan').show();
+
+        });
+        $('#btn_update_slogan').click(function (e) {
+            e.preventDefault();
+            $('btn_update_slogan').hide();
+            var slogan = $('input[name="slogan"]');
+            var new_slogan = $('input[name="slogan"]').val();
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "<?= base_url() ?>admin/update_slogan",
+                data: {new_slogan: new_slogan}
+            })
+                    .done(function (message) {
+
+                        if (message.state === 'OK') {
+                            slogan.attr('readonly', true);
+                            slogan.focusout();
+                            $('#btn_update_slogan').hide();
+                            $('#update_slogan_success').css("display", "inline").fadeOut(2500);
+
+                        } else {
+                            $('#update_slogan_failed').css("display", "inline").fadeOut(2500);
+
+                            slogan.attr('readonly', true);
+                            slogan.focusout();
+                            $('#btn_update_slogan').hide();
+                        }
+                    });
+        });
+        $('#update_logo').click(function (e) {
+            e.preventDefault();
+            
+            $('#logo_update').toggle();
+
+        });
+        $('#update_logo_submit').click(function (e) {
+            e.preventDefault();
+            //upload
+            location.reload();
+            
+         });
         $('a[data-confirm]').click(function (ev) {
             var href = $(this).attr('href');
 
@@ -67,7 +115,7 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Nom de boutique&nbsp;&nbsp;&nbsp; <a id="update_site_name" title="modifier" href="<?= base_url('admin/update_slogan') ?>">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Nom de boutique&nbsp;&nbsp;&nbsp; <a id="update_site_name" title="modifier" href="<?= base_url('admin/update_site_name') ?>">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a> </h3>
                     </div>
@@ -87,16 +135,17 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span>&nbsp;Slogan&nbsp;&nbsp;&nbsp;  <a title="modifier" href="<?= base_url('admin/update_slogan') ?>">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span>&nbsp;Slogan&nbsp;&nbsp;&nbsp;  <a id="update_slogan" title="modifier" href="<?= base_url('admin/update_slogan') ?>">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a> </h3>
                     </div>
                     <div class="panel-body">
                         <input id="slogan" name="slogan" type="text" readonly="" value="<?= $site['slogan'] ?>"> 
-                        <button id="btn_update_slogan" name="btn_update_slogan" type="button" title="sauvegarder" class="btn btn-default btn-sm">
+                        <button id="btn_update_slogan" name="btn_update_slogan" type="button" title="sauvegarder" class="btn btn-default btn-sm"  style="display: none">
                             <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                         </button>
-
+                        <span id="update_slogan_success" class="label label-success" style="display: none">Mise à jour réussie</span>
+                        <span id="update_slogan_failed" class="label label-danger" style="display: none">Echec de la mise à jour</span>
                     </div>
                 </div>
 
@@ -105,13 +154,21 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;Logo&nbsp;&nbsp;&nbsp;&nbsp; <a title="modifier" href="<?= base_url('admin/update_slogan') ?>">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;Logo&nbsp;&nbsp;&nbsp;&nbsp; <a  id="update_logo" title="modifier" href="<?= base_url('admin/update_logo') ?>">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a>  
                         </h3>
                     </div>
                     <div class="panel-body">
-
+                        <div class="col-xs-6 col-md-3">
+                            <a href="#" class="thumbnail">
+                                <img src="<?= base_url('assets/img/logo.png') ?>" >
+                            </a>
+                        </div>
+                        <div id="logo_update" style="display: none">
+                            <input value="Choisissez un fichier" class="btn btn-default" type="file" name="logo" id="logo"><br><input id="update_logo_submit" type="submit" class="btn btn-default">
+                        </div>
+                        
                     </div>
                 </div>
 
