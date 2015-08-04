@@ -2,6 +2,7 @@
 <footer>
 
     <ul id="liens_sociaux">
+        <?php   if($site['facebook'] !='') {?>
         <li>
             <a href="<?= $site['facebook']?>" target="blank" title="facebook">
                 <?php 
@@ -9,6 +10,8 @@
                 ?>
             </a>
         </li>
+        <?php  }?>
+        <?php   if($site['google_plus'] !='') {?>
         <li>
             <a href="<?= $site['google_plus']?>" target="blank" title="Google+">
                 <?php 
@@ -16,6 +19,8 @@
                 ?>
             </a>
         </li>
+        <?php  }?>
+        <?php   if($site['twitter'] !='') {?>
         <li>
             <a href="<?= $site['twitter']?>" target="blank" title="Twitter">
                 <?php
@@ -23,6 +28,7 @@
                 ?>
             </a>
         </li>
+        <?php  }?>
     </ul>
 
     <ul id="liens_2">
