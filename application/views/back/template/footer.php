@@ -3,21 +3,21 @@
 
     <ul id="liens_sociaux">
         <li>
-            <a href="#" target="blank" title="facebook">
+            <a href="<?= $site['facebook']?>" target="blank" title="facebook">
                 <?php 
                     echo '<img src="'. base_url().'assets/img/facebook.png" target="blank" alt="Facebook">'
                 ?>
             </a>
         </li>
         <li>
-            <a href="#" target="blank" title="Google+">
+            <a href="<?= $site['google_plus']?>" target="blank" title="Google+">
                 <?php 
                     echo '<img src="'. base_url().'assets/img/googleplus.png" target="blank" alt="Google+">'
                 ?>
             </a>
         </li>
         <li>
-            <a href="#" target="blank" title="Twitter">
+            <a href="<?= $site['twitter']?>" target="blank" title="Twitter">
                 <?php
                     echo '<img src="'. base_url().'assets/img/twitter.png" target="blank" alt="Twitter">'
                 ?>

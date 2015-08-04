@@ -82,7 +82,7 @@
         });
         $('#update_logo').click(function (e) {
             e.preventDefault();
-            
+
             $('#logo_update').toggle();
 
         });
@@ -90,8 +90,50 @@
             e.preventDefault();
             //upload
             location.reload();
-            
-         });
+
+        });
+        $('#update_social_networks').click(function (e) {
+            e.preventDefault();
+            var twitter = $('#twitter_input');
+            twitter.attr('readonly', false);
+            $('#facebook_input').attr('readonly', false);
+            $('#google_plus_input').attr('readonly', false);
+            $('#btn_update_social_networks').toggle();
+            twitter.focus();
+
+        });
+        $('#btn_update_social_networks').click(function (e) {
+            e.preventDefault();
+            var facebook = $('input[name="facebook_input"]');
+            var twitter = $('input[name="twitter_input"]');
+            var google_plus = $('input[name="google_plus_input"]');
+            var new_facebook = facebook.val();
+            var new_twitter = twitter.val();
+            var new_google_plus = google_plus.val();
+
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "<?= base_url() ?>admin/update_social_networks",
+                data: {facebook: new_facebook, twitter: new_twitter, google_plus: new_google_plus}
+            })
+                    .done(function (message) {
+
+                        if (message.state === 'OK') {
+                            setTimeout(function () {
+                                location.reload();
+                            }, 2500);
+                            $('#update_social_networks_success').css("display", "inline").fadeOut(2500);
+
+                        } else {
+                            setTimeout(function () {
+                                location.reload();
+                            }, 2500);
+                            $('#update_social_networks_failed').css("display", "inline").fadeOut(2500);
+                        }
+                    });
+
+        });
         $('a[data-confirm]').click(function (ev) {
             var href = $(this).attr('href');
 
@@ -120,8 +162,9 @@
                             </a> </h3>
                     </div>
                     <div class="panel-body">
-
-                        <input id="site_name" name="site_name" type="text" readonly="" value="<?= $site['site_name'] ?>"> 
+                        <div class="col-xs-8">
+                            <input class="form-control" id="site_name" name="site_name" type="text" readonly="" value="<?= $site['site_name'] ?>"> 
+                        </div>
                         <button id="btn_update_site_name" name="btn_update_site_name" type="button" title="sauvegarder" class="btn btn-default btn-sm"  style="display: none">
                             <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                         </button>
@@ -140,7 +183,10 @@
                             </a> </h3>
                     </div>
                     <div class="panel-body">
-                        <input id="slogan" name="slogan" type="text" readonly="" value="<?= $site['slogan'] ?>"> 
+                        <div class="col-xs-8">
+                            <input class="form-control" id="slogan" name="slogan" type="text" readonly="" value="<?= $site['slogan'] ?>">     
+                        </div>
+                        
                         <button id="btn_update_slogan" name="btn_update_slogan" type="button" title="sauvegarder" class="btn btn-default btn-sm"  style="display: none">
                             <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                         </button>
@@ -166,9 +212,9 @@
                             </a>
                         </div>
                         <div id="logo_update" style="display: none">
-                            <input value="Choisissez un fichier" class="btn btn-default" type="file" name="logo" id="logo"><br><input id="update_logo_submit" type="submit" class="btn btn-default">
+                            <input class="form-control" value="Choisissez un fichier" class="btn btn-default" type="file" name="logo" id="logo"><br><input id="update_logo_submit" type="submit" class="btn btn-default">
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -177,20 +223,43 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;Réseaux sociaux&nbsp;&nbsp;&nbsp; <a title="modifier" href="<?= base_url('admin/update_slogan') ?>">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;Réseaux sociaux&nbsp;&nbsp;&nbsp; <a id="update_social_networks" title="modifier" href="<?= base_url('admin/update_social_networks') ?>">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </a> </h3>
+                            </a>&nbsp;&nbsp;&nbsp;&nbsp;<button id="btn_update_social_networks" name="btn_update_social_networks" type="button" title="sauvegarder" class="btn btn-default btn-sm"  style="display: none">
+                                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                            </button></h3>
+
                     </div>
                     <div class="panel-body">
-                        <table class="table-bordered">
+
+                        <span id="update_social_networks_success" class="label label-success"  style="display: none">Mise à jour réussie</span>
+                        <span id="update_social_networks_failed" class="label label-danger" style="display: none">Echec de la mise à jour</span><br><br>
+                        <table class="table">
                             <tr>
                                 <th>Nom</th>
                                 <th>Url</th>
-                                <th>Actions</th>
                             </tr>
-                            <tr><td>Twitter</td><td>https://twitter.com/jacques_chirac</td><td>3</td></tr>
-                            <tr><td>Facebook</td><td>https://fr-fr.facebook.com/jchirac</td><td></td></tr>
-                            <tr><td>Google+</td><td>https://plus.google.com/102685841535368836727/posts</td><td></td></tr>
+                            <tr><td>Twitter</td>
+                                <td>
+                                    <div class="col-xs-8">
+                                        <input class="form-control" id="twitter_input" name="twitter_input" type="text" readonly="" value="<?= $site['twitter'] ?>">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td>Facebook</td>
+                                <td>
+                                    <div class="col-xs-8">
+                                        <input class="form-control" id="facebook_input" name="facebook_input" type="text" readonly="" value="<?= $site['facebook'] ?>">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td>Google+</td>
+                                <td>
+                                    <div class="col-xs-8">
+                                        <input class="form-control" id="google_plus_input" name="google_plus_input" type="text" readonly="" value="<?= $site['google_plus'] ?>">
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -200,7 +269,7 @@
             <div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp;CGU &nbsp;&nbsp;&nbsp; <a title="modifier" href="<?= base_url('admin/update_slogan') ?>">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp;CGV &nbsp;&nbsp;&nbsp; <a title="modifier" href="<?= base_url('admin/update_cgv') ?>">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a> </h3>
                     </div>
@@ -212,7 +281,7 @@
 
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Mentions légales&nbsp;&nbsp;&nbsp; <a title="modifier" href="<?= base_url('admin/update_slogan') ?>">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Mentions légales&nbsp;&nbsp;&nbsp; <a title="modifier" href="<?= base_url('admin/update_legal_notice') ?>">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a> </h3>
                 </div>

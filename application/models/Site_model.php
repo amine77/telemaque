@@ -38,6 +38,17 @@ class Site_model extends CI_Model {
         $this->db->update('site_identity', $data);
         return true;
     }
+    public function update_site_social_networks($facebook, $twitter, $google_plus){
+         $data = array(
+            'facebook' => $facebook,
+            'twitter' => $twitter,
+            'google_plus' => $google_plus,
+        );
+
+        $this->db->where('id', 1);
+        $this->db->update('site_identity', $data);
+        return true;
+    }
 
 
 }

@@ -96,6 +96,19 @@ class Admin extends CI_Controller
         }
         echo json_encode($message);
     }
+    public function update_social_networks(){
+        $facebook = $this->input->post('facebook');
+        $twitter = $this->input->post('twitter');
+        $google_plus = $this->input->post('google_plus');
+        
+        $message='';
+        if ($this->site_model->update_site_social_networks($facebook, $twitter, $google_plus)) {
+            $message=array('state'=>'OK');
+        }else{
+            $message=array('state'=>'FAILED');
+        }
+        echo json_encode($message);
+    }
     public function update_slogan()
     {
         $new_slogan = $this->input->post('new_slogan');
