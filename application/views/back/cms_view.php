@@ -1,7 +1,30 @@
 
 
 <script>
+    tinymce.init({
+        selector: "#cgv",
+        plugins: [
+            "advlist autolink lists link charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime textcolor table contextmenu paste"
+        ],
+        toolbar: " styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor"
+    });
+    tinymce.init({
+        selector: "#legal_notice",
+        plugins: [
+            "advlist autolink lists link charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime textcolor table contextmenu paste"
+        ],
+        toolbar: " styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor"
+    });
 
+    var rafraichir = function () {
+        setTimeout(function () {
+            location.reload();
+        }, 2500);
+    }
     $(function () {
 
         $('#update_site_name').click(function (e) {
@@ -26,9 +49,7 @@
                     .done(function (message) {
 
                         if (message.state === 'OK') {
-                            setTimeout(function () {
-                                location.reload();
-                            }, 2500);
+                            rafraichir();
                             $('#update_site_name_success').css("display", "inline").fadeOut(2500);
 
 //                            site_name.attr('readonly', true);
@@ -120,19 +141,58 @@
                     .done(function (message) {
 
                         if (message.state === 'OK') {
-                            setTimeout(function () {
-                                location.reload();
-                            }, 2500);
+                            rafraichir();
                             $('#update_social_networks_success').css("display", "inline").fadeOut(2500);
 
                         } else {
-                            setTimeout(function () {
-                                location.reload();
-                            }, 2500);
+                            rafraichir();
                             $('#update_social_networks_failed').css("display", "inline").fadeOut(2500);
                         }
                     });
 
+        });
+        $('#update_cgv').click(function (e) {
+            e.preventDefault();
+           var new_cgv = tinyMCE.get('cgv').getContent();
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "<?= base_url() ?>admin/update_cgv",
+                data: {cgv: new_cgv}
+            })
+                    .done(function (message) {
+
+                        if (message.state === 'OK') {
+
+                            
+                            $('#update_cgv_success').css("display", "inline").fadeOut(2500);
+
+                        } else {
+                            $('#update_cgv_failed').css("display", "inline").fadeOut(2500);
+                        }
+                    });
+        });
+        $('#update_legal_notice').click(function (e) {
+            e.preventDefault();
+            var new_legal_notice = tinyMCE.get('legal_notice').getContent();
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "<?= base_url() ?>admin/update_legal_notice",
+                data: {legal_notice: new_legal_notice}
+            })
+                    .done(function (message) {
+
+                        if (message.state === 'OK') {
+
+                            
+                            $('#update_legal_notice_success').css("display", "inline").fadeOut(2500);
+
+                        } else {
+                            $('#update_legal_notice_failed').css("display", "inline").fadeOut(2500);
+                            
+                        }
+                    });
         });
         $('a[data-confirm]').click(function (ev) {
             var href = $(this).attr('href');
@@ -186,7 +246,7 @@
                         <div class="col-xs-8">
                             <input class="form-control" id="slogan" name="slogan" type="text" readonly="" value="<?= $site['slogan'] ?>">     
                         </div>
-                        
+
                         <button id="btn_update_slogan" name="btn_update_slogan" type="button" title="sauvegarder" class="btn btn-default btn-sm"  style="display: none">
                             <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                         </button>
@@ -269,26 +329,30 @@
             <div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp;CGV &nbsp;&nbsp;&nbsp; <a title="modifier" href="<?= base_url('admin/update_cgv') ?>">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp;Conditions générales de vente(CGV) &nbsp;&nbsp;&nbsp; <a id="update_cgv" title="modifier" href="<?= base_url('admin/update_cgv') ?>">
+                                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                             </a> </h3>
                     </div>
                     <div class="panel-body">
-
+                        <br>
+                        <h4><span id="update_cgv_success" class="label label-success" style="display: none;">Mise à jour réussie</span>
+                            <span id="update_cgv_failed" class="label label-danger" style="display: none">Echec de la mise à jour</span></h4>
+                        <textarea class="form-control" id="cgv" name="content" style="width:100%; height:50%"><?= $site['cgv'] ?></textarea>
                     </div>
                 </div>
             </div>
 
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Mentions légales&nbsp;&nbsp;&nbsp; <a title="modifier" href="<?= base_url('admin/update_legal_notice') ?>">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Mentions légales&nbsp;&nbsp;&nbsp; <a id="update_legal_notice" title="modifier" href="<?= base_url('admin/update_legal_notice') ?>">
+                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                         </a> </h3>
                 </div>
                 <div class="panel-body">
-                    <table>
-                        <tr><td><strong>Date </strong> : </td></tr>
-                    </table>
+                    <br>
+                    <h4><span id="update_legal_notice_success" class="label label-success" style="display: none">Mise à jour réussie</span>
+                        <span id="update_legal_notice_failed" class="label label-danger" style="display: none">Echec de la mise à jour</span></h4>
+                    <textarea class="form-control" id="legal_notice" name="content" style="width:100%; height:50%"><?= $site['legal_notice'] ?></textarea>
                 </div>
             </div>
 

@@ -38,7 +38,7 @@ class Site_model extends CI_Model {
         $this->db->update('site_identity', $data);
         return true;
     }
-    public function update_site_social_networks($facebook, $twitter, $google_plus){
+    function update_site_social_networks($facebook, $twitter, $google_plus){
          $data = array(
             'facebook' => $facebook,
             'twitter' => $twitter,
@@ -49,7 +49,24 @@ class Site_model extends CI_Model {
         $this->db->update('site_identity', $data);
         return true;
     }
+    function update_site_legal_notice($new_legal_notice){
+        $data = array(
+            'legal_notice' => $new_legal_notice
+        );
 
+        $this->db->where('id', 1);
+        $this->db->update('site_identity', $data);
+        return true;
+    }
+    function update_site_cgv($new_cgv){
+        $data = array(
+            'cgv' => $new_cgv
+        );
+
+        $this->db->where('id', 1);
+        $this->db->update('site_identity', $data);
+        return true;
+    }
 
 }
 

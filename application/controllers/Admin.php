@@ -120,6 +120,26 @@ class Admin extends CI_Controller
         }
         echo json_encode($message);
     }
+    public function update_cgv(){
+        $new_cgv = $this->input->post('cgv');
+        $message='';
+        if ($this->site_model->update_site_cgv($new_cgv)) {
+            $message=array('state'=>'OK');
+        }else{
+            $message=array('state'=>'FAILED');
+        }
+        echo json_encode($message);
+    }
+    public function update_legal_notice(){
+        $new_legal_notice = $this->input->post('legal_notice');
+        $message='';
+        if ($this->site_model->update_site_legal_notice($new_legal_notice)) {
+            $message=array('state'=>'OK');
+        }else{
+            $message=array('state'=>'FAILED');
+        }
+        echo json_encode($message);
+    }
 
     public function liste_articles()
     {
@@ -153,6 +173,7 @@ class Admin extends CI_Controller
             redirect('admin');
         }
         $data['title'] = 'pages statiques';
+        $data['lib_js'] = array('tinymce/tinymce.min');
         $data['view'] = 'back/cms_view';
         $data['site'] = $this->site_model->get_site_configurations();
         $data['show_header'] = TRUE;
