@@ -12,9 +12,19 @@
     </div>
 
     <div id="bloc_head_centre">
-        <div id="bloc_logo">
+        <div class="row">
+            <div class="col-xs-3 col-md-1">
 
+            </div>
+            <div class="col-xs-3 col-md-1" id="bloc_logo" style="background-image: url(<?= base_url() . $site['image_path'] ?>) ">
+
+            </div>
+            <div class="col-xs-3 col-md-3">
+                <span style="font-size: 2em;display: block;padding-top: 50px;color:white"><?= $site['slogan'] ?></span>
+            </div>
         </div>
+
+
     </div>
     <?php
     $parents = array();
@@ -22,8 +32,7 @@
     foreach ($categories as $categorie) {
         if ($categorie['parent_category'] == '0') {
             $parents[$categorie['category']]['slug'] = $categorie['slug'];
-        }
-        elseif ($categorie['parent_category'] != '0') {
+        } elseif ($categorie['parent_category'] != '0') {
             $enfant = array(
                 'slug' => $categorie['slug']
             );
@@ -59,7 +68,7 @@
 
         <div id="autres">
             <div id="form_search">
-<?php echo form_open('search'); ?>
+                <?php echo form_open('search'); ?>
                 <input type="search" name="recherche" id="search"/>
                 <input type="submit" value="Valider">
                 <?php echo form_close(); ?>

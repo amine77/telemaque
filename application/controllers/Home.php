@@ -18,7 +18,7 @@ class Home extends Front_Controller
 
         $this->data['additional_js'] = array('functions');
         $this->data['articles'] = $this->articles_model->get_articles(6);
-
+        $this->data['site'] = $this->site_model->get_site_configurations();
 
         $this->load->view('front/template/layout', $this->data);
     }
@@ -27,6 +27,7 @@ class Home extends Front_Controller
     {
         $slug = $this->uri->segment(2);
         $this->data['additional_js'] = array('functions');
+        $this->data['site'] = $this->site_model->get_site_configurations();
         if ($this->category_model->get_category_by_slug($slug)) {
             $category = $this->category_model->get_category_by_slug($slug);
             $this->data['articles'] = $this->articles_model->get_articles_by_category($category['category_id']);
@@ -101,6 +102,7 @@ class Home extends Front_Controller
             $data['nb_article'] = $this->panier_model->get_nb_articles();
             $data['show_header'] = TRUE;
             $data['contacts'] = $this->login_model->get_all_contacts();
+            $data['site'] = $this->site_model->get_site_configurations();
             $this->load->view('front/template/layout', $data);
         } else {
 
