@@ -54,9 +54,9 @@ foreach ($categories as $categorie) {
     <div class="liste_liens_footer secondaire">
         <h4>Contactez-nous</h4>
         <ul>
-            <li><a href="#" title="Support">Support</a></li>
+            <li><a href="<?=  base_url('cgv') ?>" title="Conditions générales de ventes">CGV</a></li>
             <li><a href="<?= base_url('contact') ?>" title="Contact">Contact</a></li>
-            <li><a href="#" title="FAQ">FAQ</a></li>
+            <li><a href="<?=  base_url('legal_notice') ?>" title="Mentions légales">Mentions légales</a></li>
         </ul>
     </div>
 

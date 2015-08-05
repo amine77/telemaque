@@ -63,6 +63,8 @@ $route['^(view)/(:any)'] = "home/view/$0";
 $route['^(connexion)'] = "home/connexion";
 $route['^(logout)'] = "home/logout";
 $route['^(contact)'] = "home/contact";
+$route['^(cgv)'] = "home/cgv";
+$route['^(legal_notice)'] = "home/legal_notice";
 /*
 $route['(:any)'] = "front/$1";
 $route['(:any)/(:any)'] = "front/$1/$1";

@@ -10,7 +10,7 @@ class Home extends Front_Controller
         parent::__construct();
 
         if ($this->router->fetch_class() == "home")
-            $this->load->model(array('articles_model', 'panier_model', 'login_model', 'message_model'));
+            $this->load->model(array('articles_model', 'panier_model', 'login_model', 'message_model', 'site_model'));
     }
 
     public function index()
@@ -53,6 +53,30 @@ class Home extends Front_Controller
     {
         session_destroy();
         redirect(base_url('/'), 'refresh');
+    }
+
+    public function cgv()
+    {
+        $data['title'] = 'un titre';
+        $data['view'] = 'front/cgv_view';
+        $data['categories'] = $this->category_model->get_all();
+        $data['nb_article'] = $this->panier_model->get_nb_articles();
+        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_header'] = TRUE;
+
+        $this->load->view('front/template/layout', $data);
+    }
+
+    public function legal_notice()
+    {
+        $data['title'] = 'un titre';
+        $data['view'] = 'front/legal_notice_view';
+        $data['categories'] = $this->category_model->get_all();
+        $data['nb_article'] = $this->panier_model->get_nb_articles();
+        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_header'] = TRUE;
+
+        $this->load->view('front/template/layout', $data);
     }
 
     public function contact()
@@ -101,7 +125,7 @@ class Home extends Front_Controller
                     }
                     redirect('contact');
                 } else {
-                    $error='<div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    $error = '<div class="alert alert-danger alert-dismissible fade in" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     votre email n\'a pas été envoyé.</div>';
                     $this->session->set_flashdata('msg', $error);
