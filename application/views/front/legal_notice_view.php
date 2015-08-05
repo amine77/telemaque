@@ -5,12 +5,12 @@
         
 
     ?>
-    <?php if(isset($site) && $site['legal_notice'] !='') ?>
+    <?php if(isset($site) && $site['legal_notice'] !='') {?>
     <br><h3>Mentions légales</h3>
     <div class="well">
         
         <?=  $site['legal_notice'] ?>
     </div>
-    <?  } ?>
+    <?php  } ?>
 
 </div>

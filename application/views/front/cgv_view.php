@@ -5,12 +5,12 @@
         
 
     ?>
-    <?php if(isset($site) && $site['cgv'] !='') ?>
+    <?php if(isset($site) && $site['cgv'] !='') {?>
     <br><h3>Conditions générales de ventes</h3>
     <div class="well">
         
         <?=  $site['cgv'] ?>
     </div>
-    <?  } ?>
+    <?php  } ?>
 
 </div>
