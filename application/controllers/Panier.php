@@ -6,7 +6,7 @@ class Panier extends Front_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('articles_model', 'users_articles_model', 'login_model'));
+        $this->load->model(array('articles_model', 'users_articles_model', 'login_model', 'site_model'));
 
         $this->load->library('session');
     }
@@ -15,6 +15,7 @@ class Panier extends Front_Controller {
 
 
         $this->data['title'] = 'Panier';
+        $this->data['site'] = $this->site_model->get_site_configurations();
         $panier_exemplaire = $_SESSION['panier'];
 
         $this->data['exemplaires'] = array();
@@ -97,6 +98,7 @@ class Panier extends Front_Controller {
             $this->data['lib_css'] = array('datepicker/css/bootstrap-datepicker3');
             $this->data['lib_js'] = array('datepicker/js/bootstrap-datepicker.min');
                $this->data['additional_js'] = array('functions');
+               $this->data['site'] = $this->site_model->get_site_configurations();
             $this->data['view'] = 'front/order_etape_2';
          
         } else {
@@ -148,6 +150,7 @@ class Panier extends Front_Controller {
                 $this->data['panier'] = $this->panier_model->get_cart($this->data['exemplaires'], true);
             }
             $this->data['view'] = 'front/order';
+            $this->data['site'] = $this->site_model->get_site_configurations();
             $this->data['adresses'] = $this->login_model->get_adresses_by_user($_SESSION['user_id']);
 
             

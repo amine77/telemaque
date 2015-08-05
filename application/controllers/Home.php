@@ -45,7 +45,7 @@ class Home extends Front_Controller
 
 
         $this->data['articles'] = $this->articles_model->get_articles(6);
-
+        $this->data['site'] = $this->site_model->get_site_configurations();
         $this->data['view'] = 'front/connexion';
         $this->load->view('front/template/layout', $this->data);
     }

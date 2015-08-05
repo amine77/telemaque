@@ -13,6 +13,7 @@ class Inscription extends CI_Controller
         $this->load->model('login_model');
         $this->load->model('panier_model');
         $this->load->model('category_model');
+        $this->load->model('site_model');
     }
 
     public function index()
@@ -46,6 +47,7 @@ class Inscription extends CI_Controller
             $data['view'] = 'front/signup_view';
             $data['categories'] = $this->category_model->get_all();
             $data['nb_article'] = $this->panier_model->get_nb_articles();
+            $data['site'] = $this->site_model->get_site_configurations();
             $data['show_header'] = TRUE;
             $this->load->view('front/template/layout', $data);
         } else {

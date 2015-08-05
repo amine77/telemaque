@@ -6,7 +6,7 @@ class Articles extends Front_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('articles_model', 'users_articles_model'));
+        $this->load->model(array('articles_model', 'users_articles_model','site_model'));
     }
 
     public function index($page = '', $article_id = '', $user_id = '') {
@@ -17,6 +17,7 @@ class Articles extends Front_Controller {
 
             $this->data['additional_js'] = array('functions');
             $this->data['articles'] = $this->articles_model->get_articles(6);
+            $this->data['site'] = $this->site_model->get_site_configurations();
             $this->data['view'] = 'front/articles';
 
             $this->load->view('front/template/layout', $this->data);
@@ -34,7 +35,7 @@ class Articles extends Front_Controller {
 
             $this->data['vendeurs_articles'] = $this->users_articles_model->list_user_article($article_id);
            
-            
+            $this->data['site'] = $this->site_model->get_site_configurations();
             $this->data['view'] = "front/details_article";
           // $this->debug($this->data['vendeurs_articles']);
             
@@ -72,6 +73,7 @@ class Articles extends Front_Controller {
             }
             $this->data['view'] = "front/details_user_article";
         }
+        $this->data['site'] = $this->site_model->get_site_configurations();
         $this->load->view('front/template/layout', $this->data);
     }
 
@@ -81,7 +83,7 @@ class Articles extends Front_Controller {
 
         $id_article = $this->uri->segment(2);
         $this->data['vendeurs_articles'] = $this->users_articles_model->list_ua($id_article);
-
+        $this->data['site'] = $this->site_model->get_site_configurations();
         $this->data['view_type'] = "vendeurs_article";
         $this->load->view('front/template/layout', $this->data);
     }
