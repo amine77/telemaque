@@ -263,8 +263,6 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <span id="update_logo_success" class="label label-success"  style="display: none">Mise à jour réussie</span>
-                        <span id="update_logo_failed" class="label label-danger" style="display: none">Echec de la mise à jour</span><br><br>
                         <div class="col-xs-6 col-md-3">
                             <a href="#" class="thumbnail">
                                 <img src="<?= base_url('assets/img/logo.png') ?>" >
