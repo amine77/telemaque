@@ -88,55 +88,91 @@ class Admin extends CI_Controller
     {
         //$message = array('new_name' => $new_name, 'tel' => 0102030405, 'mail' => 'amine@yahoo.fr');
         $new_name = $this->input->post('new_name');
-        $message='';
+        $message = '';
         if ($this->site_model->update_site_name($new_name)) {
-            $message=array('state'=>'OK');
-        }else{
-            $message=array('state'=>'FAILED');
+            $message = array('state' => 'OK');
+        } else {
+            $message = array('state' => 'FAILED');
         }
         echo json_encode($message);
     }
-    public function update_social_networks(){
+
+    public function update_social_networks()
+    {
         $facebook = $this->input->post('facebook');
         $twitter = $this->input->post('twitter');
         $google_plus = $this->input->post('google_plus');
-        
-        $message='';
+
+        $message = '';
         if ($this->site_model->update_site_social_networks($facebook, $twitter, $google_plus)) {
-            $message=array('state'=>'OK');
-        }else{
-            $message=array('state'=>'FAILED');
+            $message = array('state' => 'OK');
+        } else {
+            $message = array('state' => 'FAILED');
         }
         echo json_encode($message);
     }
+
     public function update_slogan()
     {
         $new_slogan = $this->input->post('new_slogan');
-        $message='';
+        $message = '';
         if ($this->site_model->update_site_slogan($new_slogan)) {
-            $message=array('state'=>'OK');
-        }else{
-            $message=array('state'=>'FAILED');
+            $message = array('state' => 'OK');
+        } else {
+            $message = array('state' => 'FAILED');
         }
         echo json_encode($message);
     }
-    public function update_cgv(){
+
+    public function do_upload()
+    {
+        $message = array();
+//        $donnees =$this->upload->data();
+
+        $config = array(
+            'upload_path' => "./assets/img/",
+            'file_name' => "logo",
+            'allowed_types' => "gif|jpg|png|jpeg",
+            'overwrite' => TRUE,
+            'max_size' => "2048000", 
+            'max_height' => "768",
+            'max_width' => "1024"
+        );
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload('logo')) {
+            $data = array('state' => 'OK');
+        } else {
+            $data = array('state' => 'FAILED', 'error' => $this->upload->display_errors());
+        }
+        $data['title'] = 'pages statiques';
+        $data['lib_js'] = array('tinymce/tinymce.min');
+        $data['view'] = 'back/cms_view';
+        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_header'] = TRUE;
+
+        $this->load->view('back/template/layout', $data);
+    }
+
+    public function update_cgv()
+    {
         $new_cgv = $this->input->post('cgv');
-        $message='';
+        $message = '';
         if ($this->site_model->update_site_cgv($new_cgv)) {
-            $message=array('state'=>'OK');
-        }else{
-            $message=array('state'=>'FAILED');
+            $message = array('state' => 'OK');
+        } else {
+            $message = array('state' => 'FAILED');
         }
         echo json_encode($message);
     }
-    public function update_legal_notice(){
+
+    public function update_legal_notice()
+    {
         $new_legal_notice = $this->input->post('legal_notice');
-        $message='';
+        $message = '';
         if ($this->site_model->update_site_legal_notice($new_legal_notice)) {
-            $message=array('state'=>'OK');
-        }else{
-            $message=array('state'=>'FAILED');
+            $message = array('state' => 'OK');
+        } else {
+            $message = array('state' => 'FAILED');
         }
         echo json_encode($message);
     }

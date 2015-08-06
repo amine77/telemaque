@@ -16,11 +16,11 @@
             <div class="col-xs-3 col-md-1">
 
             </div>
-            <div class="col-xs-3 col-md-1" id="bloc_logo" style="background-image: url(<?= base_url() . $site['image_path'] ?>) ">
+            <div class="col-xs-3 col-md-1" id="bloc_logo" style="background-size: 300px 120px;background-image: url(<?= base_url() . $site['image_path'] ?>) ">
 
             </div>
             <div class="col-xs-3 col-md-3">
-                <span style="font-size: 2em;display: block;padding-top: 50px;color:white"><?= $site['slogan'] ?></span>
+                <span style="font-weight: bold;font-size: 2em;display: block;padding-top: 50px;color:white"><?= $site['slogan'] ?></span>
             </div>
         </div>
 

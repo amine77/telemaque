@@ -107,12 +107,9 @@
             $('#logo_update').toggle();
 
         });
-        $('#update_logo_submit').click(function (e) {
-            e.preventDefault();
-            //upload
-            location.reload();
 
-        });
+
+
         $('#update_social_networks').click(function (e) {
             e.preventDefault();
             var twitter = $('#twitter_input');
@@ -153,7 +150,7 @@
         });
         $('#update_cgv').click(function (e) {
             e.preventDefault();
-           var new_cgv = tinyMCE.get('cgv').getContent();
+            var new_cgv = tinyMCE.get('cgv').getContent();
             $.ajax({
                 method: "POST",
                 dataType: "json",
@@ -164,7 +161,7 @@
 
                         if (message.state === 'OK') {
 
-                            
+
                             $('#update_cgv_success').css("display", "inline").fadeOut(2500);
 
                         } else {
@@ -185,12 +182,12 @@
 
                         if (message.state === 'OK') {
 
-                            
+
                             $('#update_legal_notice_success').css("display", "inline").fadeOut(2500);
 
                         } else {
                             $('#update_legal_notice_failed').css("display", "inline").fadeOut(2500);
-                            
+
                         }
                     });
         });
@@ -266,13 +263,27 @@
                         </h3>
                     </div>
                     <div class="panel-body">
+                        <span id="update_logo_success" class="label label-success"  style="display: none">Mise à jour réussie</span>
+                        <span id="update_logo_failed" class="label label-danger" style="display: none">Echec de la mise à jour</span><br><br>
                         <div class="col-xs-6 col-md-3">
                             <a href="#" class="thumbnail">
                                 <img src="<?= base_url('assets/img/logo.png') ?>" >
                             </a>
                         </div>
                         <div id="logo_update" style="display: none">
-                            <input class="form-control" value="Choisissez un fichier" class="btn btn-default" type="file" name="logo" id="logo"><br><input id="update_logo_submit" type="submit" class="btn btn-default">
+                            <?php  if(isset($error)) {echo $error;} ?>
+                            <?php echo form_open_multipart('admin/do_upload'); ?>
+                            <input class="form-control" value="Choisissez un fichier" type="file" name="logo"><br>
+                            <p class="help-block">Idéalement une image de 300 x 120 px</p>
+                            <input type="submit" value="Envoyer" class="btn btn-default">
+                            </form>
+                            
+                            <ul>
+                                <?php if(isset($upload_data)) foreach ($upload_data as $item => $value){ ?>
+                                    <li><?php echo $item; ?>: <?php echo $value; ?></li>
+                                <?php } ?>
+                            </ul>
+
                         </div>
 
                     </div>
