@@ -1,21 +1,31 @@
+<script>
+    $(function () {
+        $('#sandbox-container input').datepicker({
+            format: "yyyy-mm-dd",
+            language: "fr"
+        });
+
+    });
+</script>
+
 <div id="bloc_contenu">
     <div>
-        <a class="btn btn-primary btn_base" href="<?= base_url() ?>panier/order">Retour</a>
+        <a class="btn btn-primary btn_base" href="<?= base_url() ?>panier/order"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Retour</a>
     </div>
-    <div id="select-address" style="float:left;width:40%;margin-right:10%;">
+    <div id="select-address" style="float:left;width:40%;margin-right:10%;"><br>
         <?php
         $attributes = array("class" => "form-horizontal", "id" => "loginform", "name" => "loginform");
         echo form_open("panier/order", $attributes);
         ?>
         <fieldset>
-            <legend>Information Bancaire</legend>
+            <legend>Informations Bancaires</legend>
             <div class="form-group">
                 <div class="row colbox">
 
                     <div class="col-lg-12 col-sm-2">
-                        <select class="form-control input-sm" required="required">
-                            <option value="">Sélectionner votre type de carte</option>
-                            <option>Bleu</option>
+                        <select  required="required" class="form-control input-sm" required="required">
+                            <option value="">Sélectionner le type de votre carte</option>
+                            <option>Bleue</option>
                             <option>Visa</option>
                             <option>Mastercad</option>
                         </select>
@@ -27,29 +37,28 @@
             <div class="form-group">
                 <div class="row colbox">
 
-                    <!--  <div class="col-lg-5 col-sm-5">
-                          <input required="required" class="form-control" id="num_cart" name="num_cart" placeholder="N° carte Bancaire" type="text" maxlength="16" />
-                      </div>-->
+                    <div class="col-lg-12 col-sm-2">
+                        <input  required="required" class="form-control" type="text" name="card_number" id="card_number" placeholder="Numéro de carte"/>
+                    </div>
 
-                    <div id="sandbox-container">
-                        <div class="input-group date">
-                            <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                        </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row colbox">
+
+                    <div  class="col-lg-4 col-sm-4" id="sandbox-container">
+                        <input required="required" type="text"  placeholder="Date d'expiration"class="form-control">
                     </div>
-                    <div class="span5 col-md-5" id="sandbox-container"><div class="input-group date">
-                            <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-3">
-                        <input required="required" class="form-control" id="pays" name="pays" placeholder="Pays" type="text"  />
+                    <div class="col-lg-4 col-sm-4">
+                        <input required="required" class="form-control" id="security_code" name="security_code" placeholder="Code de securité" type="text"  />
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-7 col-sm-7 text-center"></div>
-                <div class="col-lg-5 col-sm-5 text-center">
-                    <input id="btn_signup" name="select_adress" type="submit" class="btn btn-default" value="Valider" />
-                    <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Cancel" />
+                <div></div>
+                <div>
+                    <input id="btn_signup" name="select_adress" type="submit" class="btn btn-success" value="Valider" />
+                    <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Annuler" />
                 </div>
             </div>
         </fieldset>

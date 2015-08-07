@@ -95,9 +95,10 @@ class Panier extends Front_Controller {
         $panier_exemplaire = $_SESSION['panier'];
         if ($etape == 'etape-2') {
          
-            $this->data['lib_css'] = array('datepicker/css/bootstrap-datepicker3');
-            $this->data['lib_js'] = array('datepicker/js/bootstrap-datepicker.min');
-               $this->data['additional_js'] = array('functions');
+      
+               //$this->data['additional_js'] = array('functions');
+               $this->data['lib_js']= array('datepicker/js/bootstrap-datepicker', 'datepicker/locales/bootstrap-datepicker.fr.min');
+             
                $this->data['site'] = $this->site_model->get_site_configurations();
             $this->data['view'] = 'front/order_etape_2';
          

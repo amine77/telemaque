@@ -6,13 +6,14 @@ class Usr extends Front_Controller {
  
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('panier_model','users_articles_model'));
+        $this->load->model(array('panier_model','users_articles_model','site_model'));
     }
 
     public function index() {
 
         $user_id = $this->uri->segment(2);
         $this->data['title'] = 'Utilisateur';
+        $this->data['site'] = $this->site_model->get_site_configurations();
 
          $query = $this->db->get_where('users', array('user_id' => $user_id));
        // $this->utils->getIm()
