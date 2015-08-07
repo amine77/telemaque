@@ -1,3 +1,13 @@
+<script>
+    $(function () {
+        $('#sandbox-container input').datepicker({
+            format: "yyyy-mm-dd",
+            language: "fr"
+        });
+
+    });
+</script>
+
 <div id="bloc_contenu">
     <br><h2>INSCRIPTION</h2><br>
     <?php echo $this->session->flashdata('msg'); ?>
@@ -39,7 +49,7 @@
                                 <label for="txt_user_name" class="control-label">Nom</label>
                             </div>
                             <div class="col-lg-8 col-sm-8">
-                                <input class="form-control" id="txt_password" name="txt_user_name" placeholder="Nom" type="text" value="<?php echo set_value('txt_user_name'); ?>" />
+                                <input class="form-control" id="txt_user_name" name="txt_user_name" placeholder="Nom" type="text" value="<?php echo set_value('txt_user_name'); ?>" />
                                 <span class="text-danger"><?php echo form_error('txt_user_name'); ?></span>
                             </div>
                         </div>
@@ -51,7 +61,7 @@
                                 <label for="txt_user_surname" class="control-label">Prénom</label>
                             </div>
                             <div class="col-lg-8 col-sm-8">
-                                <input class="form-control" id="txt_password" name="txt_user_surname" placeholder="Prénom" type="text" value="<?php echo set_value('txt_user_surname'); ?>" />
+                                <input class="form-control" id="txt_user_surname" name="txt_user_surname" placeholder="Prénom" type="text" value="<?php echo set_value('txt_user_surname'); ?>" />
                                 <span class="text-danger"><?php echo form_error('txt_user_surname'); ?></span>
                             </div>
                         </div>
@@ -62,8 +72,8 @@
                             <div class="col-lg-4 col-sm-4">
                                 <label for="txt_born_at" class="control-label">Né(e) le</label>
                             </div>
-                            <div class="col-lg-8 col-sm-8">
-                                <input class="form-control" id="txt_password" name="txt_born_at" placeholder="yyyy-mm-jj" type="text" value="<?php echo set_value('txt_born_at'); ?>" />
+                            <div class="col-lg-8 col-sm-8"  id="sandbox-container">
+                                <input class="form-control" id="txt_born_at" name="txt_born_at" placeholder="yyyy-mm-jj" type="text" value="<?php echo set_value('txt_born_at'); ?>" />
                                 <span class="text-danger"><?php echo form_error('txt_born_at'); ?></span>
                             </div>
                         </div>
@@ -75,7 +85,7 @@
                                 <label for="txt_phone" class="control-label">Téléphone</label>
                             </div>
                             <div class="col-lg-8 col-sm-8">
-                                <input class="form-control" id="txt_password" name="txt_phone" placeholder="Téléphone" type="text" value="<?php echo set_value('txt_phone'); ?>" />
+                                <input class="form-control" id="txt_phone" name="txt_phone" placeholder="Téléphone" type="text" value="<?php echo set_value('txt_phone'); ?>" />
                                 <span class="text-danger"><?php echo form_error('txt_phone'); ?></span>
                             </div>
                         </div>
@@ -87,7 +97,7 @@
                                 <label for="txt_mobile" class="control-label">Mobile</label>
                             </div>
                             <div class="col-lg-8 col-sm-8">
-                                <input class="form-control" id="txt_password" name="txt_mobile" placeholder="Mobile" type="text" value="<?php echo set_value('txt_mobile'); ?>" />
+                                <input class="form-control" id="txt_mobile" name="txt_mobile" placeholder="Mobile" type="text" value="<?php echo set_value('txt_mobile'); ?>" />
                                 <span class="text-danger"><?php echo form_error('txt_mobile'); ?></span>
                             </div>
                         </div>
@@ -99,7 +109,7 @@
                                 <label for="txt_mail" class="control-label">E-mail</label>
                             </div>
                             <div class="col-lg-8 col-sm-8">
-                                <input class="form-control" id="txt_password" name="txt_mail" placeholder="E-mail" type="text" value="<?php echo set_value('txt_mail'); ?>" />
+                                <input class="form-control" id="txt_mail" name="txt_mail" placeholder="E-mail" type="text" value="<?php echo set_value('txt_mail'); ?>" />
                                 <span class="text-danger"><?php echo form_error('txt_mail'); ?></span>
                             </div>
                         </div>
@@ -113,7 +123,7 @@
                     </div>
                 </fieldset>
                 <?php echo form_close(); ?>
-                
+
             </div>
 
         </div>

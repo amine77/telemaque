@@ -49,6 +49,7 @@ class Inscription extends CI_Controller
             $data['nb_article'] = $this->panier_model->get_nb_articles();
             $data['site'] = $this->site_model->get_site_configurations();
             $data['show_header'] = TRUE;
+            $data['lib_js']= array('datepicker/js/bootstrap-datepicker', 'datepicker/locales/bootstrap-datepicker.fr.min');
             $this->load->view('front/template/layout', $data);
         } else {
 
