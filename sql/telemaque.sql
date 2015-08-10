@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 04 Août 2015 à 17:59
+-- Généré le :  Lun 10 Août 2015 à 11:30
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -34,18 +34,19 @@ CREATE TABLE IF NOT EXISTS `address` (
   `address` varchar(45) NOT NULL,
   `city` varchar(45) NOT NULL,
   `country` varchar(40) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`address_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `address`
 --
 
 INSERT INTO `address` (`address_id`, `zip_code`, `address`, `city`, `country`, `user_id`) VALUES
-(1, '75005', '15, rue des écoles', 'Paris', 'France', 5),
-(2, '94120', '22, rue Anatole France', 'Fonteny-sous-bois', 'France', 5);
+(1, '94120', '10 boulevard de vincennnes', 'Fontenay-sous-bois', 'France', NULL),
+(2, '94120', '22, rue Anatole France', 'Fonteny-sous-bois', 'France', 5),
+(3, '75005', '15, rue des écoles', 'Paris', 'France', 5);
 
 -- --------------------------------------------------------
 
@@ -116,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `category_label` varchar(45) NOT NULL,
   `slug` varchar(255) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Contenu de la table `categories`
@@ -185,14 +186,15 @@ CREATE TABLE IF NOT EXISTS `images` (
   `height` int(11) NOT NULL,
   `width` int(11) NOT NULL,
   PRIMARY KEY (`image_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `images`
 --
 
 INSERT INTO `images` (`image_id`, `image_label`, `image_path`, `size`, `format`, `height`, `width`) VALUES
-(1, 'Tulips.jpg', './assets/img/upload/871055a8b3f9dcd0a.jpg', 620888, 'jpg', 768, 1024);
+(1, 'Tulips.jpg', './assets/img/upload/871055a8b3f9dcd0a.jpg', 620888, 'jpg', 768, 1024),
+(2, 'logo', './assets/img/logo.png', 0, 'png', 119, 300);
 
 -- --------------------------------------------------------
 
@@ -236,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_label` varchar(45) NOT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `role`
@@ -263,17 +265,21 @@ CREATE TABLE IF NOT EXISTS `site_identity` (
   `twitter` varchar(255) NOT NULL,
   `facebook` varchar(255) NOT NULL,
   `google_plus` varchar(255) NOT NULL,
+  `address_id` int(11) DEFAULT NULL,
+  `phone` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `logo` (`logo`),
-  KEY `logo_2` (`logo`)
+  KEY `logo_2` (`logo`),
+  KEY `address_id` (`address_id`),
+  KEY `address_id_2` (`address_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `site_identity`
 --
 
-INSERT INTO `site_identity` (`id`, `site_name`, `slogan`, `logo`, `cgv`, `legal_notice`, `twitter`, `facebook`, `google_plus`) VALUES
-(1, 'MaBelleBoutique', 'Mon joli slogan', 1, 'zvazeze', 'zefzefze', 'https://twitter.com/jacques_chirac', 'https://fr-fr.facebook.com/jchirac', 'https://plus.google.com/102685841535368836727/post...');
+INSERT INTO `site_identity` (`id`, `site_name`, `slogan`, `logo`, `cgv`, `legal_notice`, `twitter`, `facebook`, `google_plus`, `address_id`, `phone`) VALUES
+(1, 'MaBelleBoutique', 'Un joli slogan', 2, '<h3><span style="color: #ff0000;"><em>aaabbbs</em></span></h3>', '<p style="text-align: center;"><strong><span style="color: #008000;">zefzefz</span></strong><span style="color: #ff00ff;">e</span></p>', 'https://twitter.com/messi10stats', 'https://www.facebook.com/LeoMessi', 'https://plus.google.com/108000335759818964396/posts', 1, '0102030405');
 
 -- --------------------------------------------------------
 
@@ -381,8 +387,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`) VALUES
 (3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 0, NULL, NULL, 1),
-(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-04', 0, NULL, NULL, 2),
-(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-07-30', 1, NULL, NULL, 3),
+(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-10', 0, NULL, NULL, 2),
+(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-07', 1, NULL, NULL, 3),
 (6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'charrad.amine@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'Pour tout problème technique qui se déroule sur ce site', 2),
 (7, 'zidane', 'zinedine', 'zizou', '326e9edaae7f6b75fe245ac2b8737395cfbe5713', '1970-07-14', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'yoniattlane555@gmail.com', '', '0000-00-00', 1, 'Service consommateur', 'pour toute question à propos d''un produit, d''une commande...', 2),
 (14, 'MonNom', 'MonPrénom', 'user2', '7384f8b17d67b6e8498b363d8df08a5dd021a2d3', '1990-02-11', '2015-08-03 09:31:33', '0000-00-00 00:00:00', '0102030405', '0605040302', 'user2@yahoo.fr', '', '0000-00-00', 0, NULL, NULL, 3);
