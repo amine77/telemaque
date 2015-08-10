@@ -84,6 +84,20 @@ class Admin extends CI_Controller
         $this->load->view('back/template/layout', $data);
     }
 
+    public function update_site_address()
+    {
+        $zip_code= $this->input->post('zip_code');
+        $address= $this->input->post('address');
+        $city= $this->input->post('city');
+        $country= $this->input->post('country');
+        $message = '';
+        if ($this->site_model->update_site_address($zip_code, $address, $city, $country)) {
+            $message = array('state' => 'OK');
+        } else {
+            $message = array('state' => 'FAILED');
+        }
+        echo json_encode($message);
+    }
     public function update_site_name()
     {
         //$message = array('new_name' => $new_name, 'tel' => 0102030405, 'mail' => 'amine@yahoo.fr');
@@ -111,7 +125,7 @@ class Admin extends CI_Controller
         }
         echo json_encode($message);
     }
-
+    
     public function update_slogan()
     {
         $new_slogan = $this->input->post('new_slogan');
@@ -123,7 +137,17 @@ class Admin extends CI_Controller
         }
         echo json_encode($message);
     }
-
+    public function update_phone()
+    {
+        $new_phone = $this->input->post('new_phone');
+        $message = '';
+        if ($this->site_model->update_site_phone($new_phone)) {
+            $message = array('state' => 'OK');
+        } else {
+            $message = array('state' => 'FAILED');
+        }
+        echo json_encode($message);
+    }
     public function do_upload()
     {
         $message = array();

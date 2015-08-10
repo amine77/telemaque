@@ -14,10 +14,23 @@ class Site_model extends CI_Model {
 
 
         $sql = "SELECT *
-                FROM site_identity, images
-                WHERE site_identity.logo = images.image_id";
+                FROM site_identity, images, address
+                WHERE site_identity.logo = images.image_id
+                AND site_identity.address_id = address.address_id";
         $query = $this->db->query($sql);
         return $query->row_array();
+    }
+    function update_site_address($zip_code, $address, $city, $country){
+        $data = array(
+            'zip_code' => $zip_code,
+            'address' => $address,
+            'city' => $city,
+            'country' => $country,
+        );
+
+        $this->db->where('address_id', 1);//la première addresse qui doit être insérée correspond à l'adresse de la boutique
+        $this->db->update('address', $data);
+        return true;
     }
     function update_site_name($new_name){
         $data = array(
@@ -32,6 +45,15 @@ class Site_model extends CI_Model {
     {
         $data = array(
             'slogan' => $new_slogan
+        );
+
+        $this->db->where('id', 1);
+        $this->db->update('site_identity', $data);
+        return true;
+    }
+    function update_site_phone($new_phone){
+        $data = array(
+            'phone' => $new_phone
         );
 
         $this->db->where('id', 1);

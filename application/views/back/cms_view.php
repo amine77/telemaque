@@ -65,6 +65,46 @@
                         }
                     });
         });
+        $('#update_site_address').click(function (e) {
+            e.preventDefault();
+            $('#btn_update_site_address').show();
+            var zip_code = $('input[name="zip_code"]'), address = $('input[name="address"]'), city = $('input[name="city"]'), country = $('input[name="country"]');
+
+            zip_code.attr('readonly', false);
+            address.attr('readonly', false);
+            city.attr('readonly', false);
+            country.attr('readonly', false);
+            address.focus();
+        });
+        $('#btn_update_site_address').click(function (e) {
+            e.preventDefault();
+            var zip_code = $('input[name="zip_code"]'), address = $('input[name="address"]'), city = $('input[name="city"]'), country = $('input[name="country"]');
+            var zip_code_val = zip_code.val(), address_val = address.val(), city_val = city.val(), country_val = country.val();
+
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "<?= base_url() ?>admin/update_site_address",
+                data: {zip_code: zip_code_val, address: address_val, city: city_val, country: country_val}
+            })
+                    .done(function (message) {
+
+                        if (message.state === 'OK') {
+                            zip_code.attr('readonly', true);
+                            address.attr('readonly', true);
+                            city.attr('readonly', true);
+                            country.attr('readonly', true);
+                            $('#btn_update_site_address').hide();
+                            $('#update_site_address_success').css("display", "inline").fadeOut(2500);
+
+                        } else {
+                            $('#update_site_address_failed').css("display", "inline").fadeOut(2500);
+                            $('#btn_update_site_address').hide();
+                        }
+                    });
+
+
+        });
         $('#update_slogan').click(function (e) {
             e.preventDefault();
             var slogan = $('input[name="slogan"]');
@@ -98,6 +138,42 @@
                             slogan.attr('readonly', true);
                             slogan.focusout();
                             $('#btn_update_slogan').hide();
+                        }
+                    });
+        });
+        $('#update_phone').click(function (e) {
+            e.preventDefault();
+            var phone = $('input[name="phone"]');
+            phone.attr('readonly', false);
+            phone.focus();
+            $('#btn_update_phone').show();
+
+        });
+        $('#btn_update_phone').click(function (e) {
+            e.preventDefault();
+            $('btn_update_phone').hide();
+            var phone = $('input[name="phone"]');
+            var new_phone = $('input[name="phone"]').val();
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "<?= base_url() ?>admin/update_phone",
+                data: {new_phone: new_phone}
+            })
+                    .done(function (message) {
+
+                        if (message.state === 'OK') {
+                            phone.attr('readonly', true);
+                            phone.focusout();
+                            $('#btn_update_phone').hide();
+                            $('#update_phone_success').css("display", "inline").fadeOut(2500);
+
+                        } else {
+                            $('#update_phone_failed').css("display", "inline").fadeOut(2500);
+
+                            phone.attr('readonly', true);
+                            phone.focusout();
+                            $('#btn_update_phone').hide();
                         }
                     });
         });
@@ -235,6 +311,46 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;Coordonnées&nbsp;&nbsp;&nbsp; <a id="update_site_address" title="modifier" href="<?= base_url('admin/update_site_address') ?>">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </a>&nbsp;&nbsp;&nbsp;&nbsp;<button id="btn_update_site_address" name="btn_update_site_address" type="button" title="sauvegarder" class="btn btn-default btn-sm"  style="display: none">
+                                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                            </button> </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-8">
+                            <div class="form-group">
+                                <div class="row colbox">
+
+                                    <div class="col-lg-7 col-sm-4">
+                                        <input readonly="" required="required" class="form-control" placeholder="Adresse" id="address" name="address" type="text" value="<?= $site['address'] ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row colbox">
+                                    <div class="col-lg-3 col-sm-3">
+                                        <input readonly="" class="form-control" placeholder="Code postal" id="zip_code" name="zip_code" type="text" value="<?= $site['zip_code'] ?>">
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4">
+                                        <input readonly=""  class="form-control"  placeholder="Ville" id="city" name="city" type="text" value="<?= $site['city'] ?>">
+                                    </div>
+                                    <div class="col-lg-5 col-sm-5">
+                                        <input readonly="" class="form-control"  placeholder="Pays" id="country" name="country" type="text" value="<?= $site['country'] ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="update_site_address_success" class="label label-success" style="display: none">Mise à jour réussie</span>
+                        <span id="update_site_address_failed" class="label label-danger" style="display: none">Echec de la mise à jour</span>
+                    </div>
+                </div>
+
+            </div>
+            <div>              
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
                         <h3 class="panel-title"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span>&nbsp;Slogan&nbsp;&nbsp;&nbsp;  <a id="update_slogan" title="modifier" href="<?= base_url('admin/update_slogan') ?>">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a> </h3>
@@ -269,17 +385,21 @@
                             </a>
                         </div>
                         <div id="logo_update" style="display: none">
-                            <?php  if(isset($error)) {echo $error;} ?>
+                            <?php
+                            if (isset($error)) {
+                                echo $error;
+                            }
+                            ?>
                             <?php echo form_open_multipart('admin/do_upload'); ?>
                             <input class="form-control" value="Choisissez un fichier" type="file" name="logo"><br>
                             <p class="help-block">Idéalement une image de 300 x 120 px</p>
                             <input type="submit" value="Envoyer" class="btn btn-default">
                             </form>
-                            
+
                             <ul>
-                                <?php if(isset($upload_data)) foreach ($upload_data as $item => $value){ ?>
-                                    <li><?php echo $item; ?>: <?php echo $value; ?></li>
-                                <?php } ?>
+                                <?php if (isset($upload_data)) foreach ($upload_data as $item => $value) { ?>
+                                        <li><?php echo $item; ?>: <?php echo $value; ?></li>
+                                    <?php } ?>
                             </ul>
 
                         </div>
@@ -330,11 +450,34 @@
                                 </td>
                             </tr>
                         </table>
+
                     </div>
-                </div>
+                </div> <br><br><br><br>
             </div>
         </div>
         <div class="col-lg-6">
+            <div>              
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>&nbsp;Téléphone&nbsp;&nbsp;&nbsp;  <a id="update_phone" title="modifier" href="<?= base_url('admin/update_phone') ?>">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </a> </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-5">
+                            <input class="form-control" id="phone" name="phone" type="text" readonly="" value="<?= $site['phone'] ?>">     
+                        </div>
+
+                        <button id="btn_update_phone" name="btn_update_phone" type="button" title="sauvegarder" class="btn btn-default btn-sm"  style="display: none">
+                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        </button>
+                        <span id="update_phone_success" class="label label-success" style="display: none">Mise à jour réussie</span>
+                        <span id="update_phone_failed" class="label label-danger" style="display: none">Echec de la mise à jour</span>
+                    </div>
+                </div>
+
+            </div>
             <div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
