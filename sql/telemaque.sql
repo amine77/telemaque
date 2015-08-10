@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 10 Août 2015 à 11:30
+-- Généré le :  Lun 10 Août 2015 à 18:19
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -117,16 +117,16 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `category_label` varchar(45) NOT NULL,
   `slug` varchar(255) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Contenu de la table `categories`
 --
 
 INSERT INTO `categories` (`category_id`, `parent_category`, `category_label`, `slug`) VALUES
-(1, 0, 'VEHICULES', 'vehicules'),
-(2, 0, 'IMMOBILIER', 'immobilier'),
-(3, 0, 'MULTIMEDIA', 'multimedia'),
+(1, 0, 'Vehicules', 'vehicules'),
+(2, 0, 'Immobilier', 'immobilier'),
+(3, 0, 'Multimedia', 'multimedia'),
 (4, 1, 'Voitures', 'voitures'),
 (5, 1, 'Motos', 'motos'),
 (6, 2, 'Ventes immobilières', 'ventes-immoblieres'),
@@ -137,7 +137,7 @@ INSERT INTO `categories` (`category_id`, `parent_category`, `category_label`, `s
 (11, 3, 'Image & Son', 'image-et-son'),
 (12, 3, 'Jeux', 'jeux'),
 (13, 3, 'DVD et Blu-ray', 'dvd-et-blu-ray'),
-(16, 0, 'VACANCES', 'vacances');
+(16, 0, 'Vacances', 'vacances');
 
 -- --------------------------------------------------------
 
@@ -367,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(45) NOT NULL,
   `born_at` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `phone` varchar(15) NOT NULL,
   `mobile` varchar(15) NOT NULL,
   `mail` varchar(40) NOT NULL,
@@ -379,16 +379,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `role_id` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`) VALUES
-(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 0, NULL, NULL, 1),
-(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 14:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-10', 0, NULL, NULL, 2),
-(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 14:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-07', 1, NULL, NULL, 3),
+(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 12:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 0, NULL, NULL, 1),
+(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 12:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-10', 0, NULL, NULL, 2),
+(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 12:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-07', 1, NULL, NULL, 3),
 (6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'charrad.amine@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'Pour tout problème technique qui se déroule sur ce site', 2),
 (7, 'zidane', 'zinedine', 'zizou', '326e9edaae7f6b75fe245ac2b8737395cfbe5713', '1970-07-14', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'yoniattlane555@gmail.com', '', '0000-00-00', 1, 'Service consommateur', 'pour toute question à propos d''un produit, d''une commande...', 2),
 (14, 'MonNom', 'MonPrénom', 'user2', '7384f8b17d67b6e8498b363d8df08a5dd021a2d3', '1990-02-11', '2015-08-03 09:31:33', '0000-00-00 00:00:00', '0102030405', '0605040302', 'user2@yahoo.fr', '', '0000-00-00', 0, NULL, NULL, 3);
