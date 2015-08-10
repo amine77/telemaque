@@ -6,6 +6,9 @@
 if ($show_header == true){
     $this->load->view('back/template/header');
 }
+//if ($show_nav == true){
+//    $this->load->view('back/template/nav');
+//}
 ?>
 
 <?php $this->load->view('back/template/nav'); ?>

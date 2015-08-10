@@ -1,4 +1,15 @@
+<?php  
+if(isset($categories)&& is_array($categories)){
+    //Ne pas proposer à une catégorie, elle même comme parent et du coup on doit la supprimer du tableau categories
+    foreach ($categories as $i=>$categorie) {
+        if($categorie['category_id'] ==$id){
+            unset($categories[$i]);
+        }
+    }
+}
+?>
 <div id="bloc_contenu">
+    <h4><a href="<?=  base_url('admin/liste_categories') ?>">Liste des catégories</a></h4>
     <h1>Modifier une catégorie</h1>
 
     <?php echo $this->session->flashdata('success'); ?>

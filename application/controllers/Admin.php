@@ -32,13 +32,6 @@ class Admin extends CI_Controller
         redirect("admin/home");
     }
 
-//    public function logout()
-//    {
-//        session_destroy();
-//        redirect(base_url('/'), 'refresh');
-//    }
-
-
     public function home()
     {
 //        if (!$this->session->has_userdata('login')) {
@@ -64,8 +57,7 @@ class Admin extends CI_Controller
         $data['user'] = $this->login_model->get_user_by_id($user_id);
         $data['adresses'] = $this->login_model->get_adresses_by_user($user_id);
         $data['messages'] = $this->login_model->get_messages_by_user($user_id);
-//        $data['ventes']=  $this->login_model->get_ventes_by_user($user_id);
-//        $data['commandes']=  $this->login_model->get_commandes_by_user($user_id);
+
         $data['role'] = $this->login_model->get_roles_by_user($user_id);
         $this->input->ip_address();
         $this->load->view('back/template/layout', $data);
@@ -86,10 +78,10 @@ class Admin extends CI_Controller
 
     public function update_site_address()
     {
-        $zip_code= $this->input->post('zip_code');
-        $address= $this->input->post('address');
-        $city= $this->input->post('city');
-        $country= $this->input->post('country');
+        $zip_code = $this->input->post('zip_code');
+        $address = $this->input->post('address');
+        $city = $this->input->post('city');
+        $country = $this->input->post('country');
         $message = '';
         if ($this->site_model->update_site_address($zip_code, $address, $city, $country)) {
             $message = array('state' => 'OK');
@@ -98,9 +90,9 @@ class Admin extends CI_Controller
         }
         echo json_encode($message);
     }
+
     public function update_site_name()
     {
-        //$message = array('new_name' => $new_name, 'tel' => 0102030405, 'mail' => 'amine@yahoo.fr');
         $new_name = $this->input->post('new_name');
         $message = '';
         if ($this->site_model->update_site_name($new_name)) {
@@ -125,7 +117,7 @@ class Admin extends CI_Controller
         }
         echo json_encode($message);
     }
-    
+
     public function update_slogan()
     {
         $new_slogan = $this->input->post('new_slogan');
@@ -137,6 +129,7 @@ class Admin extends CI_Controller
         }
         echo json_encode($message);
     }
+
     public function update_phone()
     {
         $new_phone = $this->input->post('new_phone');
@@ -148,17 +141,17 @@ class Admin extends CI_Controller
         }
         echo json_encode($message);
     }
+
     public function do_upload()
     {
         $message = array();
-//        $donnees =$this->upload->data();
 
         $config = array(
             'upload_path' => "./assets/img/",
             'file_name' => "logo",
             'allowed_types' => "gif|jpg|png|jpeg",
             'overwrite' => TRUE,
-            'max_size' => "2048000", 
+            'max_size' => "2048000",
             'max_height' => "768",
             'max_width' => "1024"
         );
@@ -254,16 +247,6 @@ class Admin extends CI_Controller
         $this->load->view('back/template/layout', $data);
     }
 
-//    public function liste_categories() {
-//        if (!$this->session->has_userdata('login')) {
-//            redirect('admin');
-//        }
-//        $data['title'] = 'un titre';
-//        $data['additional_css'] = array('categories');
-//        $data['view'] = 'back/liste_categories';
-//        $data['show_header'] = TRUE;
-//        $this->load->view('back/template/layout', $data);
-//    }
     public function liste_tags()
     {
         if (!$this->session->has_userdata('login')) {
@@ -345,11 +328,7 @@ class Admin extends CI_Controller
 
         $parent = $this->input->post("txt_parent");
         $category = $this->input->post("txt_category");
-        if ($parent == '0') {
-            $category = strtoupper($category);
-        } else {
-            $category = ucfirst($category);
-        }
+        $category_label  = ucfirst(mb_strtolower($category, 'UTF-8'));
 
         $this->form_validation->set_rules("txt_category", "Category", "trim|required");
 
@@ -357,9 +336,10 @@ class Admin extends CI_Controller
 
             $data['title'] = 'un titre';
             $data['cat'] = $this->category_model->get_category($category_id);
-            $data['categories'] = $this->category_model->get_all();
+            $data['categories'] = $this->category_model->get_only_parents();
             $data['view'] = 'back/update_category';
             $data['show_header'] = TRUE;
+//            $data['show_nav'] = FALSE;
             $data['site'] = $this->site_model->get_site_configurations();
             $data['id'] = $category_id;
 
@@ -369,9 +349,8 @@ class Admin extends CI_Controller
         } else {
 
 
-            if ($this->input->post('btn_update') == "Update") {
-
-                $this->category_model->update_category($parent, $category_id, $category);
+            if ($this->input->post('btn_update') == "Modifier") {
+                $this->category_model->update_category($parent, $category_id, $category_label);
                 $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
                         . 'La nouvelle catégorie a été mis à jour avec succès !</div>');
                 redirect("admin/update_category/" . $category_id);
@@ -404,7 +383,6 @@ class Admin extends CI_Controller
 
 
             $this->load->view('back/template/layout', $data);
-            //$this->load->view('back/update_category', $data);
         } else {
 
 
@@ -448,7 +426,7 @@ class Admin extends CI_Controller
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau mot clé a été ajouté avec succès !</div>');
                     redirect("admin/ajouter_tag");
                 } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Mot clé non ajouté !</div>');
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création du mot clé. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
                     redirect('admin/ajouter_tag');
                 }
             } else {
@@ -486,7 +464,7 @@ class Admin extends CI_Controller
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau rôle a été ajouté avec succès !</div>');
                     redirect("admin/ajouter_role");
                 } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Rôle non ajouté!</div>');
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création du rôle. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
                     redirect('admin/ajouter_role');
                 }
             } else {
@@ -573,7 +551,7 @@ class Admin extends CI_Controller
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau administrateur a été ajouté avec succès !</div>');
                     redirect("admin/ajouter_admin");
                 } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Administrateur non ajouté!</div>');
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création de l\'administrateur. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
                     redirect('admin/ajouter_admin');
                 }
             } else {
@@ -614,7 +592,7 @@ class Admin extends CI_Controller
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau rôle a été ajouté avec succès !</div>');
                     redirect("admin/ajouter_contact");
                 } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Rôle non ajouté!</div>');
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création du rôle. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
                     redirect('admin/ajouter_contact');
                 }
             } else {
@@ -633,17 +611,17 @@ class Admin extends CI_Controller
         $parent = $this->input->post("txt_parent");
         $category = $this->input->post("txt_category");
         if ($parent == '0') {
-            $category = strtoupper($category);
+            $category = ucfirst(mb_strtolower($category, 'UTF-8'));
         } else {
-            $category = ucfirst($category);
+            $category = ucfirst(mb_strtolower($category, 'UTF-8'));
         }
-
+        
         $this->form_validation->set_rules("txt_category", "Category", "trim|required");
 
         if ($this->form_validation->run() == FALSE) {
 
-            $data['title'] = 'un titre';
-            $data['categories'] = $this->category_model->get_all();
+            $data['title'] = 'Ajouter une catégorie';
+            $data['categories'] = $this->category_model->get_only_parents();
             $data['view'] = 'back/ajouter_category';
             $data['show_header'] = TRUE;
             $data['site'] = $this->site_model->get_site_configurations();
@@ -653,12 +631,13 @@ class Admin extends CI_Controller
 
 
             if ($this->input->post('btn_ajouter') == "Ajouter") {
+                var_dump($category);
 
                 if ($this->category_model->add_category($parent, $category)) {
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouvelle catégorie a été ajoutée avec succès !</div>');
                     redirect("admin/ajouter_category");
                 } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création de la catégorie. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
                     redirect('admin/ajouter_category');
                 }
             } else {

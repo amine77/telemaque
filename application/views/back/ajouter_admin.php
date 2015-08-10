@@ -1,4 +1,5 @@
 <div id="bloc_contenu">
+    <h4><a href="<?=  base_url('admin/liste_administrateurs') ?>">Liste des administrateurs</a></h4>
     <h1>Formulaire d'administrateurs</h1>
 
     <?php echo $this->session->flashdata('success'); ?>

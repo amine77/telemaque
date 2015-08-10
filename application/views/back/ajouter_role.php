@@ -1,4 +1,5 @@
 <div id="bloc_contenu">
+    <h4><a href="<?=  base_url('admin/liste_roles') ?>">Liste des rôles</a></h4>
     <h1>Ajouter un rôle</h1>
 
     <?php echo $this->session->flashdata('success'); ?>

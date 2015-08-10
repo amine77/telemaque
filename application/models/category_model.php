@@ -38,12 +38,24 @@ class category_model extends CI_Model
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-
+ 
+    /*
+     * retourne uniquement les categories parents et non pas les sous-catégories
+     */
+    function get_only_parents(){
+        $sql = "SELECT category_id, parent_category, category_label AS category, slug
+            FROM categories
+            WHERE parent_category =0";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+    
     function add_category($parent_category, $category_label)
     {
         $data = array(
             'parent_category' => $parent_category,
-            'category_label' => $category_label
+            'category_label' => $category_label,
+            'slug'=>  url_title(mb_strtolower($category_label, 'UTF-8'))
         );
 
         $this->db->insert('categories', $data);
@@ -70,7 +82,8 @@ class category_model extends CI_Model
     {
         $data = array(
             'parent_category' => $parent_category,
-            'category_label' => $category_label
+            'category_label' => $category_label,
+            'slug'=>  url_title(mb_strtolower($category_label, 'UTF-8'))
         );
 
         $this->db->where('category_id', $category_id);

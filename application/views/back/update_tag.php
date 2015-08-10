@@ -1,3 +1,9 @@
+<div id="bloc_contenu">
+    <h4><a href="<?=  base_url('admin/liste_tags') ?>">Liste des mots clés</a></h4>
+    <h1>Mettre àjour un mot clét</h1>
+    
+    
+</div>
 <div class="container">
     <div class="row">
 
@@ -7,7 +13,7 @@
             $ids[] = $value['article_id'];
         }
         ?>
-        <div class="col-lg-4 col-sm-4 well">
+        <div class="col-lg-6 well">
             <?php echo $this->session->flashdata('success'); ?>
             <?php
             $attributes = array("class" => "form-horizontal", "id" => "tagupdateform", "name" => "tagupdateform");

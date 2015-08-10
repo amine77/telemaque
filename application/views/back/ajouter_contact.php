@@ -1,4 +1,11 @@
+<div id="bloc_contenu">
+    <h4><a href="<?=  base_url('admin/liste_contacts') ?>">Liste des contacts</a></h4>
+    <h1>Ajouter un contact</h1>
+    
+    
+</div>
 <div class="container">
+    
     <div class="row">
 
         <div class="col-lg-4 col-sm-4 well">

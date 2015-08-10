@@ -1,4 +1,7 @@
 <div id="bloc_contenu">
+    
+    <h4><a href="<?=  base_url('admin/liste_categories') ?>">Liste des catégories</a></h4>
+    
     <h1>Ajouter une catégorie</h1>
 
     <?php echo $this->session->flashdata('success'); ?>
@@ -15,7 +18,7 @@
                 </label>
             </td>
             <td class="col_input">
-                <input class="form-control" id="txt_password" name="txt_category" placeholder="Category" type="text" value="<?php echo set_value('txt_category'); ?>" />
+                <input class="form-control" id="txt_password" name="txt_category" placeholder="Catégorie" type="text" value="<?php echo set_value('txt_category'); ?>" />
                 <span class="text-danger"><?php echo form_error('txt_category'); ?></span>
             </td>
         </tr>

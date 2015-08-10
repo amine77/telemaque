@@ -1,5 +1,6 @@
 <div id="bloc_contenu">
-    <h1>Ajouter un tag</h1>
+    <h4><a href="<?=  base_url('admin/liste_tags') ?>">Liste des mots clés</a></h4>
+    <h1>Ajouter un mot clé</h1>
     
     
 </div>

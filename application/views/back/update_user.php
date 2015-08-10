@@ -1,8 +1,13 @@
-
+<div id="bloc_contenu">
+    <h4><a href="<?=  base_url('admin/liste_users') ?>">Liste des utilisateurs</a></h4>
+    <h1>Mettre àjour un utilisateur</h1>
+    
+    
+</div>
 <div class="container">
     <div class="row">
 
-        <div class="col-lg-4 col-sm-4 well">
+        <div class="col-lg-6 well">
             <?php echo $this->session->flashdata('success'); ?>
             <?php
             $attributes = array("class" => "form-horizontal", "id" => "userupdateform", "name" => "userupdateform");
@@ -51,6 +56,7 @@
                         <div class="col-lg-4 col-sm-4">
                             <label for="txt_role" class="control-label">Rôle</label>
                         </div>
+                        <div class="col-lg-8 col-sm-8">
                         <select name="txt_role"  class="form-control">
                             <?php
                             
@@ -60,6 +66,7 @@
                             }
                             ?>
                         </select>
+                            </div>
                     </div>
                 </div>
                 

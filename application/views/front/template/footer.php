@@ -40,7 +40,7 @@ foreach ($categories as $categorie) {
                     }
                     echo '</li>';
                 } else {
-                    echo '<li><a href="' . base_url('view/' . $parent['slug']) . '">' . ucfirst(strtolower($key)). '</a></li>';
+                    echo '<li><a href="' . base_url('view/' . $parent['slug']) . '">' . ucfirst(mb_strtolower($key, 'UTF-8')). '</a></li>';
                 }
             }
             ?>
