@@ -30,6 +30,7 @@ $(function() {
                 <th>ID</th>
                 <th>Nom </th>
                 <th>Prénom</th>
+                <th>Login</th>
                 <th>Email</th>
                 <th>Rôle</th>
                 <th>Activé</th>
@@ -40,6 +41,7 @@ $(function() {
                     <td><?= $admin['user_id'] ?></td>
                     <td><?= $admin['user_name'] ?></td>
                     <td><?= $admin['user_surname'] ?></td>
+                    <td><?= $admin['login'] ?></td>
                     <td><?= $admin['mail'] ?></td>
                     <td><?= $admin['role_label'] ?></td>
                     <td><?= ($admin['status']== '0')? 'Désactivé': 'Activé'?></td>

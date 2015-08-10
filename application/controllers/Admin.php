@@ -328,7 +328,7 @@ class Admin extends CI_Controller
 
         $parent = $this->input->post("txt_parent");
         $category = $this->input->post("txt_category");
-        $category_label  = ucfirst(mb_strtolower($category, 'UTF-8'));
+        $category_label = ucfirst(mb_strtolower($category, 'UTF-8'));
 
         $this->form_validation->set_rules("txt_category", "Category", "trim|required");
 
@@ -522,15 +522,19 @@ class Admin extends CI_Controller
 
         $nom = $this->input->post("txt_nom");
         $prenom = $this->input->post("txt_prenom");
+        $login = $this->input->post("txt_login");
+        $password = $this->input->post("txt_password");
         $email = $this->input->post("txt_email");
         $role = $this->input->post("txt_role");
-        $active = $this->input->post("txt_active");
+        $active = ($this->input->post("txt_active") != '') ? 1 : 0;
+
 
         $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
         $this->form_validation->set_rules("txt_prenom", "Prénom", "trim|required");
+        $this->form_validation->set_rules("txt_login", "Login", "trim|required");
+        $this->form_validation->set_rules("txt_password", "Mot de passe", "trim|required");
         $this->form_validation->set_rules("txt_email", "Email", "trim|required");
         $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
-        $this->form_validation->set_rules("txt_active", "Activé?", "trim|required");
 
 
         if ($this->form_validation->run() == FALSE) {
@@ -546,8 +550,7 @@ class Admin extends CI_Controller
 
 
             if ($this->input->post('btn_ajouter') == "Ajouter") {
-
-                if ($this->login_model->add_admin($nom, $prenom, $email, $role, $active)) {
+                if ($this->login_model->add_admin($nom, $prenom, $login, $email, $role, $password, $active)) {
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau administrateur a été ajouté avec succès !</div>');
                     redirect("admin/ajouter_admin");
                 } else {
@@ -615,7 +618,7 @@ class Admin extends CI_Controller
         } else {
             $category = ucfirst(mb_strtolower($category, 'UTF-8'));
         }
-        
+
         $this->form_validation->set_rules("txt_category", "Category", "trim|required");
 
         if ($this->form_validation->run() == FALSE) {
@@ -778,39 +781,42 @@ class Admin extends CI_Controller
 
         $nom = $this->input->post("txt_nom");
         $prenom = $this->input->post("txt_prenom");
-        $mail = $this->input->post("txt_mail");
-        $role = $this->input->post("txt_role_id");
-        $status = $this->input->post("txt_status_id");
+        $login = $this->input->post("txt_login");
+        $password = $this->input->post("txt_password");
+        $email = $this->input->post("txt_email");
+        $role = $this->input->post("txt_role");
+        $active = ($this->input->post("txt_active") != '') ? 1 : 0;
 
 
         $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
         $this->form_validation->set_rules("txt_prenom", "Prénom", "trim|required");
-        $this->form_validation->set_rules("txt_mail", "Email", "trim|required");
+        $this->form_validation->set_rules("txt_login", "Login", "trim|required");
+        $this->form_validation->set_rules("txt_password", "Mot de passe", "trim|required");
+        $this->form_validation->set_rules("txt_email", "Email", "trim|required");
+        $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
 
         if ($this->form_validation->run() == FALSE) {
 
             $data['title'] = 'un titre';
             $data['user'] = $this->login_model->get_user_by_id($user_id);
-            $data['roles'] = $this->login_model->get_all_roles();
-            $data['view'] = 'back/update_category';
+            $data['roles'] = $this->role_model->get_all();
+            $data['view'] = 'back/update_admin';
             $data['show_header'] = TRUE;
             $data['site'] = $this->site_model->get_site_configurations();
-            $data['id'] = $category_id;
-
+            $data['id'] = $user_id;
 
             $this->load->view('back/template/layout', $data);
-            //$this->load->view('back/update_category', $data);
         } else {
 
 
-            if ($this->input->post('btn_update') == "Update") {
+            if ($this->input->post('btn_update') == "Modifier") {
 
-                $this->category_model->update_category($parent, $category_id, $category);
+                $this->login_model->update_admin($user_id, $nom, $prenom, $login, $email, $role, $password, $active);
                 $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
-                        . 'La nouvelle catégorie a été mis à jour avec succès !</div>');
-                redirect("admin/update_category/" . $category_id);
+                        . 'Administrateur mis à jour avec succès !</div>');
+                redirect("admin/update_admin/" . $user_id);
             } else {
-                redirect('admin/update_category/' . $category_id);
+                redirect('admin/update_admin/' . $user_id);
             }
         }
     }

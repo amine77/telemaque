@@ -1,6 +1,6 @@
 <div id="bloc_contenu">
     <h4><a href="<?=  base_url('admin/liste_users') ?>">Liste des utilisateurs</a></h4>
-    <h1>Mettre àjour un utilisateur</h1>
+    <h1>Mettre à jour un utilisateur</h1>
     
     
 </div>
