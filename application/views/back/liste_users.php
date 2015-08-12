@@ -26,9 +26,11 @@ $(function() {
     <?php if (is_array($users)) { ?>
         <table class="table table-hover">
             <tr>
+                <th></th>
                 <th>ID</th>
                 <th>Nom</th>
                 <th>Prénom</th>
+                <th>Login</th>
                 <th>Email</th>
                 <th>Activé</th>
                 <th>Date d'inscription</th>
@@ -37,11 +39,17 @@ $(function() {
             </tr>
             <?php foreach ($users as $user) { ?>
                 <tr>
+                    <?php  
+                    $new = ($user['is_new'] == 1) ? '<span class="label label-warning">Nouveau</span>' : '';
+                    $status = ($user['status'] == 1) ? '<span class="label label-success">Activé</span>' : '<span class="label label-danger">Desactivé</span>';
+                    ?>
+                    <td><?= $new?></td>
                     <td><?= $user['user_id']?></td>
                     <td><?= $user['user_name'] ?></td>
                     <td><?= $user['user_surname'] ?></td>
+                    <td><?= $user['login'] ?></td>
                     <td><?= $user['mail'] ?></td>
-                    <td>Activé</td>
+                    <td><?= $status ?></td>
                     <td><?= $user['created_at'] ?></td>
                     <td><?= $user['updated_at'] ?></td>
                     <td><a  title="supprimer" href="<?= base_url('admin/delete_user/' . $user['user_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer cet utilisateur?">

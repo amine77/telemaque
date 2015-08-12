@@ -17,7 +17,11 @@ class Articles_model extends CI_Model
 
         return $query;
     }
-
+    public function count_new_articles(){
+        $sql= "SELECT COUNT(*) AS nb FROM articles where articles.is_new = 1";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
     public function get_articles_by_category($category_id ='')
     {
         $query = $this->db->get_where('articles', array('category_id' => $category_id));
@@ -27,7 +31,20 @@ class Articles_model extends CI_Model
             return false;
         }
     }
+    function set_old($article_id)
+    {
+        $data = array(
+            'is_new' => 0
+        );
 
+        $this->db->where('article_id', $article_id);
+        if ($this->db->update('articles', $data)) {
+
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
     public function get_article($article_id = '')
     {
 

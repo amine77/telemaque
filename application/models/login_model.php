@@ -11,6 +11,11 @@ class login_model extends CI_Model
         // Call the Model constructor
         parent::__construct();
     }
+    function count_new_users(){
+        $sql= "SELECT COUNT(*) AS nb FROM users where users.is_new = 1";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
 
     function update_user($user_id, $nom, $prenom, $mail, $role, $status)
     {
@@ -20,6 +25,20 @@ class login_model extends CI_Model
             'mail' => $mail,
             'role_id' => $role,
             'status' => $status
+        );
+
+        $this->db->where('user_id', $user_id);
+        if ($this->db->update('users', $data)) {
+
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    function set_old($user_id)
+    {
+        $data = array(
+            'is_new' => 0
         );
 
         $this->db->where('user_id', $user_id);

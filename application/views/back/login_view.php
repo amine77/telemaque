@@ -46,6 +46,11 @@
                 margin-left: 0px;
                 margin-right: 0px;
             }
+            #message{
+                margin: 0 auto;
+                background-color: #FFFFFF;
+                width:300px;
+            }
         </style>
     </head>
     <body>
@@ -91,7 +96,7 @@
                         </div>
                     </fieldset>
                     <?php echo form_close(); ?>
-<?php echo $this->session->flashdata('msg'); ?>
+                    <div id="message"><?php echo $this->session->flashdata('msg'); ?></div>
                 </div>
 
             </div>

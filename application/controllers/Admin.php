@@ -33,28 +33,41 @@ class Admin extends CI_Controller
         redirect("admin/home");
     }
 
+    protected function get_site_identity(array $tab)
+    {
+        $tab['site'] = $this->site_model->get_site_configurations();
+        $tab_messages = $this->message_model->count_new_messages();
+        $tab['site']['new_messages'] = $tab_messages['nb'];
+        $tab_users = $this->login_model->count_new_users();
+        $tab['site']['new_users'] = $tab_users['nb'];
+        $tab_articles = $this->articles_model->count_new_articles();
+        $tab['site']['new_articles'] = $tab_articles['nb'];
+        return $tab;
+    }
+
     public function home()
     {
 
-        $data['title'] = 'un titre';
+        $data['title'] = 'page d\'accueil';
         $data['additional_css'] = array('tableau_de_bord');
         $data['view'] = 'back/home';
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
     public function view_message($message_id)
     {
-        $html='';
+        $html = '';
         $message = $this->message_model->get_message_by_id($message_id);
-       
-        
+        $this->message_model->set_old($message_id);
+
         if (is_array($message)) {
-            $sender = ($message['mail']=='')? $message['mail_sender']: $message['mail'];
-            $html .='<p><strong>Envoyé par</strong> '.$sender.'</p>';
-            $html .='<p><strong>Sujet :</strong> '.$message['title'].'</p>';
-            $html .='<p><strong>Message :</strong> '.$message['content'].'</p>';
+            $sender = ($message['mail'] == '') ? $message['mail_sender'] : $message['mail'];
+            $html .='<p><strong>Envoyé par</strong> ' . $sender . '</p>';
+            $html .='<p><strong>Sujet :</strong> ' . $message['title'] . '</p>';
+            $html .='<p><strong>Message :</strong> ' . $message['content'] . '</p>';
         } else {
             $html = '<h2>erreur</h2>';
         }
@@ -69,8 +82,10 @@ class Admin extends CI_Controller
         $data['title'] = 'un titre';
         $data['view'] = 'back/view_user';
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $data['user'] = $this->login_model->get_user_by_id($user_id);
+        $this->login_model->set_old($user_id);
         $data['adresses'] = $this->login_model->get_adresses_by_user($user_id);
         $data['messages'] = $this->login_model->get_messages_by_user($user_id);
 
@@ -86,7 +101,8 @@ class Admin extends CI_Controller
         $data['view'] = 'back/liste_users';
         $data['users'] = $this->login_model->get_all();
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
@@ -97,7 +113,8 @@ class Admin extends CI_Controller
         $data['view'] = 'back/liste_messages';
         $data['messages'] = $this->message_model->get_all();
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
@@ -189,8 +206,9 @@ class Admin extends CI_Controller
         $data['title'] = 'pages statiques';
         $data['lib_js'] = array('tinymce/tinymce.min');
         $data['view'] = 'back/cms_view';
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data = $this->get_site_identity($data);
         $data['show_header'] = TRUE;
+        $data['show_nav'] = TRUE;
 
         $this->load->view('back/template/layout', $data);
     }
@@ -225,7 +243,8 @@ class Admin extends CI_Controller
         $data['additional_css'] = array('articles');
         $data['view'] = 'back/liste_articles';
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
@@ -235,7 +254,8 @@ class Admin extends CI_Controller
         $data['additional_css'] = array('articles');
         $data['view'] = 'back/form_articles';
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
@@ -244,8 +264,9 @@ class Admin extends CI_Controller
         $data['title'] = 'pages statiques';
         $data['lib_js'] = array('tinymce/tinymce.min');
         $data['view'] = 'back/cms_view';
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data = $this->get_site_identity($data);
         $data['show_header'] = TRUE;
+        $data['show_nav'] = TRUE;
 
         $this->load->view('back/template/layout', $data);
     }
@@ -256,7 +277,8 @@ class Admin extends CI_Controller
         $data['additional_css'] = array('exemplaires');
         $data['view'] = 'back/liste_exemplaires';
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
@@ -265,7 +287,8 @@ class Admin extends CI_Controller
         $data['title'] = 'tous les mots clés';
         $data['view'] = 'back/liste_tags';
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
 
         $data['tags'] = $this->tag_model->get_all();
         $this->load->view('back/template/layout', $data);
@@ -309,7 +332,8 @@ class Admin extends CI_Controller
         $data['title'] = 'un titre';
         $data['view'] = 'back/liste_categories';
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $data['categories'] = $this->category_model->get_all();
         $this->load->view('back/template/layout', $data);
     }
@@ -337,8 +361,8 @@ class Admin extends CI_Controller
             $data['categories'] = $this->category_model->get_only_parents();
             $data['view'] = 'back/update_category';
             $data['show_header'] = TRUE;
-//            $data['show_nav'] = FALSE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
             $data['id'] = $category_id;
 
 
@@ -373,7 +397,8 @@ class Admin extends CI_Controller
             $data['articles_by_tag'] = $this->tag_model->find_articles($tag_id);
             $data['view'] = 'back/update_tag';
             $data['show_header'] = TRUE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
             $data['id'] = $tag_id;
 
 
@@ -405,7 +430,8 @@ class Admin extends CI_Controller
             $data['articles'] = $this->articles_model->get_articles();
             $data['view'] = 'back/ajouter_tag';
             $data['show_header'] = TRUE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
 
             $this->load->view('back/template/layout', $data);
         } else {
@@ -439,7 +465,8 @@ class Admin extends CI_Controller
             $data['categories'] = $this->role_model->get_all();
             $data['view'] = 'back/ajouter_role';
             $data['show_header'] = TRUE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
 
             $this->load->view('back/template/layout', $data);
         } else {
@@ -472,7 +499,8 @@ class Admin extends CI_Controller
             $data['title'] = 'un titre';
             $data['view'] = 'back/update_role';
             $data['show_header'] = TRUE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
             $data['id'] = $role_id;
             $data['role'] = $this->role_model->get_role_by_id($role_id);
 
@@ -522,7 +550,8 @@ class Admin extends CI_Controller
             $data['view'] = 'back/ajouter_admin';
             $data['roles'] = $this->role_model->get_all();
             $data['show_header'] = TRUE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
 
             $this->load->view('back/template/layout', $data);
         } else {
@@ -558,7 +587,8 @@ class Admin extends CI_Controller
             $data['title'] = 'un titre';
             $data['view'] = 'back/ajouter_contact';
             $data['show_header'] = TRUE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
 
             $this->load->view('back/template/layout', $data);
         } else {
@@ -598,7 +628,8 @@ class Admin extends CI_Controller
             $data['categories'] = $this->category_model->get_only_parents();
             $data['view'] = 'back/ajouter_category';
             $data['show_header'] = TRUE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
 
             $this->load->view('back/template/layout', $data);
         } else {
@@ -627,7 +658,8 @@ class Admin extends CI_Controller
         $data['view'] = 'back/liste_administrateurs';
         $data['administrateurs'] = $this->login_model->get_all_administrators();
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
@@ -663,7 +695,8 @@ class Admin extends CI_Controller
             $data['user'] = $this->login_model->get_user_by_id($user_id);
             $data['view'] = 'back/update_contact';
             $data['show_header'] = TRUE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
             $data['id'] = $user_id;
 
 
@@ -708,8 +741,10 @@ class Admin extends CI_Controller
             $data['roles'] = $this->role_model->get_all();
             $data['view'] = 'back/update_user';
             $data['show_header'] = TRUE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
             $data['id'] = $user_id;
+            $this->login_model->set_old($user_id);
 
 
             $this->load->view('back/template/layout', $data);
@@ -758,7 +793,8 @@ class Admin extends CI_Controller
             $data['roles'] = $this->role_model->get_all();
             $data['view'] = 'back/update_admin';
             $data['show_header'] = TRUE;
-            $data['site'] = $this->site_model->get_site_configurations();
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
             $data['id'] = $user_id;
 
             $this->load->view('back/template/layout', $data);
@@ -784,7 +820,8 @@ class Admin extends CI_Controller
         $data['additional_css'] = array('vendeurs');
         $data['view'] = 'back/liste_vendeurs';
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
@@ -795,7 +832,8 @@ class Admin extends CI_Controller
         $data['additional_css'] = array('administrateurs');
         $data['view'] = 'back/form_administrateurs';
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
@@ -806,7 +844,8 @@ class Admin extends CI_Controller
         $data['view'] = 'back/liste_roles';
         $data['roles'] = $this->role_model->get_all();
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
@@ -817,7 +856,8 @@ class Admin extends CI_Controller
         $data['view'] = 'back/liste_contacts';
         $data['contacts'] = $this->login_model->get_all_contacts();
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
@@ -828,7 +868,8 @@ class Admin extends CI_Controller
         $data['additional_css'] = array('roles');
         $data['view'] = 'back/form_roles';
         $data['show_header'] = TRUE;
-        $data['site'] = $this->site_model->get_site_configurations();
+        $data['show_nav'] = TRUE;
+        $data = $this->get_site_identity($data);
         $this->load->view('back/template/layout', $data);
     }
 
