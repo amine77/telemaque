@@ -113,7 +113,7 @@ class Home extends Front_Controller
                 $sender_array = $this->login_model->get_user_by_mail($sender);
                 $receiver_array = $this->login_model->get_user_by_mail($receiver);
                 //si le sender existe on enregistre son id, sinon on mettera 0
-                $sender_id = ($sender_array != FALSE) ? $sender_array['user_id'] : 0;
+                $sender_id = ($sender_array != FALSE) ? $sender_array['user_id'] : $sender;
                 $receiver_id = ($receiver_array != FALSE) ? $receiver_array['user_id'] : 0;
                 if ($this->send_mail($sender, $receiver, $subject, $content_html)) {
                     if ($this->message_model->send_message($sender_id, $receiver_id, $subject, $content)) {

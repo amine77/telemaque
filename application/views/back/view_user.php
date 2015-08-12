@@ -2,8 +2,8 @@
 
 <script>
 
-    $(function() {
-        $('a[data-confirm]').click(function(ev) {
+    $(function () {
+        $('a[data-confirm]').click(function (ev) {
             var href = $(this).attr('href');
 
             if (!$('#dataConfirmModal').length) {
@@ -12,6 +12,29 @@
             $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
             $('#dataConfirmOK').attr('href', href);
             $('#dataConfirmModal').modal({show: true});
+
+            return false;
+        });
+
+
+        $('a[title="voir"]').click(function (e) {
+            e.preventDefault();
+            var href = $(this).attr('href');
+//            console.log('href = '+href);
+            $.ajax({
+                method: "GET",
+                dataType: "html",
+                url: href
+            })
+                    .done(function (response) {
+
+
+                            if (!$('#messageContentModal').length) {
+                                $('body').append('<div id="messageContentModal" class="modal" role="dialog" aria-labelledby="messageContentLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="messageContentLabel">Message</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn btn-success" data-dismiss="modal" aria-hidden="true">OK</button></div></div></div></div>');
+                            }
+                            $('#messageContentModal').find('.modal-body').html(response);
+                            $('#messageContentModal').modal({show: true});                        
+                    });
 
             return false;
         });
@@ -27,7 +50,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<?= $user['user_name'] ?>&nbsp;<?= $user['user_surname'] ?> &nbsp;&nbsp;&nbsp; <a title="modifier" href="<?= base_url('admin/update_user/' . $user['user_id']) ?>">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a> </h3>
                     </div>
                     <div class="panel-body">
@@ -101,8 +124,11 @@
                                     <th>Actions</th>
                                 </tr>
                                 <?php foreach ($messages as $message) { ?>
-
-                                    <tr><td><?= $message['date'] ?></td><td><?= $message['title'] ?></td><td><a  title="supprimer" href="<?= base_url('admin/delete_message/' . $user['user_id'] . '/' . $message['message_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer ce message?">
+                                    <?php
+                                    $new = ($message['is_new'] == 1) ? '<span class="label label-warning">Nouveau</span>' : '';
+                                    $title = (strlen($message['title']) > 25) ? $new . ' ' . substr($message['title'], 0, 27) . '...' : $new . ' ' . $message['title'];
+                                    ?>
+                                    <tr><td><?= $message['date'] ?></td><td><?= $title ?></td><td><a  title="supprimer" href="<?= base_url('admin/delete_message/' . $user['user_id'] . '/' . $message['message_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer ce message?">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </a> / <a title="voir" href="<?= base_url('admin/view_message/' . $message['message_id']) ?>">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>

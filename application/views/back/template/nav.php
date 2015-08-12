@@ -36,6 +36,12 @@
                 
             </li>
             <li>
+                <?php echo '<a href="' . base_url() . 'admin/liste_messages">'; ?>
+                            Messages
+                        </a>
+                
+            </li>
+            <li>
                 <a href="#" data-toggle="dropdown">
                     Administration
                 </a>
