@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 10 Août 2015 à 18:19
+-- Généré le :  Mer 12 Août 2015 à 18:25
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `category_id` int(11) NOT NULL,
   `image_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
+  `is_new` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`article_id`),
   KEY `category_id` (`category_id`),
   KEY `image_id` (`image_id`),
@@ -72,13 +73,13 @@ CREATE TABLE IF NOT EXISTS `articles` (
 -- Contenu de la table `articles`
 --
 
-INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `description`, `category_id`, `image_id`, `user_id`) VALUES
-(1, 'Renault twingo', '2015-06-19 08:39:18', 'Sortie en 2002, la Renault Mégane II a été élue voiture de l''année 2003. Elle a été commercialisée d''abord en 3 et 5 portes, puis est arrivée en fin de cette même année, le coupé cabriolet pour remplacer la Renault Mégane I cabriolet, le break et la version tricorps. En 2004 est apparu la version sportive RS (pour Renault Sport) avec le « moteur F » de type F4RT. La Mégane II a été restylée en 2006, à ce moment, de nouveau moteurs sont apparus, notamment, en Diesel, ou le 1,9 dCi est passée de 120 à 130 ch et est apparu un 2,0 dCi d''une puissance de 150 ch. En 2007, est apparu une nouvelle version sportive, moins puissante que la RS, mais avec un aspect radicalement sportif : La Mégane GT. La Renault Mégane II a été remplacée en octobre 2008 par la Renault Mégane III.', 4, 1, 3),
-(2, 'Audi TT', '2015-06-19 08:39:18', '', 4, NULL, 3),
-(3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', '', 9, NULL, 3),
-(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', '', 9, NULL, 3),
-(5, 'Iphone 6', '2015-06-19 08:44:14', '', 10, NULL, 3),
-(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', '', 10, NULL, 3);
+INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `description`, `category_id`, `image_id`, `user_id`, `is_new`) VALUES
+(1, 'Renault twingo', '2015-06-19 08:39:18', 'Sortie en 2002, la Renault Mégane II a été élue voiture de l''année 2003. Elle a été commercialisée d''abord en 3 et 5 portes, puis est arrivée en fin de cette même année, le coupé cabriolet pour remplacer la Renault Mégane I cabriolet, le break et la version tricorps. En 2004 est apparu la version sportive RS (pour Renault Sport) avec le « moteur F » de type F4RT. La Mégane II a été restylée en 2006, à ce moment, de nouveau moteurs sont apparus, notamment, en Diesel, ou le 1,9 dCi est passée de 120 à 130 ch et est apparu un 2,0 dCi d''une puissance de 150 ch. En 2007, est apparu une nouvelle version sportive, moins puissante que la RS, mais avec un aspect radicalement sportif : La Mégane GT. La Renault Mégane II a été remplacée en octobre 2008 par la Renault Mégane III.', 4, 1, 3, 0),
+(2, 'Audi TT', '2015-06-19 08:39:18', '', 4, NULL, 3, 1),
+(3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', '', 9, NULL, 3, 0),
+(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', '', 9, NULL, 3, 0),
+(5, 'Iphone 6', '2015-06-19 08:44:14', '', 10, NULL, 3, 1),
+(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', '', 10, NULL, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -209,6 +210,8 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `sender` int(11) DEFAULT NULL,
   `receiver` int(11) NOT NULL,
+  `is_new` tinyint(4) NOT NULL DEFAULT '1',
+  `mail_sender` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`message_id`),
   KEY `sender` (`sender`),
   KEY `reveiver` (`receiver`)
@@ -218,15 +221,15 @@ CREATE TABLE IF NOT EXISTS `messages` (
 -- Contenu de la table `messages`
 --
 
-INSERT INTO `messages` (`message_id`, `title`, `content`, `date`, `sender`, `receiver`) VALUES
-(1, 'Problème lors de la procédure d''achat', 'Bonjour,\r\n\r\nJ''ai eu un problème lors d''achat d''une blouse blanche dont le prix est 50 euros.\r\nEn effet, au moment de payement le prix affiché était de 70 euros', '2015-07-21 11:50:35', 5, 4),
-(8, 'Un sujet quelconque', '<h2>Message écrit par <span style="color:red">user@yahoo.fr</span> :</h2>Voici un test en développement', '2015-07-31 14:50:18', 5, 6),
-(9, 'test de telemaque', 'Voici un message de test.\r\n\r\nvoici quelques caractères spéciaux : é ;  à ; $ ; ç', '2015-07-31 15:08:53', 5, 6),
-(10, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:13:37', NULL, 6),
-(11, 'test de telemaque', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:16:08', 5, 6),
-(12, 'test de telemaque', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:21:35', 5, 6),
-(13, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:23:24', 5, 6),
-(14, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:42:53', NULL, 6);
+INSERT INTO `messages` (`message_id`, `title`, `content`, `date`, `sender`, `receiver`, `is_new`, `mail_sender`) VALUES
+(1, 'Problème lors de la procédure d''achat', 'Bonjour,\r\n\r\nJ''ai eu un problème lors d''achat d''une blouse blanche dont le prix est 50 euros.\r\nEn effet, au moment de payement le prix affiché était de 70 euros', '2015-07-21 11:50:35', 5, 4, 0, NULL),
+(8, 'Un sujet quelconque', 'Voici un test en développement', '2015-07-31 14:50:18', 5, 6, 1, NULL),
+(9, 'test de telemaque', 'Voici un message de test.\r\n\r\nvoici quelques caractères spéciaux : é ;  à ; $ ; ç', '2015-07-31 15:08:53', 5, 6, 1, NULL),
+(10, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:13:37', NULL, 6, 1, 'internaute_lamba@gmail.com'),
+(11, 'test de telemaque', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:16:08', 5, 6, 0, NULL),
+(12, 'test de telemaque', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:21:35', 5, 6, 1, NULL),
+(13, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:23:24', 5, 6, 0, NULL),
+(14, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:42:53', NULL, 6, 0, 'anonymous@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -279,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `site_identity` (
 --
 
 INSERT INTO `site_identity` (`id`, `site_name`, `slogan`, `logo`, `cgv`, `legal_notice`, `twitter`, `facebook`, `google_plus`, `address_id`, `phone`) VALUES
-(1, 'MaBelleBoutique', 'Un joli slogan', 2, '<h3><span style="color: #ff0000;"><em>aaabbbs</em></span></h3>', '<p style="text-align: center;"><strong><span style="color: #008000;">zefzefz</span></strong><span style="color: #ff00ff;">e</span></p>', 'https://twitter.com/messi10stats', 'https://www.facebook.com/LeoMessi', 'https://plus.google.com/108000335759818964396/posts', 1, '0102030405');
+(1, 'MaBelleBoutique', 'Un joli slogan', 2, '<h3><span style="color: #ff0000;"><em>aaabbbs</em></span></h3>', '<p style="text-align: center;"><strong><span style="color: #008000;">zefzefz</span></strong><span style="color: #ff00ff;">e</span></p>', 'https://twitter.com/messi10stats', 'https://www.facebook.com/LeoMessi', 'https://plus.google.com/108000335759818964396/posts', 1, '0102030406');
 
 -- --------------------------------------------------------
 
@@ -377,21 +380,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `role_id` int(11) NOT NULL,
+  `is_new` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_id`),
   KEY `role_id` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`) VALUES
-(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-06-18 12:44:07', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 0, NULL, NULL, 1),
-(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-06-18 12:44:07', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-10', 0, NULL, NULL, 2),
-(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-06-18 12:45:43', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-07', 1, NULL, NULL, 3),
-(6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'charrad.amine@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'Pour tout problème technique qui se déroule sur ce site', 2),
-(7, 'zidane', 'zinedine', 'zizou', '326e9edaae7f6b75fe245ac2b8737395cfbe5713', '1970-07-14', '2015-07-22 09:53:20', '0000-00-00 00:00:00', '', '', 'yoniattlane555@gmail.com', '', '0000-00-00', 1, 'Service consommateur', 'pour toute question à propos d''un produit, d''une commande...', 2),
-(14, 'MonNom', 'MonPrénom', 'user2', '7384f8b17d67b6e8498b363d8df08a5dd021a2d3', '1990-02-11', '2015-08-03 09:31:33', '0000-00-00 00:00:00', '0102030405', '0605040302', 'user2@yahoo.fr', '', '0000-00-00', 0, NULL, NULL, 3);
+INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`, `is_new`) VALUES
+(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-08-12 16:04:01', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 1, NULL, NULL, 1, 0),
+(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-08-12 16:04:01', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-12', 1, NULL, NULL, 2, 0),
+(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-08-12 15:03:48', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-07', 1, NULL, NULL, 3, 0),
+(6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '2015-08-12 13:43:31', '', '', 'charrad.amine@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'Pour tout problème technique qui se déroule sur ce site', 2, 0),
+(7, 'zidane', 'zinedine', 'zizou', '326e9edaae7f6b75fe245ac2b8737395cfbe5713', '1970-07-14', '2015-07-22 09:53:20', '2015-08-12 13:43:31', '', '', 'yoniattlane555@gmail.com', '::1', '2015-08-11', 1, 'Service consommateur', 'pour toute question à propos d''un produit, d''une commande...', 2, 0),
+(14, 'MonNom', 'MonPrénom', 'user2', '7384f8b17d67b6e8498b363d8df08a5dd021a2d3', '1990-02-11', '2015-08-03 09:31:33', '2015-08-12 15:07:13', '0102030405', '0605040302', 'user2@yahoo.fr', '', '0000-00-00', 0, NULL, NULL, 3, 0),
+(16, 'SimpleNom', 'SimplePrénom', 'un_simple_user', '449b41795731e6d132b93ec2d63b31cd4f608477', '2000-08-12', '2015-08-12 15:19:28', '2015-08-12 16:11:59', '0102030405', '0605040302', 'simple_mail@yahoo.fr', '::1', '2015-08-12', 1, NULL, NULL, 3, 0);
 
 -- --------------------------------------------------------
 
