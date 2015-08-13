@@ -2,6 +2,10 @@
     <div id="bloc_connexion">
         <div>
             <?php
+             if($site['phone']!='') {
+                 echo'<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;&nbsp;<strong>Appelez-nous au :</strong>'.$site['phone'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ;
+                         
+             }
             if ($this->session->userdata('login')) {
                 echo 'Bonjour <strong>' . $_SESSION['login'] . '</strong>&nbsp;&nbsp;&nbsp;<a href="' . site_url('logout') . '">Déconnexion</a>';
             } else {

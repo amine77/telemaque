@@ -314,9 +314,18 @@ class Admin extends CI_Controller
 
     public function delete_role($id)
     {
-
-        $this->role_model->delete_role($id);
-        redirect('admin/liste_roles');
+        if ($this->session->userdata('role') == 'ROLE_SUPER_ADMIN') {
+            $this->role_model->delete_role($id);
+            redirect('admin/liste_roles');
+        } else {
+            $data['title'] = 'accès refusé';
+            $data['view'] = 'back/access_denied_view';
+            $this->output->set_status_header('403');
+            $data['show_header'] = TRUE;
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
+            $this->load->view('back/template/layout', $data);
+        }
     }
 
     public function delete_contact($id)
@@ -454,120 +463,154 @@ class Admin extends CI_Controller
 
     public function ajouter_role()
     {
+        if ($this->session->userdata('role') == 'ROLE_SUPER_ADMIN') {
 
-        $role_label = $this->input->post("txt_role");
 
-        $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
+            $role_label = $this->input->post("txt_role");
 
-        if ($this->form_validation->run() == FALSE) {
+            $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
 
-            $data['title'] = 'un titre';
-            $data['categories'] = $this->role_model->get_all();
-            $data['view'] = 'back/ajouter_role';
+            if ($this->form_validation->run() == FALSE) {
+
+                $data['title'] = 'un titre';
+                $data['categories'] = $this->role_model->get_all();
+                $data['view'] = 'back/ajouter_role';
+                $data['show_header'] = TRUE;
+                $data['show_nav'] = TRUE;
+                $data = $this->get_site_identity($data);
+
+                $this->load->view('back/template/layout', $data);
+            } else {
+
+
+                if ($this->input->post('btn_ajouter') == "Ajouter") {
+
+                    if ($this->role_model->add_role($role_label)) {
+                        $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau rôle a été ajouté avec succès !</div>');
+                        redirect("admin/ajouter_role");
+                    } else {
+                        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création du rôle. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
+                        redirect('admin/ajouter_role');
+                    }
+                } else {
+                    redirect('admin/ajouter_role');
+                }
+            }
+        } else {
+            $data['title'] = 'accès refusé';
+            $data['view'] = 'back/access_denied_view';
+            $this->output->set_status_header('403');
             $data['show_header'] = TRUE;
             $data['show_nav'] = TRUE;
             $data = $this->get_site_identity($data);
-
             $this->load->view('back/template/layout', $data);
-        } else {
-
-
-            if ($this->input->post('btn_ajouter') == "Ajouter") {
-
-                if ($this->role_model->add_role($role_label)) {
-                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau rôle a été ajouté avec succès !</div>');
-                    redirect("admin/ajouter_role");
-                } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création du rôle. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
-                    redirect('admin/ajouter_role');
-                }
-            } else {
-                redirect('admin/ajouter_role');
-            }
         }
     }
 
     public function update_role($role_id = null)
     {
+        if ($this->session->userdata('role') == 'ROLE_SUPER_ADMIN') {
 
-        $role_label = $this->input->post("txt_role");
 
-        $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
 
-        if ($this->form_validation->run() == FALSE) {
+            $role_label = $this->input->post("txt_role");
 
-            $data['title'] = 'un titre';
-            $data['view'] = 'back/update_role';
+            $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
+
+            if ($this->form_validation->run() == FALSE) {
+
+                $data['title'] = 'un titre';
+                $data['view'] = 'back/update_role';
+                $data['show_header'] = TRUE;
+                $data['show_nav'] = TRUE;
+                $data = $this->get_site_identity($data);
+                $data['id'] = $role_id;
+                $data['role'] = $this->role_model->get_role_by_id($role_id);
+
+                $this->load->view('back/template/layout', $data);
+            } else {
+
+
+                if ($this->input->post('btn_update') == "Update") {
+
+                    if ($this->role_model->update_role($role_id, $role_label)) {
+                        $this->session->set_flashdata('success', '<div class="alert alert-success text-center">Ce rôle a été mise à jour avec succès !</div>');
+                        redirect('admin/update_role/' . $role_id);
+                    } else {
+                        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Rôle non mise à jour!</div>');
+                        redirect('admin/update_role/' . $role_id);
+                    }
+                } else {
+                    redirect('admin/update_role/' . $role_id);
+                }
+            }
+        } else {
+            $data['title'] = 'accès refusé';
+            $data['view'] = 'back/access_denied_view';
+            $this->output->set_status_header('403');
             $data['show_header'] = TRUE;
             $data['show_nav'] = TRUE;
             $data = $this->get_site_identity($data);
-            $data['id'] = $role_id;
-            $data['role'] = $this->role_model->get_role_by_id($role_id);
-
             $this->load->view('back/template/layout', $data);
-        } else {
-
-
-            if ($this->input->post('btn_update') == "Update") {
-
-                if ($this->role_model->update_role($role_id, $role_label)) {
-                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">Ce rôle a été mise à jour avec succès !</div>');
-                    redirect('admin/update_role/' . $role_id);
-                } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec. Rôle non mise à jour!</div>');
-                    redirect('admin/update_role/' . $role_id);
-                }
-            } else {
-                redirect('admin/update_role/' . $role_id);
-            }
         }
     }
 
     public function ajouter_admin()
     {
 
-
-        $nom = $this->input->post("txt_nom");
-        $prenom = $this->input->post("txt_prenom");
-        $login = $this->input->post("txt_login");
-        $password = $this->input->post("txt_password");
-        $email = $this->input->post("txt_email");
-        $role = $this->input->post("txt_role");
-        $active = ($this->input->post("txt_active") != '') ? 1 : 0;
+        if ($this->session->userdata('role') == 'ROLE_SUPER_ADMIN') {
 
 
-        $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
-        $this->form_validation->set_rules("txt_prenom", "Prénom", "trim|required");
-        $this->form_validation->set_rules("txt_login", "Login", "trim|required");
-        $this->form_validation->set_rules("txt_password", "Mot de passe", "trim|required");
-        $this->form_validation->set_rules("txt_email", "Email", "trim|required");
-        $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
+            $nom = $this->input->post("txt_nom");
+            $prenom = $this->input->post("txt_prenom");
+            $login = $this->input->post("txt_login");
+            $password = $this->input->post("txt_password");
+            $email = $this->input->post("txt_email");
+            $role = $this->input->post("txt_role");
+            $active = ($this->input->post("txt_active") != '') ? 1 : 0;
 
 
-        if ($this->form_validation->run() == FALSE) {
+            $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
+            $this->form_validation->set_rules("txt_prenom", "Prénom", "trim|required");
+            $this->form_validation->set_rules("txt_login", "Login", "trim|required");
+            $this->form_validation->set_rules("txt_password", "Mot de passe", "trim|required");
+            $this->form_validation->set_rules("txt_email", "Email", "trim|required");
+            $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
 
-            $data['title'] = 'un titre';
-            $data['view'] = 'back/ajouter_admin';
-            $data['roles'] = $this->role_model->get_all();
+
+            if ($this->form_validation->run() == FALSE) {
+
+                $data['title'] = 'un titre';
+                $data['view'] = 'back/ajouter_admin';
+                $data['roles'] = $this->role_model->get_all();
+                $data['show_header'] = TRUE;
+                $data['show_nav'] = TRUE;
+                $data = $this->get_site_identity($data);
+
+                $this->load->view('back/template/layout', $data);
+            } else {
+
+
+                if ($this->input->post('btn_ajouter') == "Ajouter") {
+                    if ($this->login_model->add_admin($nom, $prenom, $login, $email, $role, $password, $active)) {
+                        $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau administrateur a été ajouté avec succès !</div>');
+                        redirect("admin/ajouter_admin");
+                    } else {
+                        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création de l\'administrateur. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
+                        redirect('admin/ajouter_admin');
+                    }
+                } else {
+                    redirect('admin/ajouter_admin');
+                }
+            }
+        } else {
+            $data['title'] = 'accès refusé';
+            $data['view'] = 'back/access_denied_view';
+            $this->output->set_status_header('403');
             $data['show_header'] = TRUE;
             $data['show_nav'] = TRUE;
             $data = $this->get_site_identity($data);
-
             $this->load->view('back/template/layout', $data);
-        } else {
-
-
-            if ($this->input->post('btn_ajouter') == "Ajouter") {
-                if ($this->login_model->add_admin($nom, $prenom, $login, $email, $role, $password, $active)) {
-                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau administrateur a été ajouté avec succès !</div>');
-                    redirect("admin/ajouter_admin");
-                } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création de l\'administrateur. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
-                    redirect('admin/ajouter_admin');
-                }
-            } else {
-                redirect('admin/ajouter_admin');
-            }
         }
     }
 
@@ -653,10 +696,15 @@ class Admin extends CI_Controller
 
     public function liste_administrateurs()
     {
-
-        $data['title'] = 'un titre';
-        $data['view'] = 'back/liste_administrateurs';
-        $data['administrateurs'] = $this->login_model->get_all_administrators();
+        if ($this->session->userdata('role') == 'ROLE_SUPER_ADMIN') {
+            $data['title'] = 'un titre';
+            $data['view'] = 'back/liste_administrateurs';
+            $data['administrateurs'] = $this->login_model->get_all_administrators();
+        } else {
+            $data['title'] = 'accès refusé';
+            $data['view'] = 'back/access_denied_view';
+            $this->output->set_status_header('403');
+        }
         $data['show_header'] = TRUE;
         $data['show_nav'] = TRUE;
         $data = $this->get_site_identity($data);
@@ -665,9 +713,19 @@ class Admin extends CI_Controller
 
     public function delete_admin($id)
     {
+        if ($this->session->userdata('role') == 'ROLE_SUPER_ADMIN') {
 
-        $this->login_model->delete_user($id);
-        redirect('admin/liste_administrateurs');
+            $this->login_model->delete_user($id);
+            redirect('admin/liste_administrateurs');
+        } else {
+            $data['title'] = 'accès refusé';
+            $data['view'] = 'back/access_denied_view';
+            $this->output->set_status_header('403');
+            $data['show_header'] = TRUE;
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
+            $this->load->view('back/template/layout', $data);
+        }
     }
 
     public function delete_user($user_id)
@@ -769,47 +827,58 @@ class Admin extends CI_Controller
 
     public function update_admin($user_id = null)
     {
-
-        $nom = $this->input->post("txt_nom");
-        $prenom = $this->input->post("txt_prenom");
-        $login = $this->input->post("txt_login");
-        $password = $this->input->post("txt_password");
-        $email = $this->input->post("txt_email");
-        $role = $this->input->post("txt_role");
-        $active = ($this->input->post("txt_active") != '') ? 1 : 0;
+        if ($this->session->userdata('role') == 'ROLE_SUPER_ADMIN') {
 
 
-        $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
-        $this->form_validation->set_rules("txt_prenom", "Prénom", "trim|required");
-        $this->form_validation->set_rules("txt_login", "Login", "trim|required");
-        $this->form_validation->set_rules("txt_password", "Mot de passe", "trim|required");
-        $this->form_validation->set_rules("txt_email", "Email", "trim|required");
-        $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
+            $nom = $this->input->post("txt_nom");
+            $prenom = $this->input->post("txt_prenom");
+            $login = $this->input->post("txt_login");
+            $password = $this->input->post("txt_password");
+            $email = $this->input->post("txt_email");
+            $role = $this->input->post("txt_role");
+            $active = ($this->input->post("txt_active") != '') ? 1 : 0;
 
-        if ($this->form_validation->run() == FALSE) {
 
-            $data['title'] = 'un titre';
-            $data['user'] = $this->login_model->get_user_by_id($user_id);
-            $data['roles'] = $this->role_model->get_all();
-            $data['view'] = 'back/update_admin';
+            $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
+            $this->form_validation->set_rules("txt_prenom", "Prénom", "trim|required");
+            $this->form_validation->set_rules("txt_login", "Login", "trim|required");
+            $this->form_validation->set_rules("txt_password", "Mot de passe", "trim|required");
+            $this->form_validation->set_rules("txt_email", "Email", "trim|required");
+            $this->form_validation->set_rules("txt_role", "Rôle", "trim|required");
+
+            if ($this->form_validation->run() == FALSE) {
+
+                $data['title'] = 'un titre';
+                $data['user'] = $this->login_model->get_user_by_id($user_id);
+                $data['roles'] = $this->role_model->get_all();
+                $data['view'] = 'back/update_admin';
+                $data['show_header'] = TRUE;
+                $data['show_nav'] = TRUE;
+                $data = $this->get_site_identity($data);
+                $data['id'] = $user_id;
+
+                $this->load->view('back/template/layout', $data);
+            } else {
+
+
+                if ($this->input->post('btn_update') == "Modifier") {
+
+                    $this->login_model->update_admin($user_id, $nom, $prenom, $login, $email, $role, $password, $active);
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
+                            . 'Administrateur mis à jour avec succès !</div>');
+                    redirect("admin/update_admin/" . $user_id);
+                } else {
+                    redirect('admin/update_admin/' . $user_id);
+                }
+            }
+        } else {
+            $data['title'] = 'accès refusé';
+            $data['view'] = 'back/access_denied_view';
+            $this->output->set_status_header('403');
             $data['show_header'] = TRUE;
             $data['show_nav'] = TRUE;
             $data = $this->get_site_identity($data);
-            $data['id'] = $user_id;
-
             $this->load->view('back/template/layout', $data);
-        } else {
-
-
-            if ($this->input->post('btn_update') == "Modifier") {
-
-                $this->login_model->update_admin($user_id, $nom, $prenom, $login, $email, $role, $password, $active);
-                $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
-                        . 'Administrateur mis à jour avec succès !</div>');
-                redirect("admin/update_admin/" . $user_id);
-            } else {
-                redirect('admin/update_admin/' . $user_id);
-            }
         }
     }
 
@@ -839,14 +908,24 @@ class Admin extends CI_Controller
 
     public function liste_roles()
     {
+        if ($this->session->userdata('role') == 'ROLE_SUPER_ADMIN') {
 
-        $data['title'] = 'un titre';
-        $data['view'] = 'back/liste_roles';
-        $data['roles'] = $this->role_model->get_all();
-        $data['show_header'] = TRUE;
-        $data['show_nav'] = TRUE;
-        $data = $this->get_site_identity($data);
-        $this->load->view('back/template/layout', $data);
+            $data['title'] = 'un titre';
+            $data['view'] = 'back/liste_roles';
+            $data['roles'] = $this->role_model->get_all();
+            $data['show_header'] = TRUE;
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
+            $this->load->view('back/template/layout', $data);
+        } else {
+            $data['title'] = 'accès refusé';
+            $data['view'] = 'back/access_denied_view';
+            $this->output->set_status_header('403');
+            $data['show_header'] = TRUE;
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
+            $this->load->view('back/template/layout', $data);
+        }
     }
 
     public function liste_contacts()
