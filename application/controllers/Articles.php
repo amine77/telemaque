@@ -9,7 +9,7 @@ class Articles extends Front_Controller {
         $this->load->model(array('articles_model', 'users_articles_model','site_model'));
     }
 
-    public function index($page = '', $article_id = '', $user_id = '') {
+    public function index($page = '', $article_id = '', $exemplaire_id = '') {
 
         if (empty($article_id)) {
 
@@ -22,14 +22,14 @@ class Articles extends Front_Controller {
 
             $this->load->view('front/template/layout', $this->data);
         } else {
-            $this->details($article_id, $user_id);
+            $this->details($article_id, $exemplaire_id);
         }
     }
 
-    public function details($article_id = '', $user_id = '') {
+    public function details($article_id = '', $exemplaire_id = '') {
 
 
-        if (empty($user_id)) {
+        if (empty($exemplaire_id)) {
 
             $this->data['article'] = $this->articles_model->get_article($article_id);
 
@@ -50,7 +50,7 @@ class Articles extends Front_Controller {
             }*/
             
         } else {
-            $userActicle = $this->users_articles_model->user_with_article($article_id, $user_id)->result();
+            $userActicle = $this->users_articles_model->user_exemplaire($article_id,$exemplaire_id)->result();
             //$this->output->enable_profiler(TRUE);
             
             if (count($userActicle) == 0) {

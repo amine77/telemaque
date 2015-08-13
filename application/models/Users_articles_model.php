@@ -98,5 +98,19 @@ class Users_articles_model extends Articles_model {
 
         return $query;
     }
+    
+    public function user_exemplaire($article_id, $exemplaire_id) {
+
+
+        $sql = "SELECT u.user_id ,u.user_name ,u.user_surname,ua.image_id,ua.quantity,ua.user_article_id,a.article_id,ua.price,ua.title,ua.description,a.article_label
+               FROM users u
+               JOIN users_articles ua ON u.user_id = ua.user_id
+               JOIN articles a ON ua.article_id = a.article_id
+               WHERE a.article_id = '$article_id' AND ua.user_article_id = '$exemplaire_id'
+               ";
+        $query = $this->db->query($sql);
+
+        return $query;
+    }
 
 }
