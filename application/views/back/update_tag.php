@@ -1,6 +1,6 @@
 <div id="bloc_contenu">
     <h4><a href="<?=  base_url('admin/liste_tags') ?>">Liste des mots clés</a></h4>
-    <h1>Mettre àjour un mot clét</h1>
+    <h1>Mettre à jour un mot clé</h1>
     
     
 </div>
@@ -27,7 +27,7 @@
                             <label for="txt_tag" class="control-label">Mot clé</label>
                         </div>
                         <div class="col-lg-8 col-sm-8">
-                            <input required="required" class="form-control" id="txt_password" name="txt_tag" placeholder="Mot clé" type="text" value="<?php echo($tag['tag_label']) ?>" />
+                            <input required="required" class="form-control" id="txt_tag" name="txt_tag" placeholder="Mot clé" type="text" value="<?php echo($tag['tag_label']) ?>" />
                             <span class="text-danger"><?php echo form_error('txt_tag'); ?></span>
                         </div>
                     </div>

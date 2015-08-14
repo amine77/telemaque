@@ -45,19 +45,19 @@
                 <a href="#" data-toggle="dropdown">
                     Administration
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <?php if($this->session->userdata('role')=='ROLE_SUPER_ADMIN') { ?>
-                    <li class="first">
-                        <a href="<?= base_url('admin/liste_administrateurs') ?>">
-                            Administrateurs
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('admin/liste_roles') ?>">
-                            Roles
-                        </a>
-                    </li>
-                    <?php  }?>
+                <ul class="dropdown-menu" aria-labelledby="administration">
+                    <?php if ($this->session->userdata('role') == 'ROLE_SUPER_ADMIN') { ?>
+                        <li class="first">
+                            <a href="<?= base_url('admin/liste_administrateurs') ?>">
+                                Administrateurs
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('admin/liste_roles') ?>">
+                                Roles
+                            </a>
+                        </li>
+                    <?php } ?>
                     <li>
                         <a href="<?= base_url('admin/liste_contacts') ?>">
                             Contacts
@@ -70,7 +70,9 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="#">Modules</a></li>
+            <li>
+                <a href="<?= base_url('admin/liste_modules') ?>">Modules</a>
+            </li>
             <li><a href="#">Structure</a></li>
         </ul>
     </div>

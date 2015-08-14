@@ -24,6 +24,8 @@ class Admin extends CI_Controller
         $this->load->model('role_model');
         $this->load->model('site_model');
         $this->load->model('message_model');
+        $this->load->model('module_model');
+        $this->load->model('comment_model');
     }
 
     public function index()
@@ -42,6 +44,7 @@ class Admin extends CI_Controller
         $tab['site']['new_users'] = $tab_users['nb'];
         $tab_articles = $this->articles_model->count_new_articles();
         $tab['site']['new_articles'] = $tab_articles['nb'];
+        $tab['site']['activated_modules'] = $this->module_model->get_activated_modules();
         return $tab;
     }
 
@@ -692,6 +695,53 @@ class Admin extends CI_Controller
                 redirect('admin/ajouter_category');
             }
         }
+    }
+
+    public function update_module($module_id = null)
+    {
+        $module_status = $this->input->post("txt_status");
+        $this->form_validation->set_rules("txt_module", "Nom de module", "trim|required");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'Configuration';
+            $data['module'] = $module= $this->module_model->get_module_by_id($module_id);
+            if($module['module_id'] == 2 && $module['module_status'] == 1){
+                $data['comments'] = $this->comment_model->get_all();
+            }
+
+            $data['view'] = 'back/update_module';
+            $data['show_header'] = TRUE;
+            $data['show_nav'] = TRUE;
+            $data = $this->get_site_identity($data);
+            $data['id'] = $module_id;
+
+
+            $this->load->view('back/template/layout', $data);
+        } else {
+
+            if ($this->input->post('btn_update') == "Update") {
+
+                $this->module_model->update_module($module_id, $module_status);
+                $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
+                        . 'Module mis à jour avec succès !</div>');
+                
+                redirect("admin/update_module/" . $module_id);
+            } else {
+                redirect('admin/update_module/' . $module_id);
+            }
+        }
+    }
+
+    public function liste_modules()
+    {
+        $data['title'] = 'tous les modules';
+        $data['view'] = 'back/liste_modules';
+        $data['show_header'] = TRUE;
+        $data['show_nav'] = TRUE;
+        $data['modules'] = $this->module_model->get_all();
+        $data = $this->get_site_identity($data);
+        $this->load->view('back/template/layout', $data);
     }
 
     public function liste_administrateurs()
