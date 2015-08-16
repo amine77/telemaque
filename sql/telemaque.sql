@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 12 Août 2015 à 18:25
+-- Généré le :  Dim 16 Août 2015 à 14:28
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -175,6 +175,34 @@ CREATE TABLE IF NOT EXISTS `command_lines` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `comments`
+--
+
+CREATE TABLE IF NOT EXISTS `comments` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `article_id` int(11) NOT NULL,
+  `pseudo` varchar(255) NOT NULL,
+  `comment_text` text NOT NULL,
+  `is_published` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_new` tinyint(4) DEFAULT '1',
+  PRIMARY KEY (`comment_id`),
+  KEY `article_id` (`article_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Contenu de la table `comments`
+--
+
+INSERT INTO `comments` (`comment_id`, `article_id`, `pseudo`, `comment_text`, `is_published`, `created_at`, `is_new`) VALUES
+(1, 1, 'rosa21', 'c''est ma voiture préférée !j''aime trooooooop !c''est ma voiture préférée !j''aime trooooooop !c''est ma voiture préférée !j''aime trooooooop !c''est ma voiture préférée !j''aime trooooooop !c''est ma voiture préférée !j''aime trooooooop !c''est ma voiture préférée !j''aime trooooooop !', 0, '2015-08-14 15:16:04', 1),
+(2, 1, 'damien_du_59', 'Moi qui a toujours acheté les caisses allemandes, je la trouve pluôt pas mal.', 1, '2015-08-14 15:16:04', 1),
+(3, 1, 'Christophe', 'Non, ce n''est pas à mon goût', 1, '2015-08-14 15:19:07', 1),
+(5, 1, 'pseudo1', 'ceci est un commentaire de pseudo1', 1, '2015-08-16 00:21:14', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `images`
 --
 
@@ -224,12 +252,34 @@ CREATE TABLE IF NOT EXISTS `messages` (
 INSERT INTO `messages` (`message_id`, `title`, `content`, `date`, `sender`, `receiver`, `is_new`, `mail_sender`) VALUES
 (1, 'Problème lors de la procédure d''achat', 'Bonjour,\r\n\r\nJ''ai eu un problème lors d''achat d''une blouse blanche dont le prix est 50 euros.\r\nEn effet, au moment de payement le prix affiché était de 70 euros', '2015-07-21 11:50:35', 5, 4, 0, NULL),
 (8, 'Un sujet quelconque', 'Voici un test en développement', '2015-07-31 14:50:18', 5, 6, 1, NULL),
-(9, 'test de telemaque', 'Voici un message de test.\r\n\r\nvoici quelques caractères spéciaux : é ;  à ; $ ; ç', '2015-07-31 15:08:53', 5, 6, 1, NULL),
+(9, 'test de telemaque', 'Voici un message de test.\r\n\r\nvoici quelques caractères spéciaux : é ;  à ; $ ; ç', '2015-07-31 15:08:53', 5, 6, 0, NULL),
 (10, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:13:37', NULL, 6, 1, 'internaute_lamba@gmail.com'),
 (11, 'test de telemaque', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:16:08', 5, 6, 0, NULL),
-(12, 'test de telemaque', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:21:35', 5, 6, 1, NULL),
+(12, 'test de telemaque', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:21:35', 5, 6, 0, NULL),
 (13, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:23:24', 5, 6, 0, NULL),
 (14, 'Un sujet de programmation', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l''imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n''a pas fait que survivre cinq siècles, mais s''est aussi adapté à la bureautique informatique', '2015-07-31 15:42:53', NULL, 6, 0, 'anonymous@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `modules`
+--
+
+CREATE TABLE IF NOT EXISTS `modules` (
+  `module_id` int(11) NOT NULL AUTO_INCREMENT,
+  `module_label` varchar(255) NOT NULL,
+  `module_status` tinyint(4) NOT NULL DEFAULT '0',
+  `module_description` varchar(255) NOT NULL,
+  PRIMARY KEY (`module_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `modules`
+--
+
+INSERT INTO `modules` (`module_id`, `module_label`, `module_status`, `module_description`) VALUES
+(1, 'slide_show', 0, 'Ce module vous permet de mettre en avant certaines informations comme des nouveaux articles, des nouvelles offres...'),
+(2, 'commentaires produits', 1, 'Ce module permettra à vos utilisateurs de donner des avis sur les articles mises en vente.');
 
 -- --------------------------------------------------------
 
@@ -390,12 +440,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`, `is_new`) VALUES
-(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-08-12 16:04:01', '0102030405', '0605040302', 'superadmin@yahoo.fr', '', '2015-07-21', 1, NULL, NULL, 1, 0),
-(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-08-12 16:04:01', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-12', 1, NULL, NULL, 2, 0),
-(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-08-12 15:03:48', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-07', 1, NULL, NULL, 3, 0),
+(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-08-16 11:33:33', '0102030405', '0605040302', 'superadmin@yahoo.fr', '::1', '2015-08-16', 1, NULL, NULL, 1, 0),
+(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-08-14 12:32:29', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-14', 1, NULL, NULL, 2, 0),
+(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-08-14 15:24:17', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-14', 1, NULL, NULL, 3, 0),
 (6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '2015-08-12 13:43:31', '', '', 'charrad.amine@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'Pour tout problème technique qui se déroule sur ce site', 2, 0),
-(7, 'zidane', 'zinedine', 'zizou', '326e9edaae7f6b75fe245ac2b8737395cfbe5713', '1970-07-14', '2015-07-22 09:53:20', '2015-08-12 13:43:31', '', '', 'yoniattlane555@gmail.com', '::1', '2015-08-11', 1, 'Service consommateur', 'pour toute question à propos d''un produit, d''une commande...', 2, 0),
-(14, 'MonNom', 'MonPrénom', 'user2', '7384f8b17d67b6e8498b363d8df08a5dd021a2d3', '1990-02-11', '2015-08-03 09:31:33', '2015-08-12 15:07:13', '0102030405', '0605040302', 'user2@yahoo.fr', '', '0000-00-00', 0, NULL, NULL, 3, 0),
+(7, 'zidane', 'zinedine', 'zizou', 'b684dd15ef7bd117b0aa364edc2cefce095a8ad3', '1970-07-14', '2015-07-22 09:53:20', '2015-08-13 09:58:14', '', '', 'yoniattlane555@gmail.com', '::1', '2015-08-11', 1, 'Service consommateur', 'pour toute question à propos d''un produit, d''une commande...', 2, 0),
+(14, 'MonNom', 'MonPrénom', 'user2', '7384f8b17d67b6e8498b363d8df08a5dd021a2d3', '1990-02-11', '2015-08-03 09:31:33', '2015-08-13 09:59:18', '0102030405', '0605040302', 'user2@yahoo.fr', '', '0000-00-00', 0, NULL, NULL, 3, 0),
 (16, 'SimpleNom', 'SimplePrénom', 'un_simple_user', '449b41795731e6d132b93ec2d63b31cd4f608477', '2000-08-12', '2015-08-12 15:19:28', '2015-08-12 16:11:59', '0102030405', '0605040302', 'simple_mail@yahoo.fr', '::1', '2015-08-12', 1, NULL, NULL, 3, 0);
 
 -- --------------------------------------------------------
@@ -470,6 +520,12 @@ ALTER TABLE `command`
 ALTER TABLE `command_lines`
   ADD CONSTRAINT `fk_comande_lines_user_article_id` FOREIGN KEY (`user_article_id`) REFERENCES `users_articles` (`user_article_id`),
   ADD CONSTRAINT `fk_command_lines_command_id` FOREIGN KEY (`command_id`) REFERENCES `command` (`command_id`);
+
+--
+-- Contraintes pour la table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `fk_comments_article_id` FOREIGN KEY (`comment_id`) REFERENCES `articles` (`article_id`);
 
 --
 -- Contraintes pour la table `messages`
