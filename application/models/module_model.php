@@ -3,24 +3,31 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class module_model extends CI_Model
-{
+class module_model extends CI_Model {
 
-    function __construct()
-    {
+    function __construct() {
         // Call the Model constructor
         parent::__construct();
     }
 
-    function get_all()
-    {
+    function is_carousel_activated() {
+        $query = $this->db->get_where('modules', array('module_id' => 1));
+        $row = $query->row(); //ou $array = $query->row_array();
+
+        if ($row->module_status == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function get_all() {
         $sql = "SELECT * FROM modules";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
 
-    function get_module_by_id($module_id)
-    {
+    function get_module_by_id($module_id) {
         $query = $this->db->get_where('modules', array('module_id' => $module_id));
 
         if ($query->num_rows() > 0) {
@@ -29,8 +36,9 @@ class module_model extends CI_Model
             return false;
         }
     }
-    function update_module($module_id, $module_status){
-       $data = array(
+
+    function update_module($module_id, $module_status) {
+        $data = array(
             'module_status' => $module_status
         );
 
@@ -42,14 +50,15 @@ class module_model extends CI_Model
             return FALSE;
         }
     }
-    function get_activated_modules(){
-      $query = $this->db->get_where('modules', array('module_status' => 1));
+
+    function get_activated_modules() {
+        $query = $this->db->get_where('modules', array('module_status' => 1));
 
         if ($query->num_rows() > 0) {
             return $query->result_array();
         } else {
             return false;
-        }   
+        }
     }
 
 }

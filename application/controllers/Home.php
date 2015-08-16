@@ -8,7 +8,7 @@ class Home extends Front_Controller {
         parent::__construct();
 
         if ($this->router->fetch_class() == "home")
-            $this->load->model(array('articles_model', 'panier_model', 'login_model', 'message_model', 'site_model','comment_model'));
+            $this->load->model(array('articles_model', 'panier_model', 'login_model', 'message_model', 'site_model','comment_model', 'module_model'));
     }
 
     public function index() {
@@ -16,7 +16,9 @@ class Home extends Front_Controller {
         $this->data['additional_js'] = array('functions');
         $this->data['articles'] = $this->articles_model->get_articles(6);
         $this->data['site'] = $this->site_model->get_site_configurations();
-
+        if($this->module_model->is_carousel_activated()){
+            $this->data['carousel_articles'] = $this->articles_model->get_carousel_articles();
+        }
         $this->load->view('front/template/layout', $this->data);
     }
 
