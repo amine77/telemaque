@@ -1,4 +1,4 @@
-<?php //var_dump($site) 
+<?php  //var_dump($site) 
 ?>
 <?php $this->load->view('back/template/entete'); ?>
 

@@ -46,7 +46,7 @@ class module_model extends CI_Model
       $query = $this->db->get_where('modules', array('module_status' => 1));
 
         if ($query->num_rows() > 0) {
-            return $query->row_array();
+            return $query->result_array();
         } else {
             return false;
         }   

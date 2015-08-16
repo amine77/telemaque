@@ -2,19 +2,16 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends Front_Controller
-{
+class Home extends Front_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
 
         if ($this->router->fetch_class() == "home")
-            $this->load->model(array('articles_model', 'panier_model', 'login_model', 'message_model', 'site_model'));
+            $this->load->model(array('articles_model', 'panier_model', 'login_model', 'message_model', 'site_model','comment_model'));
     }
 
-    public function index()
-    {
+    public function index() {
 
         $this->data['additional_js'] = array('functions');
         $this->data['articles'] = $this->articles_model->get_articles(6);
@@ -23,8 +20,7 @@ class Home extends Front_Controller
         $this->load->view('front/template/layout', $this->data);
     }
 
-    public function view($slug = '')
-    {
+    public function view($slug = '') {
         $slug = $this->uri->segment(2);
         $this->data['additional_js'] = array('functions');
         $this->data['site'] = $this->site_model->get_site_configurations();
@@ -40,8 +36,7 @@ class Home extends Front_Controller
         $this->load->view('front/template/layout', $this->data);
     }
 
-    public function connexion($action = "")
-    {
+    public function connexion($action = "") {
 
 
         $this->data['articles'] = $this->articles_model->get_articles(6);
@@ -50,14 +45,12 @@ class Home extends Front_Controller
         $this->load->view('front/template/layout', $this->data);
     }
 
-    public function logout()
-    {
+    public function logout() {
         session_destroy();
         redirect(base_url('/'), 'refresh');
     }
 
-    public function cgv()
-    {
+    public function cgv() {
         $data['title'] = 'un titre';
         $data['view'] = 'front/cgv_view';
         $data['categories'] = $this->category_model->get_all();
@@ -68,8 +61,7 @@ class Home extends Front_Controller
         $this->load->view('front/template/layout', $data);
     }
 
-    public function legal_notice()
-    {
+    public function legal_notice() {
         $data['title'] = 'un titre';
         $data['view'] = 'front/legal_notice_view';
         $data['categories'] = $this->category_model->get_all();
@@ -80,8 +72,20 @@ class Home extends Front_Controller
         $this->load->view('front/template/layout', $data);
     }
 
-    public function contact()
-    {
+    public function add_comment() {
+        $article_id = $this->input->post("article_id");
+        $comment = $this->input->post("comment");
+        $pseudo = $this->input->post("pseudo");
+
+        if ($this->comment_model->add_comment($article_id, $pseudo, $comment)) {
+            $message = array('state' => 'OK');
+        } else {
+            $response = array('message' => 'FAILED');
+        }
+        echo json_encode($message);
+    }
+
+    public function contact() {
         $sender = $this->input->post("txt_sender");
         $receiver = $this->input->post("txt_receiver");
         $subject = $this->input->post("txt_subject");
@@ -139,8 +143,7 @@ class Home extends Front_Controller
         }
     }
 
-    protected function send_mail($sender, $receiver, $subject, $content)
-    {
+    protected function send_mail($sender, $receiver, $subject, $content) {
         $config = Array(
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',

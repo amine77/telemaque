@@ -18,6 +18,9 @@
 </script>
 
 <style>
+    .container{
+        margin-bottom: 200px;
+    }
     #comments {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         width: 100%;
@@ -117,7 +120,7 @@
                                 <tr>
                                     <?php
                                     $is_published = ($comment['is_published'] == 1 ) ? '<span class="label label-success">Publié</span>' : '<span class="label label-info">En attente</span>';
-                                    $publish = ($comment['is_published'] != 1 ) ? '<a title="publier" href="' . base_url('admin/publish_comment/' . $comment['comment_id']) . '"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a>' : '';
+                                    $publish = ($comment['is_published'] != 1 ) ? '<a title="publier" href="' . base_url('admin/publish_comment/' . $comment['comment_id']) . '"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a>' : '&nbsp;&nbsp;&nbsp;&nbsp;';
                                     ?> 
                                     <td><?= $comment['created_at'] ?></td>
                                     <td><?= $comment['pseudo'] ?></td>
@@ -140,7 +143,6 @@
         <?php
     }
     ?>
-</div>
 </div>
 
 

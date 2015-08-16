@@ -337,6 +337,18 @@ class Admin extends CI_Controller
         $this->login_model->delete_user($id);
         redirect('admin/liste_contacts');
     }
+    public function delete_comment($id)
+    {
+
+        $this->comment_model->delete_comment($id);
+        redirect('admin/update_module/2');
+    }
+    public function publish_comment($comment_id)
+    {
+
+        $this->comment_model->publish_comment($comment_id);
+        redirect('admin/update_module/2');
+    }
 
     public function liste_categories()
     {
