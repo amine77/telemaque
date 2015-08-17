@@ -337,12 +337,14 @@ class Admin extends CI_Controller
         $this->login_model->delete_user($id);
         redirect('admin/liste_contacts');
     }
+
     public function delete_comment($id)
     {
 
         $this->comment_model->delete_comment($id);
         redirect('admin/update_module/2');
     }
+
     public function publish_comment($comment_id)
     {
 
@@ -709,6 +711,18 @@ class Admin extends CI_Controller
         }
     }
 
+    public function put_in_slideshow()
+    {
+        $articles = $this->input->post("articles_in_slideshow");
+        $message = array();
+        if ($this->articles_model->put_in_slideshow($articles)) {
+            $message = array('state' => 'OK', 'articles'=>$articles);
+        } else {
+            $message = array('state' => 'FAILED');
+        }
+        echo json_encode($message);
+    }
+
     public function update_module($module_id = null)
     {
         $module_status = $this->input->post("txt_status");
@@ -717,11 +731,13 @@ class Admin extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
 
             $data['title'] = 'Configuration';
-            $data['module'] = $module= $this->module_model->get_module_by_id($module_id);
-            if($module['module_id'] == 2 && $module['module_status'] == 1){
+            $data['module'] = $module = $this->module_model->get_module_by_id($module_id);
+            if ($module['module_id'] == 2 && $module['module_status'] == 1) {
                 $data['comments'] = $this->comment_model->get_all();
+                $data['articles'] = $this->articles_model->get_articles(6);
+            } elseif ($module['module_id'] == 1 && $module['module_status'] == 1) {
+                $data['articles'] = $this->articles_model->get_articles(6);
             }
-
             $data['view'] = 'back/update_module';
             $data['show_header'] = TRUE;
             $data['show_nav'] = TRUE;
@@ -737,7 +753,7 @@ class Admin extends CI_Controller
                 $this->module_model->update_module($module_id, $module_status);
                 $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
                         . 'Module mis à jour avec succès !</div>');
-                
+
                 redirect("admin/update_module/" . $module_id);
             } else {
                 redirect('admin/update_module/' . $module_id);
