@@ -114,13 +114,13 @@ class Articles_model extends CI_Model
 
     public function get_carousel_articles()
     {
-        $sql = "SELECT  articles.article_id, article_label, image_path
+        $sql = "SELECT  articles.article_id, article_label, image_path, description
                 FROM images
                 RIGHT JOIN articles ON articles.image_id = images.image_id
                 WHERE articles.in_carousel = 1";
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
-            return $query;
+            return $query->result_array();
         } else {
             return false;
         }

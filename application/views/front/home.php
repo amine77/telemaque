@@ -14,50 +14,52 @@
     defined('BASEPATH') OR exit('No direct script access allowed');
     ?>
     <!-- carousel -->
-    <?php if (isset($carousel_articles)) { ?>
+    <?php if (isset($carousel_articles) && count($carousel_articles) > 0) { ?>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <?php for ($i = 0; $i < count($carousel_articles); $i++) { ?>
+                    <li data-target="#myCarousel" data-slide-to="<?= $i ?>" <?php if ($i == 0) echo 'class="active"'; ?>></li>
+                <?php } ?>
             </ol>
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
+                <?php for ($i = 0; $i < count($carousel_articles); $i++) { ?>
 
-                <div class="item active">
-                    <a href="<?= base_url('articles/1') ?>"><img src="<?= base_url('assets/img/carousel/img1.jpg') ?>" alt="Chania" width="460" height="345"></a>
-                    <div class="carousel-caption">
-                        <h3>Informatique</h3>
-                        <p>Ordinateur de bureau ASUS 700 euros</p>
+                    <?php $src = ($carousel_articles[$i]['image_path'] != '') ? base_url($carousel_articles[$i]['image_path']) : base_url('assets/img/img_none.jpg'); ?>
+                    <div class="item  <?php if ($i == 0) echo 'active'; ?>">
+                        <a href="<?= base_url('articles/' . $carousel_articles[$i]['article_id']) ?>"><img src="<?= $src ?>" alt="<?= $carousel_articles[$i]['article_label'] ?>" width="460" height="345"></a>
+                        <div class="carousel-caption">
+                            <h3><?= $carousel_articles[$i]['article_label'] ?></h3>
+                            <p><?= substr($carousel_articles[$i]['description'], 0, 30) . '...' ?></p>
+                        </div>
                     </div>
-                </div>
+                <?php } ?>
 
-                <div class="item">
-                    <a href="<?= base_url('articles/1') ?>"><img src="<?= base_url('assets/img/carousel/img2.jpg') ?>" alt="Chania" width="460" height="345"></a>
-                    <div class="carousel-caption">
-                        <h3>Téléphonie</h3>
-                        <p>iPhone 5c 600 euros</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <a href="<?= base_url('articles/1') ?>"><img src="<?= base_url('assets/img/carousel/img3.jpg') ?>" alt="Flower" width="460" height="345"></a>
-                    <div class="carousel-caption">
-                        <h3>Voitures</h3>
-                        <p>Audi R8 RT noire 40 000 euros</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <a href="<?= base_url('articles/1') ?>"><img src="<?= base_url('assets/img/carousel/img4.jpg') ?>" alt="Mercedes cls" width="460" height="345"></a>
-                    <div class="carousel-caption">
-                        <h3>Voitures</h3>
-                        <p>Une belle mercedes cls 38 500 euros</p>
-                    </div>
-                </div>
+                <!--                <div class="item">
+                                    <a href="<?= base_url('articles/1') ?>"><img src="<?= base_url('assets/img/carousel/img2.jpg') ?>" alt="Chania" width="460" height="345"></a>
+                                    <div class="carousel-caption">
+                                        <h3>Téléphonie</h3>
+                                        <p>iPhone 5c 600 euros</p>
+                                    </div>
+                                </div>
+                
+                                <div class="item">
+                                    <a href="<?= base_url('articles/1') ?>"><img src="<?= base_url('assets/img/carousel/img3.jpg') ?>" alt="Flower" width="460" height="345"></a>
+                                    <div class="carousel-caption">
+                                        <h3>Voitures</h3>
+                                        <p>Audi R8 RT noire 40 000 euros</p>
+                                    </div>
+                                </div>
+                
+                                <div class="item">
+                                    <a href="<?= base_url('articles/1') ?>"><img src="<?= base_url('assets/img/carousel/img4.jpg') ?>" alt="Mercedes cls" width="460" height="345"></a>
+                                    <div class="carousel-caption">
+                                        <h3>Voitures</h3>
+                                        <p>Une belle mercedes cls 38 500 euros</p>
+                                    </div>
+                                </div>-->
 
             </div>
 
