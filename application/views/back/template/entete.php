@@ -10,10 +10,12 @@
 
 
         <title><?= $title ?></title>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 
         <!-- Bootstrap core CSS -->
         <link href="<?php echo base_url(); ?>assets/lib/twitter/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>assets/lib/datepicker/css/datepicker3.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css">
@@ -23,7 +25,6 @@
         <!--<script src="<?php echo base_url(); ?>assets/js/ie-emulation-modes-warning.js"></script>-->
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
         <?php
         if (isset($additional_css) && !empty($additional_css) && is_array($additional_css)) {
