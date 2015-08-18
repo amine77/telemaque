@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 18 Août 2015 à 00:23
+-- Généré le :  Mar 18 Août 2015 à 12:51
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   KEY `category_id` (`category_id`),
   KEY `image_id` (`image_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `articles`
@@ -76,11 +76,12 @@ CREATE TABLE IF NOT EXISTS `articles` (
 
 INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `description`, `category_id`, `image_id`, `user_id`, `is_new`, `in_carousel`) VALUES
 (1, 'Renault twingo', '2015-06-19 08:39:18', 'Sortie en 2002, la Renault Mégane II a été élue voiture de l''année 2003. Elle a été commercialisée d''abord en 3 et 5 portes, puis est arrivée en fin de cette même année, le coupé cabriolet pour remplacer la Renault Mégane I cabriolet, le break et la version tricorps. En 2004 est apparu la version sportive RS (pour Renault Sport) avec le « moteur F » de type F4RT. La Mégane II a été restylée en 2006, à ce moment, de nouveau moteurs sont apparus, notamment, en Diesel, ou le 1,9 dCi est passée de 120 à 130 ch et est apparu un 2,0 dCi d''une puissance de 150 ch. En 2007, est apparu une nouvelle version sportive, moins puissante que la RS, mais avec un aspect radicalement sportif : La Mégane GT. La Renault Mégane II a été remplacée en octobre 2008 par la Renault Mégane III.', 4, 1, 3, 0, 1),
-(2, 'Audi TT', '2015-06-19 08:39:18', '', 4, NULL, 3, 1, 0),
-(3, 'Imprimante Photo Epson', '2015-06-19 08:40:55', '', 9, NULL, 3, 0, 0),
-(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', '', 9, NULL, 3, 0, 0),
-(5, 'Iphone 6', '2015-06-19 08:44:14', '', 10, NULL, 3, 1, 1),
-(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', '', 10, NULL, 3, 1, 1);
+(2, 'Audi R8', '2015-06-19 08:39:18', '', 4, 4, 3, 1, 1),
+(3, 'Imprimante Photo Epson Xp-600', '2015-06-19 08:40:55', 'L''imprimante multifonction Epson Expression Premium XP-600 offre une solution compacte, rapide et simple d''emploi. Adaptée pour les impressions, numérisations et copies du quotidien, elle est équipée notamment du WiFi et de fonctions d''impressions sans fil bien pratiques !', 9, 8, 3, 0, 1),
+(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', '', 9, 7, 3, 0, 1),
+(5, 'Iphone 5c', '2015-06-19 08:44:14', '', 10, 3, 3, 1, 1),
+(6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', '', 10, NULL, 3, 1, 0),
+(7, 'PC de bureau ASUS', '2015-08-18 10:26:08', 'Un ordinateur aux performances stables, offrant un divertissement de qualité : affichage haute définition, ports HDMI et USB 3.0 et grande capacité de stockage.', 9, 5, 3, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -216,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `height` int(11) NOT NULL,
   `width` int(11) NOT NULL,
   PRIMARY KEY (`image_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `images`
@@ -224,7 +225,13 @@ CREATE TABLE IF NOT EXISTS `images` (
 
 INSERT INTO `images` (`image_id`, `image_label`, `image_path`, `size`, `format`, `height`, `width`) VALUES
 (1, 'Tulips.jpg', './assets/img/upload/871055a8b3f9dcd0a.jpg', 620888, 'jpg', 768, 1024),
-(2, 'logo', './assets/img/logo.png', 0, 'png', 119, 300);
+(2, 'logo', './assets/img/logo.png', 0, 'png', 119, 300),
+(3, 'iPhone 5c', './assets/img/upload/iphone_5_c.jpg', 0, 'jpg', 0, 0),
+(4, 'Audi R8', './assets/img/upload/audi_r_8.jpg', 0, 'jpg', 0, 0),
+(5, 'PC de bureau asus', './assets/img/upload/pc_bureau_asus.jpg', 0, 'jpg', 0, 0),
+(6, 'Mercedes cls', './assets/img/upload/mercedes_csl', 0, 'jpg', 0, 0),
+(7, 'Macbook air', './assets/img/upload/macbook_air.jpg', 0, 'jpg', 0, 0),
+(8, 'Imprimante Epson', './assets/img/upload/imprimante_epson.jpg', 0, 'jpg', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -279,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `modules` (
 --
 
 INSERT INTO `modules` (`module_id`, `module_label`, `module_status`, `module_description`) VALUES
-(1, 'slide_show', 0, 'Ce module vous permet de mettre en avant certaines informations comme des nouveaux articles, des nouvelles offres...'),
+(1, 'slide_show', 1, 'Ce module vous permet de mettre en avant certaines informations comme des nouveaux articles, des nouvelles offres...'),
 (2, 'commentaires produits', 0, 'Ce module permettra à vos utilisateurs de donner des avis sur les articles mises en vente.');
 
 -- --------------------------------------------------------
@@ -441,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`, `is_new`) VALUES
-(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-08-17 11:53:33', '0102030405', '0605040302', 'superadmin@yahoo.fr', '::1', '2015-08-17', 1, NULL, NULL, 1, 0),
+(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-08-18 09:26:39', '0102030405', '0605040302', 'superadmin@yahoo.fr', '::1', '2015-08-18', 1, NULL, NULL, 1, 0),
 (4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-08-16 21:29:03', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-16', 1, NULL, NULL, 2, 0),
 (5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-08-14 15:24:17', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-14', 1, NULL, NULL, 3, 0),
 (6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '2015-08-12 13:43:31', '', '', 'charrad.amine@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'Pour tout problème technique qui se déroule sur ce site', 2, 0),
