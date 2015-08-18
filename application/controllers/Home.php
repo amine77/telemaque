@@ -14,7 +14,7 @@ class Home extends Front_Controller {
     public function index() {
 
         $this->data['additional_js'] = array('functions');
-        $this->data['articles'] = $this->articles_model->get_articles(6);
+        $this->data['articles'] = $this->articles_model->get_articles(7);
         $this->data['site'] = $this->site_model->get_site_configurations();
         if($this->module_model->is_carousel_activated()){
             $this->data['carousel_articles'] = $this->articles_model->get_carousel_articles();

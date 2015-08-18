@@ -1,12 +1,15 @@
 <style>
     .carousel-inner > .item > img,
     .carousel-inner > .item > a > img {
-        width: 50%;
+        width: 55%;
         margin: auto;
     }
     #myCarousel{
         height: 400px;
         margin-bottom: 15px;
+    }
+    .carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img{
+        height: 400px;
     }
 </style>
 <div id="bloc_contenu">
@@ -23,13 +26,12 @@
                 <?php } ?>
             </ol>
 
-            <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <?php for ($i = 0; $i < count($carousel_articles); $i++) { ?>
 
                     <?php $src = ($carousel_articles[$i]['image_path'] != '') ? base_url($carousel_articles[$i]['image_path']) : base_url('assets/img/img_none.jpg'); ?>
                     <div class="item  <?php if ($i == 0) echo 'active'; ?>">
-                        <a href="<?= base_url('articles/' . $carousel_articles[$i]['article_id']) ?>"><img src="<?= $src ?>" alt="<?= $carousel_articles[$i]['article_label'] ?>" width="460" height="345"></a>
+                        <a href="<?= base_url('articles/' . $carousel_articles[$i]['article_id']) ?>"><img src="<?= $src ?>" alt="<?= $carousel_articles[$i]['article_label'] ?>" width="350" height="400"></a>
                         <div class="carousel-caption">
                             <h3><?= $carousel_articles[$i]['article_label'] ?></h3>
                             <p><?= substr($carousel_articles[$i]['description'], 0, 30) . '...' ?></p>
@@ -37,33 +39,8 @@
                     </div>
                 <?php } ?>
 
-                <!--                <div class="item">
-                                    <a href="<?= base_url('articles/1') ?>"><img src="<?= base_url('assets/img/carousel/img2.jpg') ?>" alt="Chania" width="460" height="345"></a>
-                                    <div class="carousel-caption">
-                                        <h3>Téléphonie</h3>
-                                        <p>iPhone 5c 600 euros</p>
-                                    </div>
-                                </div>
-                
-                                <div class="item">
-                                    <a href="<?= base_url('articles/1') ?>"><img src="<?= base_url('assets/img/carousel/img3.jpg') ?>" alt="Flower" width="460" height="345"></a>
-                                    <div class="carousel-caption">
-                                        <h3>Voitures</h3>
-                                        <p>Audi R8 RT noire 40 000 euros</p>
-                                    </div>
-                                </div>
-                
-                                <div class="item">
-                                    <a href="<?= base_url('articles/1') ?>"><img src="<?= base_url('assets/img/carousel/img4.jpg') ?>" alt="Mercedes cls" width="460" height="345"></a>
-                                    <div class="carousel-caption">
-                                        <h3>Voitures</h3>
-                                        <p>Une belle mercedes cls 38 500 euros</p>
-                                    </div>
-                                </div>-->
-
             </div>
 
-            <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
