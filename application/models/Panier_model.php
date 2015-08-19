@@ -40,7 +40,8 @@ class Panier_model extends CI_Model {
 
         return $nb_article;
     }
-
+    
+     
     function get_cart($exemplaires=array(),$order=false) {
         $prixTotal = 0;
         $html = '
@@ -108,7 +109,7 @@ class Panier_model extends CI_Model {
         if (count($exemplaires) == 0):
 
             $html='
-                <center><h3>  <span class="label label-info" onclick="empty_cart();">Votre panier est vide</span> </h3></center>
+                <h3 align="center">  <span class="label label-info" onclick="empty_cart();">Votre panier est vide</span> </h3>
            
             ';
         

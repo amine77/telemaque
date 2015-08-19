@@ -54,31 +54,37 @@
     <?php } ?>
     <!--  /carousel -->
 
-    <h2>Liste des Articles</h2>
+     <h2>Liste des Articles</h2>
     <div>
         <?php
         // Affiche les articles
 
         foreach ($articles->result() as $row) {
+           
             echo "<div class='list-article' id='article_" . $row->article_id . "'>
              <div class='bloc_titre'>
                 <h3>" . $row->article_label . "</h3>
              </div>
-             
-             <img src='" . base_url() . "assets/img/img_none.jpg'>";
-
+             ";
+            //echo " <img src='" . base_url() . "assets/img/img_none.jpg'>";
+           // var_dump($row->image_id);
+            echo "<div class='img' style='width:250px;height:250px;'>"; 
+             echo ($this->utils_model->get_im($row->image_id)!= null) ? 
+                    $this->utils_model->get_im($row->image_id)['imsrc'] :
+                " <img src='" . base_url() . "assets/img/img_none.jpg'>" ;
+            echo "</div>";
             // echo "<button data-role='".$row->article_id."'>Ajouter au panier </button>";
             echo '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mattis, velit vel scelerisque efficitur
             lectus neque facilisis tellus, id scelerisque turpis erat sit amet nunc. Vivamus fringilla posuere.</p><br>';
-
+            
             echo '<div class="clear"></div>';
-
+            
             echo "<a href='" . base_url() . "articles/$row->article_id' data-role='" . $row->article_id . "' class='btn_base' >Voir les details</a><br>";
-
+            
             echo '<br></div>';
         }
         ?>
-
+  
     </div>    
     <div class="clear"></div>
 </div>

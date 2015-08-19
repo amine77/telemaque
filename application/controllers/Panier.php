@@ -87,14 +87,91 @@ class Panier extends Front_Controller {
         return $html;
     }
 
+    
+  private  function sendMail()
+    {
+        $config['useragent']    = 'CodeIgniter';
+        $config['protocol']     = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.googlemail.com';
+        $config['smtp_user']    = 'attlanebrothers@gmail.com'; // Your gmail id
+        $config['smtp_pass']    = 'zelda555'; // Your gmail Password
+        $config['smtp_port']    = 465;
+        $config['wordwrap']     = TRUE;    
+        $config['wrapchars']    = 76;
+        $config['mailtype']     = 'html';
+        $config['charset']      = 'iso-8859-1';
+        $config['validate']     = FALSE;
+        $config['priority']     = 3;
+        $config['newline']      = "\r\n";
+        $config['crlf']         = "\r\n";
+
+        $this->load->library('email');
+        $this->email->initialize($config);
+
+        $this->email->from('admin@gmail.com', 'TSS DEV');
+        $this->email->to('yoniattlane555@gmail.com'); 
+        $this->email->cc('trimantra@gmail.com'); 
+
+        $this->email->subject('Email Test');
+        $this->email->message('Testing the email class.');    
+
+        $this->email->send();   
+
+    }
+    
+    public function facture($etape = '') {
+        $panier_exemplaire = $_SESSION['panier'];
+
+        $this->data['exemplaires'] = array();
+        //$this->panier_model->vider();
+        unset($panier_exemplaire['nb_article']);
+        $panier_exemplaire = array_keys($panier_exemplaire);
+        if (count($panier_exemplaire) > 0) {
+
+            $this->data['additional_js'] = array('functions');
+            $this->data['exemplaires'] = $this->users_articles_model->exemplaire($panier_exemplaire);
+
+            $this->data['texte'] = $this->panier_model->get_cart($this->data['exemplaires'],true);
+        } else {
+            $this->data['texte'] = $this->panier_model->get_cart();
+        }
+        
+         $this->load->view('front/facture', $this->data);
+    }
+    
+    
     //Page commande 
     public function order($etape = '') {
         if (!$this->session->has_userdata('login')) {
             redirect('connexion');
         }
         $panier_exemplaire = $_SESSION['panier'];
-        if ($etape == 'etape-2') {
+        if ($etape == 'etape-3') {
+               
+            
+            $this->data['site'] = $this->site_model->get_site_configurations();
+            $this->data['view'] = 'front/order_etape_3';
          
+        }
+        else if ($etape == 'etape-2') {
+                
+            if ($this->input->post('valid-cart') == "Valider") {
+                
+                  $this->form_validation->set_rules("card_number", "N° carte", "trim|required|min_length[16]|max_length[16]|integer");
+                  $this->form_validation->set_rules("security_code", "Cryptogramme", "trim|required|min_length[3]|max_length[3]|integer");
+                   if ($this->form_validation->run() == TRUE) {
+                       $this->sendMail(); 
+                       redirect(base_url() . "panier/order/etape-3");
+                   }
+                   else{
+                        $this->session->set_flashdata('msg-cartnumber', '<div class="alert alert-danger text-center">Votre saisie est incorrect, veuillez recommencez </div>');
+                        $this->debug($this->form_validation->error_array);
+                        if( in_array("security_code",$this->form_validation->error_array))
+                           $this->session->set_flashdata('msg-crypto', '<div class="alert alert-danger text-center">Veuillez taper les 3 chiffres </div>');
+                        redirect(base_url() . "panier/order/etape-2");
+                   }
+               
+            }
       
                //$this->data['additional_js'] = array('functions');
                $this->data['lib_js']= array('datepicker/js/bootstrap-datepicker', 'datepicker/locales/bootstrap-datepicker.fr.min');
@@ -159,4 +236,6 @@ class Panier extends Front_Controller {
         $this->load->view('front/template/layout', $this->data);
     }
 
+    
+    
 }
