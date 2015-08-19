@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 18 Août 2015 à 18:34
+-- Généré le :  Mer 19 Août 2015 à 18:09
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -448,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`, `is_new`) VALUES
-(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-08-18 09:26:39', '0102030405', '0605040302', 'superadmin@yahoo.fr', '::1', '2015-08-18', 1, NULL, NULL, 1, 0),
+(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-08-19 09:05:49', '0102030405', '0605040302', 'superadmin@yahoo.fr', '::1', '2015-08-19', 1, NULL, NULL, 1, 0),
 (4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-08-18 13:44:21', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-18', 1, NULL, NULL, 2, 0),
 (5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-08-14 15:24:17', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-14', 1, NULL, NULL, 3, 0),
 (6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '2015-08-12 13:43:31', '', '', 'charrad.amine@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'Pour tout problème technique qui se déroule sur ce site', 2, 0),
