@@ -17,9 +17,18 @@ class Cmd_model {
         
         
     }
-    
+    /*A modifier*/
     public function add_cmd($data){
-        
+         $data = array(
+                        'format' => $type,
+                        'image_label' => $img['name'],
+                        'size' => $img['size'],
+                        'width' => $datasize[0],
+                        'height' => $datasize[1],
+                        'image_path' => $url
+                    );
+        $this->db->insert('images', $data);
+        $im_id = $this->db->insert_id();
     }
     
 }

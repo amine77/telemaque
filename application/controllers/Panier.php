@@ -93,8 +93,8 @@ class Panier extends Front_Controller {
         $config['useragent']    = 'CodeIgniter';
         $config['protocol']     = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.googlemail.com';
-        $config['smtp_user']    = 'attlanebrothers@gmail.com'; // Your gmail id
-        $config['smtp_pass']    = 'zelda555'; // Your gmail Password
+        $config['smtp_user']    = 'telemaqueipformation@gmail.com'; // Your gmail id
+        $config['smtp_pass']    = 'telemaque12345'; // Your gmail Password
         $config['smtp_port']    = 465;
         $config['wordwrap']     = TRUE;    
         $config['wrapchars']    = 76;
@@ -160,6 +160,9 @@ class Panier extends Front_Controller {
                   $this->form_validation->set_rules("card_number", "N° carte", "trim|required|min_length[16]|max_length[16]|integer");
                   $this->form_validation->set_rules("security_code", "Cryptogramme", "trim|required|min_length[3]|max_length[3]|integer");
                    if ($this->form_validation->run() == TRUE) {
+                       
+                       
+                       
                        $this->sendMail(); 
                        redirect(base_url() . "panier/order/etape-3");
                    }

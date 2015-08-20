@@ -64,7 +64,7 @@ $query_builder = TRUE;
 
 /****************************************
 Pour les versions Wamp
-****************************************/
+****************************************
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
@@ -92,12 +92,12 @@ $db['default'] = array(
 
 /****************************************
 Pour les versions Mamp
-****************************************//*
+****************************************/
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'root',
 	'database' => 'telemaque',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
