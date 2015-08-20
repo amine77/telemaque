@@ -6,14 +6,14 @@ class Panier extends Front_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('articles_model', 'users_articles_model', 'login_model', 'site_model'));
+        $this->load->model(array('articles_model', 'users_articles_model', 'login_model', 'site_model','cmd_model'));
 
         $this->load->library('session');
     }
 
     public function index() {
 
-
+       
         $this->data['title'] = 'Panier';
         $this->data['site'] = $this->site_model->get_site_configurations();
         $panier_exemplaire = $_SESSION['panier'];
@@ -154,16 +154,31 @@ class Panier extends Front_Controller {
          
         }
         else if ($etape == 'etape-2') {
-                
+            
             if ($this->input->post('valid-cart') == "Valider") {
                 
                   $this->form_validation->set_rules("card_number", "N° carte", "trim|required|min_length[16]|max_length[16]|integer");
                   $this->form_validation->set_rules("security_code", "Cryptogramme", "trim|required|min_length[3]|max_length[3]|integer");
                    if ($this->form_validation->run() == TRUE) {
+                       $tmppanier = $_SESSION['panier'];
+                       unset($tmppanier['address_id']);
+                       unset($tmppanier['nb_article']);
+                       $oData= array(
+                           'user_id' => $_SESSION['user_id'],
+                           'address_id' => $_SESSION['address_id'],
+                           'products' => $tmppanier
+                       );
+                       $info_user = $this->login_model->get_user_by_id($_SESSION['user_id']);
+                   
+                        
+                       $this->cmd_model->add_cmd($oData);
+                       $content = $info_user['user_surname']."".$info_user['user_name']."<br>"
+                                  . "Votre Commande a bien été validé ";
+
+                       $subject = "Commande Bien réussi";
+
+                       $this->utils_model->send_mail('admin.telemaque@gmail.com','yoniattlane555@gmail.com',$subject,$content); 
                        
-                       
-                       
-                       $this->sendMail(); 
                        redirect(base_url() . "panier/order/etape-3");
                    }
                    else{
@@ -209,7 +224,7 @@ class Panier extends Front_Controller {
                 
                   $this->form_validation->set_rules("adresse", "N°", "trim|required");
                    if ($this->form_validation->run() == TRUE) {
-                      
+                      $_SESSION['address_id'] = $this->input->post('adresse');
                        redirect(base_url() . "panier/order/etape-2");
                    }
                    else{

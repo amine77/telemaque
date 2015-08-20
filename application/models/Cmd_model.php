@@ -11,24 +11,33 @@
  *
  * @author Linkfox
  */
-class Cmd_model {
+class Cmd_model extends CI_Model{
     
     public function get_facture($cm) {
         
         
     }
-    /*A modifier*/
+ 
     public function add_cmd($data){
-         $data = array(
-                        'format' => $type,
-                        'image_label' => $img['name'],
-                        'size' => $img['size'],
-                        'width' => $datasize[0],
-                        'height' => $datasize[1],
-                        'image_path' => $url
+        
+      
+        $aData = array(
+                        'user_id' => $data['user_id'],
+                        'address_id' => $data['address_id'],
                     );
-        $this->db->insert('images', $data);
-        $im_id = $this->db->insert_id();
+        $this->db->insert('command', $aData);
+        $command_id = $this->db->insert_id();
+        
+        foreach($data['products'] as $user_article_id => $productQty){
+            $price = $this->db->query("SELECT price FROM users_articles WHERE user_article_id='$user_article_id'")->row()->price;
+            $data = array(
+             'quantity'=> $productQty,
+             'price'=>  $price, 
+             'command_id' =>$command_id,
+             'user_article_id'=> $user_article_id 
+            );
+            $this->db->insert('command_lines', $data);
+        }
     }
     
 }

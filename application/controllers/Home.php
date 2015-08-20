@@ -12,7 +12,7 @@ class Home extends Front_Controller {
     }
 
     public function index() {
-
+       
         $this->data['additional_js'] = array('functions');
         $this->data['articles'] = $this->articles_model->get_articles(7);
         $this->data['site'] = $this->site_model->get_site_configurations();

@@ -19,7 +19,7 @@ class Utils_model extends CI_Model {
 
         if (count($query) != 1) {
             $oData = array(
-                'imsrc' => '<img src="' . base_url() .'assets/img/img_none.jpg"'  . $wImg  . $hImg . ' alt="image non trouvée"/>'
+                'imsrc' => '<img src="' . base_url() . 'assets/img/img_none.jpg"' . $wImg . $hImg . ' alt="image non trouvée"/>'
             );
             return $oData;
         }
@@ -121,7 +121,7 @@ class Utils_model extends CI_Model {
                <tr>
                    <td>";
         if (isset($_FILES['pic']) && $preview) {
-            
+
             $img = $this->get_im($im_id, $width, $height, $alt);
             $html.= $img['imsrc'];
         }
@@ -170,6 +170,37 @@ class Utils_model extends CI_Model {
         echo '<pre>';
         var_dump($data);
         echo '</pre>';
+    }
+
+    public function send_mail($sender, $receiver, $subject, $content) {
+        $config = Array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user'  => 'telemaqueipformation@gmail.com', // Your gmail id
+            'smtp_pass'  => 'telemaque12345', // Your gmail Password
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'wordwrap' => TRUE,
+            'validate' => FALSE,
+            'priority' => 3,
+            'newline' => "\r\n",
+            'crlf' => "\r\n",
+        );
+        $this->load->library('email', $config);
+     
+
+        $this->email->from($sender, 'Internaute');
+        $this->email->to($receiver);
+        $this->email->subject($subject);
+        $this->email->message($content);
+        if ($this->email->send()) {
+            return true;
+        } else {
+            show_error($this->email->print_debugger());
+            return false;
+        }
+        
     }
 
 }
