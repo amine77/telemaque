@@ -56,21 +56,21 @@ class Admin extends CI_Controller
         $tab['departement_of_most_users']=  $this->statistics_model->get_departement_of_most_users();
         $tab['last_user_inscription_date']=  $this->statistics_model->get_last_user_inscription_date();
         $tab['last_message_reception_date']=  $this->statistics_model->get_last_message_reception_date();
-        $tab['salesman_of_most_sold_articles']=  $this->statistics_model->get_salesman_of_most_sold_articles();
-        $tab['seller_of_most_bigger_turnover']=  $this->statistics_model->get_seller_of_most_bigger_turnover();
-        $tab['buyer_of_most_bought_articles']=  $this->statistics_model->get_buyer_of_most_bought_articles();
-        $tab['buyer_of_most_of_expenses']=  $this->statistics_model->get_buyer_of_most_of_expenses();
-        $tab['total_items_for_sale']=  $this->statistics_model->get_total_items_for_sale();
-        $tab['total_copies_for_sale']=  $this->statistics_model->get_total_copies_for_sale();
-        $tab['total_categories']=  $this->statistics_model->get_total_categories();
-        $tab['most_expensive_item_copy']=  $this->statistics_model->get_most_expensive_item_copy();
-        $tab['cheapest_item_copy']=  $this->statistics_model->get_cheapest_item_copy();
-        $tab['item_that_has_most_of_copies']=  $this->statistics_model->get_item_that_has_most_of_copies();
-        $tab['most_commented_item']=  $this->statistics_model->get_most_commented_item();
-        $tab['item_most_seen']=  $this->statistics_model->get_item_most_seen();
-        $tab['oldest_item']=  $this->statistics_model->get_oldest_item();
-        $tab['last_item']=  $this->statistics_model->get_last_item();
-        $tab['last_purchase_date']=  $this->statistics_model->get_last_purchase_date();
+//        $tab['salesman_of_most_sold_articles']=  $this->statistics_model->get_salesman_of_most_sold_articles();
+//        $tab['seller_of_most_bigger_turnover']=  $this->statistics_model->get_seller_of_most_bigger_turnover();
+//        $tab['buyer_of_most_bought_articles']=  $this->statistics_model->get_buyer_of_most_bought_articles();
+//        $tab['buyer_of_most_of_expenses']=  $this->statistics_model->get_buyer_of_most_of_expenses();
+//        $tab['total_items_for_sale']=  $this->statistics_model->get_total_items_for_sale();
+//        $tab['total_copies_for_sale']=  $this->statistics_model->get_total_copies_for_sale();
+//        $tab['total_categories']=  $this->statistics_model->get_total_categories();
+//        $tab['most_expensive_item_copy']=  $this->statistics_model->get_most_expensive_item_copy();
+//        $tab['cheapest_item_copy']=  $this->statistics_model->get_cheapest_item_copy();
+//        $tab['item_that_has_most_of_copies']=  $this->statistics_model->get_item_that_has_most_of_copies();
+//        $tab['item_most_seen']=  $this->statistics_model->get_item_most_seen();
+//        $tab['oldest_item']=  $this->statistics_model->get_oldest_item();
+//        $tab['last_item']=  $this->statistics_model->get_last_item();
+//        $tab['last_item_copy']=  $this->statistics_model->get_last_item_copy;
+//        $tab['last_purchase_date']=  $this->statistics_model->get_last_purchase_date();
         return $tab;
     }
 
@@ -83,7 +83,7 @@ class Admin extends CI_Controller
         $data['show_nav'] = TRUE;
         $data['lib_js'] = array('datepicker/js/bootstrap-datepicker', 'datepicker/locales/bootstrap-datepicker.fr.min');
         $data = $this->get_site_identity($data);
-//        $data = $this->get_site_statics($data);
+        $data = $this->get_site_statics($data);
         $this->load->view('back/template/layout', $data);
     }
 

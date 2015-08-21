@@ -1,4 +1,5 @@
 <style>
+
     #bloc_contenu {
         margin-bottom: 100px;
     }
@@ -45,17 +46,17 @@
                 </div>
                 <div class="panel-body">
                     <table class="table">
-                        <tbody><tr><td><strong>Utilisateurs inscrits</strong> :  15&nbsp;ans&nbsp;-&nbsp;né(e) le: 2000-08-12  </td></tr>
-                            <tr><td><strong>Nouveaux utilisateurs  </strong>: 2015-08-12</td></tr>
-                            <tr><td><strong>Utilisateurs non activés</strong> : <span class="label label-success">Activé</span></td></tr>
-                            <tr><td><strong>Moyenne d'age des utilisateurs</strong> : 0102030405</td></tr>
-                            <tr><td><strong>Département d'oû provient le plus des utilisateurs</strong> : 0605040302</td><td></td></tr>
-                            <tr><td><strong>Date de dernière inscription d'utilisateur</strong> : 0605040302</td><td></td></tr>
-                            <tr><td><strong>Date du dernier message </strong> : 0605040302</td><td></td></tr>
-                            <tr><td><strong>Le vendeur qui a vendu le plus d'articles</strong> : 0605040302</td><td></td></tr>
-                            <tr><td><strong>Le vendeur qui a fait le plus grand chiffre d'affaires</strong> : 0605040302</td><td></td></tr>
-                            <tr><td><strong>L'acheteur qui a acheté le plus d'articles</strong> : 0605040302</td><td></td></tr>
-                            <tr><td><strong>L'acheteur qui a depensé le plus pour ses achats</strong> : 0605040302</td><td></td></tr>
+                        <tbody><tr><td><strong>Utilisateurs inscrits</strong> :  <span class="label label-success"><?= $total_users ?> </span></td></tr>
+                            <tr><td><strong>Nouveaux utilisateurs  </strong>: <span class="label label-success"><?= $total_new_users ?></span></td></tr>
+                            <tr><td><strong>Utilisateurs non activés</strong> : <span class="label label-success"><?= $total_not_activated_users ?></span></td></tr>
+                            <tr><td><strong>Moyenne d'age des utilisateurs</strong> : <span class="label label-success"><?= $average_users_age ?></span></td></tr>
+                            <tr><td><strong>Département d'oû provient le plus des utilisateurs</strong> : <span class="label label-success"><?= $departement_of_most_users ?></span></td></tr>
+                            <tr><td><strong>Date de dernière inscription d'utilisateur</strong> <span class="label label-success"><?= $last_user_inscription_date ?></span></td></tr>
+                            <tr><td><strong>Date du dernier message </strong> <span class="label label-success"><?= $last_message_reception_date ?></span></td></tr>
+                            <tr><td><strong>Le vendeur qui a vendu le plus d'articles</strong> : <span class="label label-success">0605040302</span></td></tr>
+                            <tr><td><strong>Le vendeur qui a fait le plus grand chiffre d'affaires</strong> : <span class="label label-success">0605040302</span></td></tr>
+                            <tr><td><strong>L'acheteur qui a acheté le plus d'articles</strong> : <span class="label label-success">0605040302</span></td></tr>
+                            <tr><td><strong>L'acheteur qui a depensé le plus pour ses achats</strong> : <span class="label label-success">0605040302</span></td></tr>
                         </tbody></table>
                 </div>
             </div>
@@ -75,10 +76,10 @@
                             <tr><td><strong>L'exemplaire d'article le plus cher</strong> : </td></tr>
                             <tr><td><strong>L'exemplaire d'article le moins cher</strong> : </td><td></td></tr>
                             <tr><td><strong>L'article qui dispose le plus d'exemplaires</strong> : </td><td></td></tr>
-                            <tr><td><strong>L'article le plus commenté</strong> : </td><td></td></tr>
                             <tr><td><strong>L'article le plus vu</strong> : </td><td></td></tr>
                             <tr><td><strong>L'article le plus ancien</strong> : </td><td></td></tr>
                             <tr><td><strong>L'article le plus récent</strong> : </td><td></td></tr>
+                            <tr><td><strong>L'exemplaire le plus récent</strong> : </td><td></td></tr>
                             <tr><td><strong>Date du dernier achat</strong> : </td><td></td></tr>
                         </tbody></table>
                 </div>

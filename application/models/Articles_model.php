@@ -27,17 +27,17 @@ class Articles_model extends CI_Model
 
     public function put_in_slideshow($articles)
     {
-        $data =  array(
+        $data = array(
             'in_carousel' => 0
         );
         $this->db->update('articles', $data);
         foreach ($articles as $article_id) {
             $data = array(
-            'in_carousel' => 1
-        );
+                'in_carousel' => 1
+            );
 
-        $this->db->where('article_id', $article_id);
-        $this->db->update('articles', $data);
+            $this->db->where('article_id', $article_id);
+            $this->db->update('articles', $data);
         }
         return TRUE;
     }
@@ -50,6 +50,14 @@ class Articles_model extends CI_Model
         } else {
             return false;
         }
+    }
+
+    function set_viewed($article_id)
+    {
+        $this->db->set('views', 'views+1', FALSE);
+        $this->db->where('article_id', $article_id);
+        $this->db->update('articles');
+        return true;
     }
 
     function set_old($article_id)
