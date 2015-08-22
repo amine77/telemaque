@@ -83,10 +83,9 @@ class Admin extends CI_Controller
         $data['view'] = 'back/home';
         $data['show_header'] = TRUE;
         $data['show_nav'] = TRUE;
-        $data['lib_js'] = array('datepicker/js/bootstrap-datepicker', 'datepicker/locales/bootstrap-datepicker.fr.min');
+        $data['lib_js'] = array('datepicker/js/bootstrap-datepicker', 'datepicker/locales/bootstrap-datepicker.fr.min', 'canvas/jquery.canvasjs.min');
         $data = $this->get_site_identity($data);
         $data = $this->get_site_statics($data);
-        $data['lib_js']= array('canvas/jquery.canvasjs.min');
         $this->load->view('back/template/layout', $data);
     }
 
