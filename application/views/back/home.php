@@ -136,7 +136,7 @@
         <div class="col-lg-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Répartition des articles par catégorie</h3>
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Répartition des articles par catégorie</h3>
                 </div>
                 <div class="panel-body">
                     <div id="chartContainer" style="height: 300px; width: 100%;"></div>
