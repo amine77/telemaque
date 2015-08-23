@@ -1,13 +1,3 @@
-<script>
-    $(function () {
-        $('#sandbox-container input').datepicker({
-            format: "yyyy-mm-dd",
-            language: "fr"
-        });
-
-    });
-</script>
-
 <div id="bloc_contenu">
     <br><h2>INSCRIPTION</h2><br>
     <?php echo $this->session->flashdata('msg'); ?>

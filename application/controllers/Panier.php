@@ -86,38 +86,6 @@ class Panier extends Front_Controller {
 
         return $html;
     }
-
-    
-  private  function sendMail()
-    {
-        $config['useragent']    = 'CodeIgniter';
-        $config['protocol']     = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.googlemail.com';
-        $config['smtp_user']    = 'telemaqueipformation@gmail.com'; // Your gmail id
-        $config['smtp_pass']    = 'telemaque12345'; // Your gmail Password
-        $config['smtp_port']    = 465;
-        $config['wordwrap']     = TRUE;    
-        $config['wrapchars']    = 76;
-        $config['mailtype']     = 'html';
-        $config['charset']      = 'iso-8859-1';
-        $config['validate']     = FALSE;
-        $config['priority']     = 3;
-        $config['newline']      = "\r\n";
-        $config['crlf']         = "\r\n";
-
-        $this->load->library('email');
-        $this->email->initialize($config);
-
-        $this->email->from('admin@gmail.com', 'TSS DEV');
-        $this->email->to('yoniattlane555@gmail.com'); 
-        $this->email->cc('trimantra@gmail.com'); 
-
-        $this->email->subject('Email Test');
-        $this->email->message('Testing the email class.');    
-
-        $this->email->send();   
-
-    }
     
     public function facture($etape = '') {
         $panier_exemplaire = $_SESSION['panier'];

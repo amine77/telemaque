@@ -13,7 +13,7 @@
  */
 class Cmd_model extends CI_Model{
     
-    public function get_facture($cm) {
+    public function get_facture($cmd_id) {
         
         
     }

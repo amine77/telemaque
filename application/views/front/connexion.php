@@ -5,7 +5,7 @@
                 <div class="bloc_form_connex" style="float:left;width:40%;margin-right:10%;">
                     <?php
                     $attributes = array("class" => "form-horizontal", "id" => "loginform", "name" => "loginform");
-                    echo form_open("admin/index", $attributes);
+                    echo form_open("login", $attributes);
                     ?>
                     <fieldset>
                         <legend>Connexion</legend>
@@ -41,7 +41,7 @@
                         </div>
                     </fieldset>
                     <?php echo form_close(); ?>
-<?php echo $this->session->flashdata('msg'); ?>
+                    <?php echo $this->session->flashdata('msg'); ?>
                 </div>
     
     

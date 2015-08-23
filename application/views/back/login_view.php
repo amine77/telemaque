@@ -60,7 +60,7 @@
                 <div class="bloc_form_connex">
                     <?php
                     $attributes = array("class" => "form-horizontal", "id" => "loginform", "name" => "loginform");
-                    echo form_open("login/index", $attributes);
+                    echo form_open("login/admin", $attributes);
                     ?>
                     <fieldset>
                         <legend>Login</legend>
