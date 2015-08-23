@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 21 Août 2015 à 18:45
+-- Généré le :  Dim 23 Août 2015 à 22:30
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -80,11 +80,11 @@ CREATE TABLE IF NOT EXISTS `articles` (
 INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `description`, `category_id`, `image_id`, `user_id`, `is_new`, `in_carousel`, `views`, `is_verified`) VALUES
 (1, 'Renault twingo', '2015-06-19 08:39:18', 'Sortie en 2002, la Renault Mégane II a été élue voiture de l''année 2003. Elle a été commercialisée d''abord en 3 et 5 portes, puis est arrivée en fin de cette même année, le coupé cabriolet pour remplacer la Renault Mégane I cabriolet, le break et la version tricorps. En 2004 est apparu la version sportive RS (pour Renault Sport) avec le « moteur F » de type F4RT. La Mégane II a été restylée en 2006, à ce moment, de nouveau moteurs sont apparus, notamment, en Diesel, ou le 1,9 dCi est passée de 120 à 130 ch et est apparu un 2,0 dCi d''une puissance de 150 ch. En 2007, est apparu une nouvelle version sportive, moins puissante que la RS, mais avec un aspect radicalement sportif : La Mégane GT. La Renault Mégane II a été remplacée en octobre 2008 par la Renault Mégane III.', 4, 1, 3, 0, 1, 1, 1),
 (2, 'Audi R8', '2015-06-19 06:25:27', '', 4, 4, 3, 1, 1, 0, 1),
-(3, 'Imprimante Photo Epson Xp-600', '2015-06-19 08:40:55', 'L''imprimante multifonction Epson Expression Premium XP-600 offre une solution compacte, rapide et simple d''emploi. Adaptée pour les impressions, numérisations et copies du quotidien, elle est équipée notamment du WiFi et de fonctions d''impressions sans fil bien pratiques !', 9, 8, 3, 0, 1, 0, 1),
-(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', '', 9, 7, 3, 0, 1, 0, 1),
-(5, 'Iphone 5c', '2015-06-19 09:44:14', '', 10, 3, 3, 1, 1, 0, 1),
+(3, 'Imprimante Photo Epson Xp-600', '2015-06-19 08:40:55', 'L''imprimante multifonction Epson Expression Premium XP-600 offre une solution compacte, rapide et simple d''emploi. Adaptée pour les impressions, numérisations et copies du quotidien, elle est équipée notamment du WiFi et de fonctions d''impressions sans fil bien pratiques !', 9, 8, 3, 0, 1, 1, 1),
+(4, 'MacBook Air 13 pouces core i5', '2015-06-19 08:40:55', '', 9, 7, 3, 0, 1, 1, 1),
+(5, 'Iphone 5c', '2015-06-19 09:44:14', '', 10, 3, 3, 1, 1, 2, 1),
 (6, 'Samsung Galaxy S6 32GO Blanc neuf débloqué', '2015-06-19 08:44:14', '', 10, NULL, 3, 1, 0, 0, 1),
-(7, 'PC de bureau ASUS', '2015-08-01 10:26:08', 'Un ordinateur aux performances stables, offrant un divertissement de qualité : affichage haute définition, ports HDMI et USB 3.0 et grande capacité de stockage.', 9, 5, 3, 1, 1, 2, 1);
+(7, 'PC de bureau ASUS', '2015-08-01 10:26:08', 'Un ordinateur aux performances stables, offrant un divertissement de qualité : affichage haute définition, ports HDMI et USB 3.0 et grande capacité de stockage.', 9, 5, 3, 1, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -452,13 +452,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_surname`, `login`, `password`, `born_at`, `created_at`, `updated_at`, `phone`, `mobile`, `mail`, `ip_address`, `last_connection_date`, `status`, `title`, `description`, `role_id`, `is_new`) VALUES
-(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-08-21 08:50:58', '0102030405', '0605040302', 'superadmin@yahoo.fr', '::1', '2015-08-21', 1, NULL, NULL, 1, 0),
-(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-08-18 13:44:21', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-18', 1, NULL, NULL, 2, 0),
-(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-08-14 15:24:17', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-14', 1, NULL, NULL, 3, 0),
+(3, 'Ip', 'Ajy', 'superadmin', '889a3a791b3875cfae413574b53da4bb8a90d53e', '1990-09-04', '2015-06-18 12:44:07', '2015-08-23 19:01:01', '0102030405', '0605040302', 'superadmin@yahoo.fr', '::1', '2015-08-23', 1, NULL, NULL, 1, 0),
+(4, 'matux', 'loco', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1990-02-05', '2015-06-18 12:44:07', '2015-08-22 23:31:05', '0101010101', '0601010101', 'superadmin@yahoo.fr', '::1', '2015-08-23', 1, NULL, NULL, 2, 0),
+(5, 'claude', 'parrot', 'user', '12dea96fec20593566ab75692c9949596833adc9', '1988-01-20', '2015-06-18 12:45:43', '2015-08-23 18:18:52', '0102020202', '0602020202', 'user@yahoo.fr', '::1', '2015-08-23', 1, NULL, NULL, 3, 0),
 (6, 'messi', 'lionel', 'messi', 'b58e6693e0ba007ce2f9e152c4cf19dd5cdbbad6', '2000-07-15', '2015-07-22 09:53:20', '2015-08-12 13:43:31', '', '', 'charrad.amine@yahoo.fr', '', '0000-00-00', 1, 'Webmaster', 'Pour tout problème technique qui se déroule sur ce site', 2, 0),
 (7, 'zidane', 'zinedine', 'zizou', 'b684dd15ef7bd117b0aa364edc2cefce095a8ad3', '1970-07-14', '2015-07-22 09:53:20', '2015-08-13 09:58:14', '', '', 'yoniattlane555@gmail.com', '::1', '2015-08-11', 1, 'Service consommateur', 'pour toute question à propos d''un produit, d''une commande...', 2, 0),
 (14, 'MonNom', 'MonPrénom', 'user2', '7384f8b17d67b6e8498b363d8df08a5dd021a2d3', '1990-02-11', '2015-08-03 09:31:33', '2015-08-13 09:59:18', '0102030405', '0605040302', 'user2@yahoo.fr', '', '0000-00-00', 0, NULL, NULL, 3, 0),
-(16, 'SimpleNom', 'SimplePrénom', 'un_simple_user', '449b41795731e6d132b93ec2d63b31cd4f608477', '2000-08-12', '2015-08-12 15:19:28', '2015-08-20 10:33:56', '0102030405', '0605040302', 'simple_mail@yahoo.fr', '::1', '2015-08-12', 0, NULL, NULL, 3, 0);
+(16, 'SimpleNom', 'SimplePrénom', 'un_simple_user', '449b41795731e6d132b93ec2d63b31cd4f608477', '2000-08-12', '2015-08-12 15:19:28', '2015-08-22 19:13:48', '0102030405', '0605040302', 'simple_mail@yahoo.fr', '::1', '2015-08-12', 1, NULL, NULL, 3, 0);
 
 -- --------------------------------------------------------
 
