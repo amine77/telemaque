@@ -1,15 +1,12 @@
 <?php
 
-class Articles_model extends CI_Model
-{
+class Articles_model extends CI_Model {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
     }
 
-    public function get_articles($nb = '')
-    {
+    public function get_articles($nb = '') {
         $limit = "";
         if ($nb != '')
             $limit = "LIMIT $nb";
@@ -18,15 +15,27 @@ class Articles_model extends CI_Model
         return $query;
     }
 
-    public function count_new_articles()
-    {
+    public function get_all_with_number_of_copies() {
+        $sql = "select a.article_id,a.created_at, a.article_label, a.is_new, a.is_verified, c.category_label, count(ua.user_article_id) as nb_copies_of_article 
+                from  users_articles ua
+                right join articles a on ua.article_id = a.article_id
+                join categories c on c.category_id = a.category_id
+                group by a.article_id order by a.created_at desc";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
+    public function count_new_articles() {
         $sql = "SELECT COUNT(*) AS nb FROM articles where articles.is_new = 1";
         $query = $this->db->query($sql);
         return $query->row_array();
     }
 
-    public function put_in_slideshow($articles)
-    {
+    public function put_in_slideshow($articles) {
         $data = array(
             'in_carousel' => 0
         );
@@ -42,8 +51,7 @@ class Articles_model extends CI_Model
         return TRUE;
     }
 
-    public function get_articles_by_category($category_id = '')
-    {
+    public function get_articles_by_category($category_id = '') {
         $query = $this->db->get_where('articles', array('category_id' => $category_id));
         if ($query->num_rows() > 0) {
             return $query;
@@ -52,16 +60,14 @@ class Articles_model extends CI_Model
         }
     }
 
-    function set_viewed($article_id)
-    {
+    function set_viewed($article_id) {
         $this->db->set('views', 'views+1', FALSE);
         $this->db->where('article_id', $article_id);
         $this->db->update('articles');
         return true;
     }
 
-    function set_old($article_id)
-    {
+    function set_old($article_id) {
         $data = array(
             'is_new' => 0
         );
@@ -75,8 +81,7 @@ class Articles_model extends CI_Model
         }
     }
 
-    public function get_article($article_id = '')
-    {
+    public function get_article($article_id = '') {
 
         if ($article_id == '')
             return;
@@ -92,8 +97,7 @@ class Articles_model extends CI_Model
     }
 
     //cette fonction effectue une recherche sur les labels des articles ainsi que leurs mots clés associés
-    public function search($key)
-    {
+    public function search($key) {
         $sql = "SELECT  articles.article_id, article_label, image_path
             FROM images
            RIGHT JOIN articles ON articles.image_id = images.image_id
@@ -104,8 +108,7 @@ class Articles_model extends CI_Model
         return $query->result_array();
     }
 
-    public function specification($article_id = '')
-    {
+    public function specification($article_id = '') {
         $with_article = "";
         if ($article_id != "")
             $with_article = " WHERE a.article_id = '$article_id'  ";
@@ -120,8 +123,7 @@ class Articles_model extends CI_Model
         return $query->result();
     }
 
-    public function get_carousel_articles()
-    {
+    public function get_carousel_articles() {
         $sql = "SELECT  articles.article_id, article_label, image_path, description
                 FROM images
                 RIGHT JOIN articles ON articles.image_id = images.image_id

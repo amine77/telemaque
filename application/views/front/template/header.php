@@ -6,8 +6,13 @@
                  echo'<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;&nbsp;<strong>Appelez-nous au :</strong>'.$site['phone'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ;
                          
              }
+            
+            
+
             if ($this->session->userdata('login')) {
-                echo 'Bonjour <strong>' . $_SESSION['login'] . '</strong>&nbsp;&nbsp;&nbsp;<a href="' . site_url('logout') . '">Déconnexion</a>';
+                    $administration= ($this->session->userdata('role') == 'ROLE_ADMIN' || $this->session->userdata('role') == 'ROLE_SUPER_ADMIN')?"<a href='".  base_url('admin')."' >Espace Administration</a>":"";
+
+                echo 'Bonjour <strong>' . $_SESSION['login'] . '</strong>&nbsp;&nbsp;<strong>'.$administration.'</strong>&nbsp;<a href="' . site_url('logout') . '">Déconnexion</a>';
             } else {
                 echo ' <a href="' . site_url('login') . '">Connexion</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="' . site_url('inscription') . '">Inscription</a>';
             }

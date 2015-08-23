@@ -285,11 +285,11 @@ class Admin extends CI_Controller
     public function liste_articles()
     {
         $data['title'] = 'un titre';
-        $data['additional_css'] = array('articles');
         $data['view'] = 'back/liste_articles';
         $data['show_header'] = TRUE;
         $data['show_nav'] = TRUE;
         $data = $this->get_site_identity($data);
+        $data['articles']=  $this->articles_model->get_all_with_number_of_copies();
         $this->load->view('back/template/layout', $data);
     }
 
