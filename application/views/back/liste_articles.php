@@ -31,6 +31,7 @@ $(function() {
                 <th>ID</th>
                 <th>Date de création</th>
                 <th>Titre </th>
+                <th>Description </th>
                 <th>Catégorie</th>
                 <th>Status</th>
                 <th>Nombre d'exemplaires</th>

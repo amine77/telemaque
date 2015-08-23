@@ -14,7 +14,7 @@
         var chart = new CanvasJS.Chart("chartContainer",
                 {
                     title: {
-                        text: "Nombre d'articles par catgéorie"
+                        text: "Pourcentage d'articles par catgéorie"
                     },
                     exportFileName: "nb_articles_par_categorie",
                     exportEnabled: true,

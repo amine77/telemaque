@@ -15,6 +15,16 @@ class Articles_model extends CI_Model {
         return $query;
     }
 
+    public function get_all_copies(){
+        $sql = "select ua.user_article_id, ua.title, ua.is_verified, a.article_label, ua.created_at,ua.price, u.user_name, u.user_surname from users_articles ua, articles a, users u
+               where a.article_id = ua.article_id  and u.user_id= ua.user_id";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
     public function get_all_with_number_of_copies() {
         $sql = "select a.article_id,a.created_at, a.article_label, a.is_new, a.is_verified, c.category_label, count(ua.user_article_id) as nb_copies_of_article 
                 from  users_articles ua

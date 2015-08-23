@@ -319,11 +319,11 @@ class Admin extends CI_Controller
     public function liste_exemplaires()
     {
         $data['title'] = 'un titre';
-        $data['additional_css'] = array('exemplaires');
         $data['view'] = 'back/liste_exemplaires';
         $data['show_header'] = TRUE;
         $data['show_nav'] = TRUE;
         $data = $this->get_site_identity($data);
+        $data['exemplaires']=  $this->articles_model->get_all_copies();
         $this->load->view('back/template/layout', $data);
     }
 
