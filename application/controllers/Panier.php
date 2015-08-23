@@ -137,9 +137,10 @@ class Panier extends Front_Controller {
                            'products' => $tmppanier
                        );
                        $info_user = $this->login_model->get_user_by_id($_SESSION['user_id']);
-                   
+                       
                         
                        $this->cmd_model->add_cmd($oData);
+                       $this->panier_model->vider();
                        $content = $info_user['user_surname']."".$info_user['user_name']."<br>"
                                   . "Votre Commande a bien été validé ";
 

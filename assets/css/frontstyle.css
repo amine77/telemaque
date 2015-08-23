@@ -496,3 +496,9 @@ STYLE DE LA PAGE DES DETAILS DES EXEMPLAIRES
     margin-bottom:0px;
 
 }
+
+
+/*Profil*/
+
+header #profil,header #profil ul li {float:left;}
+header #profil ul li {padding-right:10px;}
