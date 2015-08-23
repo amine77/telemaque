@@ -34,7 +34,8 @@ class Articles extends Front_Controller
 
 
         if (empty($exemplaire_id)) {
-
+            
+            
             $this->data['article'] = $this->articles_model->get_article($article_id);
 
             $this->data['vendeurs_articles'] = $this->users_articles_model->list_user_article($article_id);
@@ -48,6 +49,7 @@ class Articles extends Front_Controller
                 }
             }
             $this->data['view'] = "front/details_article";
+            $this->articles_model->set_viewed($article_id);
             // $this->debug($this->data['vendeurs_articles']);
             //Exemple upload photo 
             /* if(isset($_FILES['pic'])){
