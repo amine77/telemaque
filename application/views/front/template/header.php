@@ -1,18 +1,26 @@
 <header>
+
     <div id="bloc_connexion">
+        <?php if ($this->session->userdata('login')) : ?>
+        <div id="profil">
+                <ul>
+                    <li><a href="<?=site_url('account')?>">Mon compte</a></li>
+                    <li><a href="<?=site_url('account/mesachats')?>">Mes achats</a></li>
+                    <li><a href="<?=site_url('account/mesventes')?>">Mes ventes</a></li>
+                </ul>
+            </div>
+        <?php endif; ?>
         <div>
             <?php
-             if($site['phone']!='') {
-                 echo'<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;&nbsp;<strong>Appelez-nous au :</strong>'.$site['phone'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ;
-                         
-             }
-            
-            
+
+            if ($site['phone'] != '') {
+                echo'<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;&nbsp;<strong>Appelez-nous au :</strong>' . $site['phone'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+          
+
 
             if ($this->session->userdata('login')) {
-                    $administration= ($this->session->userdata('role') == 'ROLE_ADMIN' || $this->session->userdata('role') == 'ROLE_SUPER_ADMIN')?"<a href='".  base_url('admin')."' >Espace Administration</a>":"";
-
-                echo 'Bonjour <strong>' . $_SESSION['login'] . '</strong>&nbsp;&nbsp;<strong>'.$administration.'</strong>&nbsp;<a href="' . site_url('logout') . '">Déconnexion</a>';
+                echo 'Bonjour <strong>' . $_SESSION['login'] . '</strong>&nbsp;&nbsp;&nbsp;<a href="' . site_url('logout') . '">Déconnexion</a>';
             } else {
                 echo ' <a href="' . site_url('login') . '">Connexion</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="' . site_url('inscription') . '">Inscription</a>';
             }
