@@ -10,7 +10,7 @@
                 </ul>
             </div>
         <?php endif; ?>
-        <div id="vendre"><a href="#">Vendre</a></div>
+        <div id="vendre"><a href="<?=  site_url('nouvelle-vente')?>">Vendre</a></div>
         <div>
             <?php
 

@@ -42,7 +42,7 @@ class Vendeurs extends Front_Controller {
     
     public function nouvelle_vente() {
         
-        $this->debug($this->data['categories']);
+       // $this->debug($this->data['categories']);
         
         
         
