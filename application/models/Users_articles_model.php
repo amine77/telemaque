@@ -17,6 +17,22 @@ class Users_articles_model extends Articles_model {
         parent::__construct();
     }
 
+       public function list_ua($article_id = "All") {
+        $with_article = "";
+        if ($article_id != "All")
+            $with_article = " WHERE a.article_id = '$article_id'  ";
+
+        $sql = "SELECT u.user_id ,u.user_name ,u.user_surname,ua.quantity,a.article_id,ua.price
+               FROM users u
+               JOIN users_articles ua ON u.user_id = ua.user_id
+               JOIN articles a ON ua.article_id = a.article_id
+               $with_article 
+               ";
+        $query = $this->db->query($sql);
+
+        return $query;
+    }
+    
     public function list_user_article($article_id = "") {
         $with_article = "";
         if ($article_id != "")

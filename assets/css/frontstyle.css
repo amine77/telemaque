@@ -500,5 +500,5 @@ STYLE DE LA PAGE DES DETAILS DES EXEMPLAIRES
 
 /*Profil*/
 
-header #profil,header #profil ul li {float:left;}
-header #profil ul li {padding-right:10px;}
+header #profil,header #profil ul li,header #vendre{float:left;}
+header #profil ul li,header #vendre{padding-right:10px;}
