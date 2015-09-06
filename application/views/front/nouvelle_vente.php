@@ -9,8 +9,6 @@
                 echo form_open("inscription/index", $attributes);
                 ?>
                 <fieldset>
-
-
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
@@ -24,7 +22,7 @@
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="form-group">
 
-                                <select name="select-category" id="nom_produit" class="form-control input-sm" >
+                                <select name="select-category" id="select-cat" class="form-control input-sm" >
                                     <option value="0">Selectionner une categorie</option>
                                     <?php
                                     foreach ($categories as $cat) {
@@ -91,13 +89,13 @@
 
                     <div class="form-group">
                         <div class="col-lg-12 col-sm-12 text-center">
-                            <input id="btn_signup" name="btn_signup" type="submit" class="btn btn-success" value="S'inscrire" />
+                            <input id="btn_signup" name="btn_signup" type="submit" class="btn btn-success" value="Ajouter objet" />
                             <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Annuler" />
                         </div>
                     </div>
                 </fieldset>
 <?php echo form_close(); ?>
-
+ <?=$form_upload_img;?>
             </div>
 
         </div>

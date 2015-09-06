@@ -6,8 +6,16 @@ $(function() {
    $('.input-group.date').datepicker({
     format: 'mm/dd/yyyy',
     startDate: '-3d'
-});
-   
+    });
+    
+   $('#select-cat').on('change',function(){
+       
+        var data = {"cat_id": $(this).val()};
+        $.post("vendeurs/select_product", data, function(result) {
+              result = $.parseJSON(result);
+              console.log(result);
+        });
+   });
    
     $(".add_article").click(function() {
         var data = {"user_article_id": $(this).data('role')};
@@ -65,7 +73,7 @@ function print_cart(action, data, entity) {
 
 
     var pathArray = window.location.pathname.split('/');
-    console.log("test");
+
     $.post("/" + pathArray[1] + "/panier/" + action, data, function(result) {
 
         result = $.parseJSON(result);
