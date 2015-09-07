@@ -47,11 +47,7 @@ $(function() {
                     <td><?= $status ?></td>
                     <td><?= $exemplaire['price']. ' €' ?></td>
                     <td><?= $exemplaire['user_name'].' '.$exemplaire['user_surname'] ?></td>
-                    <td><a  title="supprimer" href="<?= base_url('admin/delete_exemplaire/' . $exemplaire['user_article_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer cet exemplaire?">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </a> / <a title="modifier" href="<?= base_url('admin/update_exemplaire/' . $exemplaire['user_article_id']) ?>">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </a> / <a title="voir" href="<?= base_url('admin/view_exemplaire/' . $exemplaire['user_article_id']) ?>">
+                    <td> <a title="voir" href="<?= base_url('admin/view_exemplaire/' . $exemplaire['user_article_id']) ?>">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </a>
                     </td>
