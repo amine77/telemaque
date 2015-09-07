@@ -3,10 +3,45 @@
     #bloc_contenu {
         margin-bottom: 100px;
     }
+    #chartContainer2{
+        height: 300px;
+        width: 100%;
+    }
 </style>
 
 <script>
     $(function () {
+        
+        <?php  
+        if(isset($all_commands) && is_array($all_commands) && count($all_commands)> 0){
+        ?>
+                var tab = [];
+                
+                <?php foreach ($all_commands as $command){?>
+                    var t = "<?= $command['created_at']?>".split(/[- :]/);
+                    var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+                    var obj = {x:d, y:<?=$command['prix_total'] ?>};
+                    tab.push(obj);
+                    
+               <?php } ?>
+             var chart = new CanvasJS.Chart("chartContainer2",
+	{
+		animationEnabled: true,
+		title:{
+			text: "Total des commandes en fonction de temps",
+                        fontSize :22
+		},
+		data: [
+		{
+			type: "spline", //change type to bar, line, area, pie, etc   
+			dataPoints: tab
+			}
+		]
+	});
+
+	chart.render();   
+        <?php  } ?>
+        
          <?php if (isset($articles_per_category) && is_array($articles_per_category)){ ?>
                  
                  <?php $firsttime= true;
@@ -16,6 +51,7 @@
                     title: {
                         text: "Pourcentage d'articles par catgéorie"
                     },
+                    
                     exportFileName: "nb_articles_par_categorie",
                     exportEnabled: true,
                     animationEnabled: true,
@@ -61,24 +97,6 @@
             autoclose: true
         });
 
-        $('#choose_date_range').click(function (e) {
-            e.preventDefault();
-            $('.collapse').collapse('toggle');
-            var from_val = $('#from').val(), to_val = $('#to').val();
-            console.log('from = ' + from_val);
-            console.log('to = ' + to_val);
-            $.ajax({
-                method: "POST",
-                url: "<?= base_url('admin/statistic') ?>",
-                dataType: 'json',
-                data: {from: from_val, to: to_val}
-            }).success(function (response) {
-                console.log(response);
-            }).error(function () {
-                console.log('erreur ajax');
-            });
-
-        });
     });
 </script>
 <div id="bloc_contenu">
@@ -101,10 +119,6 @@
                             <tr><td><strong>Département d'oû provient le plus des utilisateurs</strong> : <span class="label label-success"><?= $departement_of_most_users ?></span></td></tr>
                             <tr><td><strong>Date de dernière inscription d'utilisateur</strong> <span class="label label-success"><?= $last_user_inscription_date ?></span></td></tr>
                             <tr><td><strong>Date du dernier message </strong> <span class="label label-success"><?= $last_message_reception_date ?></span></td></tr>
-                            <tr><td><strong>Le vendeur qui a vendu le plus d'articles</strong> : </td></tr>
-                            <tr><td><strong>Le vendeur qui a fait le plus grand chiffre d'affaires</strong> : </td></tr>
-                            <tr><td><strong>L'acheteur qui a acheté le plus d'articles</strong> : </td></tr>
-                            <tr><td><strong>L'acheteur qui a depensé le plus pour ses achats</strong> : </td></tr>
                         </tbody></table>
                 </div>
             </div>
@@ -142,6 +156,23 @@
                     <div id="chartContainer" style="height: 300px; width: 100%;"></div>
                 </div>
             </div>
+
+        </div>
+    </div>    
+    <hr>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Commandes</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;5 dernières commandes</h3>
@@ -162,54 +193,7 @@
                 </div>
             </div>
         </div>
-    </div>    
-    <hr>
-    <div class="row">
-
-        <div class="col-md-6 col-md-offset-6">
-            <p class="text-right"><button class="btn btn-default" type="collapse" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><strong>Du</strong> 2015-07-14 <strong>Au</strong> 2015-08-18 &nbsp;<span class="caret"></span></button></p>
-            <div class="collapse" id="collapseExample">
-                <div class="row">
-                    <div class="col-lg-6 col-sm-6">
-                    </div>
-                    <div class="col-lg-3 col-sm-3" id="sandbox-container-from">
-                        <strong>Du</strong> <input class="form-control" id="from" name="from" placeholder="yyyy-mm-jj" type="text"  />
-                    </div>
-                    <div class="col-lg-3 col-sm-3"  id="sandbox-container-to">
-                        <strong>Jusqu'au</strong> <input class="form-control" id="to" name="to" placeholder="yyyy-mm-jj" type="text" />
-                    </div>
-                </div>
-                <div class="row">
-                    <br>
-                    <div class="col-lg-10 col-sm-10"></div>
-                    <div class="col-lg-2 col-sm-2">
-                        <input class="btn btn-info" type="submit" id="choose_date_range" name="choose_date_range" value="Enregistrer"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><br>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Commandes</h3>
-                </div>
-                <div class="panel-body">
-                    Commandes
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Panier moyen</h3>
-                </div>
-                <div class="panel-body">
-                    Panier moyen
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     <div class="clear">
