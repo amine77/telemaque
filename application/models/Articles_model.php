@@ -132,7 +132,21 @@ class Articles_model extends CI_Model {
 
         return $query->result();
     }
+    
+    public function specification_strict($article_id = '') {
+        $with_article = "";
+        if ($article_id != "")
+            $with_article = " WHERE a.article_id = '$article_id'  ";
+        $sql = "SELECT specification_label,specification_value,sp.specification_id
+               FROM articles_specifications artsp ,specifications sp
+               WHERE artsp.specification_id = sp.specification_id 
+               AND artsp.article_id  ='$article_id' 
+               AND artsp.visible = '1'
+               ";
+        $query = $this->db->query($sql);
 
+        return $query->result();
+    }
     public function get_carousel_articles() {
         $sql = "SELECT  articles.article_id, article_label, image_path, description
                 FROM images

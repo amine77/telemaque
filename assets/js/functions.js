@@ -1,22 +1,45 @@
 
 $(function() {
     //affiche formulaire de date
-  
 
-   $('.input-group.date').datepicker({
-    format: 'mm/dd/yyyy',
-    startDate: '-3d'
+
+    $('.input-group.date').datepicker({
+        format: 'mm/dd/yyyy',
+        startDate: '-3d'
     });
-    
-   $('#select-cat').on('change',function(){
-       
+
+    $('#select-cat').on('change', function() {
+
         var data = {"cat_id": $(this).val()};
-        $.post("vendeurs/select_product", data, function(result) {
-              result = $.parseJSON(result);
-              console.log(result);
+        $.post("vendeurs/select_cat", data, function(result) {
+            result = $.parseJSON(result);
+            if (result != 'vide') {
+
+                var html = '<select name="select_product" id="select-product" class="form-control input-sm">' +
+                        '<option value="0">Selectionner un article</option>';
+                $.each(result, function(index, value) {
+                    html += '<option value="' + value.article_id + '">' + value.article_label + '</option>';
+                });
+                html += '</select>';
+
+                $('#content-select-product .form-group').html(html);
+                $('#content-select-product').show();
+                console.log(result);
+
+                var html = "";
+                select_art();
+            }
+            else
+                $('#content-select-product').hide();
         });
-   });
-   
+    });
+
+    
+
+
+
+
+
     $(".add_article").click(function() {
         var data = {"user_article_id": $(this).data('role')};
         var action = "add_article/norm";
@@ -91,5 +114,34 @@ function print_cart(action, data, entity) {
         $("#panier span").animate({fontSize: "17px", color: "#AA0000"}, 500).animate({fontSize: "13px", color: "white"}, 300);
 
     });
+
+}
+
+
+function select_art(){
+    
+    $('#content-select-product select').on('change', function() {
+
+        var data = {"article_id": $(this).val()};
+        $.post("vendeurs/select_product", data, function(result) {
+            result = $.parseJSON(result);
+            if (result != 'vide') {
+
+                var html = '<option value="0">Selectionner une specification</option>';
+                $.each(result, function(index, value) {
+                    html += '<option value="' + value.specification_id + '">' + value.specification_label + '</option>';
+                });
+
+                $('#content-select-spec #select-spec').html(html);
+                $('#content-select-spec').show();
+                console.log(result);
+
+                var html = "";
+            }
+            else
+                $('#content-select-spec').hide();
+        });
+    });
+
 
 }
