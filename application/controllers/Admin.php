@@ -56,10 +56,6 @@ class Admin extends CI_Controller
         $tab['departement_of_most_users']=  $this->statistics_model->get_departement_of_most_users();
         $tab['last_user_inscription_date']=  $this->statistics_model->get_last_user_inscription_date();
         $tab['last_message_reception_date']=  $this->statistics_model->get_last_message_reception_date();
-//        $tab['salesman_of_most_sold_articles']=  $this->statistics_model->get_salesman_of_most_sold_articles();
-//        $tab['seller_of_most_bigger_turnover']=  $this->statistics_model->get_seller_of_most_bigger_turnover();
-//        $tab['buyer_of_most_bought_articles']=  $this->statistics_model->get_buyer_of_most_bought_articles();
-//        $tab['buyer_of_most_of_expenses']=  $this->statistics_model->get_buyer_of_most_of_expenses();
         $tab['total_items_for_sale']=  $this->statistics_model->get_total_items_for_sale();
         $tab['total_copies_for_sale']=  $this->statistics_model->get_total_copies_for_sale();
         $tab['total_categories']=  $this->statistics_model->get_total_categories();
@@ -73,6 +69,7 @@ class Admin extends CI_Controller
         $tab['last_purchase_date']=  $this->statistics_model->get_last_purchase_date();
         $tab['last_five_command']=  $this->statistics_model->get_last_five_command();
         $tab['articles_per_category']=  $this->statistics_model->get_articles_and_categories();
+        $tab['all_commands']=  $this->statistics_model->get_all_commands();
         return $tab;
     }
 
