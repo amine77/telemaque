@@ -46,10 +46,25 @@ class Vendeurs extends Front_Controller {
         if ($etape == 2 && $_SERVER['HTTP_REFERER'] == site_url() . "nouvelle-vente" && isset($_POST['add_product'])) {
 
 
-            $this->form_validation->set_rules("label_produit", "Libellé produit", "trim|required|min_length[16]");
+            $this->form_validation->set_rules("title", "Libellé produit", "trim|required");
             $this->form_validation->set_rules("select-category", "Selectionner une categorie", "trim|required");
+            $this->form_validation->set_rules("price", "Prix", "trim|required|integer");
+            $this->form_validation->set_rules("qty", "Quantité", "trim|required|integer");
             if ($this->form_validation->run() == TRUE) {
-
+                 $this->data['view'] = "front/nouvelle_vente_2";
+                 
+                  $data = array(
+                      'quantity' => $this->input->post("qty"),
+                      'title' => $this->input->post("title"),
+                      'quantity' => $this->input->post("qty"),
+                      'description' => $this->input->post("description"),
+                      'price' => $this->input->post("price"),
+                      'article_id' => $this->input->post("select_product"),
+                      'user_id' => $_SESSION['user_id']
+                    );
+                    $this->db->insert('users_articles', $data);
+                    $im_id = $this->db->insert_id();
+                  
                 //Exemple upload photo 
                 if (isset($_FILES['pic'])) {
                     if (is_uploaded_file($_FILES['pic']['tmp_name'])) {
@@ -60,16 +75,20 @@ class Vendeurs extends Front_Controller {
                     $this->data['form_upload_img'] = $this->utils_model->form_upload_img();
                 }
             }
-
-            $this->data['view'] = "front/nouvelle_vente_2";
+            else
+                 redirect(site_url() . "nouvelle-vente");
+           
+            
         } else if ($etape != '') {
             redirect(site_url() . "nouvelle-vente");
+
         } else {
             $this->data['additional_js'] = array('functions');
             $this->data['souCat'] = $this->category_model->get_category_child();
             $this->data['view'] = "front/nouvelle_vente";
-        }
 
+        }
+         
         $this->load->view('front/template/layout', $this->data);
     }
 

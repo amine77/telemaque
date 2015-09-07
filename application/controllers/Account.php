@@ -14,6 +14,7 @@ class Account extends Front_Controller {
                 'message_model',
                 'site_model',
                 'module_model',
+                'vendeurs_model',
                 'cmd_model')
             );
     }
@@ -45,6 +46,11 @@ class Account extends Front_Controller {
         
         $this->data['site'] = $this->site_model->get_site_configurations();
         $this->data['view'] = "front/ventes";
+        
+        $this->data['vente_en_attente'] = $this->vendeurs_model->get_sell('',$_SESSION['user_id'],0,'waiting');
+        $this->data['vente_en_cours'] = $this->vendeurs_model->get_sell('',$_SESSION['user_id'],1);
+        $this->data['vente_terminer'] = $this->vendeurs_model->get_sell('',$_SESSION['user_id'],1,'finish');
+
         $this->load->view('front/template/layout', $this->data);
     }
     

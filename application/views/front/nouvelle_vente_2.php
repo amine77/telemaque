@@ -12,9 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="bloc_form_connex">
-                
-               
-                <?php echo form_close(); ?>
+
                 <div class="col-lg-6">
                 <?= $form_upload_img; ?>
                 </div>    

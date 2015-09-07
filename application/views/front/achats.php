@@ -6,7 +6,7 @@
         if ($key != 'Total_Cmd'):;
             ?>
 
-    <table id="command_num_<?= $key ?>" style="margin-bottom: 20px">
+    <table id="command_num_<?= $key ?>" style="margin-bottom: 20px" class="table table-hover">
                 <caption>Commande numero <?= $key ?></caption>
                 <tr>
                     <th>Image</th>

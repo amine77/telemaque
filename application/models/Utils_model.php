@@ -127,7 +127,7 @@ class Utils_model extends CI_Model {
         }
 
         $html.= "</td>
-                   <td>" . form_submit('submit', 'Save', 'class="btn btn-primary"') . "</td>    
+                   <td>" . form_submit('submit', 'Enregistrer', 'class="btn btn-primary"') . "</td>    
                </tr>
            </table>";
         return $html;
