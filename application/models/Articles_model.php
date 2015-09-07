@@ -15,7 +15,7 @@ class Articles_model extends CI_Model {
         return $query;
     }
 
-    public function get_all_copies(){
+    public function get_all_copies() {
         $sql = "select ua.user_article_id, ua.title, ua.is_verified, a.article_label, ua.created_at,ua.price, u.user_name, u.user_surname from users_articles ua, articles a, users u
                where a.article_id = ua.article_id  and u.user_id= ua.user_id";
         $query = $this->db->query($sql);
@@ -25,6 +25,18 @@ class Articles_model extends CI_Model {
             return false;
         }
     }
+
+    public function get_copie_by_id($copy_id) {
+        $sql = "select ua.user_article_id, ua.title,ua.quantity, ua.description, ua.is_verified, a.article_label, ua.created_at,ua.price, u.user_name, u.user_surname from users_articles ua, articles a, users u
+               where a.article_id = ua.article_id  and u.user_id= ua.user_id and ua.user_article_id = $copy_id";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
     public function get_all_with_number_of_copies() {
         $sql = "select a.article_id,a.created_at, a.article_label, a.is_new, a.is_verified, c.category_label, count(ua.user_article_id) as nb_copies_of_article 
                 from  users_articles ua
@@ -90,6 +102,35 @@ class Articles_model extends CI_Model {
             return FALSE;
         }
     }
+
+
+    function set_valide_copy($copy_id) {
+        $data = array(
+            'is_verified' => 1
+        );
+
+        $this->db->where('user_article_id', $copy_id);
+        if ($this->db->update('users_articles', $data)) {
+
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    function set_valide($article_id) {
+        $data = array(
+            'is_verified' => 1
+        );
+
+        $this->db->where('article_id', $article_id);
+        if ($this->db->update('articles', $data)) {
+
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
     public function get_article_restrict($article_id = '') {
 
         if ($article_id == '')
@@ -101,9 +142,10 @@ class Articles_model extends CI_Model {
         $oData = $oData[0];
         $oData->spec = $spec;
         //Insertion image
-        $oData->img = $this->utils_model->get_im($oData->image_id,350);
+        $oData->img = $this->utils_model->get_im($oData->image_id, 350);
         return $oData;
     }
+
     public function get_article($article_id = '') {
 
         if ($article_id == '')
@@ -145,7 +187,7 @@ class Articles_model extends CI_Model {
 
         return $query->result();
     }
-    
+
     public function specification_strict($article_id = '') {
         $with_article = "";
         if ($article_id != "")
@@ -160,6 +202,7 @@ class Articles_model extends CI_Model {
 
         return $query->result();
     }
+
     public function get_carousel_articles() {
         $sql = "SELECT  articles.article_id, article_label, image_path, description
                 FROM images
