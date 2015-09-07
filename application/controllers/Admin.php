@@ -27,6 +27,7 @@ class Admin extends CI_Controller
         $this->load->model('module_model');
         $this->load->model('comment_model');
         $this->load->model('statistics_model');
+        $this->load->model('utils_model');
     }
 
     public function index()
@@ -115,7 +116,19 @@ class Admin extends CI_Controller
         }
         echo ($html);
     }
-
+        public function view_article($article_id)
+    {
+        $data['title'] = 'Détail d\'article';
+        $data['view'] = 'back/view_article';
+        $data['show_header'] = FALSE;
+        $data['show_nav'] = FALSE;
+        $data = $this->get_site_identity($data);
+        $data['article'] = $this->articles_model->get_article_restrict($article_id);
+        $this->articles_model->set_old($article_id);
+        //$data['article_specifications'] = $this->article_model->get_article_specifications($article_id);
+        $data['id']= $article_id;
+        $this->load->view('back/template/layout', $data);
+    }
     public function view_user($user_id)
     {
 //        if (!$this->session->has_userdata('login')) {
