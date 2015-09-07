@@ -73,7 +73,6 @@
             <li>
                 <a href="<?= base_url('admin/liste_modules') ?>">Modules</a>
             </li>
-            <li><a href="#">Structure</a></li>
         </ul>
     </div>
 </nav>

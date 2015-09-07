@@ -54,6 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 //$route['^(panier)(/:any)?$'] = "front/$0";
 $route['^(vendeurs)/(select_product)'] = "vendeurs/select_product";
+$route['^(vendeurs)/(select_cat)'] = "vendeurs/select_cat";
 $route['^(vendeurs)/(:any)'] = "vendeurs/liste_vendeurs_article/$0";
 $route['^(nouvelle-vente)'] = "vendeurs/nouvelle_vente";
 

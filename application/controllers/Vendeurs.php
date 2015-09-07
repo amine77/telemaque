@@ -42,7 +42,7 @@ class Vendeurs extends Front_Controller {
             redirect('connexion');
         }
         $this->data['additional_js'] = array('functions');
-
+        $this->data['souCat'] = $this->category_model->get_category_child();
         $this->data['view'] = "front/nouvelle_vente";
         //Exemple upload photo 
         if (isset($_FILES['pic'])) {
@@ -57,12 +57,29 @@ class Vendeurs extends Front_Controller {
     }
 
     public function select_product() {
+        $article_id = json_decode($_POST['article_id']);
+        
+        $specs = $this->articles_model->specification_strict($article_id);
+      
+        if(!$specs)
+             echo json_encode('vide');
+        else
+           echo json_encode($specs);
+       
+    }
+    
+    public function select_cat() {
         $cat_id = json_decode($_POST['cat_id']);
         
         $articles = $this->articles_model->get_articles_by_category($cat_id);
-        $this->debug($articles);
-        echo json_encode($articles);
+   
+        if(!$articles)
+             echo json_encode('vide');
+        else
+           echo json_encode($articles->result_array());
        
     }
+    
+
 
 }
