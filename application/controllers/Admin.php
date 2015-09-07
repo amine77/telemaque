@@ -99,7 +99,19 @@ class Admin extends CI_Controller
 
         echo json_encode($response);
     }
-
+    public function validate_article(){
+        $article_id = $this->input->post('article_id');
+        $response= array();
+        if($this->articles_model->set_valide($article_id)){
+            $response['state'] = 'OK';
+        }else{
+            $response['state'] = 'FAILED';
+        }
+        
+         echo json_encode($response);
+        
+        
+    }
     public function view_message($message_id)
     {
         $html = '';
@@ -120,8 +132,8 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Détail d\'article';
         $data['view'] = 'back/view_article';
-        $data['show_header'] = FALSE;
-        $data['show_nav'] = FALSE;
+        $data['show_header'] = TRUE;
+        $data['show_nav'] = TRUE;
         $data = $this->get_site_identity($data);
         $data['article'] = $this->articles_model->get_article_restrict($article_id);
         $this->articles_model->set_old($article_id);

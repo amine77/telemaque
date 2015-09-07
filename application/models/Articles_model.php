@@ -90,6 +90,19 @@ class Articles_model extends CI_Model {
             return FALSE;
         }
     }
+    function set_valide($article_id) {
+        $data = array(
+            'is_verified' => 1
+        );
+
+        $this->db->where('article_id', $article_id);
+        if ($this->db->update('articles', $data)) {
+
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
     public function get_article_restrict($article_id = '') {
 
         if ($article_id == '')

@@ -49,9 +49,7 @@ $(function() {
                     <td><?= $article['category_label'] ?></td>
                     <td><?= $status ?></td>
                     <td><?= $article['nb_copies_of_article'] ?></td>
-                    <td><a  title="supprimer" href="<?= base_url('admin/delete_article/' . $article['article_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer cet article?">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </a> / <a title="voir" href="<?= base_url('admin/view_article/' . $article['article_id']) ?>">
+                    <td> <a title="voir" href="<?= base_url('admin/view_article/' . $article['article_id']) ?>">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </a>
                     </td>

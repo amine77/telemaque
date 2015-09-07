@@ -21,8 +21,7 @@ $(function() {
 
 <div id="bloc_contenu">
     
-    <h4><a href="<?= base_url('admin/ajouter_exemplaire')?>">Nouveau exemplaire</a></h4><br>
-    <h1>Liste des exemplaires</h1>
+    <br><h1>Liste des exemplaires</h1>
 
     <?php if (is_array($exemplaires)) { ?>
         <table class="table table-hover">
