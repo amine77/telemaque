@@ -61,7 +61,7 @@
                     <div class="row require_art">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <textarea class="form-control" rows="5" id="description" placeholder="Description" name="description" required="required"></textarea>
+                                <textarea class="form-control" rows="5" id="description" placeholder="Description" name="description"></textarea>
                                 <span class="text-danger"><?php echo form_error('description'); ?></span>
                             </div>
                         </div>

@@ -41,27 +41,27 @@ class Vendeurs extends Front_Controller {
         if (!$this->session->has_userdata('login')) {
             redirect('connexion');
         }
-        if ($this->input->post('valid-cart') == "Valider") {
 
-            $this->form_validation->set_rules("label_produit", "Libellé produit", "trim|required|min_length[16]");
-            $this->form_validation->set_rules("security_code", "Cryptogramme", "trim|required|min_length[3]|max_length[3]|integer");
-            if ($this->form_validation->run() == TRUE) {
-                
-            }
-        }
 
         if ($etape == 2 && $_SERVER['HTTP_REFERER'] == site_url() . "nouvelle-vente" && isset($_POST['add_product'])) {
-            $this->data['view'] = "front/nouvelle_vente_2";
 
-            //Exemple upload photo 
-            if (isset($_FILES['pic'])) {
-                if (is_uploaded_file($_FILES['pic']['tmp_name'])) {
-                    $im_id = $this->utils_model->img_insert($_FILES['pic']);
-                    $this->data['form_upload_img'] = $this->utils_model->form_upload_img($im_id);
+
+            $this->form_validation->set_rules("label_produit", "Libellé produit", "trim|required|min_length[16]");
+            $this->form_validation->set_rules("select-category", "Selectionner une categorie", "trim|required");
+            if ($this->form_validation->run() == TRUE) {
+
+                //Exemple upload photo 
+                if (isset($_FILES['pic'])) {
+                    if (is_uploaded_file($_FILES['pic']['tmp_name'])) {
+                        $im_id = $this->utils_model->img_insert($_FILES['pic']);
+                        $this->data['form_upload_img'] = $this->utils_model->form_upload_img($im_id);
+                    }
+                } else {
+                    $this->data['form_upload_img'] = $this->utils_model->form_upload_img();
                 }
-            } else {
-                $this->data['form_upload_img'] = $this->utils_model->form_upload_img();
             }
+
+            $this->data['view'] = "front/nouvelle_vente_2";
         } else if ($etape != '') {
             redirect(site_url() . "nouvelle-vente");
         } else {
