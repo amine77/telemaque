@@ -9,7 +9,8 @@ $(function() {
     });
 
     $('#select-cat').on('change', function() {
-
+       if($(this).val()!=0)
+            $('.require_art').hide();
         var data = {"cat_id": $(this).val()};
         $.post("vendeurs/select_cat", data, function(result) {
             result = $.parseJSON(result);
@@ -121,19 +122,26 @@ function print_cart(action, data, entity) {
 function select_art(){
     
     $('#content-select-product select').on('change', function() {
-
+        if($(this).val()!=0)
+            $('.require_art').show();
+        else
+             $('.require_art').hide();
         var data = {"article_id": $(this).val()};
         $.post("vendeurs/select_product", data, function(result) {
             result = $.parseJSON(result);
             if (result != 'vide') {
 
-                var html = '<option value="0">Selectionner une specification</option>';
+              
                 $.each(result, function(index, value) {
-                    html += '<option value="' + value.specification_id + '">' + value.specification_label + '</option>';
+                    html += '<tr height="50px">'+
+                                '<td class="col-xs-2 col-sm-2 col-md-2">'+value.specification_label+'</td>'+
+                                '<td class="col-xs-2 col-sm-2 col-md-2"><input type="text" name="spec_id_'+value.specification_id+'" class="form-control"/></td>'
+                             '</tr>';
+                             
                 });
 
-                $('#content-select-spec #select-spec').html(html);
-                $('#content-select-spec').show();
+                $('#input-spec table').html(html);
+                $('#content-select-spec,#input-spec').show();
                 console.log(result);
 
                 var html = "";

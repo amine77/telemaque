@@ -1,45 +1,24 @@
 <style>
-
-    #combo{ 
-        margin:5px 0; 
-    } 
-    select#chooseplaylist, select#selplaylist{ 
-        width:200px; 
-        display:inline-block; 
-    } 
-    ul#btselmulti{ 
-        display:inline-block; 
-        list-style-type:none; 
-        margin:0 5px; 
-        padding:0; 
-    } 
-    ul#btselmulti li{ 
-        cursor:pointer;     
-    } 
-    #labelplaylist{ 
-        display:block; 
-        margin:5px 0 0 0; 
+    .require_art{
+        display:none
     }
 
-    .glyphicon {
-        font-size: 25px;
-    }
 </style>
 
 
 <div id="bloc_contenu">
-    <br><h2>Nouvelle exemplaire en vente</h2><br>
+    <br><h2>Etape 1 : Nouvelle exemplaire en vente</h2><br>
     <?php echo $this->session->flashdata('msg'); ?>
     <div class="container">
         <div class="row">
             <div class="bloc_form_connex">
                 <?php
                 $attributes = array("class" => "form-horizontal", "id" => "loginform", "name" => "loginform");
-                echo form_open("inscription/index", $attributes);
+                echo form_open("nouvelle-vente/2", $attributes);
                 ?>
                 <fieldset>
                     <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                             <div class="form-group">
                                 <input type="text" name="label_produit" id="label_produit" class="form-control input-sm" placeholder="Libellé produit">
                                 <span class="text-danger"><?php echo form_error('label_produit'); ?></span>
@@ -48,10 +27,10 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                             <div class="form-group">
 
-                                <select name="select-category" id="select-cat" class="form-control input-sm" >
+                                <select name="select-category" id="select-cat" class="form-control input-sm" required="required">
                                     <option value="0">Selectionner une categorie</option>
                                     <?php
                                     foreach ($souCat as $cat) {
@@ -60,7 +39,7 @@
                                     }
                                     ?>
                                 </select>    
-                                <span class="text-danger"><?php echo form_error('first_name'); ?></span>
+                                <span class="text-danger"><?php echo form_error('select-category'); ?></span>
                             </div>
                         </div>
                         <div class="col-sm-1"></div>
@@ -68,7 +47,7 @@
                             <div class="form-group">
 
 
-             
+
 
                             </div>
                         </div>
@@ -79,50 +58,65 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row require_art">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <textarea class="form-control" rows="5" id="comment" placeholder="Description"></textarea>
-                                <span class="text-danger"><?php echo form_error('first_name'); ?></span>
+                                <textarea class="form-control" rows="5" id="description" placeholder="Description" name="description" required="required"></textarea>
+                                <span class="text-danger"><?php echo form_error('description'); ?></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="row" id="content-select-spec" style="display:none">
-                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <h4>Ajouter des caracteristiques</h4>
                             </div>
                         </div>
-                        <div class="col-sm-2">
-                            <div class="glyphicon glyphicon-plus-sign"> </div>
-                        </div>  
+
+
                         <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group"> 
-                                <select id="select-spec" name="select-spec" class="form-control input-sm">
-                                    
-                                </select>
+                            <div class="form-group" id="input-spec" name="add_spec"> 
+                                <table></table>
                             </div>
                         </div>
-                          
-                        
-                    </div>
-                    <div class="row" id="content-add-spec" style="display:none">
-                        <div class="glyphicon glyphicon-plus-sign"></div>
+
+
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-lg-12 col-sm-12 text-center">
-                            <input id="btn_signup" name="btn_signup" type="submit" class="btn btn-success" value="Ajouter objet" />
-                            <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Annuler" />
+                    <div class="row require_art">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="form-group">
+                                <input type="number" class="form-control" placeholder="Prix" name="price" min="0" /> 
+                            </div>
+                        </div>
+                        <span><?php echo form_error('price'); ?></span>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="form-group">
+                                <span style="font-size:25px">&nbsp;€</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="form-group">
+                                <input type="number" class="form-control" placeholder="Quantité" name="qty" min="1"/> 
+                            </div>
+                            <span><?php echo form_error('qty'); ?></span>
+                        </div>
+                    </div>   
+
+                    <div class="form-group require_art">
+                        <div class="col-lg-6 col-sm-6 text-center ">
+                            <input id="btn_signup" name="add_product" type="submit" class="btn btn-success" value="Ajouter article" />
+
                         </div>
                     </div>
                 </fieldset>
-                <?php echo form_close(); ?>
-                <?= $form_upload_img; ?>
-            </div>
 
+            </div>    
         </div>
+
     </div>
+</div>
 
 </div>
