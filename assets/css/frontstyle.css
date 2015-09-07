@@ -39,6 +39,7 @@ a:hover{
     width: 1200px;
     margin: 0 auto;
     padding-left: 1.5%;
+    padding-right: 1.5%;
     padding-top: 15px;
     padding-bottom: 15px;
 }
@@ -297,7 +298,11 @@ STYLE DE L'INDEX
 }
 
 .list-article .bloc_titre{
-    height: 70px;
+    height: 82px;
+}
+
+.list-article .img{
+    min-height: 262px !important; 
 }
 
 .list-article img{

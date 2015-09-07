@@ -68,7 +68,7 @@
              ";
             //echo " <img src='" . base_url() . "assets/img/img_none.jpg'>";
            // var_dump($row->image_id);
-            echo "<div class='img' style='width:250px;height:250px;display: table-cell;vertical-align: middle;'>"; 
+            echo "<div class='img' style='width:250px;height:265px;display: table-cell;vertical-align: middle;'>"; 
              echo ($this->utils_model->get_im($row->image_id)!= null) ? 
                     $this->utils_model->get_im($row->image_id)['imsrc'] :
                 " <img src='" . base_url() . "assets/img/img_none.jpg'>" ;

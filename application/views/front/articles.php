@@ -3,6 +3,9 @@
     <?php
         defined('BASEPATH') OR exit('No direct script access allowed');
         
+        if(isset($category)){
+            echo '<h2>Liste des Articles ' . $category['category_label'] . '</h2>';
+        }
         
         if(isset($articles) && is_object($articles)){
         // Affiche les articles

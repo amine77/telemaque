@@ -29,6 +29,7 @@ class Home extends Front_Controller {
         if ($this->category_model->get_category_by_slug($slug)) {
             $category = $this->category_model->get_category_by_slug($slug);
             $this->data['articles'] = $this->articles_model->get_articles_by_category($category['category_id']);
+            $this->data['category'] = $category;
         }
 
         $this->data['view'] = 'front/articles';
