@@ -90,7 +90,20 @@ class Articles_model extends CI_Model {
             return FALSE;
         }
     }
+    public function get_article_restrict($article_id = '') {
 
+        if ($article_id == '')
+            return;
+
+        $query = $this->db->query("SELECT * FROM articles WHERE article_id='$article_id'");
+        $oData = $query->result();
+        $spec = $this->specification_strict($article_id);
+        $oData = $oData[0];
+        $oData->spec = $spec;
+        //Insertion image
+        $oData->img = $this->utils_model->get_im($oData->image_id,350);
+        return $oData;
+    }
     public function get_article($article_id = '') {
 
         if ($article_id == '')
