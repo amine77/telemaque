@@ -20,9 +20,11 @@ class Init extends CI_Controller {
 
     public function index() {
         $data = array();
-        $this->load->view('front/init', $data);
+        $data['page'] = "intro";
+
         if (isset($_POST['valider'])) {
 
+            $data['page'] = "install-bdd";
             $fp = fopen(APPPATH . "config/infodatabase.txt", "r+"); // 1.On ouvre le fichier en lecture/écriture
             $texte = $_POST['hostname'] . "\r\n";
             $texte.= $_POST['username'] . "\r\n";
@@ -33,40 +35,39 @@ class Init extends CI_Controller {
             fputs($fp, $texte);            // 5.On écrit dans le fichier le nouveau nb
             fclose($fp);
             // 6.On ferme le fichier
-            
-            
-            
-           if ($this->dbforge->create_database($_POST['name_bdd'])) {
+
+
+            if ($this->dbforge->create_database($_POST['name_bdd'])) {
                 echo 'Database created!';
                 $fichier = APPPATH . "config/script.sql";
 
                 $fp = file($fichier);
 
-                $fp[0] = "Use ".$_POST['name_bdd']." ; \n";
+                $fp[0] = "Use " . $_POST['name_bdd'] . " ; \n";
 
                 $zeData = implode("", $fp);
 
 
 
-                $handle = fopen($fichier,'w+');
+                $handle = fopen($fichier, 'w+');
 
-                fwrite($handle,$zeData);
-                
+                fwrite($handle, $zeData);
+
                 $requetes = explode('<fin>', file_get_contents($fichier));
-
+                $count = 0;
+                echo "<h4>Veuillez patienter ...</h4>";
                 foreach ($requetes as $req) {
+                    $pourcent = $count * 100 / count($requetes);
+                    echo "<h5>" . $pourcent . "</h5>";
                     $this->db->query($req);
+                    $count++;
                 }
                 fclose($handle);
-
             }
             redirect(base_url());
-            
-                   
-                
-                
-                
         }
+        else
+            $this->load->view('front/init', $data);
     }
 
 }
