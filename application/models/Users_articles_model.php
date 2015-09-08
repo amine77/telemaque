@@ -97,10 +97,10 @@ class Users_articles_model extends Articles_model {
                ";
 
         $query = $this->db->query($sql);
-
+       
         return $query->result();
     }
-
+   
     public function user_with_article($article_id, $user_id) {
 
 
@@ -124,8 +124,10 @@ class Users_articles_model extends Articles_model {
                JOIN articles a ON ua.article_id = a.article_id
                WHERE a.article_id = '$article_id' AND ua.user_article_id = '$exemplaire_id'
                ";
-        $query = $this->db->query($sql);
+        $query = $this->db->query($sql)->result();
 
+        $query[0]->spec = $this->user_article_specification($exemplaire_id);
+       
         return $query;
     }
 

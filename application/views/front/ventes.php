@@ -20,7 +20,7 @@
                 foreach ($vente_en_attente as $vente):
                     ?>
                     <tr>
-                        <td><?= $vente['title'] ?></td>
+                        <td class='col-sm-2'><?= $vente['title'] ?></td>
                         <td><?= substr($vente['description'], 0, 50)?> <?= (strlen($vente['description']) > 50) ? '...' : '' ?> </td>
                         <td>
                             <?php
@@ -55,7 +55,7 @@
                 foreach ($vente_en_cours as $vente):
                     ?>
                     <tr>
-                        <td><?= $vente['title'] ?></td>
+                        <td class='col-sm-2'><?= $vente['title'] ?></td>
                         <td><?= substr($vente['description'], 0, 50)?> <?= (strlen($vente['description']) > 50) ? '...' : '' ?> </td>
                         <td>
                             <?php
@@ -72,12 +72,12 @@
     </div>
     
     <div class="row">
-        <h4>Mes ventes en passé</h4>
+        <h4>Mes ventes passées</h4>
         <table style="margin-bottom: 20px" class="table table-hover col-sm-2">
             <tr>
-                <td>Titre</td>
+                <td class='col-sm-2'>Titre</td>
                 <td>Description</td>
-                <td>Date de la vente</td>
+                <td class='col-sm-2'>Date de la vente</td>
                 <td>Prix</td>
             </tr>
             <?php if (!$vente_terminer) : ?>
@@ -89,7 +89,7 @@
                 foreach ($vente_terminer as $vente):
                     ?>
                     <tr>
-                        <td><?= $vente['title'] ?></td>
+                        <td class='col-sm-2'><?= $vente['title'] ?></td>
                         <td><?= substr($vente['description'], 0, 50)?> <?= (strlen($vente['description']) > 50) ? '...' : '' ?> </td>
                         <td>
                             <?php

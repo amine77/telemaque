@@ -61,7 +61,7 @@ class Articles extends Front_Controller
               $this->data['form_upload_img'] = $this->utils_model->form_upload_img();
               } */
         } else {
-            $userActicle = $this->users_articles_model->user_exemplaire($article_id, $exemplaire_id)->result();
+            $userActicle = $this->users_articles_model->user_exemplaire($article_id, $exemplaire_id);
             //$this->output->enable_profiler(TRUE);
 
             if (count($userActicle) == 0) {

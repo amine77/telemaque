@@ -109,7 +109,7 @@
 
                     <div class="form-group require_art">
                         <div class="col-lg-6 col-sm-6 text-center ">
-                            <input id="btn_signup" name="add_product" type="submit" class="btn btn-success" value="Ajouter article" />
+                            <input id="btn_signup" name="add_product" type="submit" class="btn btn-success" value="Suivant" />
 
                         </div>
                     </div>

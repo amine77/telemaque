@@ -19,6 +19,13 @@
             </div>
 
         </div>
+        <div>
+            <form method="POST" action="nouvelle-vente/2">
+                <input type="submit" class="btn_base" name="end_add_product"  value="Metre en vente">
+            </form>
+            
+        </div>
     </div>
+    
 
 </div>
