@@ -6,8 +6,8 @@
         <div class="row">
             <div class="bloc_form_connex">
 
-                <div class="col-lg-6">
-                    <h4>Félicitation ,votre article sera disponible à la vente lorsqu'il sera valider par les administrateur</h4>
+                <div class="col-lg-12">
+                   <p>Félicitation ,votre article sera disponible à la vente lorsqu'il sera valider par les administrateur</p>
                 </div>    
             </div>
 

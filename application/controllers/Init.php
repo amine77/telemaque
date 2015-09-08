@@ -18,11 +18,11 @@ class Init extends CI_Controller {
         $this->load->dbforge();
     }
 
-    public function index() {
+    public function index($etape = "") {
         $data = array();
-        $data['page'] = "intro";
 
-        if (isset($_POST['valider'])) {
+
+        if (isset($_POST['valider']) && $etape == 2) {
 
             $data['page'] = "install-bdd";
             $fp = fopen(APPPATH . "config/infodatabase.txt", "r+"); // 1.On ouvre le fichier en lecture/écriture
@@ -58,16 +58,17 @@ class Init extends CI_Controller {
                 echo "<h4>Veuillez patienter ...</h4>";
                 foreach ($requetes as $req) {
                     $pourcent = $count * 100 / count($requetes);
-                    echo "<h5>" . $pourcent . "</h5>";
+                    echo "<h5>" . intval($pourcent) . " %</h5>";
                     $this->db->query($req);
                     $count++;
                 }
                 fclose($handle);
             }
             redirect(base_url());
-        }
-        else
+        } else {
+            $data['page'] = "intro";
             $this->load->view('front/init', $data);
+        }
     }
 
 }

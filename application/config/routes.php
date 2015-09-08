@@ -63,8 +63,10 @@ $route['translate_uri_dashes'] = FALSE;
 $fichier = file(APPPATH . "config/infodatabase.txt");
 if (trim($fichier[3]) == '') {
     $route['default_controller'] = 'Init';
-    $route['^(:any)'] = "init";
-    
+    $route['(:any)'] = "init";
+    $route['(:any)/(:any)'] = "init";
+    $route['(:any)/(:any)/(:any)'] = "init";
+    $route['404_override'] = "init";
     
 } else {
     $route['default_controller'] = 'home';

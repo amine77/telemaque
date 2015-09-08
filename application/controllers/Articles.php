@@ -54,7 +54,7 @@ class Articles extends Front_Controller
             //Exemple upload photo 
             /* if(isset($_FILES['pic'])){
               if (is_uploaded_file($_FILES['pic']['tmp_name'])) {
-              $im_id = $this->utils_model->img_insert($_FILES['pic']);
+              $im_id = $this->utils_model->img_insert($_FILES['pic']['tmp_name']);
               $this->data['form_upload_img'] = $this->utils_model->form_upload_img($im_id );
               }
               }else{

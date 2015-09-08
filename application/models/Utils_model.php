@@ -110,7 +110,7 @@ class Utils_model extends CI_Model {
       }
      */
 
-    public function form_upload_img($im_id = '', $preview = true, $width = 250, $height = '', $alt = '') {
+      public function form_upload_img($im_id = '', $preview = true, $width = 250, $height = '', $alt = '') {
 
         $html = form_open_multipart();
         $html.= " <table class='table'>
@@ -137,7 +137,7 @@ class Utils_model extends CI_Model {
         $type = explode('.', $img['name']);
         $type = $type[count($type) - 1];
         $url = "./assets/img/upload/" . uniqid(rand()) . '.' . $type;
-        if (in_array($type, array("jpg", "jpeg", "gif", "png"))) {
+        if (in_array(strtolower($type), array("jpg", "jpeg", "gif", "png"))) {
             if (is_uploaded_file($img['tmp_name'])) {
                 $datasize = getimagesize($img['tmp_name']);
                 if (move_uploaded_file($img['tmp_name'], $url)) {

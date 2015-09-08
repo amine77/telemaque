@@ -49,7 +49,7 @@ and open the template in the editor.
 
 
                 <div id="install-cms"> 
-                    <form method="POST">
+                    <form method="POST" action="./2">
                         <table cellspacing="0" cellpadding="0" class="table table-hover">
                             <tr>
                                 <td>
