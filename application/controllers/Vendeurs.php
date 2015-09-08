@@ -35,51 +35,83 @@ class Vendeurs extends Front_Controller {
         $this->load->view('front/template/layout', $this->data);
     }
 
-    public function nouvelle_vente() {
+    public function nouvelle_vente($page = '', $etape = '') {
 
         // $this->debug($this->data['categories']);
-         if (!$this->session->has_userdata('login')) {
+        if (!$this->session->has_userdata('login')) {
             redirect('connexion');
         }
-        $this->data['additional_js'] = array('functions');
-        $this->data['souCat'] = $this->category_model->get_category_child();
-        $this->data['view'] = "front/nouvelle_vente";
-        //Exemple upload photo 
-        if (isset($_FILES['pic'])) {
-            if (is_uploaded_file($_FILES['pic']['tmp_name'])) {
-                $im_id = $this->utils_model->img_insert($_FILES['pic']);
-                $this->data['form_upload_img'] = $this->utils_model->form_upload_img($im_id);
+
+
+        if ($etape == 2 && $_SERVER['HTTP_REFERER'] == site_url() . "nouvelle-vente" && isset($_POST['add_product'])) {
+
+
+            $this->form_validation->set_rules("title", "Libellé produit", "trim|required");
+            $this->form_validation->set_rules("select-category", "Selectionner une categorie", "trim|required");
+            $this->form_validation->set_rules("price", "Prix", "trim|required|integer");
+            $this->form_validation->set_rules("qty", "Quantité", "trim|required|integer");
+            if ($this->form_validation->run() == TRUE) {
+                 $this->data['view'] = "front/nouvelle_vente_2";
+                 
+                  $data = array(
+                      'quantity' => $this->input->post("qty"),
+                      'title' => $this->input->post("title"),
+                      'quantity' => $this->input->post("qty"),
+                      'description' => $this->input->post("description"),
+                      'price' => $this->input->post("price"),
+                      'article_id' => $this->input->post("select_product"),
+                      'user_id' => $_SESSION['user_id']
+                    );
+                    $this->db->insert('users_articles', $data);
+                    $im_id = $this->db->insert_id();
+                  
+                //Exemple upload photo 
+                if (isset($_FILES['pic'])) {
+                    if (is_uploaded_file($_FILES['pic']['tmp_name'])) {
+                        $im_id = $this->utils_model->img_insert($_FILES['pic']);
+                        $this->data['form_upload_img'] = $this->utils_model->form_upload_img($im_id);
+                    }
+                } else {
+                    $this->data['form_upload_img'] = $this->utils_model->form_upload_img();
+                }
             }
+            else
+                 redirect(site_url() . "nouvelle-vente");
+           
+            
+        } else if ($etape != '') {
+            redirect(site_url() . "nouvelle-vente");
+
         } else {
-            $this->data['form_upload_img'] = $this->utils_model->form_upload_img();
+            $this->data['additional_js'] = array('functions');
+            $this->data['souCat'] = $this->category_model->get_category_child();
+            $this->data['view'] = "front/nouvelle_vente";
+
         }
+         
         $this->load->view('front/template/layout', $this->data);
     }
 
     public function select_product() {
         $article_id = json_decode($_POST['article_id']);
-        
+
         $specs = $this->articles_model->specification_strict($article_id);
-      
-        if(!$specs)
-             echo json_encode('vide');
+
+        if (!$specs)
+            echo json_encode('vide');
         else
-           echo json_encode($specs);
-       
+            echo json_encode($specs);
     }
-    
+
     public function select_cat() {
         $cat_id = json_decode($_POST['cat_id']);
-        
-        $articles = $this->articles_model->get_articles_by_category($cat_id);
-   
-        if(!$articles)
-             echo json_encode('vide');
-        else
-           echo json_encode($articles->result_array());
-       
-    }
-    
 
+        $articles = $this->articles_model->get_articles_by_category($cat_id);
+
+        if (!$articles)
+            echo json_encode('vide');
+        else
+            echo json_encode($articles->result_array());
+    }
 
 }

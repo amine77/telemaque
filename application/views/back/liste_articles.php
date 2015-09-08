@@ -21,7 +21,7 @@ $(function() {
 
 <div id="bloc_contenu">
     
-    <h4><a href="<?= base_url('admin/ajouter_article')?>">Nouveau article</a></h4><br>
+
     <h1>Liste des articles</h1>
 
     <?php if (is_array($articles)) { ?>
@@ -31,7 +31,6 @@ $(function() {
                 <th>ID</th>
                 <th>Date de création</th>
                 <th>Titre </th>
-                <th>Description </th>
                 <th>Catégorie</th>
                 <th>Status</th>
                 <th>Nombre d'exemplaires</th>
@@ -50,11 +49,7 @@ $(function() {
                     <td><?= $article['category_label'] ?></td>
                     <td><?= $status ?></td>
                     <td><?= $article['nb_copies_of_article'] ?></td>
-                    <td><a  title="supprimer" href="<?= base_url('admin/delete_article/' . $article['article_id']) ?>"  data-confirm="Etes-vous certain de vouloir supprimer cet article?">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </a> / <a title="modifier" href="<?= base_url('admin/update_article/' . $article['article_id']) ?>">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </a> / <a title="voir" href="<?= base_url('admin/view_article/' . $article['article_id']) ?>">
+                    <td> <a title="voir" href="<?= base_url('admin/view_article/' . $article['article_id']) ?>">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </a>
                     </td>
