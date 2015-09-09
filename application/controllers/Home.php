@@ -151,8 +151,8 @@ class Home extends Front_Controller {
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
             'smtp_port' => 465,
-            'smtp_user' => '', // mettre ici votre email
-            'smtp_pass' => '', // mettre ici votre mot de passe
+            'smtp_user' => 'telemaqueipformation@gmail.com', // mettre ici votre email
+            'smtp_pass' => 'telemaque12345', // mettre ici votre mot de passe
             'mailtype' => 'html',
             'charset' => 'utf-8',
             'wordwrap' => TRUE
