@@ -1,21 +1,20 @@
 <div id="bloc_contenu">
-    <h4><a href="<?=  base_url('admin/liste_contacts') ?>">Liste des contacts</a></h4>
+    <h4><a href="<?= base_url('admin/liste_contacts') ?>">Liste des contacts</a></h4>
     <h1>Ajouter un contact</h1>
-    
-    
-</div>
-<div class="container">
-    
-    <div class="row">
 
-        <div class="col-lg-4 col-sm-4 well">
-            <?php echo $this->session->flashdata('success'); ?>
-            <?php
-            $attributes = array("class" => "form-horizontal", "id" => "contactaddform", "name" => "contactaddform");
-            echo form_open("admin/ajouter_contact", $attributes);
-            ?>
-            <fieldset>
-                <legend>Ajouter contact</legend>
+
+
+    <div class="container">
+
+        <div class="row">
+            <br><br>
+            <div class="col-lg-4 col-sm-4">
+                <?php echo $this->session->flashdata('success'); ?>
+                <?php
+                $attributes = array("class" => "form-horizontal", "id" => "contactaddform", "name" => "contactaddform");
+                echo form_open("admin/ajouter_contact", $attributes);
+                ?>
+
                 <div class="form-group">
                     <div class="row colbox">
                         <div class="col-lg-4 col-sm-4">
@@ -40,8 +39,8 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="form-group">
                     <div class="row colbox">
                         <div class="col-lg-4 col-sm-4">
@@ -53,18 +52,17 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="form-group">
                     <div class="col-lg-12 col-sm-12 text-center">
-                        <input id="btn_ajouter" name="btn_ajouter" type="submit" class="btn btn-default" value="Ajouter" />
-                        <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Annuler" />
+                        <input id="btn_ajouter" name="btn_ajouter" type="submit" class="btn btn-success" value="Ajouter" />
                     </div>
                 </div>
-            </fieldset>
-            <?php echo form_close(); ?>
-            <?php echo $this->session->flashdata('msg'); ?>
-        </div>
+                <?php echo form_close(); ?>
+                <?php echo $this->session->flashdata('msg'); ?>
+            </div>
 
+        </div>
     </div>
 </div>
