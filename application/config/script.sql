@@ -1,4 +1,4 @@
- 
+Use telemaque3 ; 
 <fin> 
 CREATE TABLE IF NOT EXISTS `address` (
   `address_id` int(11) NOT NULL AUTO_INCREMENT,

@@ -106,6 +106,15 @@ header #bloc_connexion{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#424242', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
     color: #FFFFFF;
 }
+header #bloc_connexion #profil .dropdown-menu>li>a {
+    color: #333;
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    white-space: nowrap;
+}
 
 header #bloc_connexion a,
 header #bloc_connexion a:hover{
