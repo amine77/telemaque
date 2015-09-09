@@ -9,7 +9,7 @@ $(function() {
     });
 
     $('#select-cat').on('change', function() {
-       if($(this).val()!=0)
+        if ($(this).val() != 0)
             $('.require_art').hide();
         var data = {"cat_id": $(this).val()};
         $.post("vendeurs/select_cat", data, function(result) {
@@ -35,7 +35,7 @@ $(function() {
         });
     });
 
-    
+
 
 
 
@@ -62,8 +62,12 @@ $(function() {
 
 });
 
-function delete_article() {
-    var data = $(this).parent().parent().data('role');
+function delete_article(entity) {
+    var ua_id = entity.parent().parent().data('role');
+    var data = {"user_article_id": ua_id};
+    var action = "delete_article";
+
+    print_cart(action, data,entity);
 }
 
 function delete_sample_article(entity) {
@@ -105,39 +109,44 @@ function print_cart(action, data, entity) {
 
 
         if (action == "add_article/norm") {
-            $("#panier span").html(result);
+            $("#panier #panier-nbarticle").html(result);
             entity.data('qty', parseInt(entity.data('qty') + 1));
         }
         else {
-
+            if (action == "delete_article") {
+                var qtyini = $("#panier #panier-nbarticle").html();
+                var qty = entity.parent().find('input').data('qty');
+                
+                $("#panier #panier-nbarticle").html(qtyini - qty);
+            }
             $('#bloc_panier').html(result);
         }
-        $("#panier span").animate({fontSize: "17px", color: "#AA0000"}, 500).animate({fontSize: "13px", color: "white"}, 300);
+        $("#panier #panier-nbarticle").animate({fontSize: "17px", color: "#AA0000"}, 500).animate({fontSize: "13px", color: "white"}, 300);
 
     });
 
 }
 
 
-function select_art(){
-    
+function select_art() {
+
     $('#content-select-product select').on('change', function() {
-        if($(this).val()!=0)
+        if ($(this).val() != 0)
             $('.require_art').show();
         else
-             $('.require_art').hide();
+            $('.require_art').hide();
         var data = {"article_id": $(this).val()};
         $.post("vendeurs/select_product", data, function(result) {
             result = $.parseJSON(result);
             if (result != 'vide') {
 
-              
+
                 $.each(result, function(index, value) {
-                    html += '<tr height="50px">'+
-                                '<td class="col-xs-2 col-sm-2 col-md-2">'+value.specification_label+'</td>'+
-                                '<td class="col-xs-2 col-sm-2 col-md-2"><input type="text" name="spec_id_'+value.specification_id+'" class="form-control"/></td>'
-                             '</tr>';
-                             
+                    html += '<tr height="50px">' +
+                            '<td class="col-xs-2 col-sm-2 col-md-2">' + value.specification_label + '</td>' +
+                            '<td class="col-xs-2 col-sm-2 col-md-2"><input type="text" name="spec_id_' + value.specification_id + '" class="form-control"/></td>'
+                    '</tr>';
+
                 });
 
                 $('#input-spec table').html(html);

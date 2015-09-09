@@ -30,7 +30,7 @@
                 $administration = ($this->session->userdata('role') == 'ROLE_ADMIN' || $this->session->userdata('role') == 'ROLE_SUPER_ADMIN') ? '<a href="' . base_url('admin') . ' ">Espace Administration</a>' : '';
                 echo 'Bonjour <strong>' . $_SESSION['login'] . '</strong>&nbsp;&nbsp;' . $administration . '&nbsp;<a href="' . site_url('logout') . '">Déconnexion</a>';
             } else {
-                echo ' <a href="' . site_url('login') . '">Connexion&nbsp;/&nbsp;Inscription</a>';
+                echo ' <a href="' . site_url('connexion') . '">Connexion&nbsp;/&nbsp;Inscription</a>';
             }
             ?>
         </div>
@@ -100,7 +100,7 @@
             </div>
             <div id="panier">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
-                <?php echo '<a href="' . base_url() . 'panier" >&nbsp;Panier</a>(<span>' . $nb_article . '</span>)'; ?>
+                <?php echo '<a href="' . base_url() . 'panier" >&nbsp;Panier</a>(<span id="panier-nbarticle">' . $nb_article . '</span>)'; ?>
             </div>
         </div>
         <div class="clear"></div>

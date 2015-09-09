@@ -76,24 +76,19 @@ class Login extends Front_Controller {
 
     public function index() {
         //get the posted values
-        $username = $this->input->post("txt_username");
-        $password = $this->input->post("txt_password");
+
+        $this->data['lib_js'] = array('datepicker/js/bootstrap-datepicker', 'datepicker/locales/bootstrap-datepicker.fr.min');
 
 
 
-        $this->form_validation->set_rules("txt_username", "Username", "trim|required");
-        $this->form_validation->set_rules("txt_password", "Password", "trim|required");
+        if ($this->input->post('btn_login') == "Valider") {
 
-        if ($this->form_validation->run() == FALSE) {
+            $this->form_validation->set_rules("txt_username", "Username", "trim|required");
+            $this->form_validation->set_rules("txt_password", "Password", "trim|required");
 
-            $this->data['title'] = 'un titre';
-            $this->data['view'] = 'front/connexion';
-            $this->data['site'] = $this->site_model->get_site_configurations();
-            $this->load->view('front/template/layout', $this->data);
-        } else {
-
-
-            if ($this->input->post('btn_login') == "Valider") {
+            if ($this->form_validation->run()) {
+                $username = $this->input->post("txt_username");
+                $password = $this->input->post("txt_password");
 
                 $usr_result = $this->login_model->get_user($username, $password);
                 if (count($usr_result) > 0) {
@@ -119,69 +114,52 @@ class Login extends Front_Controller {
                             redirect(base_url());
                         }
                     }
-                } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
-                    redirect('login/index');
                 }
             } else {
+                $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
                 redirect('login/index');
             }
-        }
-    }
+        } else if (isset($_POST['btn_signup'])) {
+            //check if username and password is correct
+            //get the posted values
+            $login = $this->input->post("txt_login");
+            $password = $this->input->post("txt_password");
+            $user_name = $this->input->post("txt_user_name");
+            $user_surname = $this->input->post("txt_user_surname");
+            $phone = $this->input->post("txt_phone");
+            $mobile = $this->input->post("txt_mobile");
+            $mail = $this->input->post("txt_mail");
+            $born_at = $this->input->post("txt_born_at");
 
-    public function inscription() {
-        if ($this->session->has_userdata('login')) {
-            redirect('admin/home');
-        }
-        //get the posted values
-        $login = $this->input->post("txt_username");
-        $password = $this->input->post("txt_password");
-        $user_name = $this->input->post("txt_user_name");
-        $user_surname = $this->input->post("txt_user_surname");
-        $phone = $this->input->post("txt_phone");
-        $mobile = $this->input->post("txt_mobile");
-        $mail = $this->input->post("txt_mail");
-        $born_at = $this->input->post("txt_born_at");
+            //set validations
+            $this->form_validation->set_rules("txt_login", "Login", "trim|required");
+            $this->form_validation->set_rules("txt_password", "Mot de passe", "trim|required");
+            $this->form_validation->set_rules("txt_user_name", "Nom", "trim|required");
+            $this->form_validation->set_rules("txt_user_surname", "Prénom", "trim|required");
+            $this->form_validation->set_rules("txt_born_at", "Né(e) le", "trim|required");
+            $this->form_validation->set_rules("txt_phone", "Téléphone", "trim|required");
+            $this->form_validation->set_rules("txt_mobile", "Mobile", "trim|required");
+            $this->form_validation->set_rules("txt_mail", "E-mail", "trim|required|valid_email");
 
-        //set validations
-        $this->form_validation->set_rules("txt_username", "Login", "trim|required");
-        $this->form_validation->set_rules("txt_password", "Mot de passe", "trim|required");
-        $this->form_validation->set_rules("txt_user_name", "Nom", "trim|required");
-        $this->form_validation->set_rules("txt_user_surname", "Prénom", "trim|required");
-        $this->form_validation->set_rules("txt_born_at", "Né(e) le", "trim|required");
-        $this->form_validation->set_rules("txt_phone", "Téléphone", "trim|required");
-        $this->form_validation->set_rules("txt_mobile", "Mobile", "trim|required");
-        $this->form_validation->set_rules("txt_mail", "E-mail", "trim|required|valid_email");
+            if ($this->form_validation->run()) {
 
-        if ($this->form_validation->run() == FALSE) {
-            $data['title'] = 'un titre';
-            $data['view'] = 'front/signup_view';
-            $data['categories'] = $this->category_model->get_all();
-            $data['nb_article'] = $this->panier_model->get_nb_articles();
-            $data['site'] = $this->site_model->get_site_configurations();
-            $data['show_header'] = TRUE;
-            $data['lib_js'] = array('datepicker/js/bootstrap-datepicker', 'datepicker/locales/bootstrap-datepicker.fr.min');
-            $this->load->view('front/template/layout', $data);
-        } else {
-
-            //validation succeeds
-            if ($this->input->post('btn_signup') == "Créer mon compte") {
-                //check if username and password is correct
                 if ($this->login_model->signup_user($user_name, $user_surname, $login, $password, $born_at, $phone, $mobile, $mail)) {
 
-                    $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">Félicitations ! '
+                    $this->session->set_flashdata('msg2', '<div class="alert alert-success text-center">Félicitations ! '
                             . 'Votre inscription a été créée avec succès. Attendez qu\'elle soit validée par un administrateur, avant de pouvoir vendre ou acheter.'
                             . '<p>Vous serez dirigé à l\'accueil d\'ici quelques instants.</p></div>'
                             . '<script>setTimeout(function(){ document.location.href="' . base_url("/") . ' ";}, 10000) </script>');
-                    redirect('inscription/index');
+                    redirect('connexion');
                 } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Un problème est survenu. Votre inscription a échoué.</div>');
-                    redirect('inscription/index');
+                    $this->session->set_flashdata('msg2', '<div class="alert alert-danger text-center">Un problème est survenu. Votre inscription a échoué.</div>');
+                    redirect('connexion');
                 }
-            } else {
-                redirect('inscription/index');
             }
         }
+        $this->data['title'] = 'un titre';
+        $this->data['view'] = 'front/connexion';
+        $this->data['site'] = $this->site_model->get_site_configurations();
+        $this->load->view('front/template/layout', $this->data);
     }
 
 }

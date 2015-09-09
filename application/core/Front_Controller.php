@@ -55,35 +55,32 @@ abstract class Front_Controller extends CI_Controller {
     protected $data = array(
         'title' => '',
         'view' => '',
-        'show_header' => true 
+        'show_header' => true
     );
-    
-   
+
     public function __construct() {
         parent::__construct();
 
-        
-        if (!isset($_SESSION['panier']))
-         $_SESSION['panier'] = array();
 
-        $this->load->model(array('articles_model', 'panier_model','utils_model','category_model','site_model'));
-        $this->data['nb_article'] = $this->panier_model->get_nb_articles();  
+        if (!isset($_SESSION['panier']))
+            $_SESSION['panier'] = array();
+
+
+        $this->load->model(array('articles_model', 'panier_model', 'utils_model', 'category_model', 'site_model'));
+        $this->data['nb_article'] = $this->panier_model->get_nb_articles();
         $this->data['categories'] = $this->category_model->get_all();
         $this->data['site'] = $this->site_model->get_site_configurations();
         $this->set_view_name();
-   
-
-     
     }
 
     protected function set_view_name() {
-        $this->data['view'] = "front/".$this->router->fetch_class();
+        $this->data['view'] = "front/" . $this->router->fetch_class();
     }
 
     abstract protected function index();
-    
-    
-    public function debug($data){
+
+    public function debug($data) {
         $this->utils_model->debug($data);
     }
+
 }

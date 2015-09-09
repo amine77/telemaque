@@ -75,7 +75,7 @@ class Panier_model extends CI_Model {
                     $html.='<input type="text" value="'.$_SESSION['panier'][$exemplaires[$i]->user_article_id]  .'/' .$exemplaires[$i]->quantity. '" data-qty="'.$_SESSION['panier'][$exemplaires[$i]->user_article_id].'" data-qty-max="'.$exemplaires[$i]->quantity.'" size="3" maxlength="20" disabled="disabled" style="display:inline;text-align:center;"/>';
                     if(!$order){    
                     $html.='<span class="glyphicon glyphicon-plus-sign" aria-hidden="true" onclick="add_article($(this));"></span><br>
-                            <div class="glyphicon glyphicon-trash" aria-hidden="true" style="width:20px;margin:0 auto;"></div>';
+                            <div class="glyphicon glyphicon-trash" aria-hidden="true" style="width:20px;margin:0 auto;" onclick="delete_article($(this));"></div>';
                     }
             $prix = floatval($_SESSION['panier'][$exemplaires[$i]->user_article_id]) * $exemplaires[$i]->price;        
             $html.='</td>

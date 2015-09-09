@@ -82,7 +82,7 @@ if (trim($fichier[3]) == '') {
     $route['^(articles)/(:any)/(:any)'] = "articles/index/$0/$1";
     $route['^(usr)/(:any)'] = "usr";
     $route['^(view)/(:any)'] = "home/view/$0";
-    $route['^(connexion)'] = "home/connexion";
+    $route['^(connexion)'] = "login";
     $route['^(logout)'] = "home/logout";
     $route['^(contact)'] = "home/contact";
     $route['^(cgv)'] = "home/cgv";
