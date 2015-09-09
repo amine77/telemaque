@@ -6,11 +6,20 @@ class Articles_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_articles($nb = '') {
+    public function get_articles($nb = '',$stock = false,$is_verified = false) {
         $limit = "";
+        $table="";
+        $image="";
+        if($stock){
+            $stock = "WHERE a.article_id = ua.article_id AND ua.quantity>0";
+            $table = ",users_articles ua";   
+            $image = ",a.image_id as image_id";
+        }
         if ($nb != '')
             $limit = "LIMIT $nb";
-        $query = $this->db->query("SELECT * FROM articles $limit");
+        $query = $this->db->query("SELECT DISTINCT * $image "
+                . "FROM articles a $table $stock"
+                . " GROUP BY a.article_id $limit ");
 
         return $query;
     }
