@@ -1,28 +1,20 @@
 <div id="bloc_contenu">
-    <h4><a href="<?=  base_url('admin/liste_tags') ?>">Liste des mots clés</a></h4>
+    <h4><a href="<?= base_url('admin/liste_tags') ?>">Liste des mots clés</a></h4>
     <h1>Ajouter un mot clé</h1>
-    
-    
-</div>
 
 
 
 
 
-
-
-
-<div class="container">
-    <div class="row">
-
-        <div class="col-lg-4 col-sm-4 well">
-            <?php echo $this->session->flashdata('success'); ?>
-            <?php
-            $attributes = array("class" => "form-horizontal", "id" => "tagaddform", "name" => "tagaddform");
-            echo form_open("admin/ajouter_tag", $attributes);
-            ?>
-            <fieldset>
-                <legend>Ajouter un mot clé</legend>
+    <div class="container">
+        <div class="row">
+            <br><br>
+            <div class="col-lg-4 col-sm-4">
+                <?php echo $this->session->flashdata('success'); ?>
+                <?php
+                $attributes = array("class" => "form-horizontal", "id" => "tagaddform", "name" => "tagaddform");
+                echo form_open("admin/ajouter_tag", $attributes);
+                ?>
                 <div class="form-group">
                     <div class="row colbox">
                         <div class="col-lg-4 col-sm-4">
@@ -42,9 +34,9 @@
                         </div>
                         <div class="col-lg-8 col-sm-8">
                             <?php
-                           foreach ($articles->result() as $row) {
-                                echo '<input type="checkbox" name="articles[]" value=" ' . $row->article_id . ' " />' 
-                                        . $row->article_label . '<br>';
+                            foreach ($articles->result() as $row) {
+                                echo '<input type="checkbox" name="articles[]" value=" ' . $row->article_id . ' " />'
+                                . $row->article_label . '<br>';
                             }
                             ?>
                         </div>
@@ -59,10 +51,11 @@
                         <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Annuler" />
                     </div>
                 </div>
-            </fieldset>
-            <?php echo form_close(); ?>
-            <?php echo $this->session->flashdata('msg'); ?>
-        </div>
+                <?php echo form_close(); ?>
+                <?php echo $this->session->flashdata('msg'); ?>
+            </div>
 
+        </div>
     </div>
+
 </div>

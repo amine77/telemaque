@@ -520,7 +520,7 @@ class Admin extends CI_Controller
         } else {
 
 
-            if ($this->input->post('btn_update') == "Update") {
+            if ($this->input->post('btn_update') == "Valider") {
 
                 $this->tag_model->update_tag($tag_id, $tag_label, $articles);
                 $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
@@ -836,7 +836,7 @@ class Admin extends CI_Controller
             $this->load->view('back/template/layout', $data);
         } else {
 
-            if ($this->input->post('btn_update') == "Update") {
+            if ($this->input->post('btn_update') == "Valider") {
 
                 $this->module_model->update_module($module_id, $module_status);
                 $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
@@ -904,10 +904,10 @@ class Admin extends CI_Controller
     public function update_contact($user_id = null)
     {
 
-        $titre = $this->input->post("txt_nom");
-        $mail = $this->input->post("txt_mail");
+        $titre = $this->input->post("txt_titre");
+        $mail = $this->input->post("txt_email");
         $description = $this->input->post("txt_description");
-
+        //echo "titre= $titre , mail = $mail, description = $description ";
 
         $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
         $this->form_validation->set_rules("txt_mail", "Email", "trim|required");
@@ -929,17 +929,21 @@ class Admin extends CI_Controller
 
 
             if ($this->input->post('btn_update') == "Update") {
-
-                if ($this->login_model->update_contact($user_id, $titre, $mail, $description)) {
-                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
-                            . 'Cet contact a été mis à jour avec succès !</div>');
-                    redirect("admin/update_contact/" . $user_id);
-                } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de la mise à jour du contact!</div>');
-                    redirect('admin/update_contact/' . $user_id);
-                }
+                echo 'bonjour';
+                echo "titre= $titre , mail = $mail, description = $description ";
+               // echo "titre= $titre , mail = $mail, description = $description ";
+//                if ($this->login_model->update_contact($user_id, $titre, $mail, $description)) {
+//                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
+//                            . 'Contact mis à jour avec succès !</div>');
+//                    redirect("admin/update_contact/" . $user_id);
+//                } else {
+//                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de la mise à jour du contact!</div>');
+//                    redirect('admin/update_contact/' . $user_id);
+//                }
             } else {
-                redirect('admin/update_contact/' . $user_id);
+                //redirect('admin/update_contact/' . $user_id);
+                echo "titre= $titre , mail = $mail, description = $description ";
+                echo 'lol';
             }
         }
     }
@@ -975,7 +979,7 @@ class Admin extends CI_Controller
         } else {
 
 
-            if ($this->input->post('btn_update') == "Update") {
+            if ($this->input->post('btn_update') == "Valider") {
 
                 if ($this->login_model->update_user($user_id, $nom, $prenom, $mail, $role, $status)) {
                     $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
