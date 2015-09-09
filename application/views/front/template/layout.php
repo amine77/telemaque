@@ -1,8 +1,8 @@
-<div id="page">
+
 
 <?php $this->load->view('front/template/entete'); ?>
 
-
+<div id="page">
 <?php
 
 if (isset($show_header)) {

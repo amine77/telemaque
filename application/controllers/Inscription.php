@@ -2,11 +2,9 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Inscription extends CI_Controller
-{
+class Inscription extends CI_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
 
         parent::__construct();
 
@@ -16,8 +14,7 @@ class Inscription extends CI_Controller
         $this->load->model('site_model');
     }
 
-    public function index()
-    {
+    public function index() {
 
         if ($this->session->has_userdata('login')) {
             redirect('admin/home');
@@ -40,7 +37,7 @@ class Inscription extends CI_Controller
         $this->form_validation->set_rules("txt_born_at", "Né(e) le", "trim|required");
         $this->form_validation->set_rules("txt_phone", "Téléphone", "trim|required");
         $this->form_validation->set_rules("txt_mobile", "Mobile", "trim|required");
-        $this->form_validation->set_rules("txt_mail", "E-mail", "trim|required|valid_email|callback_mail_existant");
+        $this->form_validation->set_rules("txt_mail", "E-mail", "trim|required|valid_email");
 
         if ($this->form_validation->run() == FALSE) {
             $data['title'] = 'un titre';
@@ -49,36 +46,28 @@ class Inscription extends CI_Controller
             $data['nb_article'] = $this->panier_model->get_nb_articles();
             $data['site'] = $this->site_model->get_site_configurations();
             $data['show_header'] = TRUE;
-            $data['lib_js']= array('datepicker/js/bootstrap-datepicker', 'datepicker/locales/bootstrap-datepicker.fr.min');
+            $data['lib_js'] = array('datepicker/js/bootstrap-datepicker', 'datepicker/locales/bootstrap-datepicker.fr.min');
             $this->load->view('front/template/layout', $data);
         } else {
 
             //validation succeeds
             if ($this->input->post('btn_signup') == "Créer mon compte") {
                 //check if username and password is correct
-                if( $this->login_model->signup_user($user_name, $user_surname, $login, $password, $born_at, $phone, $mobile, $mail)){
-                    
-                    $this->session->set_flashdata('msg','<div class="alert alert-success text-center">Félicitations ! '
+                if ($this->login_model->signup_user($user_name, $user_surname, $login, $password, $born_at, $phone, $mobile, $mail)) {
+
+                    $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">Félicitations ! '
                             . 'Votre inscription a été créée avec succès. Attendez qu\'elle soit validée par un administrateur, avant de pouvoir vendre ou acheter.'
                             . '<p>Vous serez dirigé à l\'accueil d\'ici quelques instants.</p></div>'
-                            . '<script>setTimeout(function(){ document.location.href="'. base_url("/").' ";}, 10000) </script>');
+                            . '<script>setTimeout(function(){ document.location.href="' . base_url("/") . ' ";}, 10000) </script>');
                     redirect('inscription/index');
-                }  else {
+                } else {
                     $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Un problème est survenu. Votre inscription a échoué.</div>');
                     redirect('inscription/index');
                 }
-                
-                
-                
             } else {
                 redirect('inscription/index');
             }
         }
-    }
-
-    function mail_existant($key)
-    {
-        $this->login_model->mail_exists($key);
     }
 
 }
