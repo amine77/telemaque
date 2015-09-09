@@ -8,15 +8,20 @@ class Vendeurs_model extends CI_Model {
        
     }
 
-    public function get_sell($user_article_id='',$user_id=0,$is_verified=1,$status='in progress') {
+    public function get_sell($user_article_id='',$user_id=0,$is_verified=1) {
+        $table="";
         if($user_id>0){
-            $user_id= "AND user_id='$user_id'";
+            $user_id= "AND user_id='$user_id' AND ua.user_article_id=cl.user_article_id";
+            $table = ", command_lines cl";
         }
-        if($user_article_id!='')
+      
+        if($user_article_id!=''){
             $user_article_id="AND user_article_id='$user_article_id'";
-        $sql = "SELECT *
-              FROM users_articles
-              WHERE is_verified = '$is_verified' AND status='$status' $user_id $user_article_id
+            $table = ",command_lines cl";
+        }
+        $sql = "SELECT *,cl.quantity as qtycl
+              FROM users_articles ua $table
+              WHERE is_verified = '$is_verified' $user_id $user_article_id 
               ORDER BY created_at DESC
              ";
         

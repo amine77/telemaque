@@ -9,11 +9,11 @@
     <table id="command_num_<?= $key ?>" style="margin-bottom: 20px" class="table table-hover">
                 <caption>Commande numero <?= $key ?></caption>
                 <tr>
-                    <th>Image</th>
-                    <th>Produit</th>
+                    <th width="15%">Image</th>
+                    <th width="50%">Produit</th>
                     <th>Quantité</th>
-                    <th>Prix</th>
-                    <th>Vendeur</th>
+                    <td width="10%">Prix UHT(€)</td>
+
                 </tr>
                 <?php
                 foreach ($cmd as $key => $value) {
@@ -24,7 +24,7 @@
                             <td>" . $value['title'] . "</td>
                             <td>" . $value['quantity'] . "</td>
                             <td>" . $value['price'] . "</td>
-                            <td>" . $value['user_id'] . "</td>
+
                             
                   </tr> ";
                     }

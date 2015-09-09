@@ -62,28 +62,7 @@
             <?= $article->img['imsrc'] ?>
         </div>
 
-        <table id="caracteristiques">
-            <caption><h4><b>Caracteristiques generaux </b></h4></caption>
-            <tbody>
-                <?php
-                $trouve = false;
-                for ($i = 0; $i < count($article->spec); $i++) {
-
-                    $spec = $article->spec[$i];
-                    if ($spec->specification_label != "") {
-                        $trouve = true;
-                        echo "<tr>
-                                 <td class='col_1'> $spec->specification_label : </td>
-                                 <td class='col_2'> $spec->specification_value</td>
-                             </tr>";
-                    }
-                }
-                if (!$trouve) {
-                    echo "<tr><td colspan='2' align='center'>Il n'y pas de caracteristique</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+        
 
         <div class="clear"></div>
 

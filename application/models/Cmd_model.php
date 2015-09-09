@@ -17,7 +17,7 @@ class Cmd_model extends CI_Model {
         
     }
 
-    public function get_cmd($cmd_id = '', $user_id, $nb = '') {
+    public function get_cmd($cmd_id = '', $user_id, $nb = '', $width = '') {
         $limit = "";
         if ($cmd_id != '') {
             $cmd_id = " AND command_id='$cmd_id'";
@@ -26,37 +26,39 @@ class Cmd_model extends CI_Model {
             $limit = "LIMIT $nb";
 
 
-        $sql = "SELECT *,cmdl.price price,cmdl.quantity quantity
-                FROM command cmd ,command_lines cmdl,users_articles ua 
+        $sql = "SELECT *,cmdl.price price,cmdl.quantity quantity,ua.image_id as enfant_im 
+                FROM command cmd ,command_lines cmdl,users_articles ua,articles a  
                 WHERE cmd.user_id='$user_id' AND cmdl.command_id=cmd.command_id 
                     AND ua.user_article_id= cmdl.user_article_id
+                    AND a.article_id = ua.article_id
                 $cmd_id $limit
                     GROUP BY command_lines_id,cmd.command_id
                 
                ";
-        
+
         $query = $this->db->query($sql);
         $oData = $query->result();
+     
         $totalCmd = 0;
         $tab = array();
         for ($i = 0; $i < count($oData); $i++) {
             $totalCmd += $oData[$i]->price;
-            $tab[$oData[$i]->command_id]['address_id']=$oData[$i]->address_id;             
-          
-            $cmd_line= array(
-                      'quantity'=>$oData[$i]->quantity,
-                      'user_id' =>$oData[$i]->user_id,
-                      'price'   =>$oData[$i]->price,
-                      'user_article_id'=>$oData[$i]->user_article_id,
-                      'title'=>$oData[$i]->title,
-                      'image'=>$oData[$i]->image_id
-             );
-            $tab[$oData[$i]->command_id]['command_line_'.$oData[$i]->command_lines_id] = $cmd_line;
-          
+            $image_id = (is_null($oData[$i]->enfant_im)) ? $oData[$i]->image_id : $oData[$i]->enfant_im;
+            $tab[$oData[$i]->command_id]['address_id'] = $oData[$i]->address_id;
+            $image = $this->utils_model->get_im($image_id, $width)['imsrc'];
+            $cmd_line = array(
+                'quantity' => $oData[$i]->quantity,
+                'user_id' => $oData[$i]->user_id,
+                'price' => $oData[$i]->price,
+                'user_article_id' => $oData[$i]->user_article_id,
+                'title' => $oData[$i]->title,
+                'image' => $image
+            );
+            $tab[$oData[$i]->command_id]['command_line_' . $oData[$i]->command_lines_id] = $cmd_line;
         }
-       
-        
-        
+
+
+
         $tab['Total_Cmd'] = $totalCmd;
         return $tab;
     }

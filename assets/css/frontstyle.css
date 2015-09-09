@@ -8,6 +8,7 @@ STYLE GENERAL
 
 body{
     width: 100%;
+    background-color:#320008;
 }
 
 ul li{
@@ -34,7 +35,9 @@ a:hover{
 .clear{
     clear:both;
 }
-
+#page{
+     background-color: white;
+}
 #bloc_contenu{
     width: 1200px;
     margin: 0 auto;
@@ -42,6 +45,8 @@ a:hover{
     padding-right: 1.5%;
     padding-top: 15px;
     padding-bottom: 15px;
+    min-height: 300px;
+   
 }
 
 @media screen and (max-width: 1200px) {

@@ -1,4 +1,4 @@
-
+<div id="page">
 
 <?php $this->load->view('front/template/entete'); ?>
 
@@ -16,3 +16,4 @@ $this->load->view($view);
 
 ?>
 <?php $this->load->view('front/template/footer'); ?>
+</div>
