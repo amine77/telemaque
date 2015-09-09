@@ -202,6 +202,7 @@ class login_model extends CI_Model
 
         $this->db->where('user_id', $user_id);
         $this->db->update('users', $data);
+        return true;
     }
 
     function update_connection_infos($user_id, $ip_address, $last_connection_date)

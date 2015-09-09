@@ -745,10 +745,10 @@ class Admin extends CI_Controller
             if ($this->input->post('btn_ajouter') == "Ajouter") {
 
                 if ($this->login_model->add_contact($titre, $email, $description)) {
-                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau rôle a été ajouté avec succès !</div>');
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">La nouveau contact a été ajouté avec succès !</div>');
                     redirect("admin/ajouter_contact");
                 } else {
-                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création du rôle. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de création du contact. Veuillez réessayer plus tard ou contacter votre administrateur.</div>');
                     redirect('admin/ajouter_contact');
                 }
             } else {
@@ -905,45 +905,38 @@ class Admin extends CI_Controller
     {
 
         $titre = $this->input->post("txt_titre");
-        $mail = $this->input->post("txt_email");
+        $email = $this->input->post("txt_email");
         $description = $this->input->post("txt_description");
-        //echo "titre= $titre , mail = $mail, description = $description ";
 
-        $this->form_validation->set_rules("txt_nom", "Nom", "trim|required");
-        $this->form_validation->set_rules("txt_mail", "Email", "trim|required");
+        $this->form_validation->set_rules("txt_titre", "Titre", "trim|required");
+        $this->form_validation->set_rules("txt_email", "Email", "trim|required");
         $this->form_validation->set_rules("txt_description", "Description", "trim|required");
 
         if ($this->form_validation->run() == FALSE) {
 
             $data['title'] = 'un titre';
-            $data['user'] = $this->login_model->get_user_by_id($user_id);
             $data['view'] = 'back/update_contact';
             $data['show_header'] = TRUE;
             $data['show_nav'] = TRUE;
+            $data['user'] = $this->login_model->get_user_by_id($user_id);
             $data = $this->get_site_identity($data);
             $data['id'] = $user_id;
-
 
             $this->load->view('back/template/layout', $data);
         } else {
 
 
-            if ($this->input->post('btn_update') == "Update") {
-                echo 'bonjour';
-                echo "titre= $titre , mail = $mail, description = $description ";
-               // echo "titre= $titre , mail = $mail, description = $description ";
-//                if ($this->login_model->update_contact($user_id, $titre, $mail, $description)) {
-//                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">'
-//                            . 'Contact mis à jour avec succès !</div>');
-//                    redirect("admin/update_contact/" . $user_id);
-//                } else {
-//                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de la mise à jour du contact!</div>');
-//                    redirect('admin/update_contact/' . $user_id);
-//                }
+            if ($this->input->post('btn_update') == "Valider") {
+
+                if ($this->login_model->update_contact($user_id, $titre, $email, $description)) {
+                    $this->session->set_flashdata('success', '<div class="alert alert-success text-center">Contact mis à jour avec succès !</div>');
+                    redirect("admin/update_contact/".$user_id);
+                } else {
+                    $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Echec de la mise à jour. Veuillez réessayer plus tard ou contacter votre webmaster.</div>');
+                    redirect('admin/update_contact/'.$user_id);
+                }
             } else {
-                //redirect('admin/update_contact/' . $user_id);
-                echo "titre= $titre , mail = $mail, description = $description ";
-                echo 'lol';
+                redirect('admin/update_contact/'.$user_id);
             }
         }
     }
