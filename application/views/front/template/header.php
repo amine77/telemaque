@@ -1,28 +1,34 @@
 <header>
 
     <div id="bloc_connexion">
+        <div id="vendre"><a href="<?= site_url('nouvelle-vente') ?>">Vendre</a></div>
         <?php if ($this->session->userdata('login')) : ?>
-        <div id="profil">
+            <div id="profil">
                 <ul>
-                    <li><a href="<?=site_url('account')?>">Mon compte</a></li>
-                    <li><a href="<?=site_url('account/mesachats')?>">Mes achats</a></li>
-                    <li><a href="<?=site_url('account/mesventes')?>">Mes ventes</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon compte<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?= site_url('account') ?>">Mon profil</a></li>
+                            <li><a href="<?= site_url('account/mesachats') ?>">Mes achats</a></li>
+                            <li><a href="<?= site_url('account/mesventes') ?>">Mes ventes</a></li>                
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         <?php endif; ?>
-        <div id="vendre"><a href="<?=  site_url('nouvelle-vente')?>">Vendre</a></div>
+    
         <div>
             <?php
-
             if ($site['phone'] != '') {
                 echo'<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;&nbsp;<strong>Appelez-nous au :</strong>' . $site['phone'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
             }
-          
+
 
 
             if ($this->session->userdata('login')) {
-                $administration=($this->session->userdata('role') == 'ROLE_ADMIN' || $this->session->userdata('role') == 'ROLE_SUPER_ADMIN')?'<a href="'.  base_url('admin').' ">Espace Administration</a>':'';
-                echo 'Bonjour <strong>' . $_SESSION['login'] . '</strong>&nbsp;&nbsp;'.$administration.'&nbsp;<a href="' . site_url('logout') . '">Déconnexion</a>';
+                $administration = ($this->session->userdata('role') == 'ROLE_ADMIN' || $this->session->userdata('role') == 'ROLE_SUPER_ADMIN') ? '<a href="' . base_url('admin') . ' ">Espace Administration</a>' : '';
+                echo 'Bonjour <strong>' . $_SESSION['login'] . '</strong>&nbsp;&nbsp;' . $administration . '&nbsp;<a href="' . site_url('logout') . '">Déconnexion</a>';
             } else {
                 echo ' <a href="' . site_url('login') . '">Connexion</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="' . site_url('inscription') . '">Inscription</a>';
             }

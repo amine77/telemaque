@@ -66,8 +66,8 @@ CREATE TABLE IF NOT EXISTS `articles_specifications` (
 
 INSERT INTO `articles_specifications` (`article_specification_id`, `article_id`, `specification_id`, `visible`) VALUES
 (1, 1, 1, 1),
-(2, 1, 2, 1),
-(3, 1, 3, 0);
+(2, 1, 2, 1);
+
 
 <fin>
 
@@ -286,8 +286,8 @@ CREATE TABLE IF NOT EXISTS `specifications` (
 
 INSERT INTO `specifications` (`specification_id`, `specification_label`, `specification_value`, `user_article_id`, `required`) VALUES
 (1, 'couleur', 'rouge', 5, 0),
-(2, 'age', '2 ans', 5, 0),
-(3, 'Etat', 'Neuf', 5, 1);
+(2, 'age', '2 ans', 5, 0);
+
 
 <fin>
 
@@ -387,7 +387,7 @@ CREATE TABLE IF NOT EXISTS `users_articles` (
 INSERT INTO `users_articles` (`user_article_id`, `quantity`, `title`, `description`, `status`, `price`, `created_at`, `updated_at`, `state`, `article_id`, `user_id`, `image_id`, `is_verified`) VALUES
 (3, 1, 'Audi RT intérieur cuir beige', 'Vends ma AudiRT (automatique palette volant) 2L tfsi noir très entretenue \r\n17 900 euros (négociable raisonnablement )\r\n\r\n- 50 000km\r\n-cuir alcantara beige claire\r\n-boite séquentiel volant S tronic\r\n-volant meplat audit sport\r\n-clin multi zone \r\n-vitre électrique\r\n-rétro électrique rétractable\r\n-jante rs6 19pouce\r\n-autoradio DVD GPS 7 pouce tactile bluetooth kit main libre "android 4.4.2" blutooth, wifi ,mp3 ,8 go, slot micro sd \r\n-son concert Audi 12 enceintes (10 enceintes +caisson +centrale) \r\n-CT Ok vierge!\r\n-Révision Audi Ok ( facture) plaquettes neuves !', 'in progress', 70900, '2015-06-23 14:54:29', NULL, NULL, 2, 4, NULL, 1),
 (4, 2, 'iPhone 5c noir', 'Je mets en vente mon iPhone 5c noir\r\n\r\n16 g\r\n\r\nDesimlocke.\r\n\r\nIl est en excellent état.\r\n\r\nJe fournis boîte et facture.\r\n\r\n550 si vente aujourd''hui !!\r\n\r\n\r\nCause de la vente : je veux acheter le Samsung s6 edge\r\n', 'in progress', 550, '2015-06-23 14:50:29', NULL, NULL, 5, 5, NULL, 1),
-(5, 1, 'renault twingo 1.2L pack clim du 10/06/97CTok du 22/06/2015', ' \r\nles freins ARR + les roulements ont été changés au mois de mars  2015(facture de 255 euro)\r\nle kit distri + P A E + ventilation + résistance changée a  168000 kms le 04/06/2015(facture de 345 euro)\r\nle verni se décolle un peu sur le toit\r\naucune négociation le jour de la vente\r\nvoiture à prendre dans l''état après son passage au CT qui\r\n a été fait le 22/06/2015 avec  2 défauts sans contre visite\r\n1er défaut:un soufflet de crémaillère\r\n2 ème défaut:absence de plaque constructeur', 'in progress', 1000, '2015-07-17 14:17:38', NULL, NULL, 1, 3, NULL, 1),
+(5, 1, 'renault twingo 1.2L pack clim du 10/06/97CTok du 22/06/2015', ' \r\nles freins ARR + les roulements ont été changés au mois de mars  2015(facture de 255 euro)\r\nle kit distri + P A E + ventilation + résistance changée a  168000 kms le 04/06/2015(facture de 345 euro)\r\nle verni se décolle un peu sur le toit\r\naucune négociation le jour de la vente\r\nvoiture à prendre dans l''état après son passage au CT qui\r\n a été fait le 22/06/2015 avec  2 défauts sans contre visite\r\n1er défaut:un soufflet de crémaillère\r\n2 ème défaut:absence de plaque constructeur', 'in progress', 1000, '2015-07-17 14:17:38', NULL, 1, 1, 3, NULL, 1),
 (6, 8, 'iPhone 5c Blanc', 'A saisir des iPhones 5C blancs desmilockés en bon état', 'in progress', 500, '2015-08-21 10:47:47', NULL, NULL, 5, 3, NULL, 1);
 
 <fin>

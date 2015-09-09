@@ -430,27 +430,6 @@ STYLE DE LA PAGE DES DETAILS DES ARTICLES
     float: left;
 }
 
-#bloc_contenu #bloc_details_article #caracteristiques{
-    width: 300px;
-    float: right;
-    border: 1px solid #EDEDED;
-}
-
-#bloc_contenu #bloc_details_article #caracteristiques caption{
-    background-color: #EDEDED;
-    text-align: center;
-}
-
-#bloc_contenu #bloc_details_article #caracteristiques .col_1{
-    text-align: right;
-    font-weight: bold;
-    padding-right: 5px;
-}
-
- #caracteristiques .col_2{
-    text-align: left;
-    padding-left: 5px;
-}
 
 .vendeurs{
     padding: 15px;
@@ -489,6 +468,31 @@ STYLE DE LA PAGE DES DETAILS DES EXEMPLAIRES
     float: right;
     width: 68%;
 }
+
+#bloc_contenu #détails_exemplaire #caracteristiques{
+    width: 100%;
+    margin-top:20px;
+    border: 1px solid #EDEDED;
+}
+
+#bloc_contenu #détails_exemplaire #caracteristiques caption{
+    background-color: #EDEDED;
+    text-align: center;
+}
+
+#bloc_contenu #détails_exemplaire #caracteristiques .col_1{
+    text-align: right;
+    width:10%;
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+ #caracteristiques .col_2{
+    text-align: left;
+    width:80%;
+    padding-left: 5px;
+}
+
 /*********************************************************************************
 *********************************************************************************/
 

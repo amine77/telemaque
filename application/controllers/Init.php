@@ -63,9 +63,11 @@ class Init extends CI_Controller {
                     $count++;
                 }
                 fclose($handle);
+                redirect(base_url());
             }
+        } else if (!isset($_POST['valider']) && $etape == 2)
             redirect(base_url());
-        } else {
+        else {
             $data['page'] = "intro";
             $this->load->view('front/init', $data);
         }

@@ -115,12 +115,8 @@
                             <td class="image_mini col_1"><?= $row->img ?></td>
 
                             <td class="carac col_2" style="width:155px">
-                                <?php
-                                for ($i = 0; $i < count($row->spec); $i++) {
-                                    $spec = $row->spec[$i];
-                                    echo $spec->specification_label . " : " . $spec->specification_value;
-                                }
-                                ?>
+                                Etat : <?=($row->state==1) ? "Neuf" :"Occasion" ; ?>
+                                
                             </td>
                             <td class="col_3">
                                 Mis en vente par :

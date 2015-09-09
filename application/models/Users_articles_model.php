@@ -38,7 +38,7 @@ class Users_articles_model extends Articles_model {
         if ($article_id != "")
             $with_article = " WHERE a.article_id = '$article_id'  ";
 
-        $sql = "SELECT DISTINCT u.user_id ,u.user_name ,u.user_surname,ua.user_article_id,ua.quantity,ua.image_id,a.article_id,ua.price,ua.title
+        $sql = "SELECT DISTINCT u.user_id ,u.user_name ,u.user_surname,ua.user_article_id,ua.quantity,ua.image_id,a.article_id,ua.price,ua.title,ua.state
                FROM users u
                JOIN users_articles ua ON u.user_id = ua.user_id
                JOIN articles a ON ua.article_id = a.article_id
@@ -118,7 +118,7 @@ class Users_articles_model extends Articles_model {
     public function user_exemplaire($article_id, $exemplaire_id) {
 
 
-        $sql = "SELECT u.user_id ,u.user_name ,u.user_surname,ua.image_id,ua.quantity,ua.user_article_id,a.article_id,ua.price,ua.title,ua.description,a.article_label
+        $sql = "SELECT u.user_id ,u.user_name ,u.user_surname,ua.image_id,ua.quantity,ua.user_article_id,a.article_id,ua.price,ua.title,ua.description,a.article_label,ua.state
                FROM users u
                JOIN users_articles ua ON u.user_id = ua.user_id
                JOIN articles a ON ua.article_id = a.article_id

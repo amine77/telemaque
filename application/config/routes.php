@@ -65,6 +65,7 @@ if (trim($fichier[3]) == '') {
     $route['default_controller'] = 'Init';
     $route['(:any)'] = "init";
     $route['(:any)/(:any)'] = "init";
+    $route['2'] = "init/index/2";
     $route['(:any)/(:any)/(:any)'] = "init";
     $route['404_override'] = "init";
     
