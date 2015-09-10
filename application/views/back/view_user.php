@@ -77,15 +77,13 @@
                         <h3 class="panel-title"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Commandes&nbsp;&nbsp;&nbsp; <span class="badge">42</span></h3>
                     </div>
                     <div class="panel-body">
+                        <?php var_dump($commandes);  ?>
                         <table class="table-bordered">
                             <?php if($commandes['Total_Cmd'] == 0){?>
                             <h5>Aucun article commandé</h5>
-                            <?php   }else{ 
-                            foreach ($commandes as $commande){ ?> 
-                            
-                            <?php  }
-                            
-                            }  ?>
+                            <?php   }else{  ?>
+                            y a des commandes
+                            <?php  }  ?>
                         </table>
                     </div>
                 </div>
