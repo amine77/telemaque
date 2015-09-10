@@ -17,7 +17,7 @@
 
                     <tr>
                         <td class="col_1">
-                           <img src="'.base_url(). 'assets/img/img_none.jpg" height="80">
+                           <img src="'.base_url().$row->image_path. '" height="80">
                         </td>
                         <td class="col_2">
                             <h3>' . $row->article_label . '</h3>

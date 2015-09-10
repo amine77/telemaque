@@ -6,13 +6,13 @@ class Articles_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_articles($nb = '',$stock = false,$is_verified = false) {
+    public function get_articles($nb = '', $stock = false, $is_verified = false) {
         $limit = "";
-        $table="";
-        $image="";
-        if($stock){
+        $table = "";
+        $image = "";
+        if ($stock) {
             $stock = "WHERE a.article_id = ua.article_id AND ua.quantity>0";
-            $table = ",users_articles ua";   
+            $table = ",users_articles ua";
             $image = ",a.image_id as image_id";
         }
         if ($nb != '')
@@ -83,7 +83,20 @@ class Articles_model extends CI_Model {
     }
 
     public function get_articles_by_category($category_id = '') {
-        $query = $this->db->get_where('articles', array('category_id' => $category_id));
+
+        $sql = "SELECT DISTINCT * ,a.image_id as image_id,a.article_id as article_id
+               FROM categories ca, articles a 
+               RIGHT JOIN images im ON a.image_id=im.image_id
+               LEFT JOIN users_articles ua ON a.article_id = ua.article_id 
+
+               WHERE 
+               
+               a.category_id=ca.category_id
+               AND ca.category_id='$category_id'
+                   GROUP BY a.article_id
+            ";
+        
+        $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query;
         } else {
@@ -112,7 +125,6 @@ class Articles_model extends CI_Model {
         }
     }
 
-
     function set_valide_copy($copy_id) {
         $data = array(
             'is_verified' => 1
@@ -126,6 +138,7 @@ class Articles_model extends CI_Model {
             return FALSE;
         }
     }
+
     function set_valide($article_id) {
         $data = array(
             'is_verified' => 1
@@ -178,7 +191,7 @@ class Articles_model extends CI_Model {
 //           RIGHT JOIN tags_articles ON tags_articles.article_id = articles.article_id
 //           RIGHT JOIN tags ON tags.tag_id = tags_articles.tag_id
 //           WHERE article_label LIKE '%$key%' OR tag_label like '%$key%'  ";
-        
+
         $sql = "SELECT  articles.article_id, article_label, image_path
                 FROM images
                 RIGHT JOIN articles ON articles.image_id = images.image_id
@@ -239,6 +252,5 @@ class Articles_model extends CI_Model {
             return false;
         }
     }
-    
 
 }

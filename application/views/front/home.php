@@ -74,8 +74,7 @@
                 " <img src='" . base_url() . "assets/img/img_none.jpg'>" ;
             echo "</div>";
             // echo "<button data-role='".$row->article_id."'>Ajouter au panier </button>";
-            echo '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mattis, velit vel scelerisque efficitur
-            lectus neque facilisis tellus, id scelerisque turpis erat sit amet nunc. Vivamus fringilla posuere.</p><br>';
+            echo '<p>' . substr($row->description,0, 100).'...</p><br>';
             
             echo '<div class="clear"></div>';
             
