@@ -14,7 +14,7 @@ class Panier extends Front_Controller {
     public function index() {
 
 
-        
+
         $this->data['title'] = 'Panier';
         $this->data['site'] = $this->site_model->get_site_configurations();
         $panier_exemplaire = $_SESSION['panier'];
@@ -95,28 +95,27 @@ class Panier extends Front_Controller {
         return $html;
     }
 
-    public function facture($etape = '') {
-        $panier_exemplaire = $_SESSION['panier'];
-
-        $this->data['exemplaires'] = array();
-        //$this->panier_model->vider();
-        unset($panier_exemplaire['nb_article']);
-        $panier_exemplaire = array_keys($panier_exemplaire);
-        if (count($panier_exemplaire) > 0) {
-
-            $this->data['additional_js'] = array('functions');
-            $this->data['exemplaires'] = $this->users_articles_model->exemplaire($panier_exemplaire);
-
-            $this->data['texte'] = $this->panier_model->get_cart($this->data['exemplaires'], true);
-        } else {
-            $this->data['texte'] = $this->panier_model->get_cart();
+    public function facture($page = '', $cmd_id = '') {
+        if (!$this->session->has_userdata('login')) {
+            redirect('connexion');
         }
+        $facture = $this->cmd_model->get_cmd($cmd_id, $_SESSION['user_id']);
 
+        $this->data['Total_Cmd'] = $facture['Total_Cmd'];
+        unset($facture['Total_Cmd']);
+        foreach ($facture as $cmd) {
+            $this->data['cmd'] = $cmd;
+        }
+      
+
+        $this->data['userInfo'] = $this->db->get_where('users', array('user_id' => $_SESSION['user_id']))->result()[0];
+        $this->data['site_identity'] = $this->db->get_where('site_identity', array('id' => '1'))->row_array();
+        //$this->debug($this->data['facture']);
         $this->load->view('front/facture', $this->data);
     }
 
     //Page commande 
-    public function order($etape = '',$cmd_id='') {
+    public function order($etape = '', $cmd_id = '') {
         if (!$this->session->has_userdata('login')) {
             redirect('connexion');
         }
@@ -126,16 +125,10 @@ class Panier extends Front_Controller {
 
             $this->data['site'] = $this->site_model->get_site_configurations();
             $this->data['view'] = 'front/order_etape_3';
-        
-            $this->
-            
-            
-            
-            
         } else if ($etape == 'etape-2') {
-             
+
             if ($this->input->post('valid-cart') == "Valider") {
-                
+
                 $this->form_validation->set_rules("card_number", "N° carte", "trim|required|min_length[16]|max_length[16]|integer");
                 $this->form_validation->set_rules("security_code", "Cryptogramme", "trim|required|min_length[3]|max_length[3]|integer");
                 if ($this->form_validation->run() == TRUE) {
@@ -159,7 +152,7 @@ class Panier extends Front_Controller {
 
                     //$this->utils_model->send_mail('admin.telemaque@gmail.com', 'yoniattlane555@gmail.com', $subject, $content);
 
-                    redirect(base_url() . "panier/order/etape-3/".$cmd_id);
+                    redirect(base_url() . "panier/order/etape-3/" . $cmd_id);
                 } else {
                     $this->session->set_flashdata('msg-cartnumber', '<div class="alert alert-danger text-center">Votre saisie est incorrect, veuillez recommencez </div>');
                     $this->debug($this->form_validation->error_array);

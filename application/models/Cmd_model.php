@@ -20,7 +20,7 @@ class Cmd_model extends CI_Model {
     public function get_cmd($cmd_id = '', $user_id, $nb = '', $width = '') {
         $limit = "";
         if ($cmd_id != '') {
-            $cmd_id = " AND command_id='$cmd_id'";
+            $cmd_id = " AND cmd.command_id='$cmd_id'";
         }
         if ($nb != '')
             $limit = "LIMIT $nb";

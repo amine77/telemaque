@@ -76,7 +76,7 @@ if (trim($fichier[3]) == '') {
     $route['^(vendeurs)/(:any)'] = "vendeurs/liste_vendeurs_article/$0";
     $route['^(nouvelle-vente)'] = "vendeurs/nouvelle_vente";
     $route['^(nouvelle-vente)/(:any)'] = "vendeurs/nouvelle_vente/$0";
-
+    $route['^(facture)/(:any)'] = "panier/facture/$0";
     $route['^(articles)/(:any)'] = "articles/index/$0";
     $route['^(search)/(:any)'] = "search/index/$0";
     $route['^(articles)/(:any)/(:any)'] = "articles/index/$0/$1";

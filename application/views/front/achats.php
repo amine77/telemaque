@@ -38,7 +38,7 @@
         ?>
 
 
-        <a href="<?= base_url() ?>panier/facture" class="btn btn-default"> Voir la commande </a>
+        <a href="<?= base_url() ?>panier/facture/2" class="btn btn-default"> Voir la commande </a>
 
 
 
