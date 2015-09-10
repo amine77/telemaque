@@ -63,7 +63,7 @@
             <div class="form-group">
                 <div></div>
                 <div>
-                    <input id="btn_signup" name="update-profil" type="submit" class="btn btn-success" value="Valider" />
+                    <input id="btn_signup" name="valid-cart" type="submit" class="btn btn-success" value="Valider" />
                     <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Annuler" />
                 </div>
             </div>
