@@ -93,6 +93,7 @@ class login_model extends CI_Model
             'title' => $titre,
             'description' => $description,
             'mail' => $email,
+            'is_new' => 0,
             'role_id' => 2 //par défaut un contact créé est un admin
         );
 

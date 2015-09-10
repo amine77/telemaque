@@ -2,8 +2,8 @@
 
 <script>
 
-    $(function () {
-        $('a[data-confirm]').click(function (ev) {
+    $(function() {
+        $('a[data-confirm]').click(function(ev) {
             var href = $(this).attr('href');
 
             if (!$('#dataConfirmModal').length) {
@@ -17,7 +17,7 @@
         });
 
 
-        $('a[title="voir"]').click(function (e) {
+        $('a[title="voir"]').click(function(e) {
             e.preventDefault();
             var href = $(this).attr('href');
 //            console.log('href = '+href);
@@ -26,14 +26,14 @@
                 dataType: "html",
                 url: href
             })
-                    .done(function (response) {
+                    .done(function(response) {
 
 
-                            if (!$('#messageContentModal').length) {
-                                $('body').append('<div id="messageContentModal" class="modal" role="dialog" aria-labelledby="messageContentLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="messageContentLabel">Message</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn btn-success" data-dismiss="modal" aria-hidden="true">OK</button></div></div></div></div>');
-                            }
-                            $('#messageContentModal').find('.modal-body').html(response);
-                            $('#messageContentModal').modal({show: true});                        
+                        if (!$('#messageContentModal').length) {
+                            $('body').append('<div id="messageContentModal" class="modal" role="dialog" aria-labelledby="messageContentLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="messageContentLabel">Message</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn btn-success" data-dismiss="modal" aria-hidden="true">OK</button></div></div></div></div>');
+                        }
+                        $('#messageContentModal').find('.modal-body').html(response);
+                        $('#messageContentModal').modal({show: true});
                     });
 
             return false;
@@ -74,17 +74,34 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Commandes&nbsp;&nbsp;&nbsp; <span class="badge">42</span></h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Commandes&nbsp;&nbsp;&nbsp; <span class="badge"> 
+                                <?php
+                                if ($commandes['Total_Cmd'] == 0) {
+                                    echo 0;
+                                } else {
+                                    echo count($commandes) - 1;
+                                }
+                                ?></span></h3>
                     </div>
                     <div class="panel-body">
-                        <table class="table-bordered">
-                            <tr> <th>ID</th>
-                                <th>Date</th>
-                                <th>Produits</th>
-                                <th>Total</th>
-                            </tr>
-                            <tr><td>1</td><td>29/02/2015</td><td>3</td><td>122.35€</td></tr>
-                            <tr><td>2</td><td>29/11/2015</td><td>1</td><td>75.35€</td></tr>
+                        <table class="table">
+                            <?php if ($commandes['Total_Cmd'] == 0) { ?>
+                                <h5>Aucun article commandé.</h5>
+<?php } else { ?>
+                                <tr>
+                                    <th>ID</th><th>Date</th><td>Total</td>
+                                </tr>
+    <?php foreach ($commandes as $key => $commande) { ?>
+        <?php if (is_int($key)) { ?>
+                                        <td><?= $commande['command_id'] ?></td>
+                                        <td><?= $commande['created_at'] ?></td>
+                                        <td><?= $commande['montant_commande'] ?> €</td>
+
+                                    <?php
+                                    }
+                                }
+                                ?>
+<?php } ?>
                         </table>
                     </div>
                 </div>
@@ -93,18 +110,25 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Ventes &nbsp;&nbsp;&nbsp; <span class="badge">12</span></h3>
+                        <h3 class="panel-title">Ventes &nbsp;&nbsp;&nbsp; <span class="badge"><?php if(is_array($ventes)){count($ventes);}else{echo 0 ;}?></span></h3>
                     </div>
                     <div class="panel-body">
-                        <table class="table-bordered">
-                            <tr> <th>ID</th>
-                                <th>Date</th>
-                                <th>Produits</th>
-                                <th>Total</th>
-                            </tr>
-                            <tr><td>1</td><td>29/02/2015</td><td>3</td><td>122.35€</td></tr>
-                            <tr><td>2</td><td>29/11/2015</td><td>1</td><td>75.35€</td></tr>
-                        </table>
+<?php if (is_array($ventes) && count($ventes) > 0) { ?>
+                            <table class="table">
+                                <tr> <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Article</th>
+                                    <th>Prix TTC</th>
+                                    <th>Status</th>
+                                </tr>
+                                <?php foreach ($ventes as $article_vendu) { ?>
+                                <?php $status = ($article_vendu['is_verified'] == 1) ? '<span class="label label-success">Activé</span>' : '<span class="label label-danger">Desactivé</span>'; ?>
+                                    <tr><td><?= $article_vendu['article_id'] ?></td><td><?= $article_vendu['created_at'] ?></td><td><?= $article_vendu['title'] ?></td><td><?= $article_vendu['price'] ?></td><td><?= $status ?></td></tr>
+                            <?php } ?>
+                            </table>
+<?php } else { ?>
+                            <h5>Cet utilisateur ne possède pas des articles en vente.</h5>
+<?php } ?>
                     </div>
                 </div>
             </div>
@@ -116,7 +140,7 @@
                         <h3 class="panel-title"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;Messages &nbsp;&nbsp;&nbsp; <span class="badge"><?= count($messages) ?></span></h3>
                     </div>
                     <div class="panel-body">
-                        <?php if (is_array($messages) && count($messages) > 0) { ?>
+<?php if (is_array($messages) && count($messages) > 0) { ?>
                             <table class="table table-striped">
                                 <tr>
                                     <th>Date</th>
@@ -133,12 +157,12 @@
                                             </a> / <a title="voir" href="<?= base_url('admin/view_message/' . $message['message_id']) ?>">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                             </a></td></tr>                                   
-                                <?php } ?>
+    <?php } ?>
                             </table>
                         <?php } else { ?>
-                            Aucun message
+                            Aucun message.
 
-                        <?php } ?>
+<?php } ?>
                     </div>
                 </div>
             </div>
@@ -154,8 +178,6 @@
                     </table>
                 </div>
             </div>
-
-
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">Rôles &nbsp;&nbsp;&nbsp; <span class="badge">1</span></h3>
@@ -171,13 +193,6 @@
         </div>
     </div>
     <div class="row">
-
-
-
-
-
-
-
         <div class="col-lg-6">
 
             <div class="panel panel-primary">
@@ -185,7 +200,7 @@
                     <h3 class="panel-title"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;Adresses&nbsp;&nbsp;&nbsp; <span class="badge"><?= count($adresses) ?></span></h3>
                 </div>
                 <div class="panel-body">
-                    <?php if (is_array($adresses) && count($adresses) > 0) { ?>
+<?php if (is_array($adresses) && count($adresses) > 0) { ?>
                         <table class="table-bordered">
                             <tr> <th>Adresse</th>
                                 <th>Code Postal</th>
@@ -193,15 +208,15 @@
                                 <th>Pays</th>
                             </tr>
 
-                            <?php foreach ($adresses as $adresse) { ?>
+    <?php foreach ($adresses as $adresse) { ?>
                                 <tr><td><?= $adresse['address'] ?></td><td><?= $adresse['zip_code'] ?></td><td><?= $adresse['city'] ?></td><td><?= $adresse['country'] ?></td></tr>
-                            <?php } ?>
+                        <?php } ?>
 
                         </table>
 
-                    <?php } else { ?>
+<?php } else { ?>
                         <p>Aucune adresse trouvée !</p>
-                    <?php } ?>
+<?php } ?>
                 </div>
             </div>
         </div>

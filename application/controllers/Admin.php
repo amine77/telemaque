@@ -28,6 +28,8 @@ class Admin extends CI_Controller
         $this->load->model('comment_model');
         $this->load->model('statistics_model');
         $this->load->model('utils_model');
+        $this->load->model('cmd_model');
+        $this->load->model('vendeurs_model');
     }
 
     public function index()
@@ -179,6 +181,8 @@ class Admin extends CI_Controller
         $this->login_model->set_old($user_id);
         $data['adresses'] = $this->login_model->get_adresses_by_user($user_id);
         $data['messages'] = $this->login_model->get_messages_by_user($user_id);
+        $data['commandes'] = $this->cmd_model->get_cmd('',$user_id);
+        $data['ventes'] = $this->vendeurs_model->get_sell('',$user_id);
 
         $data['role'] = $this->login_model->get_roles_by_user($user_id);
         $this->input->ip_address();
@@ -822,9 +826,9 @@ class Admin extends CI_Controller
             $data['module'] = $module = $this->module_model->get_module_by_id($module_id);
             if ($module['module_id'] == 2 && $module['module_status'] == 1) {
                 $data['comments'] = $this->comment_model->get_all();
-                $data['articles'] = $this->articles_model->get_articles(7);
+                $data['articles'] = $this->articles_model->get_articles(7, true, true);
             } elseif ($module['module_id'] == 1 && $module['module_status'] == 1) {
-                $data['articles'] = $this->articles_model->get_articles(7);
+                $data['articles'] = $this->articles_model->get_articles(7, true, true);
             }
             $data['view'] = 'back/update_module';
             $data['show_header'] = TRUE;
