@@ -249,6 +249,7 @@ class login_model extends CI_Model
 
     function delete_user($id)
     {
+        $this->db->delete('address', array('user_id' => $id));
         $this->db->delete('users', array('user_id' => $id));
     }
 
