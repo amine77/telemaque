@@ -35,18 +35,18 @@ class Vendeurs extends Front_Controller {
         $this->load->view('front/template/layout', $this->data);
     }
 
-     public function nouvelle_vente_art($page = '', $etape = '') {
+    public function nouvelle_vente_art($page = '', $etape = '') {
 
         // $this->debug($this->data['categories']);
         if (!$this->session->has_userdata('login')) {
             redirect('connexion');
         }
-        $sql ="SELECT DISTINCT * 
+        $sql = "SELECT DISTINCT * 
                FROM specifications s,articles_specifications asp
                WHERE asp.visible='1' AND s.specification_id=asp.specification_id
                ";
         $this->data['specs'] = $this->db->query($sql)->result_array();
-        
+
 
         if ($etape == 2 && ($_SERVER['HTTP_REFERER'] == site_url() . "nouvelle-vente-art" || $_SERVER['HTTP_REFERER'] == site_url() . "nouvelle-vente-art/2" ) && (isset($_POST['add_product']) || count($_SESSION['vente_art']) > 0)) {
 
@@ -56,8 +56,8 @@ class Vendeurs extends Front_Controller {
 
             if ($this->form_validation->run() == TRUE || count($_SESSION['vente_art']) > 0) {
 
-                
-               
+
+
 
                 //Exemple upload photo 
                 if (isset($_FILES['pic'])) {
@@ -65,12 +65,10 @@ class Vendeurs extends Front_Controller {
                         $im_id = $this->utils_model->img_insert($_FILES['pic']);
                         $_SESSION['vente_art']['image_id'] = $im_id;
                         $this->data['form_upload_img'] = $this->utils_model->form_upload_img($im_id);
-                        
                     }
-                    
                 } else {
-                    
-                    
+
+
                     $data = array(
                         'article_label' => $this->input->post("title"),
                         'description' => $this->input->post("description"),
@@ -78,29 +76,49 @@ class Vendeurs extends Front_Controller {
                         'user_id' => $_SESSION['user_id'],
                     );
                     $_SESSION['vente_art'] = $data;
-                    foreach ($_POST as $key => $value){
-                        if(substr($key, 0,4)=='spec' && $value!=''){
-                           $_SESSION['vente_art']['spec'][] = $value;
+                    foreach ($_POST as $key => $value) {
+                        if (substr($key, 0, 4) == 'spec' && $value != '') {
+                            $_SESSION['vente_art']['spec'][] = $value;
                         }
                     }
-                   
+                    if ($_POST['playlist'] != 0) {
+
+                        if (explode(',', $_POST['playlist']) > 1) {
+                            $_SESSION['vente_art']['select_spec'] = explode(',', $_POST['playlist']);
+                        } else {
+                            $_SESSION['vente_art']['select_spec'] = $_POST['playlist'];
+                        }
+                    }
                     $this->data['form_upload_img'] = $this->utils_model->form_upload_img();
                 }
-                
+
                 if (isset($_POST['end_add_product'])) {
                     $data = $_SESSION['vente_art'];
+
+                    $select_spec = $_SESSION['vente_art']['select_spec'];
+                    unset($data['select_spec']);
                     $dataspec = $data['spec'];
                     unset($data['spec']);
+
                     if (isset($_SESSION['vente_art']['image_id'])) {
                         $data['image_id'] = $_SESSION['vente_art']['image_id'];
                     }
                     $this->db->insert('articles', $data);
                     $article_id = $this->db->insert_id();
-                    foreach ($dataspec as $value){
-                        $this->db->insert('specifications', array('specification_label' => $value));
-                        $spec_id = $this->db->insert_id();
-                        $this->db->insert('articles_specifications', array('specification_id' => $spec_id,'article_id'=>$article_id,'visible'=>0));
+                    foreach ($dataspec as $value) {
+                        $this->db->insert('specifications', array('specification_label' => $value, 'article_id' => $article_id));
                     }
+
+                    if (isset($_SESSION['vente_art']['select_spec'])) {
+
+                        if (is_array($select_spec)) {
+                            foreach ($select_spec as $value) {
+                                $this->db->insert('specifications', array('specification_label' => $value, 'article_id' => $article_id));
+                            }
+                        } else
+                            $this->db->insert('specifications', array('specification_label' => $value, 'article_id' => $article_id));
+                    }
+
                     $_SESSION['vente_art'] = array();
 
                     redirect(site_url() . "nouvelle-vente-art/3");
@@ -120,17 +138,14 @@ class Vendeurs extends Front_Controller {
 
         $this->load->view('front/template/layout', $this->data);
     }
-    
-    
-    
+
     public function nouvelle_vente($page = '', $etape = '') {
 
         // $this->debug($this->data['categories']);
         if (!$this->session->has_userdata('login')) {
             redirect('connexion');
         }
-
-
+     
         if ($etape == 2 && ($_SERVER['HTTP_REFERER'] == site_url() . "nouvelle-vente" || $_SERVER['HTTP_REFERER'] == site_url() . "nouvelle-vente/2" ) && (isset($_POST['add_product']) || count($_SESSION['vente']) > 0)) {
 
 
@@ -148,7 +163,7 @@ class Vendeurs extends Front_Controller {
                     if (is_uploaded_file($_FILES['pic']['tmp_name'])) {
                         $im_id = $this->utils_model->img_insert($_FILES['pic']);
                         $this->data['form_upload_img'] = $this->utils_model->form_upload_img($im_id);
-                        $_SESSION['vente']['image_id']=$im_id;
+                        $_SESSION['vente']['image_id'] = $im_id;
                     }
                 } else {
                     $data = array(
@@ -160,16 +175,36 @@ class Vendeurs extends Front_Controller {
                         'user_id' => $_SESSION['user_id'],
                     );
                     $_SESSION['vente'] = $data;
+
+
+                    foreach ($_POST as $key => $value) {
+                        if (substr($key, 0, 4) == 'spec' && $value != '') {
+                            $_SESSION['vente']['spec'][substr($key, 8)] = $value;
+                        }
+                    }
+                    
                     $this->data['form_upload_img'] = $this->utils_model->form_upload_img();
                 }
 
                 if (isset($_POST['end_add_product'])) {
                     $data = $_SESSION['vente'];
+                    $spec = "";
+                    if (isset($_SESSION['vente']['spec'])) {
+                        $spec = $_SESSION['vente']['spec'];
+                    }
+
+                    unset($data['spec']);
                     if (isset($_SESSION['vente']['image_id'])) {
                         $data['image_id'] = $_SESSION['vente']['image_id'];
                     }
                     $this->db->insert('users_articles', $data);
-                    $im_id = $this->db->insert_id();
+                    $user_article_id = $this->db->insert_id();
+                    if ($spec != "") {
+                        foreach ($spec as $key => $value) {
+                            $this->db->insert('articles_specifications', array('specification_value' => $value, 'user_article_id' => $user_article_id, 'specification_id' => $key, 'specification_value' => $value, 'visible' => 0));
+                            $spec_id = $this->db->insert_id();
+                        }
+                    }
 
                     $_SESSION['vente'] = array();
 

@@ -37,6 +37,7 @@
                      echo "<p class='pull-right'>";
                         echo '<a href="'.base_url().'panier/facture/'.substr($key,13).'" class="btn btn-primary glyphicon glyphicon-search"> Voir la commande </a>';
                      echo "</p>";
+                     echo "<div class='clear'></div>";
                   endif;
 
             endforeach;
