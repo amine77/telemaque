@@ -26,7 +26,7 @@ class Cmd_model extends CI_Model {
             $limit = "LIMIT $nb";
 
 
-        $sql = "SELECT *,cmdl.price price,cmdl.quantity quantity,ua.image_id as enfant_im 
+        $sql = "SELECT *,cmdl.price price,cmdl.quantity quantity,ua.image_id as enfant_im ,cmd.created_at as created_at
                 FROM command cmd ,command_lines cmdl,users_articles ua,articles a  
                 WHERE cmd.user_id='$user_id' AND cmdl.command_id=cmd.command_id 
                     AND ua.user_article_id= cmdl.user_article_id
@@ -38,10 +38,12 @@ class Cmd_model extends CI_Model {
 
         $query = $this->db->query($sql);
         $oData = $query->result();
-     
+        
         $totalCmd = 0;
         $tab = array();
+        
         for ($i = 0; $i < count($oData); $i++) {
+            $tab[$oData[$i]->command_id]['created_at'] =  $oData[$i]->created_at;
             $totalCmd += $oData[$i]->price;
             $image_id = (is_null($oData[$i]->enfant_im)) ? $oData[$i]->image_id : $oData[$i]->enfant_im;
             $tab[$oData[$i]->command_id]['address_id'] = $oData[$i]->address_id;
@@ -56,10 +58,11 @@ class Cmd_model extends CI_Model {
             );
             $tab[$oData[$i]->command_id]['command_line_' . $oData[$i]->command_lines_id] = $cmd_line;
         }
-
+        
 
 
         $tab['Total_Cmd'] = $totalCmd;
+
         return $tab;
     }
 
