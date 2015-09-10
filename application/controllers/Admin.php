@@ -29,6 +29,7 @@ class Admin extends CI_Controller
         $this->load->model('statistics_model');
         $this->load->model('utils_model');
         $this->load->model('cmd_model');
+        $this->load->model('vendeurs_model');
     }
 
     public function index()
@@ -181,6 +182,7 @@ class Admin extends CI_Controller
         $data['adresses'] = $this->login_model->get_adresses_by_user($user_id);
         $data['messages'] = $this->login_model->get_messages_by_user($user_id);
         $data['commandes'] = $this->cmd_model->get_cmd('',$user_id);
+        $data['ventes'] = $this->vendeurs_model->get_sell('',$user_id);
 
         $data['role'] = $this->login_model->get_roles_by_user($user_id);
         $this->input->ip_address();
