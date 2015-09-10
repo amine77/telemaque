@@ -1,5 +1,5 @@
 <?php
-
+        //$this->articles_model->
 	/**********************************************
 	VARIABLES ET DONNÉES À INSERER DANS LE DOCUMENT
 	**********************************************/
