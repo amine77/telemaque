@@ -116,7 +116,7 @@ class Panier extends Front_Controller {
     }
 
     //Page commande 
-    public function order($etape = '') {
+    public function order($etape = '',$cmd_id='') {
         if (!$this->session->has_userdata('login')) {
             redirect('connexion');
         }
@@ -126,6 +126,12 @@ class Panier extends Front_Controller {
 
             $this->data['site'] = $this->site_model->get_site_configurations();
             $this->data['view'] = 'front/order_etape_3';
+        
+            $this->
+            
+            
+            
+            
         } else if ($etape == 'etape-2') {
              
             if ($this->input->post('valid-cart') == "Valider") {
@@ -144,7 +150,7 @@ class Panier extends Front_Controller {
                     $info_user = $this->login_model->get_user_by_id($_SESSION['user_id']);
 
 
-                    $this->cmd_model->add_cmd($oData);
+                    $cmd_id = $this->cmd_model->add_cmd($oData);
                     $this->panier_model->vider();
                     $content = $info_user['user_surname'] . "" . $info_user['user_name'] . "<br>"
                             . "Votre Commande a bien été validé ";
@@ -153,7 +159,7 @@ class Panier extends Front_Controller {
 
                     //$this->utils_model->send_mail('admin.telemaque@gmail.com', 'yoniattlane555@gmail.com', $subject, $content);
 
-                    redirect(base_url() . "panier/order/etape-3");
+                    redirect(base_url() . "panier/order/etape-3/".$cmd_id);
                 } else {
                     $this->session->set_flashdata('msg-cartnumber', '<div class="alert alert-danger text-center">Votre saisie est incorrect, veuillez recommencez </div>');
                     $this->debug($this->form_validation->error_array);
