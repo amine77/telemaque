@@ -179,6 +179,7 @@ class Admin extends CI_Controller
         $this->login_model->set_old($user_id);
         $data['adresses'] = $this->login_model->get_adresses_by_user($user_id);
         $data['messages'] = $this->login_model->get_messages_by_user($user_id);
+        $data['commandes'] = $this->cmd_model->get_cmd('',$user_id);
 
         $data['role'] = $this->login_model->get_roles_by_user($user_id);
         $this->input->ip_address();
