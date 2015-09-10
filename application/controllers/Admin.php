@@ -28,6 +28,7 @@ class Admin extends CI_Controller
         $this->load->model('comment_model');
         $this->load->model('statistics_model');
         $this->load->model('utils_model');
+        $this->load->model('cmd_model');
     }
 
     public function index()
@@ -823,9 +824,9 @@ class Admin extends CI_Controller
             $data['module'] = $module = $this->module_model->get_module_by_id($module_id);
             if ($module['module_id'] == 2 && $module['module_status'] == 1) {
                 $data['comments'] = $this->comment_model->get_all();
-                $data['articles'] = $this->articles_model->get_articles(7);
+                $data['articles'] = $this->articles_model->get_articles(7, true, true);
             } elseif ($module['module_id'] == 1 && $module['module_status'] == 1) {
-                $data['articles'] = $this->articles_model->get_articles(7);
+                $data['articles'] = $this->articles_model->get_articles(7, true, true);
             }
             $data['view'] = 'back/update_module';
             $data['show_header'] = TRUE;

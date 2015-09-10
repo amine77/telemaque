@@ -78,13 +78,14 @@
                     </div>
                     <div class="panel-body">
                         <table class="table-bordered">
-                            <tr> <th>ID</th>
-                                <th>Date</th>
-                                <th>Produits</th>
-                                <th>Total</th>
-                            </tr>
-                            <tr><td>1</td><td>29/02/2015</td><td>3</td><td>122.35€</td></tr>
-                            <tr><td>2</td><td>29/11/2015</td><td>1</td><td>75.35€</td></tr>
+                            <?php if($commandes['Total_Cmd'] == 0){?>
+                            <h5>Aucun article commandé</h5>
+                            <?php   }else{ 
+                            foreach ($commandes as $commande){ ?> 
+                            
+                            <?php  }
+                            
+                            }  ?>
                         </table>
                     </div>
                 </div>
