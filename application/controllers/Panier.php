@@ -106,7 +106,7 @@ class Panier extends Front_Controller {
         foreach ($facture as $cmd) {
             $this->data['cmd'] = $cmd;
         }
-      
+       
 
         $this->data['userInfo'] = $this->db->get_where('users', array('user_id' => $_SESSION['user_id']))->result()[0];
         $this->data['site_identity'] = $this->db->get_where('site_identity', array('id' => '1'))->row_array();
@@ -125,6 +125,7 @@ class Panier extends Front_Controller {
 
             $this->data['site'] = $this->site_model->get_site_configurations();
             $this->data['view'] = 'front/order_etape_3';
+            $this->data['command_id']=$cmd_id;
         } else if ($etape == 'etape-2') {
 
             if ($this->input->post('valid-cart') == "Valider") {

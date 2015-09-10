@@ -13,7 +13,7 @@
                     <th width="50%">Produit</th>
                     <th>Quantité</th>
                     <td width="10%">Prix UHT(€)</td>
-
+                    
                 </tr>
                 <?php
                 foreach ($cmd as $key => $value) {
@@ -29,16 +29,20 @@
                   </tr> ";
                     }
                 }
-
-                echo "</table>";
-
-            endif;
+              
+                
+                
+                 echo "</table>";
+                 echo "<p class='pull-right'>";
+                    echo '<a href="'.base_url().'panier/facture/'.substr($key,13).'" class="btn btn-primary glyphicon glyphicon-search"> Voir la commande </a>';
+                 echo "</p>";
+              endif;
 
         endforeach;
         ?>
 
 
-        <a href="<?= base_url() ?>panier/facture/2" class="btn btn-default"> Voir la commande </a>
+       
 
 
 

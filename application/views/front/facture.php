@@ -18,14 +18,14 @@
     $SocieteTelephone = $site_identity['phone'];
 
     /* 	Encart Lieu et Date	 */
-    $DevisVille = 'Ville';
+    $DevisVille = ' Paris';
     $DevisDate = $date;
     $DevisNumero = $cmd['command_id'];
 
     /* 	Encart Client	 */
-    $ClientCivilite = 'Civ';
-    $ClientNom = $userInfo->user_name;
-    $ClientPrenom = $userInfo->user_surname;
+    $ClientCivilite = ' ';
+    $ClientNom = ucfirst($userInfo->user_name);
+    $ClientPrenom = ucfirst($userInfo->user_surname);;
     $ClientAdresse = $nameAdresse['address'];
     $ClientCodePostal = $nameAdresse['zip_code'];
     $ClientVille =  $nameAdresse['city'];
@@ -54,7 +54,7 @@
 
         <table>
             <tr>
-                <td style="width:75%;">
+                <td style="width:60%;">
                     '.$Societe.'
                     
                     <br>
@@ -65,8 +65,11 @@
                     <br>
                     N° Tel : ' . $SocieteTelephone;
        $html.=' </td>
-                <td style="width:25%;">
+                <td style="width:20%;" valign="middle">
+                 <div style="background:#F0F0F0;padding:5px 15px;border:1px solid #000000;"><h3>FACTURE</h3></div>   
+
                 </td>
+                <td ></td>
             </tr>
         </table>
 
@@ -120,11 +123,11 @@
             if (is_array($cmdLine)) {  
                    
           $html.="<tr>
-                        <td>Designation du produit</td>
+                        <td>".$cmdLine['title']."</td>
                         <td>".$cmdLine['quantity']."</td>
                         <td>".number_format(floatval($cmdLine['price']) - ((floatval($cmdLine['price'])*20)/100),'2','.',' ')." &nbsp;€</td>
                         <td>20%</td>
-                        <td class='total'>".intval($cmdLine['price'])." &nbsp;€</td>
+                        <td class='total'>".number_format(floatval($cmdLine['price']),'2','.',' ')." &nbsp;€</td>
                     </tr>";
                  }
             }
@@ -143,7 +146,7 @@
                                 Montant H.T.
                             </td>
                             <td class="total final" style="width:35%;" >
-                                XXX,XX€
+                                '.number_format(floatval($Total_Cmd) - ((floatval($Total_Cmd)*20)/100),'2','.',' ').' €
                             </td>
                         </tr>
                         <tr>
@@ -151,7 +154,7 @@
                                 Montant TVA
                             </td>
                             <td class="total final" style="width:35%;" >
-                                XXX,XX€
+                               '.number_format((floatval($Total_Cmd)*20)/100,'2','.',' ').' €
                             </td>
                         </tr>
                         <tr>
@@ -159,7 +162,7 @@
                                 Montant TTC
                             </td>
                             <td class="total final" style="width:35%;" >
-                                '.number_format($Total_Cmd, 2, '.', ' ').'€
+                                '.number_format($Total_Cmd, 2, '.', ' ').' €
                             </td>
                         </tr>
                     </table>
@@ -171,22 +174,13 @@
 
         <table style="border-spacing: 0;">
             <tr>
-                <td style="width:15%;">
+                <td style="width:100%;">En votre aimable reglement,<br>Cordialement
                 </td>
-                <td style="width:30%;">
-                    Bon pour accord.<br>
-                    Signature du commercial :
-                </td>
-                <td style="width:10%;">
-                </td>
-                <td style="width:30%;">
-                    Bon pour commande.<br>
-                    Signature du client :
-                </td>
-                <td style="width:15%;">
-                </td>
+                
             </tr>
         </table>
+        
+        
     </page>';
 
 /* * ***************************************
