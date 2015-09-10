@@ -225,10 +225,13 @@ class Articles_model extends CI_Model {
     }
 
     public function get_carousel_articles() {
-        $sql = "SELECT  articles.article_id, article_label, image_path, description
+        $sql = "SELECT  DISTINCT a.article_id, article_label, image_path, a.description
                 FROM images
-                RIGHT JOIN articles ON articles.image_id = images.image_id
-                WHERE articles.in_carousel = 1";
+                RIGHT JOIN articles a ON a.image_id = images.image_id
+                RIGHT JOIN users_articles ua ON ua.article_id = a.article_id
+                WHERE a.in_carousel = 1 AND ua.quantity>0
+
+                ";
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();
