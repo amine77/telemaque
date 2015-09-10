@@ -127,9 +127,9 @@ class Panier extends Front_Controller {
             $this->data['site'] = $this->site_model->get_site_configurations();
             $this->data['view'] = 'front/order_etape_3';
         } else if ($etape == 'etape-2') {
-
+             
             if ($this->input->post('valid-cart') == "Valider") {
-
+                
                 $this->form_validation->set_rules("card_number", "N° carte", "trim|required|min_length[16]|max_length[16]|integer");
                 $this->form_validation->set_rules("security_code", "Cryptogramme", "trim|required|min_length[3]|max_length[3]|integer");
                 if ($this->form_validation->run() == TRUE) {
@@ -151,7 +151,7 @@ class Panier extends Front_Controller {
 
                     $subject = "Commande Bien réussi";
 
-                    $this->utils_model->send_mail('admin.telemaque@gmail.com', 'yoniattlane555@gmail.com', $subject, $content);
+                    //$this->utils_model->send_mail('admin.telemaque@gmail.com', 'yoniattlane555@gmail.com', $subject, $content);
 
                     redirect(base_url() . "panier/order/etape-3");
                 } else {
