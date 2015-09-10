@@ -43,8 +43,11 @@ class Cmd_model extends CI_Model {
         $tab = array();
         
         for ($i = 0; $i < count($oData); $i++) {
+            $montantCmd= 0;
+            $tab[$oData[$i]->command_id]['command_id'] = $oData[$i]->command_id;
             $tab[$oData[$i]->command_id]['created_at'] =  $oData[$i]->created_at;
             $totalCmd += $oData[$i]->price;
+            $montantCmd+= $oData[$i]->price;
             $image_id = (is_null($oData[$i]->enfant_im)) ? $oData[$i]->image_id : $oData[$i]->enfant_im;
             $tab[$oData[$i]->command_id]['address_id'] = $oData[$i]->address_id;
             $image = $this->utils_model->get_im($image_id, $width)['imsrc'];
@@ -56,6 +59,7 @@ class Cmd_model extends CI_Model {
                 'title' => $oData[$i]->title,
                 'image' => $image
             );
+            $tab[$oData[$i]->command_id]['montant_commande'] = $montantCmd;
             $tab[$oData[$i]->command_id]['command_line_' . $oData[$i]->command_lines_id] = $cmd_line;
         }
         
@@ -94,6 +98,7 @@ class Cmd_model extends CI_Model {
             $this->db->where('user_article_id', $user_article_id);
             $this->db->update('users_articles', $dataUpdate);
         }
+        return $command_id;
     }
 
 }
