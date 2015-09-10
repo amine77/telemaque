@@ -7,7 +7,54 @@ $(function() {
         format: 'mm/dd/yyyy',
         startDate: '-3d'
     });
+    var count = 1;
+    $('#btn_add_spec').on('click',function(){
+        var html = "<tr height='50px'>"+
+                        "<td><input type='text' name='spec"+count+"' class='form-control' placeholder='Libellé caracteristique'/></td>"+
+                        "<td>&nbsp;&nbsp;<span class='glyphicon glyphicon-remove-circle' style='cursor:pointer' onclick='$(this).parent().parent().remove()'></span></td>"+
+                    "</tr>";
+        $('#input_spec_add table').append(html);
+        
+    });
+    
+    $("li", "#btselmulti ").click(function() {
+        var action = $(this).attr("id");
+        switch (action) {
+            case "addall":
+                var ids = $("#chooseplaylist option");
+                var dest = $("#selplaylist");
+                break;
+            case "addsel":
+                var ids = $("#chooseplaylist option:selected");
+                var dest = $("#selplaylist");
+                break;
+            case "quitsel":
+                var ids = $("#selplaylist option:selected");
+                var dest = $("#chooseplaylist");
+                break;
+            case "quitall":
+                var ids = $("#selplaylist option");
+                var dest = $("#chooseplaylist");
+                break;
+        }
+        changedata(ids, dest);
+        putsels();
+    });
 
+
+    //CREATION NOUVELLE ARTICLE
+    $('#select-cat-art').on('change', function() {
+        if ($(this).val() == 0) {
+            $('.require_art').hide();
+            $('#content-select-product').hide();
+        }
+        else {
+            $('#content-select-product,.require_art').show();
+
+        }
+    });
+
+//CREATION NOUVELLE EXEMPLAIRE
     $('#select-cat').on('change', function() {
         if ($(this).val() != 0)
             $('.require_art').hide();
@@ -60,14 +107,15 @@ $(function() {
     });
 
 
-});
+}
+);
 
 function delete_article(entity) {
     var ua_id = entity.parent().parent().data('role');
     var data = {"user_article_id": ua_id};
     var action = "delete_article";
 
-    print_cart(action, data,entity);
+    print_cart(action, data, entity);
 }
 
 function delete_sample_article(entity) {
@@ -116,7 +164,7 @@ function print_cart(action, data, entity) {
             if (action == "delete_article") {
                 var qtyini = $("#panier #panier-nbarticle").html();
                 var qty = entity.parent().find('input').data('qty');
-                
+
                 $("#panier #panier-nbarticle").html(qtyini - qty);
             }
             $('#bloc_panier').html(result);
@@ -161,4 +209,22 @@ function select_art() {
     });
 
 
+}
+
+
+/* -- Ecrit les éléments sélectionnés dans le select de destination et les efface de celui d'origine -- */
+function changedata(ids, dest) {
+    ids.each(function() {
+        dest.append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option>");
+    })
+    $(ids).remove();
+}
+
+/* -- Ecrit les élements sélectionnés dans le hidden (text pour l'exemple) -- */
+function putsels() {
+    var listsels = new Array();
+    $("#selplaylist option").each(function() {
+        listsels.push($(this).val());
+    })
+    $("#playlist").val(listsels.join(","));
 }

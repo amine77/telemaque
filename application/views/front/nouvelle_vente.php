@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
 
-                            <span style="font-size: 14px">OU &nbsp;</span><a href="create-article"> Creer un nouvelle article</a>
+                            <span style="font-size: 14px">OU &nbsp;</span><a href="nouvelle-vente-art"> Creer un nouvelle article</a>
 
                         </div>
                     </div>

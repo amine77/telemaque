@@ -76,7 +76,7 @@ class Articles extends Front_Controller
             if (!is_null($userActicle[0]->image_id)) {
 
                 $this->data['img'] = $this->utils_model->get_im($userActicle[0]->image_id, 300);
-                $this->debug($this->data['img']);
+                //$this->debug($this->data['img']);
                 $this->data['img'] = $this->data['img']['imsrc'];
             } else {
                 $this->data['img'] = "<img src='" . base_url() . "assets/img/img_none.jpg' width='350px' alt='image produit'/>";

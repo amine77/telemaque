@@ -214,7 +214,7 @@ class Articles_model extends CI_Model {
         $sql = "SELECT specification_label,specification_value
                FROM articles_specifications artsp 
                LEFT JOIN specifications sp ON artsp.specification_id = sp.specification_id 
-               AND artsp.article_id  ='$article_id' 
+               AND sp.article_id  ='$article_id' 
                AND artsp.visible = '1'
                ";
         $query = $this->db->query($sql);
@@ -228,8 +228,8 @@ class Articles_model extends CI_Model {
             $with_article = " WHERE a.article_id = '$article_id'  ";
         $sql = "SELECT specification_label,specification_value,sp.specification_id
                FROM articles_specifications artsp ,specifications sp
-               WHERE artsp.specification_id = sp.specification_id 
-               AND artsp.article_id  ='$article_id' 
+               WHERE sp.specification_id = artsp.specification_id 
+               AND sp.article_id  ='$article_id' 
                AND artsp.visible = '1'
                ";
         $query = $this->db->query($sql);

@@ -88,7 +88,7 @@ class Users_articles_model extends Articles_model {
     public function user_article_specification($user_article_id = '') {
         $with_user_article = "";
         if ($user_article_id != "")
-            $with_user_article = " WHERE sp.user_article_id = '$user_article_id'  ";
+            $with_user_article = " WHERE artsp.user_article_id = '$user_article_id'  ";
         $sql = "SELECT specification_label,specification_value
                FROM articles_specifications artsp 
                LEFT JOIN specifications sp ON artsp.specification_id = sp.specification_id 
@@ -97,7 +97,7 @@ class Users_articles_model extends Articles_model {
                ";
 
         $query = $this->db->query($sql);
-       
+        
         return $query->result();
     }
    

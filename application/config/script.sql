@@ -54,19 +54,20 @@ INSERT INTO `articles` (`article_id`, `article_label`, `created_at`, `descriptio
 
 CREATE TABLE IF NOT EXISTS `articles_specifications` (
   `article_specification_id` int(11) NOT NULL AUTO_INCREMENT,
-  `article_id` int(11) NOT NULL,
+  `user_article_id` int(11) NOT NULL,
   `specification_id` int(11) NOT NULL,
   `visible` tinyint(4) NOT NULL,
+  `specification_value` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`article_specification_id`),
-  KEY `article_id` (`article_id`),
+  KEY `article_id` (`user_article_id`),
   KEY `specification_id` (`specification_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 <fin>
 
-INSERT INTO `articles_specifications` (`article_specification_id`, `article_id`, `specification_id`, `visible`) VALUES
-(1, 1, 1, 1),
-(2, 1, 2, 1);
+INSERT INTO `articles_specifications` (`article_specification_id`, `user_article_id`, `specification_id`, `visible`, `specification_value`) VALUES
+(7, 5, 1, 1, 'Rouge'),
+(8, 4, 8, 1, '32 go');
 
 
 <fin>
@@ -275,18 +276,18 @@ INSERT INTO `site_identity` (`id`, `site_name`, `slogan`, `logo`, `cgv`, `legal_
 CREATE TABLE IF NOT EXISTS `specifications` (
   `specification_id` int(11) NOT NULL AUTO_INCREMENT,
   `specification_label` varchar(45) NOT NULL,
-  `specification_value` varchar(250) DEFAULT NULL,
-  `user_article_id` int(11) DEFAULT NULL,
+  `article_id` int(11) DEFAULT NULL,
   `required` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`specification_id`),
-  KEY `user_article_id` (`user_article_id`)
+  KEY `user_article_id` (`article_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 <fin>
 
-INSERT INTO `specifications` (`specification_id`, `specification_label`, `specification_value`, `user_article_id`, `required`) VALUES
-(1, 'couleur', 'rouge', 5, 0),
-(2, 'age', '2 ans', 5, 0);
+INSERT INTO `specifications` (`specification_id`, `specification_label`, `article_id`, `required`) VALUES
+(1, 'couleur', 5, 0),
+(2, 'age', 5, 0),
+(8, 'Capacité', 5, 0);
 
 
 <fin>
@@ -405,7 +406,7 @@ ALTER TABLE `articles`
 <fin>
 
 ALTER TABLE `articles_specifications`
-  ADD CONSTRAINT `fk_articles_specifications_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`),
+  ADD CONSTRAINT `fk_articles_specifications_userarticle_id` FOREIGN KEY (`user_article_id`) REFERENCES `users_articles` (`user_article_id`),
   ADD CONSTRAINT `fk_articles_specifications_specification_id` FOREIGN KEY (`specification_id`) REFERENCES `specifications` (`specification_id`);
 
 <fin>
@@ -433,7 +434,7 @@ ALTER TABLE `site_identity`
 
 <fin>
 ALTER TABLE `specifications`
-  ADD CONSTRAINT `fk_specifications_user_article_id` FOREIGN KEY (`user_article_id`) REFERENCES `users_articles` (`user_article_id`);
+  ADD CONSTRAINT `fk_specifications_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`);
 
 
 <fin>
