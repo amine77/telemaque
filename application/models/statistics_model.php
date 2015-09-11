@@ -141,7 +141,7 @@ class statistics_model extends CI_Model {
     }
 
     function get_last_five_command() {
-        $sql = "select c.created_at, u.user_name, u.user_surname, sum(cl.price * cl.quantity) as prix_total from users u, command c, command_lines cl where c.user_id = u.user_id and c.command_id = cl.command_id group by cl.command_lines_id order by c.created_at limit 5";
+        $sql = "select c.created_at, u.user_name, u.user_surname, cl.price  as prix_total from users u, command c, command_lines cl where c.user_id = u.user_id and c.command_id = cl.command_id group by cl.command_lines_id order by c.created_at  desc limit 5";
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();
@@ -159,7 +159,7 @@ class statistics_model extends CI_Model {
         }
     }
     function get_all_commands(){
-        $sql = "select c.created_at, sum(cl.price * cl.quantity) as prix_total from users u, command c, command_lines cl where c.user_id = u.user_id and c.command_id = cl.command_id group by cl.command_lines_id order by c.created_at ";
+        $sql = "select c.created_at, cl.price as prix_total from users u, command c, command_lines cl where c.user_id = u.user_id and c.command_id = cl.command_id group by cl.command_lines_id order by c.created_at ";
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();
