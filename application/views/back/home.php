@@ -33,7 +33,7 @@
 		},
 		data: [
 		{
-			type: "spline", //change type to bar, line, area, pie, etc   
+			type: "line", //change type to bar, line, area, pie, etc   
 			dataPoints: tab
 			}
 		]

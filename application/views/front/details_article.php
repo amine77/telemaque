@@ -132,13 +132,9 @@
     }
     ?>
     <?php if (isset($comments)) { ?>
-        <br> <br><h3> <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Commentaires</h3>   
+        <br> <br><h3> <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Commentaires</h3>  
         <div class="row">
-            <?php if ($comments != false) { ?>
-
-
-                <div id="comments" class=".col-xs-12 .col-md-8">
-                    <span id="add_comment_success" class="label label-success" style="display: none; font-size: 12px">Merci pour ce commentaire, il sera affiché après la validation par nos administrateurs </span>
+            <span id="add_comment_success" class="label label-success" style="display: none; font-size: 12px">Merci pour ce commentaire, il sera affiché après la validation par nos administrateurs </span>
                     <span id="add_comment_failed" class="label label-danger" style="display: none;font-size: 12px">Votre commentaire n'a pas pu être envoyé. veuillez réessayer plus tard, ou contacter notre webmaster</span>
                     <div id="add-comment">
                         <form class="form-horizontal" id="commentform" name="commentform" method="post" accept-charset="utf-8">
@@ -178,6 +174,13 @@
 
                         </form>
                     </div>
+        </div>
+        <div class="row">
+            <?php if ($comments != false) { ?>
+
+
+                <div id="comments" class=".col-xs-12 .col-md-8">
+                    
 
                     <?php foreach ($comments as $comment) {
                         if ($comment['is_published'] == 1) {
