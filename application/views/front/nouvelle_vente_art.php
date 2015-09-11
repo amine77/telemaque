@@ -74,7 +74,7 @@
 
                         <div class="col-xs-3 col-sm-3 col-md-3">
 
-                            <span style="font-size: 14px">OU &nbsp;</span><a href="nouvelle-vente"> Creer un nouvelle exemplaire</a>
+                            <span style="font-size: 14px">OU &nbsp;</span><a href="nouvelle-vente"> Creer un nouvel exemplaire</a>
 
                         </div>
                     </div>

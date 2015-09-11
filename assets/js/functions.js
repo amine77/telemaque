@@ -3,10 +3,10 @@ $(function() {
     //affiche formulaire de date
 
 
-    $('.input-group.date').datepicker({
+  /*  $('.input-group.date').datepicker({
         format: 'mm/dd/yyyy',
         startDate: '-3d'
-    });
+    });*/
     var count = 1;
     $('#btn_add_spec').on('click',function(){
         var html = "<tr height='50px'>"+

@@ -9,7 +9,7 @@
 
 
 <div id="bloc_contenu">
-    <br><h2>Etape 1 : Nouvelle exemplaire en vente</h2><br>
+    <br><h2>Etape 1 : Nouvel exemplaire en vente</h2><br>
     <?php echo $this->session->flashdata('msg'); ?>
     <div class="container">
         <div class="row">
@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
 
-                            <span style="font-size: 14px">OU &nbsp;</span><a href="nouvelle-vente-art"> Creer un nouvelle article</a>
+                            <span style="font-size: 14px">OU &nbsp;</span><a href="nouvelle-vente-art"> Creer un nouvel article</a>
 
                         </div>
                     </div>

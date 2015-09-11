@@ -10,7 +10,7 @@
 
 
         <title><?= $title ?></title>
-        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/jquery-1.10.2.js"></script>
 
         <!-- Bootstrap core CSS -->
         <link href="<?php echo base_url(); ?>assets/lib/twitter/css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
         <script src="<?php echo base_url(); ?>assets/js/ie-emulation-modes-warning.js"></script>
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
         <?php
         if (isset($additional_css) && !empty($additional_css) && is_array($additional_css)) {
             foreach ($additional_css as $value) {
