@@ -7,6 +7,8 @@ class Vendeurs extends Front_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model(array('articles_model', 'vendeurs_model', 'users_articles_model', 'site_model', 'login_model'));
+        
+        
     }
 
     public function index() {
@@ -142,7 +144,7 @@ class Vendeurs extends Front_Controller {
     }
 
     public function nouvelle_vente($page = '', $etape = '') {
-
+ $this->data['$lib_js']=array('datepicker/js/bootstrap-datepicker');
         // $this->debug($this->data['categories']);
         if (!$this->session->has_userdata('login')) {
             redirect('connexion');
