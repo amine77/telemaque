@@ -17,7 +17,7 @@ class Users_articles_model extends Articles_model {
         parent::__construct();
     }
 
-       public function list_ua($article_id = "All") {
+    public function list_ua($article_id = "All") {
         $with_article = "";
         if ($article_id != "All")
             $with_article = " WHERE a.article_id = '$article_id'  ";
@@ -32,39 +32,47 @@ class Users_articles_model extends Articles_model {
 
         return $query;
     }
-    
-    public function list_user_article($article_id = "") {
+
+    public function list_user_article($article_id = "", $user_id = "", $imagereplace = false) {
         $with_article = "";
         if ($article_id != "")
-            $with_article = " WHERE a.article_id = '$article_id'  ";
+            $with_article = " AND a.article_id = '$article_id'  ";
+        if ($user_id != "")
+            $user_id = " AND u.user_id = '$user_id' ";
 
-        $sql = "SELECT DISTINCT u.user_id ,u.user_name ,u.user_surname,ua.user_article_id,ua.quantity,ua.image_id,a.article_id,ua.price,ua.title,ua.state
+        $sql = "SELECT DISTINCT u.user_id ,u.user_name ,u.user_surname,ua.user_article_id,ua.quantity,ua.image_id,a.article_id,ua.price,ua.title,ua.state, a.image_id as imageart
                FROM users u
                JOIN users_articles ua ON u.user_id = ua.user_id
                JOIN articles a ON ua.article_id = a.article_id
-               $with_article   
+               WHERE ua.is_verified=1
+               $with_article $user_id
                ";
 
         $query = $this->db->query($sql);
 
         $oData = $query->result();
-
+   
         foreach ($oData as $key => $value) {
             $spec = $this->user_article_specification($value->user_article_id);
-            $oData[$key]->img = $this->utils_model->get_im($value->image_id, 100)['imsrc'];
+            if ($imagereplace && is_null($value->image_id)) {
+                
+                 $oData[$key]->img = $this->utils_model->get_im($value->imageart, 100)['imsrc'];
+            } else {
+                $oData[$key]->img = $this->utils_model->get_im($value->image_id, 100)['imsrc'];
+            }
             $oData[$key]->spec = $spec;
         }
         return $oData;
     }
 
     public function exemplaire($user_article = "") {
-        
+
         $with_article = "";
-        $oData="";
+        $oData = "";
         if ($user_article != "" && is_array($user_article)) {
             $user_article = implode(",", $user_article);
             $with_article = " WHERE ua.user_article_id IN ($user_article)";
-    
+
             $sql = "SELECT DISTINCT u.user_id ,u.user_name ,u.user_surname,ua.user_article_id,ua.quantity,ua.image_id,a.article_id,ua.price,ua.title,a.article_label
                 
                FROM users u
@@ -97,10 +105,10 @@ class Users_articles_model extends Articles_model {
                ";
 
         $query = $this->db->query($sql);
-        
+
         return $query->result();
     }
-   
+
     public function user_with_article($article_id, $user_id) {
 
 
@@ -114,7 +122,7 @@ class Users_articles_model extends Articles_model {
 
         return $query;
     }
-    
+
     public function user_exemplaire($article_id, $exemplaire_id) {
 
 
@@ -127,7 +135,7 @@ class Users_articles_model extends Articles_model {
         $query = $this->db->query($sql)->result();
 
         $query[0]->spec = $this->user_article_specification($exemplaire_id);
-       
+
         return $query;
     }
 

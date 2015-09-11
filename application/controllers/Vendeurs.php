@@ -81,21 +81,23 @@ class Vendeurs extends Front_Controller {
                             $_SESSION['vente_art']['spec'][] = $value;
                         }
                     }
-                    if ($_POST['playlist'] != 0) {
-
+                    if ($_POST['playlist'] != '') {
+                             
                         if (explode(',', $_POST['playlist']) > 1) {
                             $_SESSION['vente_art']['select_spec'] = explode(',', $_POST['playlist']);
+                           
                         } else {
                             $_SESSION['vente_art']['select_spec'] = $_POST['playlist'];
                         }
                     }
+                    
                     $this->data['form_upload_img'] = $this->utils_model->form_upload_img();
                 }
 
                 if (isset($_POST['end_add_product'])) {
                     $data = $_SESSION['vente_art'];
 
-                    $select_spec = $_SESSION['vente_art']['select_spec'];
+                  
                     unset($data['select_spec']);
                     $dataspec = $data['spec'];
                     unset($data['spec']);
@@ -110,9 +112,9 @@ class Vendeurs extends Front_Controller {
                     }
 
                     if (isset($_SESSION['vente_art']['select_spec'])) {
-
-                        if (is_array($select_spec)) {
-                            foreach ($select_spec as $value) {
+                       // var_dump($_SESSION['vente_art']['select_spec']);
+                        if (is_array($_SESSION['vente_art']['select_spec'])) {
+                            foreach ($_SESSION['vente_art']['select_spec'] as $value) {
                                 $this->db->insert('specifications', array('specification_label' => $value, 'article_id' => $article_id));
                             }
                         } else

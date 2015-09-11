@@ -421,7 +421,7 @@ ALTER TABLE `command_lines`
 
 <fin>
 ALTER TABLE `comments`
-  ADD CONSTRAINT `fk_comments_article_id` FOREIGN KEY (`comment_id`) REFERENCES `articles` (`article_id`);
+  ADD CONSTRAINT `fk_comments_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`);
 
 <fin>
 ALTER TABLE `messages`

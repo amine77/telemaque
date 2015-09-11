@@ -224,7 +224,7 @@ function changedata(ids, dest) {
 function putsels() {
     var listsels = new Array();
     $("#selplaylist option").each(function() {
-        listsels.push($(this).val());
+        listsels.push($(this).text());
     })
     $("#playlist").val(listsels.join(","));
 }
